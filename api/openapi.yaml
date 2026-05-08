@@ -3,7 +3,7 @@ info:
   description: Unified Moolabs SDK covering billing (CLS) and usage (Meter) operations.
     Both surfaces share one client and one auth flow.
   title: Moolabs API
-  version: 0.0.0-rc5
+  version: 0.0.0-rc6
 servers:
 - url: /
 paths:
@@ -145,7 +145,7 @@ paths:
           description: Validation Error
       summary: List Wallets
       tags:
-      - v1
+      - wallets
     post:
       description: |-
         Create or upsert a wallet.
@@ -175,7 +175,7 @@ paths:
           description: Validation Error
       summary: Create Wallet
       tags:
-      - v1
+      - wallets
   /v1/wallets/resolve:
     get:
       description: |-
@@ -216,7 +216,7 @@ paths:
           description: Validation Error
       summary: Resolve Tenant And Pool
       tags:
-      - v1
+      - wallets
   /v1/wallets/{wallet_id}/activity:
     get:
       description: |-
@@ -324,7 +324,7 @@ paths:
       - HTTPBearer: []
       summary: Get Wallet Activity
       tags:
-      - v1
+      - wallets
   /v1/wallets/{wallet_id}/members:
     get:
       description: |-
@@ -356,7 +356,7 @@ paths:
           description: Validation Error
       summary: Get Wallet Members
       tags:
-      - v1
+      - wallets
   /v1/wallets/{wallet_id}:
     get:
       description: Get wallet details by ID.
@@ -386,7 +386,7 @@ paths:
           description: Validation Error
       summary: Get Wallet
       tags:
-      - v1
+      - wallets
   /v1/wallets/{wallet_id}/thresholds:
     patch:
       description: |-
@@ -446,7 +446,7 @@ paths:
           description: Validation Error
       summary: Update Wallet Thresholds
       tags:
-      - v1
+      - wallets
   /v1/wallets/{wallet_id}/settings:
     patch:
       description: |-
@@ -508,7 +508,7 @@ paths:
           description: Validation Error
       summary: Update Wallet Settings
       tags:
-      - v1
+      - wallets
   /v1/wallets/members:
     post:
       description: |-
@@ -566,7 +566,7 @@ paths:
           description: Validation Error
       summary: Bind Subject To Wallet
       tags:
-      - v1
+      - wallets
   /v1/wallets/allocate:
     post:
       description: |-
@@ -599,7 +599,7 @@ paths:
       - HTTPBearer: []
       summary: Allocate Credits
       tags:
-      - v1
+      - wallets
   /v1/wallet_members:
     get:
       description: |-
@@ -666,7 +666,7 @@ paths:
           description: Validation Error
       summary: List Wallet Members
       tags:
-      - v1
+      - wallets
   /v1/grants:
     get:
       description: |-
@@ -826,7 +826,7 @@ paths:
           description: Validation Error
       summary: List Grants
       tags:
-      - v1
+      - grants
   /v1/grants/mint:
     post:
       description: |-
@@ -863,7 +863,7 @@ paths:
           description: Validation Error
       summary: Mint Grant
       tags:
-      - v1
+      - grants
   /v1/grants/{grant_id}:
     get:
       description: Get grant details by ID.
@@ -893,7 +893,7 @@ paths:
           description: Validation Error
       summary: Get Grant
       tags:
-      - v1
+      - grants
   /v1/grants/{grant_id}/void:
     post:
       description: |-
@@ -933,7 +933,7 @@ paths:
           description: Validation Error
       summary: Void Grant
       tags:
-      - v1
+      - grants
   /v1/rate_cards:
     post:
       description: |-
@@ -968,7 +968,7 @@ paths:
           description: Validation Error
       summary: Create Rate Card
       tags:
-      - v1
+      - rate_cards
   /v1/rate_cards/{rate_card_id}:
     get:
       description: Get rate card details by ID.
@@ -998,7 +998,7 @@ paths:
           description: Validation Error
       summary: Get Rate Card
       tags:
-      - v1
+      - rate_cards
   /v1/ledger/state:
     get:
       description: |-
@@ -1111,7 +1111,7 @@ paths:
       - HTTPBearer: []
       summary: Get Wallet State
       tags:
-      - v1
+      - ledger
   /v1/ledger/audit:
     get:
       description: |-
@@ -1218,7 +1218,7 @@ paths:
           description: Validation Error
       summary: Get Ledger Audit
       tags:
-      - v1
+      - ledger
   /v1/ledger/balance:
     get:
       description: |-
@@ -1295,7 +1295,7 @@ paths:
           description: Validation Error
       summary: Get Ledger Balance
       tags:
-      - v1
+      - ledger
   /v1/usage/record:
     post:
       description: |-
@@ -1333,7 +1333,7 @@ paths:
           description: Validation Error
       summary: Record Usage
       tags:
-      - v1
+      - usage
   /v1/usage/:
     get:
       description: |-
@@ -1456,7 +1456,7 @@ paths:
           description: Validation Error
       summary: List Usage Events
       tags:
-      - v1
+      - usage
   /v1/usage/{event_id}:
     get:
       description: Get usage event details by ID.
@@ -1485,7 +1485,7 @@ paths:
           description: Validation Error
       summary: Get Usage Event
       tags:
-      - v1
+      - usage
   /v1/rating/rate/{usage_event_id}:
     post:
       description: |-
@@ -1529,7 +1529,7 @@ paths:
           description: Validation Error
       summary: Rate Event
       tags:
-      - v1
+      - rating
   /v1/rating/process-pending:
     post:
       description: |-
@@ -1602,7 +1602,7 @@ paths:
           description: Validation Error
       summary: Process Pending Events
       tags:
-      - v1
+      - rating
   /v1/subscriptions/sync:
     post:
       description: |-
@@ -1642,7 +1642,7 @@ paths:
           description: Validation Error
       summary: Sync Subscription
       tags:
-      - v1
+      - subscriptions
   /v1/subscriptions/lifecycle:
     post:
       description: |-
@@ -1683,7 +1683,7 @@ paths:
           description: Validation Error
       summary: Handle Lifecycle Event
       tags:
-      - v1
+      - subscriptions
   /v1/subscriptions/{subscription_id}:
     get:
       description: |-
@@ -1734,7 +1734,7 @@ paths:
           description: Validation Error
       summary: Get Subscription
       tags:
-      - v1
+      - subscriptions
   /v1/rollover/process:
     post:
       description: |-
@@ -1771,7 +1771,7 @@ paths:
           description: Validation Error
       summary: Process Rollover
       tags:
-      - v1
+      - rollover
   /v1/auto-topup/rules:
     get:
       description: |-
@@ -1827,7 +1827,7 @@ paths:
           description: Validation Error
       summary: List Rules
       tags:
-      - v1
+      - auto-topup
     post:
       description: |-
         Create an auto top-up rule.
@@ -1856,7 +1856,7 @@ paths:
           description: Validation Error
       summary: Create Rule
       tags:
-      - v1
+      - auto-topup
   /v1/auto-topup/rules/{rule_id}:
     delete:
       description: Delete an auto top-up rule.
@@ -1917,7 +1917,7 @@ paths:
           description: Validation Error
       summary: Delete Rule
       tags:
-      - v1
+      - auto-topup
     get:
       description: Get a specific auto top-up rule by ID.
       operationId: getRuleV1
@@ -1968,7 +1968,7 @@ paths:
           description: Validation Error
       summary: Get Rule
       tags:
-      - v1
+      - auto-topup
     patch:
       description: |-
         Partially update an auto top-up rule (e.g., enable/disable).
@@ -2039,7 +2039,7 @@ paths:
           description: Validation Error
       summary: Patch Rule
       tags:
-      - v1
+      - auto-topup
     put:
       description: |-
         Update an auto top-up rule.
@@ -2110,7 +2110,7 @@ paths:
           description: Validation Error
       summary: Update Rule
       tags:
-      - v1
+      - auto-topup
   /v1/auto-topup/rules/{rule_id}/check:
     post:
       description: |-
@@ -2154,7 +2154,7 @@ paths:
           description: Validation Error
       summary: Check Trigger
       tags:
-      - v1
+      - auto-topup
   /v1/auto-topup/activity:
     get:
       description: |-
@@ -2236,7 +2236,7 @@ paths:
           description: Validation Error
       summary: Get Activity
       tags:
-      - v1
+      - auto-topup
   /v1/auto-topup/payments/succeeded:
     post:
       description: |-
@@ -2268,7 +2268,7 @@ paths:
           description: Validation Error
       summary: Payment Succeeded
       tags:
-      - v1
+      - auto-topup
   /v1/fx-rates/rates:
     post:
       description: |-
@@ -2298,7 +2298,7 @@ paths:
           description: Validation Error
       summary: Create Fx Rate Endpoint
       tags:
-      - v1
+      - fx-rates
   /v1/fx-rates/rates/at:
     post:
       description: |-
@@ -2326,7 +2326,7 @@ paths:
           description: Validation Error
       summary: Get Fx Rate At Endpoint
       tags:
-      - v1
+      - fx-rates
   /v1/fx-rates/value-recognition/process:
     post:
       description: |-
@@ -2358,7 +2358,7 @@ paths:
           description: Validation Error
       summary: Process Value Recognition
       tags:
-      - v1
+      - fx-rates
   /v1/fx-rates/value-recognition/entry:
     post:
       description: |-
@@ -2386,7 +2386,7 @@ paths:
           description: Validation Error
       summary: Create Value Recognition Entry Endpoint
       tags:
-      - v1
+      - fx-rates
   /v1/snapshots:
     post:
       description: |-
@@ -2416,7 +2416,7 @@ paths:
           description: Validation Error
       summary: Create Snapshot
       tags:
-      - v1
+      - snapshots
   /v1/snapshots/{snapshot_id}/validate:
     post:
       description: |-
@@ -2452,7 +2452,7 @@ paths:
           description: Validation Error
       summary: Validate Snapshot Endpoint
       tags:
-      - v1
+      - snapshots
   /v1/snapshots/wallet/{wallet_id}:
     get:
       description: |-
@@ -2521,7 +2521,7 @@ paths:
           description: Validation Error
       summary: List Snapshots Endpoint
       tags:
-      - v1
+      - snapshots
   /v1/snapshots/wallet/{wallet_id}/at:
     get:
       description: |-
@@ -2588,7 +2588,7 @@ paths:
           description: Validation Error
       summary: Get Snapshot At Endpoint
       tags:
-      - v1
+      - snapshots
   /v1/reconstruction/runs:
     post:
       description: |-
@@ -2623,7 +2623,7 @@ paths:
           description: Validation Error
       summary: Create Reconstruction Run
       tags:
-      - v1
+      - reconstruction
   /v1/reconstruction/late-events:
     get:
       description: |-
@@ -2680,7 +2680,7 @@ paths:
           description: Validation Error
       summary: Get Late Events
       tags:
-      - v1
+      - reconstruction
   /v1/reconstruction/wallets/{wallet_id}/subtree:
     get:
       description: |-
@@ -2749,7 +2749,7 @@ paths:
           description: Validation Error
       summary: Get Wallet Subtree
       tags:
-      - v1
+      - reconstruction
   /v1/reconstruction/affected-events:
     get:
       description: |-
@@ -2826,7 +2826,7 @@ paths:
           description: Validation Error
       summary: Get Affected Events Endpoint
       tags:
-      - v1
+      - reconstruction
   /v1/admin/diagnostics/subscription/{subscription_id}:
     get:
       description: |-
@@ -2874,7 +2874,7 @@ paths:
           description: Validation Error
       summary: Diagnose Subscription
       tags:
-      - v1
+      - admin
   /v1/admin/usage/unpriced/retry:
     post:
       description: |-
@@ -2903,7 +2903,7 @@ paths:
           description: Validation Error
       summary: Retry Unpriced
       tags:
-      - v1
+      - admin
   /v1/admin/usage/quarantined/review:
     post:
       description: |-
@@ -2935,7 +2935,7 @@ paths:
           description: Validation Error
       summary: Review Quarantined
       tags:
-      - v1
+      - admin
   /v1/admin/ledger/audit:
     get:
       description: |-
@@ -3042,7 +3042,7 @@ paths:
           description: Validation Error
       summary: Get Ledger Audit
       tags:
-      - v1
+      - admin
   /v1/admin/ledger/balance:
     get:
       description: |-
@@ -3119,7 +3119,7 @@ paths:
           description: Validation Error
       summary: Get Ledger Balance
       tags:
-      - v1
+      - admin
   /v1/admin/subscriptions/{subscription_id}/sync:
     post:
       description: |-
@@ -3157,7 +3157,7 @@ paths:
           description: Validation Error
       summary: Trigger Subscription Sync
       tags:
-      - v1
+      - admin
   /v1/admin/subscriptions/{subscription_id}/process-lifecycle-event:
     post:
       description: |-
@@ -3202,7 +3202,7 @@ paths:
           description: Validation Error
       summary: Process Lifecycle Event Manually
       tags:
-      - v1
+      - admin
   /v1/integrations/openmeter/webhooks/openmeter:
     post:
       description: |-
@@ -3291,7 +3291,7 @@ paths:
           description: Validation Error
       summary: Openmeter Webhook
       tags:
-      - v1
+      - integrations
   /v1/integrations/openmeter/webhooks/openmeter/batch:
     post:
       description: |-
@@ -3351,7 +3351,7 @@ paths:
           description: Validation Error
       summary: Openmeter Webhook Batch
       tags:
-      - v1
+      - integrations
   /v1/performance/queries/slow:
     get:
       description: |-
@@ -3400,7 +3400,7 @@ paths:
           description: Validation Error
       summary: Get Slow Queries
       tags:
-      - v1
+      - performance
   /v1/performance/queries/explain:
     post:
       description: |-
@@ -3431,7 +3431,7 @@ paths:
           description: Validation Error
       summary: Explain Query
       tags:
-      - v1
+      - performance
   /v1/performance/indexes/usage:
     get:
       description: |-
@@ -3465,7 +3465,7 @@ paths:
           description: Validation Error
       summary: Get Index Usage
       tags:
-      - v1
+      - performance
   /v1/performance/indexes/missing:
     get:
       description: |-
@@ -3499,7 +3499,7 @@ paths:
           description: Validation Error
       summary: Get Missing Index Recommendations
       tags:
-      - v1
+      - performance
   /v1/performance/connection-pool:
     get:
       description: Get connection pool statistics.
@@ -3512,7 +3512,7 @@ paths:
           description: Successful Response
       summary: Get Connection Pool Info
       tags:
-      - v1
+      - performance
   /v1/performance/cache/warm/wallets:
     post:
       description: |-
@@ -3568,7 +3568,7 @@ paths:
           description: Validation Error
       summary: Warm Wallet Cache
       tags:
-      - v1
+      - performance
   /v1/performance/cache/warm/rate-cards:
     post:
       description: |-
@@ -3614,7 +3614,7 @@ paths:
           description: Validation Error
       summary: Warm Rate Card Cache
       tags:
-      - v1
+      - performance
   /v1/performance/tables/sizes:
     get:
       description: |-
@@ -3648,7 +3648,7 @@ paths:
           description: Validation Error
       summary: Get Table Size Analysis
       tags:
-      - v1
+      - performance
   /v1/performance/report:
     get:
       description: |-
@@ -3682,7 +3682,7 @@ paths:
           description: Validation Error
       summary: Get Performance Report Endpoint
       tags:
-      - v1
+      - performance
   /v1/alerts/thresholds:
     get:
       description: List all thresholds for a wallet.
@@ -3735,7 +3735,7 @@ paths:
           description: Validation Error
       summary: List Thresholds Endpoint
       tags:
-      - v1
+      - alerts
     post:
       description: |-
         Create a wallet threshold.
@@ -3798,7 +3798,7 @@ paths:
           description: Validation Error
       summary: Create Threshold Endpoint
       tags:
-      - v1
+      - alerts
   /v1/alerts/thresholds/{threshold_id}:
     delete:
       description: Delete a wallet threshold.
@@ -3860,7 +3860,7 @@ paths:
           description: Validation Error
       summary: Delete Threshold Endpoint
       tags:
-      - v1
+      - alerts
     put:
       description: Update a wallet threshold.
       operationId: updateThresholdEndpoint
@@ -3927,7 +3927,7 @@ paths:
           description: Validation Error
       summary: Update Threshold Endpoint
       tags:
-      - v1
+      - alerts
   /v1/alerts/state:
     get:
       description: |-
@@ -3983,7 +3983,7 @@ paths:
           description: Validation Error
       summary: Get Alerts State Endpoint
       tags:
-      - v1
+      - alerts
   /v1/outbox/process:
     post:
       description: |-
@@ -4043,7 +4043,7 @@ paths:
           description: Validation Error
       summary: Process Outbox Endpoint
       tags:
-      - v1
+      - outbox
   /v1/outbox/events:
     get:
       description: |-
@@ -4108,7 +4108,7 @@ paths:
           description: Validation Error
       summary: List Outbox Events Endpoint
       tags:
-      - v1
+      - outbox
   /v1/state-projection/project/{wallet_id}:
     post:
       description: Project wallet state for a specific wallet.
@@ -4169,7 +4169,7 @@ paths:
           description: Validation Error
       summary: Project Wallet State Endpoint
       tags:
-      - v1
+      - state-projection
   /v1/state-projection/process:
     post:
       description: |-
@@ -4226,7 +4226,7 @@ paths:
           description: Validation Error
       summary: Process Pending Projections Endpoint
       tags:
-      - v1
+      - state-projection
   /v1/state-projection/wallet/{wallet_id}:
     get:
       description: Get wallet state projection (same as POST /project but idempotent).
@@ -4287,7 +4287,7 @@ paths:
           description: Validation Error
       summary: Get Wallet State Projection Endpoint
       tags:
-      - v1
+      - state-projection
   /v1/unpriced/resolve/{usage_event_id}:
     post:
       description: |-
@@ -4337,7 +4337,7 @@ paths:
           description: Validation Error
       summary: Resolve Event
       tags:
-      - v1
+      - unpriced
   /v1/unpriced/process:
     post:
       description: |-
@@ -4407,7 +4407,7 @@ paths:
           description: Validation Error
       summary: Process Events
       tags:
-      - v1
+      - unpriced
   /v1/unpriced/events:
     get:
       description: |-
@@ -4463,7 +4463,7 @@ paths:
           description: Validation Error
       summary: List Unpriced Events
       tags:
-      - v1
+      - unpriced
   /v1/mappings:
     get:
       description: |-
@@ -4518,7 +4518,7 @@ paths:
           description: Validation Error
       summary: List Mappings
       tags:
-      - v1
+      - mappings
     post:
       description: |-
         Create or update a feature key mapping.
@@ -4560,7 +4560,7 @@ paths:
           description: Validation Error
       summary: Create Mapping
       tags:
-      - v1
+      - mappings
   /v1/portal/context:
     get:
       description: |-
@@ -4579,7 +4579,7 @@ paths:
       - HTTPBearer: []
       summary: Get Portal Context
       tags:
-      - v1
+      - portal
   /v1/portal/tokens:
     get:
       description: List active portal tokens for tenant (optionally filtered by subject).
@@ -4608,7 +4608,7 @@ paths:
           description: Validation Error
       summary: List Tokens Endpoint
       tags:
-      - v1
+      - portal
     post:
       description: |-
         Create a portal token for a subject.
@@ -4637,7 +4637,7 @@ paths:
           description: Validation Error
       summary: Create Token Endpoint
       tags:
-      - v1
+      - portal
   /v1/portal/tokens/invalidate:
     post:
       description: |-
@@ -4666,7 +4666,7 @@ paths:
           description: Validation Error
       summary: Invalidate Tokens Endpoint
       tags:
-      - v1
+      - portal
   /monitoring/metrics:
     get:
       description: Prometheus metrics endpoint.
@@ -6124,7 +6124,7 @@ paths:
           description: An unexpected error response.
       summary: List customer overrides
       tags:
-      - Billing
+      - MeterBilling
   /api/v1/billing/customers/{customerId}:
     delete:
       description: |-
@@ -6206,7 +6206,7 @@ paths:
           description: An unexpected error response.
       summary: Delete a customer override
       tags:
-      - Billing
+      - MeterBilling
     get:
       description: |-
         Get a customer override by customer id.
@@ -6301,7 +6301,7 @@ paths:
           description: An unexpected error response.
       summary: Get a customer override
       tags:
-      - Billing
+      - MeterBilling
     put:
       description: |-
         The customer override can be used to pin a given customer to a billing profile
@@ -6392,7 +6392,7 @@ paths:
           description: An unexpected error response.
       summary: Create a new or update a customer override
       tags:
-      - Billing
+      - MeterBilling
   /api/v1/billing/customers/{customerId}/invoices/pending-lines:
     post:
       description: |-
@@ -6481,7 +6481,7 @@ paths:
           description: An unexpected error response.
       summary: Create pending line items
       tags:
-      - Billing
+      - MeterBilling
   /api/v1/billing/customers/{customerId}/invoices/simulate:
     post:
       description: |-
@@ -6566,7 +6566,7 @@ paths:
           description: An unexpected error response.
       summary: Simulate an invoice for a customer
       tags:
-      - Billing
+      - MeterBilling
   /api/v1/billing/invoices:
     get:
       description: |-
@@ -6652,7 +6652,7 @@ paths:
           description: An unexpected error response.
       summary: List invoices
       tags:
-      - Billing
+      - MeterBilling
   /api/v1/billing/invoices/invoice:
     post:
       description: |-
@@ -6735,7 +6735,7 @@ paths:
           description: An unexpected error response.
       summary: Invoice a customer based on the pending line items
       tags:
-      - Billing
+      - MeterBilling
   /api/v1/billing/invoices/{invoiceId}:
     delete:
       description: |-
@@ -6818,7 +6818,7 @@ paths:
           description: An unexpected error response.
       summary: Delete an invoice
       tags:
-      - Billing
+      - MeterBilling
     get:
       description: |-
         Get an invoice by ID.
@@ -6918,7 +6918,7 @@ paths:
           description: An unexpected error response.
       summary: Get an invoice
       tags:
-      - Billing
+      - MeterBilling
     put:
       description: |-
         Update an invoice
@@ -7007,7 +7007,7 @@ paths:
           description: An unexpected error response.
       summary: Update an invoice
       tags:
-      - Billing
+      - MeterBilling
   /api/v1/billing/invoices/{invoiceId}/advance:
     post:
       description: |-
@@ -7093,7 +7093,7 @@ paths:
           description: An unexpected error response.
       summary: Advance the invoice's state to the next status
       tags:
-      - Billing
+      - MeterBilling
   /api/v1/billing/invoices/{invoiceId}/approve:
     post:
       description: |-
@@ -7181,7 +7181,7 @@ paths:
           description: An unexpected error response.
       summary: Send the invoice to the customer
       tags:
-      - Billing
+      - MeterBilling
   /api/v1/billing/invoices/{invoiceId}/payment-status:
     post:
       description: Update the payment status of an invoice managed by the custom invoicing
@@ -7269,7 +7269,7 @@ paths:
           description: An unexpected error response.
       summary: Update invoice payment status
       tags:
-      - Billing
+      - MeterBilling
   /api/v1/billing/invoices/{invoiceId}/retry:
     post:
       description: |-
@@ -7353,7 +7353,7 @@ paths:
           description: An unexpected error response.
       summary: Retry advancing the invoice after a failed attempt.
       tags:
-      - Billing
+      - MeterBilling
   /api/v1/billing/invoices/{invoiceId}/snapshot-quantities:
     post:
       description: |-
@@ -7440,7 +7440,7 @@ paths:
           description: An unexpected error response.
       summary: Snapshot quantities for usage based line items
       tags:
-      - Billing
+      - MeterBilling
   /api/v1/billing/invoices/{invoiceId}/taxes/recalculate:
     post:
       description: |-
@@ -7524,7 +7524,7 @@ paths:
           description: An unexpected error response.
       summary: Recalculate an invoice's tax amounts
       tags:
-      - Billing
+      - MeterBilling
   /api/v1/billing/invoices/{invoiceId}/void:
     post:
       description: |-
@@ -7616,7 +7616,7 @@ paths:
           description: An unexpected error response.
       summary: Void an invoice
       tags:
-      - Billing
+      - MeterBilling
   /api/v1/billing/profiles:
     get:
       description: |-
@@ -7707,7 +7707,7 @@ paths:
           description: An unexpected error response.
       summary: List billing profiles
       tags:
-      - Billing
+      - MeterBilling
     post:
       description: |-
         Create a new billing profile
@@ -7782,7 +7782,7 @@ paths:
           description: An unexpected error response.
       summary: Create a new billing profile
       tags:
-      - Billing
+      - MeterBilling
   /api/v1/billing/profiles/{id}:
     delete:
       description: |-
@@ -7866,7 +7866,7 @@ paths:
           description: An unexpected error response.
       summary: Delete a billing profile
       tags:
-      - Billing
+      - MeterBilling
     get:
       description: |-
         Get a billing profile by id.
@@ -7960,7 +7960,7 @@ paths:
           description: An unexpected error response.
       summary: Get a billing profile
       tags:
-      - Billing
+      - MeterBilling
     put:
       description: |-
         Update a billing profile by id.
@@ -8050,7 +8050,7 @@ paths:
           description: An unexpected error response.
       summary: Update a billing profile
       tags:
-      - Billing
+      - MeterBilling
   /api/v1/customers:
     get:
       description: List customers.
@@ -14297,7 +14297,7 @@ paths:
       - PortalTokenAuth: []
       summary: Query meter Query meter
       tags:
-      - Portal
+      - MeterPortal
   /api/v1/portal/tokens:
     get:
       description: List tokens.
@@ -14374,7 +14374,7 @@ paths:
           description: An unexpected error response.
       summary: List consumer portal tokens
       tags:
-      - Portal
+      - MeterPortal
     post:
       description: Create a consumer portal token.
       operationId: createPortalToken
@@ -14444,7 +14444,7 @@ paths:
           description: An unexpected error response.
       summary: Create consumer portal token
       tags:
-      - Portal
+      - MeterPortal
   /api/v1/portal/tokens/invalidate:
     post:
       description: Invalidates consumer portal tokens by ID or subject.
@@ -14512,7 +14512,7 @@ paths:
           description: An unexpected error response.
       summary: Invalidate portal tokens
       tags:
-      - Portal
+      - MeterPortal
   /api/v1/stripe/checkout/sessions:
     post:
       description: Create checkout session.
@@ -15949,7 +15949,7 @@ paths:
           description: An unexpected error response.
       summary: List subscriptions
       tags:
-      - Subscriptions
+      - MeterSubscriptions
     post:
       operationId: createSubscription
       parameters: []
@@ -16028,7 +16028,7 @@ paths:
           description: An unexpected error response.
       summary: Create subscription
       tags:
-      - Subscriptions
+      - MeterSubscriptions
   /api/v1/subscriptions/{subscriptionId}:
     delete:
       description: Deletes a subscription. Only scheduled subscriptions can be deleted.
@@ -16115,7 +16115,7 @@ paths:
           description: An unexpected error response.
       summary: Delete subscription
       tags:
-      - Subscriptions
+      - MeterSubscriptions
     get:
       operationId: getSubscriptionGet
       parameters:
@@ -16205,7 +16205,7 @@ paths:
           description: An unexpected error response.
       summary: Get subscription
       tags:
-      - Subscriptions
+      - MeterSubscriptions
     patch:
       description: |-
         Batch processing commands for manipulating running subscriptions.
@@ -16302,7 +16302,7 @@ paths:
           description: An unexpected error response.
       summary: Edit subscription
       tags:
-      - Subscriptions
+      - MeterSubscriptions
   /api/v1/subscriptions/{subscriptionId}/addons:
     get:
       description: List all addons of a subscription. In the returned list will match
@@ -16386,7 +16386,7 @@ paths:
           description: An unexpected error response.
       summary: List subscription addons
       tags:
-      - Subscriptions
+      - MeterSubscriptions
     post:
       description: "Create a new subscription addon, either providing the key or the\
         \ id of the addon."
@@ -16481,7 +16481,7 @@ paths:
           description: An unexpected error response.
       summary: Create subscription addon
       tags:
-      - Subscriptions
+      - MeterSubscriptions
   /api/v1/subscriptions/{subscriptionId}/addons/{subscriptionAddonId}:
     get:
       description: Get a subscription addon by id.
@@ -16571,7 +16571,7 @@ paths:
           description: An unexpected error response.
       summary: Get subscription addon
       tags:
-      - Subscriptions
+      - MeterSubscriptions
     patch:
       description: "Updates a subscription addon (allows changing the quantity: purchasing\
         \ more instances or cancelling the current instances)"
@@ -16667,7 +16667,7 @@ paths:
           description: An unexpected error response.
       summary: Update subscription addon
       tags:
-      - Subscriptions
+      - MeterSubscriptions
   /api/v1/subscriptions/{subscriptionId}/cancel:
     post:
       description: |-
@@ -16765,7 +16765,7 @@ paths:
           description: An unexpected error response.
       summary: Cancel subscription
       tags:
-      - Subscriptions
+      - MeterSubscriptions
   /api/v1/subscriptions/{subscriptionId}/change:
     post:
       description: |-
@@ -16863,7 +16863,7 @@ paths:
           description: An unexpected error response.
       summary: Change subscription
       tags:
-      - Subscriptions
+      - MeterSubscriptions
   /api/v1/subscriptions/{subscriptionId}/migrate:
     post:
       description: |-
@@ -16962,7 +16962,7 @@ paths:
           description: An unexpected error response.
       summary: Migrate subscription
       tags:
-      - Subscriptions
+      - MeterSubscriptions
   /api/v1/subscriptions/{subscriptionId}/restore:
     post:
       deprecated: true
@@ -17046,7 +17046,7 @@ paths:
           description: An unexpected error response.
       summary: Restore subscription
       tags:
-      - Subscriptions
+      - MeterSubscriptions
   /api/v1/subscriptions/{subscriptionId}/unschedule-cancelation:
     post:
       description: Cancels the scheduled cancelation.
@@ -17136,7 +17136,7 @@ paths:
           description: An unexpected error response.
       summary: Unschedule cancelation
       tags:
-      - Subscriptions
+      - MeterSubscriptions
   /api/v1/usage/summary:
     get:
       description: |-

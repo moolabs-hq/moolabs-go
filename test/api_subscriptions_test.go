@@ -22,13 +22,13 @@ func Test_moolabs_SubscriptionsAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test SubscriptionsAPIService CancelSubscription", func(t *testing.T) {
+	t.Run("Test SubscriptionsAPIService GetSubscription", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var subscriptionId string
 
-		resp, httpRes, err := apiClient.SubscriptionsAPI.CancelSubscription(context.Background(), subscriptionId).Execute()
+		resp, httpRes, err := apiClient.SubscriptionsAPI.GetSubscription(context.Background(), subscriptionId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -36,13 +36,11 @@ func Test_moolabs_SubscriptionsAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test SubscriptionsAPIService ChangeSubscription", func(t *testing.T) {
+	t.Run("Test SubscriptionsAPIService HandleLifecycleEvent", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var subscriptionId string
-
-		resp, httpRes, err := apiClient.SubscriptionsAPI.ChangeSubscription(context.Background(), subscriptionId).Execute()
+		resp, httpRes, err := apiClient.SubscriptionsAPI.HandleLifecycleEvent(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -50,164 +48,11 @@ func Test_moolabs_SubscriptionsAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test SubscriptionsAPIService CreateSubscription", func(t *testing.T) {
+	t.Run("Test SubscriptionsAPIService SyncSubscription", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.SubscriptionsAPI.CreateSubscription(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test SubscriptionsAPIService CreateSubscriptionAddon", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var subscriptionId string
-
-		resp, httpRes, err := apiClient.SubscriptionsAPI.CreateSubscriptionAddon(context.Background(), subscriptionId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test SubscriptionsAPIService DeleteSubscription", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var subscriptionId string
-
-		httpRes, err := apiClient.SubscriptionsAPI.DeleteSubscription(context.Background(), subscriptionId).Execute()
-
-		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test SubscriptionsAPIService EditSubscription", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var subscriptionId string
-
-		resp, httpRes, err := apiClient.SubscriptionsAPI.EditSubscription(context.Background(), subscriptionId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test SubscriptionsAPIService GetSubscriptionAddon", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var subscriptionId string
-		var subscriptionAddonId string
-
-		resp, httpRes, err := apiClient.SubscriptionsAPI.GetSubscriptionAddon(context.Background(), subscriptionId, subscriptionAddonId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test SubscriptionsAPIService GetSubscriptionGet", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var subscriptionId string
-
-		resp, httpRes, err := apiClient.SubscriptionsAPI.GetSubscriptionGet(context.Background(), subscriptionId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test SubscriptionsAPIService ListSubscriptionAddons", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var subscriptionId string
-
-		resp, httpRes, err := apiClient.SubscriptionsAPI.ListSubscriptionAddons(context.Background(), subscriptionId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test SubscriptionsAPIService ListSubscriptions", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		resp, httpRes, err := apiClient.SubscriptionsAPI.ListSubscriptions(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test SubscriptionsAPIService MigrateSubscription", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var subscriptionId string
-
-		resp, httpRes, err := apiClient.SubscriptionsAPI.MigrateSubscription(context.Background(), subscriptionId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test SubscriptionsAPIService RestoreSubscription", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var subscriptionId string
-
-		resp, httpRes, err := apiClient.SubscriptionsAPI.RestoreSubscription(context.Background(), subscriptionId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test SubscriptionsAPIService UnscheduleCancelation", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var subscriptionId string
-
-		resp, httpRes, err := apiClient.SubscriptionsAPI.UnscheduleCancelation(context.Background(), subscriptionId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test SubscriptionsAPIService UpdateSubscriptionAddon", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var subscriptionId string
-		var subscriptionAddonId string
-
-		resp, httpRes, err := apiClient.SubscriptionsAPI.UpdateSubscriptionAddon(context.Background(), subscriptionId, subscriptionAddonId).Execute()
+		resp, httpRes, err := apiClient.SubscriptionsAPI.SyncSubscription(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

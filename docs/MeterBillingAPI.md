@@ -1,32 +1,32 @@
-# \BillingAPI
+# \MeterBillingAPI
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AdvanceInvoiceAction**](BillingAPI.md#AdvanceInvoiceAction) | **Post** /api/v1/billing/invoices/{invoiceId}/advance | Advance the invoice&#39;s state to the next status
-[**ApproveInvoiceAction**](BillingAPI.md#ApproveInvoiceAction) | **Post** /api/v1/billing/invoices/{invoiceId}/approve | Send the invoice to the customer
-[**CreateBillingProfile**](BillingAPI.md#CreateBillingProfile) | **Post** /api/v1/billing/profiles | Create a new billing profile
-[**CreatePendingInvoiceLine**](BillingAPI.md#CreatePendingInvoiceLine) | **Post** /api/v1/billing/customers/{customerId}/invoices/pending-lines | Create pending line items
-[**DeleteBillingProfile**](BillingAPI.md#DeleteBillingProfile) | **Delete** /api/v1/billing/profiles/{id} | Delete a billing profile
-[**DeleteBillingProfileCustomerOverride**](BillingAPI.md#DeleteBillingProfileCustomerOverride) | **Delete** /api/v1/billing/customers/{customerId} | Delete a customer override
-[**DeleteInvoice**](BillingAPI.md#DeleteInvoice) | **Delete** /api/v1/billing/invoices/{invoiceId} | Delete an invoice
-[**GetBillingProfile**](BillingAPI.md#GetBillingProfile) | **Get** /api/v1/billing/profiles/{id} | Get a billing profile
-[**GetBillingProfileCustomerOverride**](BillingAPI.md#GetBillingProfileCustomerOverride) | **Get** /api/v1/billing/customers/{customerId} | Get a customer override
-[**GetInvoice**](BillingAPI.md#GetInvoice) | **Get** /api/v1/billing/invoices/{invoiceId} | Get an invoice
-[**InvoicePendingLinesAction**](BillingAPI.md#InvoicePendingLinesAction) | **Post** /api/v1/billing/invoices/invoice | Invoice a customer based on the pending line items
-[**ListBillingProfileCustomerOverrides**](BillingAPI.md#ListBillingProfileCustomerOverrides) | **Get** /api/v1/billing/customers | List customer overrides
-[**ListBillingProfiles**](BillingAPI.md#ListBillingProfiles) | **Get** /api/v1/billing/profiles | List billing profiles
-[**ListInvoices**](BillingAPI.md#ListInvoices) | **Get** /api/v1/billing/invoices | List invoices
-[**RecalculateInvoiceTaxAction**](BillingAPI.md#RecalculateInvoiceTaxAction) | **Post** /api/v1/billing/invoices/{invoiceId}/taxes/recalculate | Recalculate an invoice&#39;s tax amounts
-[**RetryInvoiceAction**](BillingAPI.md#RetryInvoiceAction) | **Post** /api/v1/billing/invoices/{invoiceId}/retry | Retry advancing the invoice after a failed attempt.
-[**SimulateInvoice**](BillingAPI.md#SimulateInvoice) | **Post** /api/v1/billing/customers/{customerId}/invoices/simulate | Simulate an invoice for a customer
-[**SnapshotQuantitiesInvoiceAction**](BillingAPI.md#SnapshotQuantitiesInvoiceAction) | **Post** /api/v1/billing/invoices/{invoiceId}/snapshot-quantities | Snapshot quantities for usage based line items
-[**UpdateBillingProfile**](BillingAPI.md#UpdateBillingProfile) | **Put** /api/v1/billing/profiles/{id} | Update a billing profile
-[**UpdateInvoice**](BillingAPI.md#UpdateInvoice) | **Put** /api/v1/billing/invoices/{invoiceId} | Update an invoice
-[**UpdateInvoicePaymentStatus**](BillingAPI.md#UpdateInvoicePaymentStatus) | **Post** /api/v1/billing/invoices/{invoiceId}/payment-status | Update invoice payment status
-[**UpsertBillingProfileCustomerOverride**](BillingAPI.md#UpsertBillingProfileCustomerOverride) | **Put** /api/v1/billing/customers/{customerId} | Create a new or update a customer override
-[**VoidInvoiceAction**](BillingAPI.md#VoidInvoiceAction) | **Post** /api/v1/billing/invoices/{invoiceId}/void | Void an invoice
+[**AdvanceInvoiceAction**](MeterBillingAPI.md#AdvanceInvoiceAction) | **Post** /api/v1/billing/invoices/{invoiceId}/advance | Advance the invoice&#39;s state to the next status
+[**ApproveInvoiceAction**](MeterBillingAPI.md#ApproveInvoiceAction) | **Post** /api/v1/billing/invoices/{invoiceId}/approve | Send the invoice to the customer
+[**CreateBillingProfile**](MeterBillingAPI.md#CreateBillingProfile) | **Post** /api/v1/billing/profiles | Create a new billing profile
+[**CreatePendingInvoiceLine**](MeterBillingAPI.md#CreatePendingInvoiceLine) | **Post** /api/v1/billing/customers/{customerId}/invoices/pending-lines | Create pending line items
+[**DeleteBillingProfile**](MeterBillingAPI.md#DeleteBillingProfile) | **Delete** /api/v1/billing/profiles/{id} | Delete a billing profile
+[**DeleteBillingProfileCustomerOverride**](MeterBillingAPI.md#DeleteBillingProfileCustomerOverride) | **Delete** /api/v1/billing/customers/{customerId} | Delete a customer override
+[**DeleteInvoice**](MeterBillingAPI.md#DeleteInvoice) | **Delete** /api/v1/billing/invoices/{invoiceId} | Delete an invoice
+[**GetBillingProfile**](MeterBillingAPI.md#GetBillingProfile) | **Get** /api/v1/billing/profiles/{id} | Get a billing profile
+[**GetBillingProfileCustomerOverride**](MeterBillingAPI.md#GetBillingProfileCustomerOverride) | **Get** /api/v1/billing/customers/{customerId} | Get a customer override
+[**GetInvoice**](MeterBillingAPI.md#GetInvoice) | **Get** /api/v1/billing/invoices/{invoiceId} | Get an invoice
+[**InvoicePendingLinesAction**](MeterBillingAPI.md#InvoicePendingLinesAction) | **Post** /api/v1/billing/invoices/invoice | Invoice a customer based on the pending line items
+[**ListBillingProfileCustomerOverrides**](MeterBillingAPI.md#ListBillingProfileCustomerOverrides) | **Get** /api/v1/billing/customers | List customer overrides
+[**ListBillingProfiles**](MeterBillingAPI.md#ListBillingProfiles) | **Get** /api/v1/billing/profiles | List billing profiles
+[**ListInvoices**](MeterBillingAPI.md#ListInvoices) | **Get** /api/v1/billing/invoices | List invoices
+[**RecalculateInvoiceTaxAction**](MeterBillingAPI.md#RecalculateInvoiceTaxAction) | **Post** /api/v1/billing/invoices/{invoiceId}/taxes/recalculate | Recalculate an invoice&#39;s tax amounts
+[**RetryInvoiceAction**](MeterBillingAPI.md#RetryInvoiceAction) | **Post** /api/v1/billing/invoices/{invoiceId}/retry | Retry advancing the invoice after a failed attempt.
+[**SimulateInvoice**](MeterBillingAPI.md#SimulateInvoice) | **Post** /api/v1/billing/customers/{customerId}/invoices/simulate | Simulate an invoice for a customer
+[**SnapshotQuantitiesInvoiceAction**](MeterBillingAPI.md#SnapshotQuantitiesInvoiceAction) | **Post** /api/v1/billing/invoices/{invoiceId}/snapshot-quantities | Snapshot quantities for usage based line items
+[**UpdateBillingProfile**](MeterBillingAPI.md#UpdateBillingProfile) | **Put** /api/v1/billing/profiles/{id} | Update a billing profile
+[**UpdateInvoice**](MeterBillingAPI.md#UpdateInvoice) | **Put** /api/v1/billing/invoices/{invoiceId} | Update an invoice
+[**UpdateInvoicePaymentStatus**](MeterBillingAPI.md#UpdateInvoicePaymentStatus) | **Post** /api/v1/billing/invoices/{invoiceId}/payment-status | Update invoice payment status
+[**UpsertBillingProfileCustomerOverride**](MeterBillingAPI.md#UpsertBillingProfileCustomerOverride) | **Put** /api/v1/billing/customers/{customerId} | Create a new or update a customer override
+[**VoidInvoiceAction**](MeterBillingAPI.md#VoidInvoiceAction) | **Post** /api/v1/billing/invoices/{invoiceId}/void | Void an invoice
 
 
 
@@ -55,13 +55,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.AdvanceInvoiceAction(context.Background(), invoiceId).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.AdvanceInvoiceAction(context.Background(), invoiceId).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.AdvanceInvoiceAction``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.AdvanceInvoiceAction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `AdvanceInvoiceAction`: Invoice
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.AdvanceInvoiceAction`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.AdvanceInvoiceAction`: %v\n", resp)
 }
 ```
 
@@ -125,13 +125,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.ApproveInvoiceAction(context.Background(), invoiceId).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.ApproveInvoiceAction(context.Background(), invoiceId).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.ApproveInvoiceAction``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.ApproveInvoiceAction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `ApproveInvoiceAction`: Invoice
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.ApproveInvoiceAction`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.ApproveInvoiceAction`: %v\n", resp)
 }
 ```
 
@@ -195,13 +195,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.CreateBillingProfile(context.Background()).BillingProfileCreate(billingProfileCreate).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.CreateBillingProfile(context.Background()).BillingProfileCreate(billingProfileCreate).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.CreateBillingProfile``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.CreateBillingProfile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `CreateBillingProfile`: BillingProfile
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.CreateBillingProfile`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.CreateBillingProfile`: %v\n", resp)
 }
 ```
 
@@ -263,13 +263,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.CreatePendingInvoiceLine(context.Background(), customerId).InvoicePendingLineCreateInput(invoicePendingLineCreateInput).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.CreatePendingInvoiceLine(context.Background(), customerId).InvoicePendingLineCreateInput(invoicePendingLineCreateInput).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.CreatePendingInvoiceLine``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.CreatePendingInvoiceLine``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `CreatePendingInvoiceLine`: InvoicePendingLineCreateResponse
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.CreatePendingInvoiceLine`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.CreatePendingInvoiceLine`: %v\n", resp)
 }
 ```
 
@@ -334,9 +334,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BillingAPI.DeleteBillingProfile(context.Background(), id).Execute()
+	r, err := apiClient.MeterBillingAPI.DeleteBillingProfile(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.DeleteBillingProfile``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.DeleteBillingProfile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -402,9 +402,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BillingAPI.DeleteBillingProfileCustomerOverride(context.Background(), customerId).Execute()
+	r, err := apiClient.MeterBillingAPI.DeleteBillingProfileCustomerOverride(context.Background(), customerId).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.DeleteBillingProfileCustomerOverride``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.DeleteBillingProfileCustomerOverride``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -470,9 +470,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BillingAPI.DeleteInvoice(context.Background(), invoiceId).Execute()
+	r, err := apiClient.MeterBillingAPI.DeleteInvoice(context.Background(), invoiceId).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.DeleteInvoice``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.DeleteInvoice``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -539,13 +539,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.GetBillingProfile(context.Background(), id).Expand(expand).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.GetBillingProfile(context.Background(), id).Expand(expand).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingProfile``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.GetBillingProfile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `GetBillingProfile`: BillingProfile
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingProfile`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.GetBillingProfile`: %v\n", resp)
 }
 ```
 
@@ -611,13 +611,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.GetBillingProfileCustomerOverride(context.Background(), customerId).Expand(expand).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.GetBillingProfileCustomerOverride(context.Background(), customerId).Expand(expand).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingProfileCustomerOverride``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.GetBillingProfileCustomerOverride``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `GetBillingProfileCustomerOverride`: BillingProfileCustomerOverrideWithDetails
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingProfileCustomerOverride`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.GetBillingProfileCustomerOverride`: %v\n", resp)
 }
 ```
 
@@ -684,13 +684,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.GetInvoice(context.Background(), invoiceId).Expand(expand).IncludeDeletedLines(includeDeletedLines).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.GetInvoice(context.Background(), invoiceId).Expand(expand).IncludeDeletedLines(includeDeletedLines).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetInvoice``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.GetInvoice``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `GetInvoice`: Invoice
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetInvoice`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.GetInvoice`: %v\n", resp)
 }
 ```
 
@@ -756,13 +756,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.InvoicePendingLinesAction(context.Background()).InvoicePendingLinesActionInput(invoicePendingLinesActionInput).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.InvoicePendingLinesAction(context.Background()).InvoicePendingLinesActionInput(invoicePendingLinesActionInput).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.InvoicePendingLinesAction``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.InvoicePendingLinesAction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `InvoicePendingLinesAction`: []Invoice
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.InvoicePendingLinesAction`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.InvoicePendingLinesAction`: %v\n", resp)
 }
 ```
 
@@ -833,13 +833,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.ListBillingProfileCustomerOverrides(context.Background()).BillingProfile(billingProfile).CustomersWithoutPinnedProfile(customersWithoutPinnedProfile).IncludeAllCustomers(includeAllCustomers).CustomerId(customerId).CustomerName(customerName).CustomerKey(customerKey).CustomerPrimaryEmail(customerPrimaryEmail).Expand(expand).Order(order).OrderBy(orderBy).Page(page).PageSize(pageSize).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.ListBillingProfileCustomerOverrides(context.Background()).BillingProfile(billingProfile).CustomersWithoutPinnedProfile(customersWithoutPinnedProfile).IncludeAllCustomers(includeAllCustomers).CustomerId(customerId).CustomerName(customerName).CustomerKey(customerKey).CustomerPrimaryEmail(customerPrimaryEmail).Expand(expand).Order(order).OrderBy(orderBy).Page(page).PageSize(pageSize).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.ListBillingProfileCustomerOverrides``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.ListBillingProfileCustomerOverrides``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `ListBillingProfileCustomerOverrides`: BillingProfileCustomerOverrideWithDetailsPaginatedResponse
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.ListBillingProfileCustomerOverrides`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.ListBillingProfileCustomerOverrides`: %v\n", resp)
 }
 ```
 
@@ -915,13 +915,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.ListBillingProfiles(context.Background()).IncludeArchived(includeArchived).Expand(expand).Page(page).PageSize(pageSize).Order(order).OrderBy(orderBy).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.ListBillingProfiles(context.Background()).IncludeArchived(includeArchived).Expand(expand).Page(page).PageSize(pageSize).Order(order).OrderBy(orderBy).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.ListBillingProfiles``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.ListBillingProfiles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `ListBillingProfiles`: BillingProfilePaginatedResponse
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.ListBillingProfiles`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.ListBillingProfiles`: %v\n", resp)
 }
 ```
 
@@ -1001,13 +1001,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.ListInvoices(context.Background()).Statuses(statuses).ExtendedStatuses(extendedStatuses).IssuedAfter(issuedAfter).IssuedBefore(issuedBefore).PeriodStartAfter(periodStartAfter).PeriodStartBefore(periodStartBefore).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Expand(expand).Customers(customers).IncludeDeleted(includeDeleted).Page(page).PageSize(pageSize).Order(order).OrderBy(orderBy).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.ListInvoices(context.Background()).Statuses(statuses).ExtendedStatuses(extendedStatuses).IssuedAfter(issuedAfter).IssuedBefore(issuedBefore).PeriodStartAfter(periodStartAfter).PeriodStartBefore(periodStartBefore).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Expand(expand).Customers(customers).IncludeDeleted(includeDeleted).Page(page).PageSize(pageSize).Order(order).OrderBy(orderBy).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.ListInvoices``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.ListInvoices``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `ListInvoices`: InvoicePaginatedResponse
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.ListInvoices`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.ListInvoices`: %v\n", resp)
 }
 ```
 
@@ -1081,13 +1081,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.RecalculateInvoiceTaxAction(context.Background(), invoiceId).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.RecalculateInvoiceTaxAction(context.Background(), invoiceId).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.RecalculateInvoiceTaxAction``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.RecalculateInvoiceTaxAction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `RecalculateInvoiceTaxAction`: Invoice
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.RecalculateInvoiceTaxAction`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.RecalculateInvoiceTaxAction`: %v\n", resp)
 }
 ```
 
@@ -1151,13 +1151,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.RetryInvoiceAction(context.Background(), invoiceId).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.RetryInvoiceAction(context.Background(), invoiceId).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.RetryInvoiceAction``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.RetryInvoiceAction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `RetryInvoiceAction`: Invoice
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.RetryInvoiceAction`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.RetryInvoiceAction`: %v\n", resp)
 }
 ```
 
@@ -1223,13 +1223,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.SimulateInvoice(context.Background(), customerId).InvoiceSimulationInput(invoiceSimulationInput).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.SimulateInvoice(context.Background(), customerId).InvoiceSimulationInput(invoiceSimulationInput).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.SimulateInvoice``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.SimulateInvoice``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `SimulateInvoice`: Invoice
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.SimulateInvoice`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.SimulateInvoice`: %v\n", resp)
 }
 ```
 
@@ -1294,13 +1294,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.SnapshotQuantitiesInvoiceAction(context.Background(), invoiceId).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.SnapshotQuantitiesInvoiceAction(context.Background(), invoiceId).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.SnapshotQuantitiesInvoiceAction``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.SnapshotQuantitiesInvoiceAction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `SnapshotQuantitiesInvoiceAction`: Invoice
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.SnapshotQuantitiesInvoiceAction`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.SnapshotQuantitiesInvoiceAction`: %v\n", resp)
 }
 ```
 
@@ -1365,13 +1365,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.UpdateBillingProfile(context.Background(), id).BillingProfileReplaceUpdateWithWorkflow(billingProfileReplaceUpdateWithWorkflow).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.UpdateBillingProfile(context.Background(), id).BillingProfileReplaceUpdateWithWorkflow(billingProfileReplaceUpdateWithWorkflow).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.UpdateBillingProfile``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.UpdateBillingProfile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `UpdateBillingProfile`: BillingProfile
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.UpdateBillingProfile`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.UpdateBillingProfile`: %v\n", resp)
 }
 ```
 
@@ -1438,13 +1438,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.UpdateInvoice(context.Background(), invoiceId).InvoiceReplaceUpdate(invoiceReplaceUpdate).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.UpdateInvoice(context.Background(), invoiceId).InvoiceReplaceUpdate(invoiceReplaceUpdate).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.UpdateInvoice``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.UpdateInvoice``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `UpdateInvoice`: Invoice
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.UpdateInvoice`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.UpdateInvoice`: %v\n", resp)
 }
 ```
 
@@ -1510,13 +1510,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.UpdateInvoicePaymentStatus(context.Background(), invoiceId).CustomInvoicingUpdatePaymentStatusRequest(customInvoicingUpdatePaymentStatusRequest).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.UpdateInvoicePaymentStatus(context.Background(), invoiceId).CustomInvoicingUpdatePaymentStatusRequest(customInvoicingUpdatePaymentStatusRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.UpdateInvoicePaymentStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.UpdateInvoicePaymentStatus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `UpdateInvoicePaymentStatus`: Invoice
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.UpdateInvoicePaymentStatus`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.UpdateInvoicePaymentStatus`: %v\n", resp)
 }
 ```
 
@@ -1582,13 +1582,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.UpsertBillingProfileCustomerOverride(context.Background(), customerId).BillingProfileCustomerOverrideCreate(billingProfileCustomerOverrideCreate).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.UpsertBillingProfileCustomerOverride(context.Background(), customerId).BillingProfileCustomerOverrideCreate(billingProfileCustomerOverrideCreate).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.UpsertBillingProfileCustomerOverride``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.UpsertBillingProfileCustomerOverride``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `UpsertBillingProfileCustomerOverride`: BillingProfileCustomerOverrideWithDetails
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.UpsertBillingProfileCustomerOverride`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.UpsertBillingProfileCustomerOverride`: %v\n", resp)
 }
 ```
 
@@ -1654,13 +1654,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.VoidInvoiceAction(context.Background(), invoiceId).VoidInvoiceActionInput(voidInvoiceActionInput).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.VoidInvoiceAction(context.Background(), invoiceId).VoidInvoiceActionInput(voidInvoiceActionInput).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.VoidInvoiceAction``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.VoidInvoiceAction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `VoidInvoiceAction`: Invoice
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.VoidInvoiceAction`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.VoidInvoiceAction`: %v\n", resp)
 }
 ```
 
