@@ -4,18 +4,18 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreatePortalToken**](PortalAPI.md#CreatePortalToken) | **Post** /api/v1/portal/tokens | Create consumer portal token
-[**InvalidatePortalTokens**](PortalAPI.md#InvalidatePortalTokens) | **Post** /api/v1/portal/tokens/invalidate | Invalidate portal tokens
-[**ListPortalTokens**](PortalAPI.md#ListPortalTokens) | **Get** /api/v1/portal/tokens | List consumer portal tokens
-[**QueryPortalMeter**](PortalAPI.md#QueryPortalMeter) | **Get** /api/v1/portal/meters/{meterSlug}/query | Query meter Query meter
+[**CreateTokenEndpoint**](PortalAPI.md#CreateTokenEndpoint) | **Post** /v1/portal/tokens | Create Token Endpoint
+[**GetPortalContext**](PortalAPI.md#GetPortalContext) | **Get** /v1/portal/context | Get Portal Context
+[**InvalidateTokensEndpoint**](PortalAPI.md#InvalidateTokensEndpoint) | **Post** /v1/portal/tokens/invalidate | Invalidate Tokens Endpoint
+[**ListTokensEndpoint**](PortalAPI.md#ListTokensEndpoint) | **Get** /v1/portal/tokens | List Tokens Endpoint
 
 
 
-## CreatePortalToken
+## CreateTokenEndpoint
 
-> PortalToken CreatePortalToken(ctx).PortalToken(portalToken).Execute()
+> interface{} CreateTokenEndpoint(ctx).CreatePortalTokenRequest(createPortalTokenRequest).Execute()
 
-Create consumer portal token
+Create Token Endpoint
 
 
 
@@ -32,17 +32,17 @@ import (
 )
 
 func main() {
-	portalToken := *openapiclient.NewPortalToken("customer-1") // PortalToken | 
+	createPortalTokenRequest := *openapiclient.NewCreatePortalTokenRequest("Subject_example") // CreatePortalTokenRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PortalAPI.CreatePortalToken(context.Background()).PortalToken(portalToken).Execute()
+	resp, r, err := apiClient.PortalAPI.CreateTokenEndpoint(context.Background()).CreatePortalTokenRequest(createPortalTokenRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PortalAPI.CreatePortalToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PortalAPI.CreateTokenEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreatePortalToken`: PortalToken
-	fmt.Fprintf(os.Stdout, "Response from `PortalAPI.CreatePortalToken`: %v\n", resp)
+	// response from `CreateTokenEndpoint`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PortalAPI.CreateTokenEndpoint`: %v\n", resp)
 }
 ```
 
@@ -52,16 +52,16 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCreatePortalTokenRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreateTokenEndpointRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **portalToken** | [**PortalToken**](PortalToken.md) |  | 
+ **createPortalTokenRequest** | [**CreatePortalTokenRequest**](CreatePortalTokenRequest.md) |  | 
 
 ### Return type
 
-[**PortalToken**](PortalToken.md)
+**interface{}**
 
 ### Authorization
 
@@ -70,18 +70,18 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json, application/problem+json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## InvalidatePortalTokens
+## GetPortalContext
 
-> InvalidatePortalTokens(ctx).InvalidatePortalTokensRequest(invalidatePortalTokensRequest).Execute()
+> interface{} GetPortalContext(ctx).Execute()
 
-Invalidate portal tokens
+Get Portal Context
 
 
 
@@ -98,15 +98,78 @@ import (
 )
 
 func main() {
-	invalidatePortalTokensRequest := *openapiclient.NewInvalidatePortalTokensRequest() // InvalidatePortalTokensRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PortalAPI.InvalidatePortalTokens(context.Background()).InvalidatePortalTokensRequest(invalidatePortalTokensRequest).Execute()
+	resp, r, err := apiClient.PortalAPI.GetPortalContext(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PortalAPI.InvalidatePortalTokens``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PortalAPI.GetPortalContext``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetPortalContext`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PortalAPI.GetPortalContext`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPortalContextRequest struct via the builder pattern
+
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## InvalidateTokensEndpoint
+
+> interface{} InvalidateTokensEndpoint(ctx).InvalidatePortalTokenRequest(invalidatePortalTokenRequest).Execute()
+
+Invalidate Tokens Endpoint
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	invalidatePortalTokenRequest := *openapiclient.NewInvalidatePortalTokenRequest() // InvalidatePortalTokenRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PortalAPI.InvalidateTokensEndpoint(context.Background()).InvalidatePortalTokenRequest(invalidatePortalTokenRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PortalAPI.InvalidateTokensEndpoint``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `InvalidateTokensEndpoint`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PortalAPI.InvalidateTokensEndpoint`: %v\n", resp)
 }
 ```
 
@@ -116,16 +179,16 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiInvalidatePortalTokensRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiInvalidateTokensEndpointRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **invalidatePortalTokensRequest** | [**InvalidatePortalTokensRequest**](InvalidatePortalTokensRequest.md) |  | 
+ **invalidatePortalTokenRequest** | [**InvalidatePortalTokenRequest**](InvalidatePortalTokenRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+**interface{}**
 
 ### Authorization
 
@@ -134,18 +197,18 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/problem+json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## ListPortalTokens
+## ListTokensEndpoint
 
-> []PortalToken ListPortalTokens(ctx).Limit(limit).Execute()
+> interface{} ListTokensEndpoint(ctx).Subject(subject).Execute()
 
-List consumer portal tokens
+List Tokens Endpoint
 
 
 
@@ -162,17 +225,17 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 |  (optional) (default to 25)
+	subject := "subject_example" // string | Filter by subject (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PortalAPI.ListPortalTokens(context.Background()).Limit(limit).Execute()
+	resp, r, err := apiClient.PortalAPI.ListTokensEndpoint(context.Background()).Subject(subject).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PortalAPI.ListPortalTokens``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PortalAPI.ListTokensEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListPortalTokens`: []PortalToken
-	fmt.Fprintf(os.Stdout, "Response from `PortalAPI.ListPortalTokens`: %v\n", resp)
+	// response from `ListTokensEndpoint`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PortalAPI.ListTokensEndpoint`: %v\n", resp)
 }
 ```
 
@@ -182,16 +245,16 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiListPortalTokensRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListTokensEndpointRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** |  | [default to 25]
+ **subject** | **string** | Filter by subject | 
 
 ### Return type
 
-[**[]PortalToken**](PortalToken.md)
+**interface{}**
 
 ### Authorization
 
@@ -200,96 +263,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## QueryPortalMeter
-
-> MeterQueryResult QueryPortalMeter(ctx, meterSlug).ClientId(clientId).From(from).To(to).WindowSize(windowSize).WindowTimeZone(windowTimeZone).FilterCustomerId(filterCustomerId).FilterGroupBy(filterGroupBy).AdvancedMeterGroupByFilters(advancedMeterGroupByFilters).GroupBy(groupBy).Execute()
-
-Query meter Query meter
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-    "time"
-	openapiclient "github.com/moolabs/moolabs-go"
-)
-
-func main() {
-	meterSlug := "meterSlug_example" // string | 
-	clientId := "clientId_example" // string | Client ID Useful to track progress of a query. (optional)
-	from := time.Now() // time.Time | Start date-time in RFC 3339 format.  Inclusive.  For example: ?from=2025-01-01T00%3A00%3A00.000Z (optional)
-	to := time.Now() // time.Time | End date-time in RFC 3339 format.  Inclusive.  For example: ?to=2025-02-01T00%3A00%3A00.000Z (optional)
-	windowSize := openapiclient.WindowSize("MINUTE") // WindowSize | If not specified, a single usage aggregate will be returned for the entirety of the specified period for each subject and group.  For example: ?windowSize=DAY (optional)
-	windowTimeZone := "windowTimeZone_example" // string | The value is the name of the time zone as defined in the IANA Time Zone Database (http://www.iana.org/time-zones). If not specified, the UTC timezone will be used.  For example: ?windowTimeZone=UTC (optional) (default to "UTC")
-	filterCustomerId := []string{"Inner_example"} // []string | Filtering by multiple customers.  For example: ?filterCustomerId=customer-1&filterCustomerId=customer-2 (optional)
-	filterGroupBy := map[string]string{"key": map[string]string{"key": "Inner_example"}} // map[string]string | Simple filter for group bys with exact match.  For example: ?filterGroupBy[vendor]=openai&filterGroupBy[model]=gpt-4-turbo (optional)
-	advancedMeterGroupByFilters := map[string]FilterString{"key": *openapiclient.NewFilterString()} // map[string]FilterString | Optional advanced meter group by filters. You can use this to filter for values of the meter groupBy fields. (optional)
-	groupBy := []string{"Inner_example"} // []string | If not specified a single aggregate will be returned for each subject and time window. `subject` is a reserved group by value.  For example: ?groupBy=subject&groupBy=model (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PortalAPI.QueryPortalMeter(context.Background(), meterSlug).ClientId(clientId).From(from).To(to).WindowSize(windowSize).WindowTimeZone(windowTimeZone).FilterCustomerId(filterCustomerId).FilterGroupBy(filterGroupBy).AdvancedMeterGroupByFilters(advancedMeterGroupByFilters).GroupBy(groupBy).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PortalAPI.QueryPortalMeter``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `QueryPortalMeter`: MeterQueryResult
-	fmt.Fprintf(os.Stdout, "Response from `PortalAPI.QueryPortalMeter`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**meterSlug** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiQueryPortalMeterRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **clientId** | **string** | Client ID Useful to track progress of a query. | 
- **from** | **time.Time** | Start date-time in RFC 3339 format.  Inclusive.  For example: ?from&#x3D;2025-01-01T00%3A00%3A00.000Z | 
- **to** | **time.Time** | End date-time in RFC 3339 format.  Inclusive.  For example: ?to&#x3D;2025-02-01T00%3A00%3A00.000Z | 
- **windowSize** | [**WindowSize**](WindowSize.md) | If not specified, a single usage aggregate will be returned for the entirety of the specified period for each subject and group.  For example: ?windowSize&#x3D;DAY | 
- **windowTimeZone** | **string** | The value is the name of the time zone as defined in the IANA Time Zone Database (http://www.iana.org/time-zones). If not specified, the UTC timezone will be used.  For example: ?windowTimeZone&#x3D;UTC | [default to &quot;UTC&quot;]
- **filterCustomerId** | **[]string** | Filtering by multiple customers.  For example: ?filterCustomerId&#x3D;customer-1&amp;filterCustomerId&#x3D;customer-2 | 
- **filterGroupBy** | **map[string]map[string]string** | Simple filter for group bys with exact match.  For example: ?filterGroupBy[vendor]&#x3D;openai&amp;filterGroupBy[model]&#x3D;gpt-4-turbo | 
- **advancedMeterGroupByFilters** | [**map[string]FilterString**](FilterString.md) | Optional advanced meter group by filters. You can use this to filter for values of the meter groupBy fields. | 
- **groupBy** | **[]string** | If not specified a single aggregate will be returned for each subject and time window. &#x60;subject&#x60; is a reserved group by value.  For example: ?groupBy&#x3D;subject&amp;groupBy&#x3D;model | 
-
-### Return type
-
-[**MeterQueryResult**](MeterQueryResult.md)
-
-### Authorization
-
-[PortalTokenAuth](../README.md#PortalTokenAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json, text/csv, application/problem+json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

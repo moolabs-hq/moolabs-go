@@ -22,11 +22,11 @@ func Test_moolabs_PortalAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test PortalAPIService CreatePortalToken", func(t *testing.T) {
+	t.Run("Test PortalAPIService CreateTokenEndpoint", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.PortalAPI.CreatePortalToken(context.Background()).Execute()
+		resp, httpRes, err := apiClient.PortalAPI.CreateTokenEndpoint(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -34,22 +34,11 @@ func Test_moolabs_PortalAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test PortalAPIService InvalidatePortalTokens", func(t *testing.T) {
+	t.Run("Test PortalAPIService GetPortalContext", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		httpRes, err := apiClient.PortalAPI.InvalidatePortalTokens(context.Background()).Execute()
-
-		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test PortalAPIService ListPortalTokens", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		resp, httpRes, err := apiClient.PortalAPI.ListPortalTokens(context.Background()).Execute()
+		resp, httpRes, err := apiClient.PortalAPI.GetPortalContext(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -57,13 +46,23 @@ func Test_moolabs_PortalAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test PortalAPIService QueryPortalMeter", func(t *testing.T) {
+	t.Run("Test PortalAPIService InvalidateTokensEndpoint", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var meterSlug string
+		resp, httpRes, err := apiClient.PortalAPI.InvalidateTokensEndpoint(context.Background()).Execute()
 
-		resp, httpRes, err := apiClient.PortalAPI.QueryPortalMeter(context.Background(), meterSlug).Execute()
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test PortalAPIService ListTokensEndpoint", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.PortalAPI.ListTokensEndpoint(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
