@@ -3,7 +3,7 @@ info:
   description: Unified Moolabs SDK covering billing (CLS) and usage (Meter) operations.
     Both surfaces share one client and one auth flow.
   title: Moolabs API
-  version: 0.0.0-rc7
+  version: 0.1.0-rc1
 servers:
 - url: /
 paths:
@@ -4836,6 +4836,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List add-ons
       tags:
       - Product Catalog
@@ -4907,6 +4909,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create an add-on
       tags:
       - Product Catalog
@@ -4988,6 +4992,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Delete add-on
       tags:
       - Product Catalog
@@ -5084,6 +5090,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get add-on
       tags:
       - Product Catalog
@@ -5170,6 +5178,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Update add-on
       tags:
       - Product Catalog
@@ -5251,6 +5261,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Archive add-on version
       tags:
       - Product Catalog
@@ -5332,6 +5344,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Publish add-on
       tags:
       - Product Catalog
@@ -5399,6 +5413,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List apps
       tags:
       - Apps
@@ -5475,6 +5491,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Submit draft synchronization results
       tags:
       - "App: Custom Invoicing"
@@ -5551,6 +5569,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Submit issuing synchronization results
       tags:
       - "App: Custom Invoicing"
@@ -5627,6 +5647,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Update payment status
       tags:
       - "App: Custom Invoicing"
@@ -5705,6 +5727,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Uninstall app
       tags:
       - Apps
@@ -5785,6 +5809,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get app
       tags:
       - Apps
@@ -5871,6 +5897,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Update app
       tags:
       - Apps
@@ -5949,6 +5977,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Update Stripe API key
       tags:
       - "App: Stripe"
@@ -6122,6 +6152,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List customer overrides
       tags:
       - MeterBilling
@@ -6204,6 +6236,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Delete a customer override
       tags:
       - MeterBilling
@@ -6299,6 +6333,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get a customer override
       tags:
       - MeterBilling
@@ -6390,6 +6426,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create a new or update a customer override
       tags:
       - MeterBilling
@@ -6479,6 +6517,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create pending line items
       tags:
       - MeterBilling
@@ -6564,6 +6604,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Simulate an invoice for a customer
       tags:
       - MeterBilling
@@ -6650,6 +6692,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List invoices
       tags:
       - MeterBilling
@@ -6733,6 +6777,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Invoice a customer based on the pending line items
       tags:
       - MeterBilling
@@ -6816,6 +6862,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Delete an invoice
       tags:
       - MeterBilling
@@ -6916,6 +6964,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get an invoice
       tags:
       - MeterBilling
@@ -7005,6 +7055,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Update an invoice
       tags:
       - MeterBilling
@@ -7091,6 +7143,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Advance the invoice's state to the next status
       tags:
       - MeterBilling
@@ -7179,6 +7233,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Send the invoice to the customer
       tags:
       - MeterBilling
@@ -7267,6 +7323,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Update invoice payment status
       tags:
       - MeterBilling
@@ -7351,6 +7409,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Retry advancing the invoice after a failed attempt.
       tags:
       - MeterBilling
@@ -7438,6 +7498,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Snapshot quantities for usage based line items
       tags:
       - MeterBilling
@@ -7522,6 +7584,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Recalculate an invoice's tax amounts
       tags:
       - MeterBilling
@@ -7614,6 +7678,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Void an invoice
       tags:
       - MeterBilling
@@ -7705,6 +7771,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List billing profiles
       tags:
       - MeterBilling
@@ -7780,6 +7848,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create a new billing profile
       tags:
       - MeterBilling
@@ -7864,6 +7934,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Delete a billing profile
       tags:
       - MeterBilling
@@ -7958,6 +8030,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get a billing profile
       tags:
       - MeterBilling
@@ -8048,6 +8122,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Update a billing profile
       tags:
       - MeterBilling
@@ -8124,6 +8200,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List customers
       tags:
       - Customers
@@ -8195,6 +8273,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create customer
       tags:
       - Customers
@@ -8271,6 +8351,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Delete customer
       tags:
       - Customers
@@ -8350,6 +8432,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get customer
       tags:
       - Customers
@@ -8434,6 +8518,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Update customer
       tags:
       - Customers
@@ -8513,6 +8599,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get customer access
       tags:
       - Entitlements
@@ -8595,6 +8683,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List customer app data
       tags:
       - Customers
@@ -8683,6 +8773,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Upsert customer app data
       tags:
       - Customers
@@ -8768,6 +8860,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Delete customer app data
       tags:
       - Customers
@@ -8868,6 +8962,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get customer entitlement value
       tags:
       - Entitlements
@@ -8949,6 +9045,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get customer stripe app data
       tags:
       - Customers
@@ -9035,6 +9133,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Upsert customer stripe app data
       tags:
       - Customers
@@ -9126,6 +9226,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create Stripe customer portal session
       tags:
       - Customers
@@ -9218,6 +9320,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List customer subscriptions
       tags:
       - Customers
@@ -9412,6 +9516,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List all entitlements
       tags:
       - Entitlements
@@ -9493,6 +9599,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get entitlement by id
       tags:
       - Entitlements
@@ -9675,6 +9783,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List ingested events
       tags:
       - Events
@@ -9750,6 +9860,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: 'Ingest events  '
       tags:
       - Events
@@ -9840,6 +9952,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List features
       tags:
       - Product Catalog
@@ -9915,6 +10029,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create feature
       tags:
       - Product Catalog
@@ -9995,6 +10111,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Delete feature
       tags:
       - Product Catalog
@@ -10074,6 +10192,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get feature
       tags:
       - Product Catalog
@@ -10183,6 +10303,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List grants
       tags:
       - Entitlements
@@ -10269,6 +10391,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Void grant
       tags:
       - Entitlements
@@ -10336,6 +10460,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List supported currencies
       tags:
       - Lookup Information
@@ -10416,6 +10542,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get progress
       tags:
       - Lookup Information
@@ -10483,6 +10611,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List available apps
       tags:
       - Apps
@@ -10555,6 +10685,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get app details by type
       tags:
       - Apps
@@ -10627,6 +10759,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Install app
       tags:
       - Apps
@@ -10699,6 +10833,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Install app via API key
       tags:
       - Apps
@@ -10773,6 +10909,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get OAuth2 install URL
       tags:
       - Apps
@@ -10842,6 +10980,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Install app via OAuth2
       tags:
       - Apps
@@ -10914,6 +11054,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List meters
       tags:
       - Meters
@@ -10985,6 +11127,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create meter
       tags:
       - Meters
@@ -11057,6 +11201,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Delete meter
       tags:
       - Meters
@@ -11138,6 +11284,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get meter
       tags:
       - Meters
@@ -11218,6 +11366,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Update meter
       tags:
       - Meters
@@ -11307,6 +11457,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Validate a sample event payload against the meter
       tags:
       - Meters
@@ -11422,6 +11574,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List meter group by values
       tags:
       - Meters
@@ -11518,6 +11672,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Query meter
       tags:
       - Meters
@@ -11604,6 +11760,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Query meter
       tags:
       - Meters
@@ -11711,6 +11869,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List meter subjects
       tags:
       - Meters
@@ -11804,6 +11964,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List notification channels
       tags:
       - Notifications
@@ -11875,6 +12037,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create a notification channel
       tags:
       - Notifications
@@ -11956,6 +12120,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Delete a notification channel
       tags:
       - Notifications
@@ -12036,6 +12202,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get notification channel
       tags:
       - Notifications
@@ -12122,6 +12290,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Update a notification channel
       tags:
       - Notifications
@@ -12273,6 +12443,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List notification events
       tags:
       - Notifications
@@ -12353,6 +12525,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get notification event
       tags:
       - Notifications
@@ -12436,6 +12610,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Re-send notification event
       tags:
       - Notifications
@@ -12563,6 +12739,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List notification rules
       tags:
       - Notifications
@@ -12634,6 +12812,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create a notification rule
       tags:
       - Notifications
@@ -12715,6 +12895,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Delete a notification rule
       tags:
       - Notifications
@@ -12795,6 +12977,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get notification rule
       tags:
       - Notifications
@@ -12881,6 +13065,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Update a notification rule
       tags:
       - Notifications
@@ -12963,6 +13149,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Test notification rule
       tags:
       - Notifications
@@ -13107,6 +13295,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List plans
       tags:
       - Product Catalog
@@ -13178,6 +13368,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create a plan
       tags:
       - Product Catalog
@@ -13266,6 +13458,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: New draft plan
       tags:
       - Product Catalog
@@ -13347,6 +13541,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Delete plan
       tags:
       - Product Catalog
@@ -13443,6 +13639,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get plan
       tags:
       - Product Catalog
@@ -13529,6 +13727,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Update a plan
       tags:
       - Product Catalog
@@ -13664,6 +13864,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List all available add-ons for plan
       tags:
       - Product Catalog
@@ -13758,6 +13960,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create new add-on assignment for plan
       tags:
       - Product Catalog
@@ -13848,6 +14052,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Delete add-on assignment for plan
       tags:
       - Product Catalog
@@ -13939,6 +14145,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get add-on assignment for plan
       tags:
       - Product Catalog
@@ -14034,6 +14242,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Update add-on assignment for plan
       tags:
       - Product Catalog
@@ -14115,6 +14325,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Archive plan version
       tags:
       - Product Catalog
@@ -14196,6 +14408,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Publish plan
       tags:
       - Product Catalog
@@ -14372,6 +14586,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List consumer portal tokens
       tags:
       - MeterPortal
@@ -14442,6 +14658,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create consumer portal token
       tags:
       - MeterPortal
@@ -14510,6 +14728,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Invalidate portal tokens
       tags:
       - MeterPortal
@@ -14589,6 +14809,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create checkout session
       tags:
       - "App: Stripe"
@@ -14656,6 +14878,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List subjects
       tags:
       - Subjects
@@ -14734,6 +14958,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Upsert subject
       tags:
       - Subjects
@@ -14803,6 +15029,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Delete subject
       tags:
       - Subjects
@@ -14882,6 +15110,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get subject
       tags:
       - Subjects
@@ -14965,6 +15195,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List subject entitlements
       tags:
       - Entitlements
@@ -15059,6 +15291,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create a subject entitlement
       tags:
       - Entitlements
@@ -15157,6 +15391,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List subject entitlement grants
       tags:
       - Entitlements
@@ -15260,6 +15496,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create subject entitlement grant
       tags:
       - Entitlements
@@ -15363,6 +15601,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Override subject entitlement
       tags:
       - Entitlements
@@ -15461,6 +15701,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get subject entitlement value
       tags:
       - Entitlements
@@ -15546,6 +15788,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Delete subject entitlement
       tags:
       - Entitlements
@@ -15633,6 +15877,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get subject entitlement
       tags:
       - Entitlements
@@ -15765,6 +16011,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get subject entitlement history
       tags:
       - Entitlements
@@ -15857,6 +16105,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Reset subject entitlement
       tags:
       - Entitlements
@@ -15947,6 +16197,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List subscriptions
       tags:
       - MeterSubscriptions
@@ -16026,6 +16278,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create subscription
       tags:
       - MeterSubscriptions
@@ -16113,6 +16367,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Delete subscription
       tags:
       - MeterSubscriptions
@@ -16203,6 +16459,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get subscription
       tags:
       - MeterSubscriptions
@@ -16300,6 +16558,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Edit subscription
       tags:
       - MeterSubscriptions
@@ -16384,6 +16644,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List subscription addons
       tags:
       - MeterSubscriptions
@@ -16479,6 +16741,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create subscription addon
       tags:
       - MeterSubscriptions
@@ -16569,6 +16833,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get subscription addon
       tags:
       - MeterSubscriptions
@@ -16665,6 +16931,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Update subscription addon
       tags:
       - MeterSubscriptions
@@ -16763,6 +17031,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Cancel subscription
       tags:
       - MeterSubscriptions
@@ -16861,6 +17131,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Change subscription
       tags:
       - MeterSubscriptions
@@ -16960,6 +17232,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Migrate subscription
       tags:
       - MeterSubscriptions
@@ -17044,6 +17318,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Restore subscription
       tags:
       - MeterSubscriptions
@@ -17134,6 +17410,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Unschedule cancelation
       tags:
       - MeterSubscriptions
@@ -17250,6 +17528,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get multi-meter usage summary
       tags:
       - Meters
@@ -17335,6 +17615,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List customer entitlements
       tags:
       - Entitlements
@@ -17429,6 +17711,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create a customer entitlement
       tags:
       - Entitlements
@@ -17517,6 +17801,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Delete customer entitlement
       tags:
       - Entitlements
@@ -17607,6 +17893,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get customer entitlement
       tags:
       - Entitlements
@@ -17704,6 +17992,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List customer entitlement grants
       tags:
       - Entitlements
@@ -17810,6 +18100,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Create customer entitlement grant
       tags:
       - Entitlements
@@ -17945,6 +18237,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get customer entitlement history
       tags:
       - Entitlements
@@ -18048,6 +18342,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Override customer entitlement
       tags:
       - Entitlements
@@ -18143,6 +18439,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Reset customer entitlement
       tags:
       - Entitlements
@@ -18243,6 +18541,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get customer entitlement value
       tags:
       - Entitlements
@@ -18378,6 +18678,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List all entitlements
       tags:
       - Entitlements
@@ -18459,6 +18761,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: Get entitlement by id
       tags:
       - Entitlements
@@ -18546,6 +18850,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List ingested events
       tags:
       - Events
@@ -18655,6 +18961,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedProblemResponse'
           description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
       summary: List grants
       tags:
       - Entitlements
