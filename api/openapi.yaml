@@ -3,7 +3,7 @@ info:
   description: Unified Moolabs SDK covering billing (CLS) and usage (Meter) operations.
     Both surfaces share one client and one auth flow.
   title: Moolabs API
-  version: 0.1.0-rc1
+  version: 0.2.0-rc1
 servers:
 - url: /
 paths:
