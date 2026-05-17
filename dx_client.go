@@ -356,6 +356,17 @@ func NewMoolabs(cfg Config) (*Moolabs, error) {
 	if baseURL == "" {
 		baseURL = defaultBaseURL
 	}
+	// Apex ("moolabs.com") is a marketing/branding host, not an env root —
+	// the ALB cert is "*.prod.moolabs.com" only. Rewrite the customer-
+	// supplied baseURL ONCE at construction so all downstream subdomain
+	// composition (DeriveHost, IngestURLResolver) sees the effective
+	// env-rooted host. Explicit env roots and self-hosted bases pass
+	// through unchanged. See dx_urls.go:ResolveEffectiveBaseURL.
+	resolvedBaseURL, err := ResolveEffectiveBaseURL(baseURL, cfg.APIKey)
+	if err != nil {
+		return nil, fmt.Errorf("moolabs: BaseURL invalid: %w", err)
+	}
+	baseURL = resolvedBaseURL
 	// Validate BaseURL early — fail fast on typos.
 	for backend := range SubdomainMap {
 		if _, err := DeriveHost(backend, baseURL); err != nil {
