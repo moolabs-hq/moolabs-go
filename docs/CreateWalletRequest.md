@@ -8,11 +8,11 @@ Name | Type | Description | Notes
 **PoolId** | **string** | Credit pool identifier | 
 **OwnerType** | [**WalletOwnerType**](WalletOwnerType.md) | Owner type (ORG, TEAM, USER, etc.) | 
 **OwnerId** | **string** | Owner identifier | 
-**ParentWalletId** | Pointer to **NullableString** |  | [optional] 
+**ParentWalletId** | Pointer to **string** | Parent wallet ID (for hierarchy) | [optional] 
 **Depth** | Pointer to **int32** | Hierarchy depth (0-3) | [optional] [default to 0]
 **Policy** | Pointer to [**WalletPolicy**](WalletPolicy.md) | Wallet policy | [optional] 
-**LocalHardCapMicros** | Pointer to **NullableInt32** |  | [optional] 
-**LocalSoftThresholdMicros** | Pointer to **NullableInt32** |  | [optional] 
+**LocalHardCapMicros** | Pointer to **int32** | Local hard cap (micros) | [optional] 
+**LocalSoftThresholdMicros** | Pointer to **int32** | Local soft threshold (micros) | [optional] 
 
 ## Methods
 
@@ -138,16 +138,6 @@ SetParentWalletId sets ParentWalletId field to given value.
 
 HasParentWalletId returns a boolean if a field has been set.
 
-### SetParentWalletIdNil
-
-`func (o *CreateWalletRequest) SetParentWalletIdNil(b bool)`
-
- SetParentWalletIdNil sets the value for ParentWalletId to be an explicit nil
-
-### UnsetParentWalletId
-`func (o *CreateWalletRequest) UnsetParentWalletId()`
-
-UnsetParentWalletId ensures that no value is present for ParentWalletId, not even an explicit nil
 ### GetDepth
 
 `func (o *CreateWalletRequest) GetDepth() int32`
@@ -223,16 +213,6 @@ SetLocalHardCapMicros sets LocalHardCapMicros field to given value.
 
 HasLocalHardCapMicros returns a boolean if a field has been set.
 
-### SetLocalHardCapMicrosNil
-
-`func (o *CreateWalletRequest) SetLocalHardCapMicrosNil(b bool)`
-
- SetLocalHardCapMicrosNil sets the value for LocalHardCapMicros to be an explicit nil
-
-### UnsetLocalHardCapMicros
-`func (o *CreateWalletRequest) UnsetLocalHardCapMicros()`
-
-UnsetLocalHardCapMicros ensures that no value is present for LocalHardCapMicros, not even an explicit nil
 ### GetLocalSoftThresholdMicros
 
 `func (o *CreateWalletRequest) GetLocalSoftThresholdMicros() int32`
@@ -258,16 +238,6 @@ SetLocalSoftThresholdMicros sets LocalSoftThresholdMicros field to given value.
 
 HasLocalSoftThresholdMicros returns a boolean if a field has been set.
 
-### SetLocalSoftThresholdMicrosNil
-
-`func (o *CreateWalletRequest) SetLocalSoftThresholdMicrosNil(b bool)`
-
- SetLocalSoftThresholdMicrosNil sets the value for LocalSoftThresholdMicros to be an explicit nil
-
-### UnsetLocalSoftThresholdMicros
-`func (o *CreateWalletRequest) UnsetLocalSoftThresholdMicros()`
-
-UnsetLocalSoftThresholdMicros ensures that no value is present for LocalSoftThresholdMicros, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -10,10 +10,10 @@ Name | Type | Description | Notes
 **TriggerType** | **string** | Trigger type (STATE or THRESHOLD) | 
 **TriggerValue** | **string** | Trigger value (e.g., &#39;LOW&#39;, &#39;OVERDRAFT&#39;, &#39;ABS:-100000&#39;) | 
 **TopupAmountMicros** | **int32** | Top-up amount in micros | 
-**TopupCooldownSeconds** | Pointer to **int32** | Cooldown period in seconds | [optional] [default to 3600]
-**MaxTopupsPerDay** | Pointer to **int32** | Maximum top-ups per day | [optional] [default to 5]
-**PaymentMethodRef** | Pointer to **NullableString** |  | [optional] 
-**InvoiceMode** | Pointer to **string** | Invoice mode | [optional] [default to "INVOICE_NOW"]
+**TopupCooldownSeconds** | Pointer to **int32** | Cooldown period in seconds | [optional] 
+**MaxTopupsPerDay** | Pointer to **int32** | Maximum top-ups per day | [optional] 
+**PaymentMethodRef** | Pointer to **string** | Payment method reference | [optional] 
+**InvoiceMode** | Pointer to **string** | Invoice mode | [optional] 
 
 ## Methods
 
@@ -229,16 +229,6 @@ SetPaymentMethodRef sets PaymentMethodRef field to given value.
 
 HasPaymentMethodRef returns a boolean if a field has been set.
 
-### SetPaymentMethodRefNil
-
-`func (o *CreateAutoTopupRuleRequest) SetPaymentMethodRefNil(b bool)`
-
- SetPaymentMethodRefNil sets the value for PaymentMethodRef to be an explicit nil
-
-### UnsetPaymentMethodRef
-`func (o *CreateAutoTopupRuleRequest) UnsetPaymentMethodRef()`
-
-UnsetPaymentMethodRef ensures that no value is present for PaymentMethodRef, not even an explicit nil
 ### GetInvoiceMode
 
 `func (o *CreateAutoTopupRuleRequest) GetInvoiceMode() string`

@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **EventType** | **string** | Event type: ACTIVATED, UPDATED, CANCELLED, PAUSED, RESUMED | 
 **EventId** | **string** | Unique event ID (for idempotency) | 
 **EffectiveAt** | **string** | When the event takes effect (ISO 8601) | 
-**SubscriptionData** | Pointer to **map[string]interface{}** |  | [optional] 
-**PayloadJson** | Pointer to **NullableString** |  | [optional] 
+**SubscriptionData** | Pointer to **map[string]interface{}** | Optional subscription data | [optional] 
+**PayloadJson** | Pointer to **string** | Optional JSON payload | [optional] 
 
 ## Methods
 
@@ -135,16 +135,6 @@ SetSubscriptionData sets SubscriptionData field to given value.
 
 HasSubscriptionData returns a boolean if a field has been set.
 
-### SetSubscriptionDataNil
-
-`func (o *LifecycleEventRequest) SetSubscriptionDataNil(b bool)`
-
- SetSubscriptionDataNil sets the value for SubscriptionData to be an explicit nil
-
-### UnsetSubscriptionData
-`func (o *LifecycleEventRequest) UnsetSubscriptionData()`
-
-UnsetSubscriptionData ensures that no value is present for SubscriptionData, not even an explicit nil
 ### GetPayloadJson
 
 `func (o *LifecycleEventRequest) GetPayloadJson() string`
@@ -170,16 +160,6 @@ SetPayloadJson sets PayloadJson field to given value.
 
 HasPayloadJson returns a boolean if a field has been set.
 
-### SetPayloadJsonNil
-
-`func (o *LifecycleEventRequest) SetPayloadJsonNil(b bool)`
-
- SetPayloadJsonNil sets the value for PayloadJson to be an explicit nil
-
-### UnsetPayloadJson
-`func (o *LifecycleEventRequest) UnsetPayloadJson()`
-
-UnsetPayloadJson ensures that no value is present for PayloadJson, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

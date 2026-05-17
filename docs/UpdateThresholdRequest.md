@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ThresholdValue** | Pointer to **NullableInt32** |  | [optional] 
-**NotifyChannels** | Pointer to **[]string** |  | [optional] 
+**ThresholdValue** | Pointer to **int32** | New threshold value | [optional] 
+**NotifyChannels** | Pointer to [**[]NotifyChannel**](NotifyChannel.md) | New notification channels | [optional] 
 
 ## Methods
 
@@ -51,32 +51,22 @@ SetThresholdValue sets ThresholdValue field to given value.
 
 HasThresholdValue returns a boolean if a field has been set.
 
-### SetThresholdValueNil
-
-`func (o *UpdateThresholdRequest) SetThresholdValueNil(b bool)`
-
- SetThresholdValueNil sets the value for ThresholdValue to be an explicit nil
-
-### UnsetThresholdValue
-`func (o *UpdateThresholdRequest) UnsetThresholdValue()`
-
-UnsetThresholdValue ensures that no value is present for ThresholdValue, not even an explicit nil
 ### GetNotifyChannels
 
-`func (o *UpdateThresholdRequest) GetNotifyChannels() []string`
+`func (o *UpdateThresholdRequest) GetNotifyChannels() []NotifyChannel`
 
 GetNotifyChannels returns the NotifyChannels field if non-nil, zero value otherwise.
 
 ### GetNotifyChannelsOk
 
-`func (o *UpdateThresholdRequest) GetNotifyChannelsOk() (*[]string, bool)`
+`func (o *UpdateThresholdRequest) GetNotifyChannelsOk() (*[]NotifyChannel, bool)`
 
 GetNotifyChannelsOk returns a tuple with the NotifyChannels field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNotifyChannels
 
-`func (o *UpdateThresholdRequest) SetNotifyChannels(v []string)`
+`func (o *UpdateThresholdRequest) SetNotifyChannels(v []NotifyChannel)`
 
 SetNotifyChannels sets NotifyChannels field to given value.
 
@@ -86,16 +76,6 @@ SetNotifyChannels sets NotifyChannels field to given value.
 
 HasNotifyChannels returns a boolean if a field has been set.
 
-### SetNotifyChannelsNil
-
-`func (o *UpdateThresholdRequest) SetNotifyChannelsNil(b bool)`
-
- SetNotifyChannelsNil sets the value for NotifyChannels to be an explicit nil
-
-### UnsetNotifyChannels
-`func (o *UpdateThresholdRequest) UnsetNotifyChannels()`
-
-UnsetNotifyChannels ensures that no value is present for NotifyChannels, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

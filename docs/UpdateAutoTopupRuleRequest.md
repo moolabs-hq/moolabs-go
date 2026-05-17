@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TriggerType** | Pointer to **NullableString** |  | [optional] 
-**TriggerValue** | Pointer to **NullableString** |  | [optional] 
-**TopupAmountMicros** | Pointer to **NullableInt32** |  | [optional] 
-**TopupCooldownSeconds** | Pointer to **NullableInt32** |  | [optional] 
-**MaxTopupsPerDay** | Pointer to **NullableInt32** |  | [optional] 
-**PaymentMethodRef** | Pointer to **NullableString** |  | [optional] 
-**InvoiceMode** | Pointer to **NullableString** |  | [optional] 
-**Enabled** | Pointer to **NullableBool** |  | [optional] 
+**TriggerType** | Pointer to **string** |  | [optional] 
+**TriggerValue** | Pointer to **string** |  | [optional] 
+**TopupAmountMicros** | Pointer to **int32** |  | [optional] 
+**TopupCooldownSeconds** | Pointer to **int32** |  | [optional] 
+**MaxTopupsPerDay** | Pointer to **int32** |  | [optional] 
+**PaymentMethodRef** | Pointer to **string** |  | [optional] 
+**InvoiceMode** | Pointer to **string** |  | [optional] 
+**Enabled** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -57,16 +57,6 @@ SetTriggerType sets TriggerType field to given value.
 
 HasTriggerType returns a boolean if a field has been set.
 
-### SetTriggerTypeNil
-
-`func (o *UpdateAutoTopupRuleRequest) SetTriggerTypeNil(b bool)`
-
- SetTriggerTypeNil sets the value for TriggerType to be an explicit nil
-
-### UnsetTriggerType
-`func (o *UpdateAutoTopupRuleRequest) UnsetTriggerType()`
-
-UnsetTriggerType ensures that no value is present for TriggerType, not even an explicit nil
 ### GetTriggerValue
 
 `func (o *UpdateAutoTopupRuleRequest) GetTriggerValue() string`
@@ -92,16 +82,6 @@ SetTriggerValue sets TriggerValue field to given value.
 
 HasTriggerValue returns a boolean if a field has been set.
 
-### SetTriggerValueNil
-
-`func (o *UpdateAutoTopupRuleRequest) SetTriggerValueNil(b bool)`
-
- SetTriggerValueNil sets the value for TriggerValue to be an explicit nil
-
-### UnsetTriggerValue
-`func (o *UpdateAutoTopupRuleRequest) UnsetTriggerValue()`
-
-UnsetTriggerValue ensures that no value is present for TriggerValue, not even an explicit nil
 ### GetTopupAmountMicros
 
 `func (o *UpdateAutoTopupRuleRequest) GetTopupAmountMicros() int32`
@@ -127,16 +107,6 @@ SetTopupAmountMicros sets TopupAmountMicros field to given value.
 
 HasTopupAmountMicros returns a boolean if a field has been set.
 
-### SetTopupAmountMicrosNil
-
-`func (o *UpdateAutoTopupRuleRequest) SetTopupAmountMicrosNil(b bool)`
-
- SetTopupAmountMicrosNil sets the value for TopupAmountMicros to be an explicit nil
-
-### UnsetTopupAmountMicros
-`func (o *UpdateAutoTopupRuleRequest) UnsetTopupAmountMicros()`
-
-UnsetTopupAmountMicros ensures that no value is present for TopupAmountMicros, not even an explicit nil
 ### GetTopupCooldownSeconds
 
 `func (o *UpdateAutoTopupRuleRequest) GetTopupCooldownSeconds() int32`
@@ -162,16 +132,6 @@ SetTopupCooldownSeconds sets TopupCooldownSeconds field to given value.
 
 HasTopupCooldownSeconds returns a boolean if a field has been set.
 
-### SetTopupCooldownSecondsNil
-
-`func (o *UpdateAutoTopupRuleRequest) SetTopupCooldownSecondsNil(b bool)`
-
- SetTopupCooldownSecondsNil sets the value for TopupCooldownSeconds to be an explicit nil
-
-### UnsetTopupCooldownSeconds
-`func (o *UpdateAutoTopupRuleRequest) UnsetTopupCooldownSeconds()`
-
-UnsetTopupCooldownSeconds ensures that no value is present for TopupCooldownSeconds, not even an explicit nil
 ### GetMaxTopupsPerDay
 
 `func (o *UpdateAutoTopupRuleRequest) GetMaxTopupsPerDay() int32`
@@ -197,16 +157,6 @@ SetMaxTopupsPerDay sets MaxTopupsPerDay field to given value.
 
 HasMaxTopupsPerDay returns a boolean if a field has been set.
 
-### SetMaxTopupsPerDayNil
-
-`func (o *UpdateAutoTopupRuleRequest) SetMaxTopupsPerDayNil(b bool)`
-
- SetMaxTopupsPerDayNil sets the value for MaxTopupsPerDay to be an explicit nil
-
-### UnsetMaxTopupsPerDay
-`func (o *UpdateAutoTopupRuleRequest) UnsetMaxTopupsPerDay()`
-
-UnsetMaxTopupsPerDay ensures that no value is present for MaxTopupsPerDay, not even an explicit nil
 ### GetPaymentMethodRef
 
 `func (o *UpdateAutoTopupRuleRequest) GetPaymentMethodRef() string`
@@ -232,16 +182,6 @@ SetPaymentMethodRef sets PaymentMethodRef field to given value.
 
 HasPaymentMethodRef returns a boolean if a field has been set.
 
-### SetPaymentMethodRefNil
-
-`func (o *UpdateAutoTopupRuleRequest) SetPaymentMethodRefNil(b bool)`
-
- SetPaymentMethodRefNil sets the value for PaymentMethodRef to be an explicit nil
-
-### UnsetPaymentMethodRef
-`func (o *UpdateAutoTopupRuleRequest) UnsetPaymentMethodRef()`
-
-UnsetPaymentMethodRef ensures that no value is present for PaymentMethodRef, not even an explicit nil
 ### GetInvoiceMode
 
 `func (o *UpdateAutoTopupRuleRequest) GetInvoiceMode() string`
@@ -267,16 +207,6 @@ SetInvoiceMode sets InvoiceMode field to given value.
 
 HasInvoiceMode returns a boolean if a field has been set.
 
-### SetInvoiceModeNil
-
-`func (o *UpdateAutoTopupRuleRequest) SetInvoiceModeNil(b bool)`
-
- SetInvoiceModeNil sets the value for InvoiceMode to be an explicit nil
-
-### UnsetInvoiceMode
-`func (o *UpdateAutoTopupRuleRequest) UnsetInvoiceMode()`
-
-UnsetInvoiceMode ensures that no value is present for InvoiceMode, not even an explicit nil
 ### GetEnabled
 
 `func (o *UpdateAutoTopupRuleRequest) GetEnabled() bool`
@@ -302,16 +232,6 @@ SetEnabled sets Enabled field to given value.
 
 HasEnabled returns a boolean if a field has been set.
 
-### SetEnabledNil
-
-`func (o *UpdateAutoTopupRuleRequest) SetEnabledNil(b bool)`
-
- SetEnabledNil sets the value for Enabled to be an explicit nil
-
-### UnsetEnabled
-`func (o *UpdateAutoTopupRuleRequest) UnsetEnabled()`
-
-UnsetEnabled ensures that no value is present for Enabled, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

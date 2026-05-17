@@ -58,6 +58,18 @@ func Test_moolabs_FxRatesAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test FxRatesAPIService ListFxRatesEndpointV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.FxRatesAPI.ListFxRatesEndpointV1(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test FxRatesAPIService ProcessValueRecognitionV1Fx", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

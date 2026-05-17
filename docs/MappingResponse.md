@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **MeterSlug** | **string** |  | 
 **FeatureKey** | **string** |  | 
 **EffectiveFrom** | **string** |  | 
-**EffectiveTo** | Pointer to **NullableString** |  | [optional] 
+**EffectiveTo** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -155,16 +155,6 @@ SetEffectiveTo sets EffectiveTo field to given value.
 
 HasEffectiveTo returns a boolean if a field has been set.
 
-### SetEffectiveToNil
-
-`func (o *MappingResponse) SetEffectiveToNil(b bool)`
-
- SetEffectiveToNil sets the value for EffectiveTo to be an explicit nil
-
-### UnsetEffectiveTo
-`func (o *MappingResponse) UnsetEffectiveTo()`
-
-UnsetEffectiveTo ensures that no value is present for EffectiveTo, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

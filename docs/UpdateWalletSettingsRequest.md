@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ParentWalletId** | Pointer to **NullableString** |  | [optional] 
-**LocalHardCapMicros** | Pointer to **NullableInt32** |  | [optional] 
-**Policy** | Pointer to [**NullableWalletPolicy**](WalletPolicy.md) |  | [optional] 
-**AuditNote** | Pointer to **NullableString** |  | [optional] 
+**ParentWalletId** | Pointer to **string** | Parent wallet ID. Set to null to detach from hierarchy. | [optional] 
+**LocalHardCapMicros** | Pointer to **int32** | Local hard cap (micros). Set to null to remove override. | [optional] 
+**Policy** | Pointer to [**WalletPolicy**](WalletPolicy.md) | Wallet policy (SOFT_BORROW, HARD_BUDGET, NOTIFY_ONLY) | [optional] 
+**AuditNote** | Pointer to **string** | Audit note for this change | [optional] 
 
 ## Methods
 
@@ -53,16 +53,6 @@ SetParentWalletId sets ParentWalletId field to given value.
 
 HasParentWalletId returns a boolean if a field has been set.
 
-### SetParentWalletIdNil
-
-`func (o *UpdateWalletSettingsRequest) SetParentWalletIdNil(b bool)`
-
- SetParentWalletIdNil sets the value for ParentWalletId to be an explicit nil
-
-### UnsetParentWalletId
-`func (o *UpdateWalletSettingsRequest) UnsetParentWalletId()`
-
-UnsetParentWalletId ensures that no value is present for ParentWalletId, not even an explicit nil
 ### GetLocalHardCapMicros
 
 `func (o *UpdateWalletSettingsRequest) GetLocalHardCapMicros() int32`
@@ -88,16 +78,6 @@ SetLocalHardCapMicros sets LocalHardCapMicros field to given value.
 
 HasLocalHardCapMicros returns a boolean if a field has been set.
 
-### SetLocalHardCapMicrosNil
-
-`func (o *UpdateWalletSettingsRequest) SetLocalHardCapMicrosNil(b bool)`
-
- SetLocalHardCapMicrosNil sets the value for LocalHardCapMicros to be an explicit nil
-
-### UnsetLocalHardCapMicros
-`func (o *UpdateWalletSettingsRequest) UnsetLocalHardCapMicros()`
-
-UnsetLocalHardCapMicros ensures that no value is present for LocalHardCapMicros, not even an explicit nil
 ### GetPolicy
 
 `func (o *UpdateWalletSettingsRequest) GetPolicy() WalletPolicy`
@@ -123,16 +103,6 @@ SetPolicy sets Policy field to given value.
 
 HasPolicy returns a boolean if a field has been set.
 
-### SetPolicyNil
-
-`func (o *UpdateWalletSettingsRequest) SetPolicyNil(b bool)`
-
- SetPolicyNil sets the value for Policy to be an explicit nil
-
-### UnsetPolicy
-`func (o *UpdateWalletSettingsRequest) UnsetPolicy()`
-
-UnsetPolicy ensures that no value is present for Policy, not even an explicit nil
 ### GetAuditNote
 
 `func (o *UpdateWalletSettingsRequest) GetAuditNote() string`
@@ -158,16 +128,6 @@ SetAuditNote sets AuditNote field to given value.
 
 HasAuditNote returns a boolean if a field has been set.
 
-### SetAuditNoteNil
-
-`func (o *UpdateWalletSettingsRequest) SetAuditNoteNil(b bool)`
-
- SetAuditNoteNil sets the value for AuditNote to be an explicit nil
-
-### UnsetAuditNote
-`func (o *UpdateWalletSettingsRequest) UnsetAuditNote()`
-
-UnsetAuditNote ensures that no value is present for AuditNote, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

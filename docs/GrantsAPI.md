@@ -113,7 +113,7 @@ func main() {
 	asOf := time.Now() // time.Time | As-of timestamp for time travel (legacy, use effective_as_of instead) (optional)
 	effectiveAsOf := time.Now() // time.Time | Effective as-of timestamp (business time) for time travel (optional)
 	recordedAsOf := time.Now() // time.Time | Recorded as-of timestamp (system time) for time travel (optional)
-	consistentView := true // bool | Use strong consistency for reads (optional)
+	consistentView := true // bool | Use strong consistency for reads (optional) (default to false)
 	limit := int32(56) // int32 | Maximum number of grants to return (optional) (default to 100)
 	offset := int32(56) // int32 | Offset for pagination (optional) (default to 0)
 
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
  **asOf** | **time.Time** | As-of timestamp for time travel (legacy, use effective_as_of instead) | 
  **effectiveAsOf** | **time.Time** | Effective as-of timestamp (business time) for time travel | 
  **recordedAsOf** | **time.Time** | Recorded as-of timestamp (system time) for time travel | 
- **consistentView** | **bool** | Use strong consistency for reads | 
+ **consistentView** | **bool** | Use strong consistency for reads | [default to false]
  **limit** | **int32** | Maximum number of grants to return | [default to 100]
  **offset** | **int32** | Offset for pagination | [default to 0]
 

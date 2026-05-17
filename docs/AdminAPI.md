@@ -5,9 +5,12 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DiagnoseSubscription**](AdminAPI.md#DiagnoseSubscription) | **Get** /v1/admin/diagnostics/subscription/{subscription_id} | Diagnose Subscription
+[**GetIngestDeadLettersV1**](AdminAPI.md#GetIngestDeadLettersV1) | **Get** /v1/admin/ingest/dead-letters | Get Ingest Dead Letters
 [**GetLedgerAuditGet**](AdminAPI.md#GetLedgerAuditGet) | **Get** /v1/admin/ledger/audit | Get Ledger Audit
 [**GetLedgerBalanceGet**](AdminAPI.md#GetLedgerBalanceGet) | **Get** /v1/admin/ledger/balance | Get Ledger Balance
+[**OverrideFirstIngressEndpointV1**](AdminAPI.md#OverrideFirstIngressEndpointV1) | **Post** /v1/admin/usage/first-ingress/override | Override First Ingress Endpoint
 [**ProcessLifecycleEventManuallyV1Admin**](AdminAPI.md#ProcessLifecycleEventManuallyV1Admin) | **Post** /v1/admin/subscriptions/{subscription_id}/process-lifecycle-event | Process Lifecycle Event Manually
+[**ReplayIngestDeadLetterEndpointV1**](AdminAPI.md#ReplayIngestDeadLetterEndpointV1) | **Post** /v1/admin/ingest/dead-letters/{dead_letter_id}/replay | Replay Ingest Dead Letter Endpoint
 [**RetryUnpriced**](AdminAPI.md#RetryUnpriced) | **Post** /v1/admin/usage/unpriced/retry | Retry Unpriced
 [**ReviewQuarantined**](AdminAPI.md#ReviewQuarantined) | **Post** /v1/admin/usage/quarantined/review | Review Quarantined
 [**TriggerSubscriptionSync**](AdminAPI.md#TriggerSubscriptionSync) | **Post** /v1/admin/subscriptions/{subscription_id}/sync | Trigger Subscription Sync
@@ -67,6 +70,80 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **tenantId** | **string** | Tenant identifier | 
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetIngestDeadLettersV1
+
+> interface{} GetIngestDeadLettersV1(ctx).TenantId(tenantId).PoolId(poolId).ReplayStatus(replayStatus).ReasonCode(reasonCode).Limit(limit).Execute()
+
+Get Ingest Dead Letters
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	tenantId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Optional tenant filter (optional)
+	poolId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Optional pool filter (optional)
+	replayStatus := "replayStatus_example" // string | Optional replay status filter: PENDING/REPLAYED/FAILED (optional)
+	reasonCode := "reasonCode_example" // string | Optional reason code filter (optional)
+	limit := int32(56) // int32 | Maximum rows (optional) (default to 100)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AdminAPI.GetIngestDeadLettersV1(context.Background()).TenantId(tenantId).PoolId(poolId).ReplayStatus(replayStatus).ReasonCode(reasonCode).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.GetIngestDeadLettersV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetIngestDeadLettersV1`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AdminAPI.GetIngestDeadLettersV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetIngestDeadLettersV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenantId** | **string** | Optional tenant filter | 
+ **poolId** | **string** | Optional pool filter | 
+ **replayStatus** | **string** | Optional replay status filter: PENDING/REPLAYED/FAILED | 
+ **reasonCode** | **string** | Optional reason code filter | 
+ **limit** | **int32** | Maximum rows | [default to 100]
 
 ### Return type
 
@@ -242,6 +319,73 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## OverrideFirstIngressEndpointV1
+
+> interface{} OverrideFirstIngressEndpointV1(ctx).OverrideFirstIngressRequest(overrideFirstIngressRequest).Execute()
+
+Override First Ingress Endpoint
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+    "time"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	overrideFirstIngressRequest := *openapiclient.NewOverrideFirstIngressRequest("TenantId_example", "UsageEventId_example", time.Now(), "OverrideTicketId_example") // OverrideFirstIngressRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AdminAPI.OverrideFirstIngressEndpointV1(context.Background()).OverrideFirstIngressRequest(overrideFirstIngressRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.OverrideFirstIngressEndpointV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `OverrideFirstIngressEndpointV1`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AdminAPI.OverrideFirstIngressEndpointV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiOverrideFirstIngressEndpointV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **overrideFirstIngressRequest** | [**OverrideFirstIngressRequest**](OverrideFirstIngressRequest.md) |  | 
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ProcessLifecycleEventManuallyV1Admin
 
 > interface{} ProcessLifecycleEventManuallyV1Admin(ctx, subscriptionId).TenantId(tenantId).Execute()
@@ -307,6 +451,78 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ReplayIngestDeadLetterEndpointV1
+
+> interface{} ReplayIngestDeadLetterEndpointV1(ctx, deadLetterId).ReplayDeadLetterRequest(replayDeadLetterRequest).Execute()
+
+Replay Ingest Dead Letter Endpoint
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	deadLetterId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Dead-letter row identifier
+	replayDeadLetterRequest := *openapiclient.NewReplayDeadLetterRequest() // ReplayDeadLetterRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AdminAPI.ReplayIngestDeadLetterEndpointV1(context.Background(), deadLetterId).ReplayDeadLetterRequest(replayDeadLetterRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.ReplayIngestDeadLetterEndpointV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplayIngestDeadLetterEndpointV1`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AdminAPI.ReplayIngestDeadLetterEndpointV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**deadLetterId** | **string** | Dead-letter row identifier | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReplayIngestDeadLetterEndpointV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **replayDeadLetterRequest** | [**ReplayDeadLetterRequest**](ReplayDeadLetterRequest.md) |  | 
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

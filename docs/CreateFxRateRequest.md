@@ -8,8 +8,9 @@ Name | Type | Description | Notes
 **PoolId** | **string** | Pool identifier | 
 **CreditsPerUsdMicros** | **int32** | Credits per USD in micros | 
 **EffectiveAt** | **time.Time** | Effective timestamp for this rate | 
-**RateVersion** | Pointer to **NullableString** |  | [optional] 
+**RateVersion** | Pointer to **string** | Rate version identifier (auto-generated if not provided) | [optional] 
 **UsdMicros** | Pointer to **int32** | USD amount in micros (default 1 USD) | [optional] [default to 1000000]
+**CreatedBy** | Pointer to **string** | Email or identifier of the user creating this rate | [optional] 
 
 ## Methods
 
@@ -135,16 +136,6 @@ SetRateVersion sets RateVersion field to given value.
 
 HasRateVersion returns a boolean if a field has been set.
 
-### SetRateVersionNil
-
-`func (o *CreateFxRateRequest) SetRateVersionNil(b bool)`
-
- SetRateVersionNil sets the value for RateVersion to be an explicit nil
-
-### UnsetRateVersion
-`func (o *CreateFxRateRequest) UnsetRateVersion()`
-
-UnsetRateVersion ensures that no value is present for RateVersion, not even an explicit nil
 ### GetUsdMicros
 
 `func (o *CreateFxRateRequest) GetUsdMicros() int32`
@@ -169,6 +160,31 @@ SetUsdMicros sets UsdMicros field to given value.
 `func (o *CreateFxRateRequest) HasUsdMicros() bool`
 
 HasUsdMicros returns a boolean if a field has been set.
+
+### GetCreatedBy
+
+`func (o *CreateFxRateRequest) GetCreatedBy() string`
+
+GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
+
+### GetCreatedByOk
+
+`func (o *CreateFxRateRequest) GetCreatedByOk() (*string, bool)`
+
+GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedBy
+
+`func (o *CreateFxRateRequest) SetCreatedBy(v string)`
+
+SetCreatedBy sets CreatedBy field to given value.
+
+### HasCreatedBy
+
+`func (o *CreateFxRateRequest) HasCreatedBy() bool`
+
+HasCreatedBy returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

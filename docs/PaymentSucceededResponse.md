@@ -8,14 +8,14 @@ Name | Type | Description | Notes
 **GrantId** | **string** |  | 
 **JournalEntryId** | **string** |  | 
 **AmountMicros** | **int32** |  | 
-**FxRateVersion** | **NullableString** |  | 
-**PaidAmountUsdMicros** | **NullableInt32** |  | 
+**FxRateVersion** | **string** |  | 
+**PaidAmountUsdMicros** | **int32** |  | 
 
 ## Methods
 
 ### NewPaymentSucceededResponse
 
-`func NewPaymentSucceededResponse(paymentId string, grantId string, journalEntryId string, amountMicros int32, fxRateVersion NullableString, paidAmountUsdMicros NullableInt32, ) *PaymentSucceededResponse`
+`func NewPaymentSucceededResponse(paymentId string, grantId string, journalEntryId string, amountMicros int32, fxRateVersion string, paidAmountUsdMicros int32, ) *PaymentSucceededResponse`
 
 NewPaymentSucceededResponse instantiates a new PaymentSucceededResponse object
 This constructor will assign default values to properties that have it defined,
@@ -130,16 +130,6 @@ and a boolean to check if the value has been set.
 SetFxRateVersion sets FxRateVersion field to given value.
 
 
-### SetFxRateVersionNil
-
-`func (o *PaymentSucceededResponse) SetFxRateVersionNil(b bool)`
-
- SetFxRateVersionNil sets the value for FxRateVersion to be an explicit nil
-
-### UnsetFxRateVersion
-`func (o *PaymentSucceededResponse) UnsetFxRateVersion()`
-
-UnsetFxRateVersion ensures that no value is present for FxRateVersion, not even an explicit nil
 ### GetPaidAmountUsdMicros
 
 `func (o *PaymentSucceededResponse) GetPaidAmountUsdMicros() int32`
@@ -160,16 +150,6 @@ and a boolean to check if the value has been set.
 SetPaidAmountUsdMicros sets PaidAmountUsdMicros field to given value.
 
 
-### SetPaidAmountUsdMicrosNil
-
-`func (o *PaymentSucceededResponse) SetPaidAmountUsdMicrosNil(b bool)`
-
- SetPaidAmountUsdMicrosNil sets the value for PaidAmountUsdMicros to be an explicit nil
-
-### UnsetPaidAmountUsdMicros
-`func (o *PaymentSucceededResponse) UnsetPaidAmountUsdMicros()`
-
-UnsetPaidAmountUsdMicros ensures that no value is present for PaidAmountUsdMicros, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

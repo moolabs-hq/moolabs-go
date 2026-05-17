@@ -10,20 +10,20 @@ Name | Type | Description | Notes
 **AmountMicros** | **int32** | Grant amount in micros | 
 **Priority** | Pointer to **int32** | Grant priority (lower numbers &#x3D; higher priority, priority 0 is used before priority 100) | [optional] [default to 100]
 **ValidFrom** | **time.Time** | Grant valid from timestamp | 
-**ExpiresAt** | Pointer to **NullableTime** |  | [optional] 
+**ExpiresAt** | Pointer to **time.Time** | Grant expiration timestamp | [optional] 
 **SourceType** | [**GrantSourceType**](GrantSourceType.md) | Grant source type | 
 **SourceId** | **string** | Source identifier (idempotency key) | 
-**SubscriptionId** | Pointer to **NullableString** |  | [optional] 
+**SubscriptionId** | Pointer to **string** | Subscription identifier | [optional] 
 **ScopeType** | Pointer to [**ScopeType**](ScopeType.md) | Grant scope type | [optional] 
-**ScopeValues** | Pointer to **[]string** |  | [optional] 
+**ScopeValues** | Pointer to **[]string** | Scope values (feature keys or meter slugs) | [optional] 
 **RolloverMode** | Pointer to [**RolloverMode**](RolloverMode.md) | Rollover mode | [optional] 
-**RolloverPercent** | Pointer to **NullableInt32** |  | [optional] 
-**RolloverCapMicros** | Pointer to **NullableInt32** |  | [optional] 
-**RolloverExpiresAfterDays** | Pointer to **NullableInt32** |  | [optional] 
-**RolloverPriorityDelta** | Pointer to **NullableInt32** |  | [optional] 
-**PaidAmountUsdMicros** | Pointer to **NullableInt32** |  | [optional] 
-**LockedFxRateVersion** | Pointer to **NullableString** |  | [optional] 
-**LockedCreditsPerUsdMicros** | Pointer to **NullableInt32** |  | [optional] 
+**RolloverPercent** | Pointer to **int32** | Rollover percentage (0-100) | [optional] 
+**RolloverCapMicros** | Pointer to **int32** | Rollover cap (micros) | [optional] 
+**RolloverExpiresAfterDays** | Pointer to **int32** | Rollover expiration (days) | [optional] 
+**RolloverPriorityDelta** | Pointer to **int32** | Priority delta for rolled-over grants | [optional] 
+**PaidAmountUsdMicros** | Pointer to **int32** | Paid amount in USD micros | [optional] 
+**LockedFxRateVersion** | Pointer to **string** | FX rate version for paid grants (required if paid_amount_usd_micros is set) | [optional] 
+**LockedCreditsPerUsdMicros** | Pointer to **int32** | Locked credits per USD micros (for paid grants) | [optional] 
 
 ## Methods
 
@@ -194,16 +194,6 @@ SetExpiresAt sets ExpiresAt field to given value.
 
 HasExpiresAt returns a boolean if a field has been set.
 
-### SetExpiresAtNil
-
-`func (o *CreateGrantRequest) SetExpiresAtNil(b bool)`
-
- SetExpiresAtNil sets the value for ExpiresAt to be an explicit nil
-
-### UnsetExpiresAt
-`func (o *CreateGrantRequest) UnsetExpiresAt()`
-
-UnsetExpiresAt ensures that no value is present for ExpiresAt, not even an explicit nil
 ### GetSourceType
 
 `func (o *CreateGrantRequest) GetSourceType() GrantSourceType`
@@ -269,16 +259,6 @@ SetSubscriptionId sets SubscriptionId field to given value.
 
 HasSubscriptionId returns a boolean if a field has been set.
 
-### SetSubscriptionIdNil
-
-`func (o *CreateGrantRequest) SetSubscriptionIdNil(b bool)`
-
- SetSubscriptionIdNil sets the value for SubscriptionId to be an explicit nil
-
-### UnsetSubscriptionId
-`func (o *CreateGrantRequest) UnsetSubscriptionId()`
-
-UnsetSubscriptionId ensures that no value is present for SubscriptionId, not even an explicit nil
 ### GetScopeType
 
 `func (o *CreateGrantRequest) GetScopeType() ScopeType`
@@ -329,16 +309,6 @@ SetScopeValues sets ScopeValues field to given value.
 
 HasScopeValues returns a boolean if a field has been set.
 
-### SetScopeValuesNil
-
-`func (o *CreateGrantRequest) SetScopeValuesNil(b bool)`
-
- SetScopeValuesNil sets the value for ScopeValues to be an explicit nil
-
-### UnsetScopeValues
-`func (o *CreateGrantRequest) UnsetScopeValues()`
-
-UnsetScopeValues ensures that no value is present for ScopeValues, not even an explicit nil
 ### GetRolloverMode
 
 `func (o *CreateGrantRequest) GetRolloverMode() RolloverMode`
@@ -389,16 +359,6 @@ SetRolloverPercent sets RolloverPercent field to given value.
 
 HasRolloverPercent returns a boolean if a field has been set.
 
-### SetRolloverPercentNil
-
-`func (o *CreateGrantRequest) SetRolloverPercentNil(b bool)`
-
- SetRolloverPercentNil sets the value for RolloverPercent to be an explicit nil
-
-### UnsetRolloverPercent
-`func (o *CreateGrantRequest) UnsetRolloverPercent()`
-
-UnsetRolloverPercent ensures that no value is present for RolloverPercent, not even an explicit nil
 ### GetRolloverCapMicros
 
 `func (o *CreateGrantRequest) GetRolloverCapMicros() int32`
@@ -424,16 +384,6 @@ SetRolloverCapMicros sets RolloverCapMicros field to given value.
 
 HasRolloverCapMicros returns a boolean if a field has been set.
 
-### SetRolloverCapMicrosNil
-
-`func (o *CreateGrantRequest) SetRolloverCapMicrosNil(b bool)`
-
- SetRolloverCapMicrosNil sets the value for RolloverCapMicros to be an explicit nil
-
-### UnsetRolloverCapMicros
-`func (o *CreateGrantRequest) UnsetRolloverCapMicros()`
-
-UnsetRolloverCapMicros ensures that no value is present for RolloverCapMicros, not even an explicit nil
 ### GetRolloverExpiresAfterDays
 
 `func (o *CreateGrantRequest) GetRolloverExpiresAfterDays() int32`
@@ -459,16 +409,6 @@ SetRolloverExpiresAfterDays sets RolloverExpiresAfterDays field to given value.
 
 HasRolloverExpiresAfterDays returns a boolean if a field has been set.
 
-### SetRolloverExpiresAfterDaysNil
-
-`func (o *CreateGrantRequest) SetRolloverExpiresAfterDaysNil(b bool)`
-
- SetRolloverExpiresAfterDaysNil sets the value for RolloverExpiresAfterDays to be an explicit nil
-
-### UnsetRolloverExpiresAfterDays
-`func (o *CreateGrantRequest) UnsetRolloverExpiresAfterDays()`
-
-UnsetRolloverExpiresAfterDays ensures that no value is present for RolloverExpiresAfterDays, not even an explicit nil
 ### GetRolloverPriorityDelta
 
 `func (o *CreateGrantRequest) GetRolloverPriorityDelta() int32`
@@ -494,16 +434,6 @@ SetRolloverPriorityDelta sets RolloverPriorityDelta field to given value.
 
 HasRolloverPriorityDelta returns a boolean if a field has been set.
 
-### SetRolloverPriorityDeltaNil
-
-`func (o *CreateGrantRequest) SetRolloverPriorityDeltaNil(b bool)`
-
- SetRolloverPriorityDeltaNil sets the value for RolloverPriorityDelta to be an explicit nil
-
-### UnsetRolloverPriorityDelta
-`func (o *CreateGrantRequest) UnsetRolloverPriorityDelta()`
-
-UnsetRolloverPriorityDelta ensures that no value is present for RolloverPriorityDelta, not even an explicit nil
 ### GetPaidAmountUsdMicros
 
 `func (o *CreateGrantRequest) GetPaidAmountUsdMicros() int32`
@@ -529,16 +459,6 @@ SetPaidAmountUsdMicros sets PaidAmountUsdMicros field to given value.
 
 HasPaidAmountUsdMicros returns a boolean if a field has been set.
 
-### SetPaidAmountUsdMicrosNil
-
-`func (o *CreateGrantRequest) SetPaidAmountUsdMicrosNil(b bool)`
-
- SetPaidAmountUsdMicrosNil sets the value for PaidAmountUsdMicros to be an explicit nil
-
-### UnsetPaidAmountUsdMicros
-`func (o *CreateGrantRequest) UnsetPaidAmountUsdMicros()`
-
-UnsetPaidAmountUsdMicros ensures that no value is present for PaidAmountUsdMicros, not even an explicit nil
 ### GetLockedFxRateVersion
 
 `func (o *CreateGrantRequest) GetLockedFxRateVersion() string`
@@ -564,16 +484,6 @@ SetLockedFxRateVersion sets LockedFxRateVersion field to given value.
 
 HasLockedFxRateVersion returns a boolean if a field has been set.
 
-### SetLockedFxRateVersionNil
-
-`func (o *CreateGrantRequest) SetLockedFxRateVersionNil(b bool)`
-
- SetLockedFxRateVersionNil sets the value for LockedFxRateVersion to be an explicit nil
-
-### UnsetLockedFxRateVersion
-`func (o *CreateGrantRequest) UnsetLockedFxRateVersion()`
-
-UnsetLockedFxRateVersion ensures that no value is present for LockedFxRateVersion, not even an explicit nil
 ### GetLockedCreditsPerUsdMicros
 
 `func (o *CreateGrantRequest) GetLockedCreditsPerUsdMicros() int32`
@@ -599,16 +509,6 @@ SetLockedCreditsPerUsdMicros sets LockedCreditsPerUsdMicros field to given value
 
 HasLockedCreditsPerUsdMicros returns a boolean if a field has been set.
 
-### SetLockedCreditsPerUsdMicrosNil
-
-`func (o *CreateGrantRequest) SetLockedCreditsPerUsdMicrosNil(b bool)`
-
- SetLockedCreditsPerUsdMicrosNil sets the value for LockedCreditsPerUsdMicros to be an explicit nil
-
-### UnsetLockedCreditsPerUsdMicros
-`func (o *CreateGrantRequest) UnsetLockedCreditsPerUsdMicros()`
-
-UnsetLockedCreditsPerUsdMicros ensures that no value is present for LockedCreditsPerUsdMicros, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

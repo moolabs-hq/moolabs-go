@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **SubjectId** | **string** | Subject identifier | 
 **UsdAmountMicros** | **int32** | USD amount in micros | 
 **EffectiveAt** | **time.Time** | Effective timestamp | 
-**UsageEventId** | Pointer to **NullableString** |  | [optional] 
+**UsageEventId** | Pointer to **string** | Usage event ID | [optional] 
 
 ## Methods
 
@@ -176,16 +176,6 @@ SetUsageEventId sets UsageEventId field to given value.
 
 HasUsageEventId returns a boolean if a field has been set.
 
-### SetUsageEventIdNil
-
-`func (o *CreateValueRecognitionRequest) SetUsageEventIdNil(b bool)`
-
- SetUsageEventIdNil sets the value for UsageEventId to be an explicit nil
-
-### UnsetUsageEventId
-`func (o *CreateValueRecognitionRequest) UnsetUsageEventId()`
-
-UnsetUsageEventId ensures that no value is present for UsageEventId, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | [**[]GrantResponse**](GrantResponse.md) |  | 
 **Total** | **int32** |  | 
-**TotalRemaining** | Pointer to **NullableFloat32** |  | [optional] 
+**TotalRemaining** | Pointer to **float32** |  | [optional] 
 
 ## Methods
 
@@ -92,16 +92,6 @@ SetTotalRemaining sets TotalRemaining field to given value.
 
 HasTotalRemaining returns a boolean if a field has been set.
 
-### SetTotalRemainingNil
-
-`func (o *GrantsListResponse) SetTotalRemainingNil(b bool)`
-
- SetTotalRemainingNil sets the value for TotalRemaining to be an explicit nil
-
-### UnsetTotalRemaining
-`func (o *GrantsListResponse) UnsetTotalRemaining()`
-
-UnsetTotalRemaining ensures that no value is present for TotalRemaining, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

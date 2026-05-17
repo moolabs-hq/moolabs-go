@@ -12,7 +12,7 @@ Method | HTTP request | Description
 [**GetCustomerStripeAppData**](CustomersAPI.md#GetCustomerStripeAppData) | **Get** /api/v1/customers/{customerIdOrKey}/stripe | Get customer stripe app data
 [**ListCustomerAppData**](CustomersAPI.md#ListCustomerAppData) | **Get** /api/v1/customers/{customerIdOrKey}/apps | List customer app data
 [**ListCustomerSubscriptions**](CustomersAPI.md#ListCustomerSubscriptions) | **Get** /api/v1/customers/{customerIdOrKey}/subscriptions | List customer subscriptions
-[**ListCustomers**](CustomersAPI.md#ListCustomers) | **Get** /api/v1/customers | List customers
+[**ListCustomersGet**](CustomersAPI.md#ListCustomersGet) | **Get** /api/v1/customers | List customers
 [**UpdateCustomer**](CustomersAPI.md#UpdateCustomer) | **Put** /api/v1/customers/{customerIdOrKey} | Update customer
 [**UpsertCustomerAppData**](CustomersAPI.md#UpsertCustomerAppData) | **Put** /api/v1/customers/{customerIdOrKey}/apps | Upsert customer app data
 [**UpsertCustomerStripeAppData**](CustomersAPI.md#UpsertCustomerStripeAppData) | **Put** /api/v1/customers/{customerIdOrKey}/stripe | Upsert customer stripe app data
@@ -594,9 +594,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## ListCustomers
+## ListCustomersGet
 
-> CustomerPaginatedResponse ListCustomers(ctx).Page(page).PageSize(pageSize).Order(order).OrderBy(orderBy).IncludeDeleted(includeDeleted).Key(key).Name(name).PrimaryEmail(primaryEmail).Subject(subject).PlanKey(planKey).Expand(expand).Execute()
+> CustomerPaginatedResponse ListCustomersGet(ctx).Page(page).PageSize(pageSize).Order(order).OrderBy(orderBy).IncludeDeleted(includeDeleted).Key(key).Name(name).PrimaryEmail(primaryEmail).Subject(subject).PlanKey(planKey).Expand(expand).Execute()
 
 List customers
 
@@ -629,13 +629,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomersAPI.ListCustomers(context.Background()).Page(page).PageSize(pageSize).Order(order).OrderBy(orderBy).IncludeDeleted(includeDeleted).Key(key).Name(name).PrimaryEmail(primaryEmail).Subject(subject).PlanKey(planKey).Expand(expand).Execute()
+	resp, r, err := apiClient.CustomersAPI.ListCustomersGet(context.Background()).Page(page).PageSize(pageSize).Order(order).OrderBy(orderBy).IncludeDeleted(includeDeleted).Key(key).Name(name).PrimaryEmail(primaryEmail).Subject(subject).PlanKey(planKey).Expand(expand).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomersAPI.ListCustomers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomersAPI.ListCustomersGet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListCustomers`: CustomerPaginatedResponse
-	fmt.Fprintf(os.Stdout, "Response from `CustomersAPI.ListCustomers`: %v\n", resp)
+	// response from `ListCustomersGet`: CustomerPaginatedResponse
+	fmt.Fprintf(os.Stdout, "Response from `CustomersAPI.ListCustomersGet`: %v\n", resp)
 }
 ```
 
@@ -645,7 +645,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiListCustomersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListCustomersGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

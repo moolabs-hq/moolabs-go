@@ -12,10 +12,10 @@ Name | Type | Description | Notes
 **RemainingMicros** | **int32** |  | 
 **Priority** | **int32** |  | 
 **ValidFrom** | **time.Time** |  | 
-**ExpiresAt** | **NullableTime** |  | 
+**ExpiresAt** | **time.Time** |  | 
 **SourceType** | **string** |  | 
 **SourceId** | **string** |  | 
-**SubscriptionId** | **NullableString** |  | 
+**SubscriptionId** | **string** |  | 
 **ScopeType** | [**ScopeType**](ScopeType.md) |  | 
 **RolloverMode** | [**RolloverMode**](RolloverMode.md) |  | 
 **CreatedAt** | **time.Time** |  | 
@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 
 ### NewGrantResponse
 
-`func NewGrantResponse(id string, tenantId string, poolId string, walletId string, amountMicros int32, remainingMicros int32, priority int32, validFrom time.Time, expiresAt NullableTime, sourceType string, sourceId string, subscriptionId NullableString, scopeType ScopeType, rolloverMode RolloverMode, createdAt time.Time, updatedAt time.Time, ) *GrantResponse`
+`func NewGrantResponse(id string, tenantId string, poolId string, walletId string, amountMicros int32, remainingMicros int32, priority int32, validFrom time.Time, expiresAt time.Time, sourceType string, sourceId string, subscriptionId string, scopeType ScopeType, rolloverMode RolloverMode, createdAt time.Time, updatedAt time.Time, ) *GrantResponse`
 
 NewGrantResponse instantiates a new GrantResponse object
 This constructor will assign default values to properties that have it defined,
@@ -220,16 +220,6 @@ and a boolean to check if the value has been set.
 SetExpiresAt sets ExpiresAt field to given value.
 
 
-### SetExpiresAtNil
-
-`func (o *GrantResponse) SetExpiresAtNil(b bool)`
-
- SetExpiresAtNil sets the value for ExpiresAt to be an explicit nil
-
-### UnsetExpiresAt
-`func (o *GrantResponse) UnsetExpiresAt()`
-
-UnsetExpiresAt ensures that no value is present for ExpiresAt, not even an explicit nil
 ### GetSourceType
 
 `func (o *GrantResponse) GetSourceType() string`
@@ -290,16 +280,6 @@ and a boolean to check if the value has been set.
 SetSubscriptionId sets SubscriptionId field to given value.
 
 
-### SetSubscriptionIdNil
-
-`func (o *GrantResponse) SetSubscriptionIdNil(b bool)`
-
- SetSubscriptionIdNil sets the value for SubscriptionId to be an explicit nil
-
-### UnsetSubscriptionId
-`func (o *GrantResponse) UnsetSubscriptionId()`
-
-UnsetSubscriptionId ensures that no value is present for SubscriptionId, not even an explicit nil
 ### GetScopeType
 
 `func (o *GrantResponse) GetScopeType() ScopeType`

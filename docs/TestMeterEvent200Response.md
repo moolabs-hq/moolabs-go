@@ -5,15 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ExtractedValue** | Pointer to **float32** |  | [optional] 
-**IsNumeric** | **NullableBool** |  | 
+**IsNumeric** | **bool** |  | 
 **GroupByValues** | **map[string]string** |  | 
-**Reason** | Pointer to **NullableString** |  | [optional] 
+**Reason** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewTestMeterEvent200Response
 
-`func NewTestMeterEvent200Response(isNumeric NullableBool, groupByValues map[string]string, ) *TestMeterEvent200Response`
+`func NewTestMeterEvent200Response(isNumeric bool, groupByValues map[string]string, ) *TestMeterEvent200Response`
 
 NewTestMeterEvent200Response instantiates a new TestMeterEvent200Response object
 This constructor will assign default values to properties that have it defined,
@@ -73,16 +73,6 @@ and a boolean to check if the value has been set.
 SetIsNumeric sets IsNumeric field to given value.
 
 
-### SetIsNumericNil
-
-`func (o *TestMeterEvent200Response) SetIsNumericNil(b bool)`
-
- SetIsNumericNil sets the value for IsNumeric to be an explicit nil
-
-### UnsetIsNumeric
-`func (o *TestMeterEvent200Response) UnsetIsNumeric()`
-
-UnsetIsNumeric ensures that no value is present for IsNumeric, not even an explicit nil
 ### GetGroupByValues
 
 `func (o *TestMeterEvent200Response) GetGroupByValues() map[string]string`
@@ -128,16 +118,6 @@ SetReason sets Reason field to given value.
 
 HasReason returns a boolean if a field has been set.
 
-### SetReasonNil
-
-`func (o *TestMeterEvent200Response) SetReasonNil(b bool)`
-
- SetReasonNil sets the value for Reason to be an explicit nil
-
-### UnsetReason
-`func (o *TestMeterEvent200Response) UnsetReason()`
-
-UnsetReason ensures that no value is present for Reason, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

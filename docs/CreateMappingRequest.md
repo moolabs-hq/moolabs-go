@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **MeterSlug** | **string** | Meter slug from OpenMeter | 
 **FeatureKey** | **string** | Feature key to map to | 
-**EffectiveAt** | Pointer to **NullableString** |  | [optional] 
+**EffectiveAt** | Pointer to **string** | When this mapping takes effect (ISO 8601, defaults to now) | [optional] 
 
 ## Methods
 
@@ -92,16 +92,6 @@ SetEffectiveAt sets EffectiveAt field to given value.
 
 HasEffectiveAt returns a boolean if a field has been set.
 
-### SetEffectiveAtNil
-
-`func (o *CreateMappingRequest) SetEffectiveAtNil(b bool)`
-
- SetEffectiveAtNil sets the value for EffectiveAt to be an explicit nil
-
-### UnsetEffectiveAt
-`func (o *CreateMappingRequest) UnsetEffectiveAt()`
-
-UnsetEffectiveAt ensures that no value is present for EffectiveAt, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

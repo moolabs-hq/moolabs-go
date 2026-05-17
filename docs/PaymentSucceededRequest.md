@@ -9,9 +9,9 @@ Name | Type | Description | Notes
 **WalletId** | **string** | Wallet identifier | 
 **PaymentId** | **string** | Payment identifier (idempotency key) | 
 **AmountMicros** | **int32** | Amount in micros | 
-**FxRateVersion** | Pointer to **NullableString** |  | [optional] 
-**CreditsPerUsdMicros** | Pointer to **NullableInt32** |  | [optional] 
-**EffectiveAt** | Pointer to **NullableTime** |  | [optional] 
+**FxRateVersion** | Pointer to **string** | FX rate version | [optional] 
+**CreditsPerUsdMicros** | Pointer to **int32** | Credits per USD micros | [optional] 
+**EffectiveAt** | Pointer to **time.Time** | Effective timestamp | [optional] 
 
 ## Methods
 
@@ -157,16 +157,6 @@ SetFxRateVersion sets FxRateVersion field to given value.
 
 HasFxRateVersion returns a boolean if a field has been set.
 
-### SetFxRateVersionNil
-
-`func (o *PaymentSucceededRequest) SetFxRateVersionNil(b bool)`
-
- SetFxRateVersionNil sets the value for FxRateVersion to be an explicit nil
-
-### UnsetFxRateVersion
-`func (o *PaymentSucceededRequest) UnsetFxRateVersion()`
-
-UnsetFxRateVersion ensures that no value is present for FxRateVersion, not even an explicit nil
 ### GetCreditsPerUsdMicros
 
 `func (o *PaymentSucceededRequest) GetCreditsPerUsdMicros() int32`
@@ -192,16 +182,6 @@ SetCreditsPerUsdMicros sets CreditsPerUsdMicros field to given value.
 
 HasCreditsPerUsdMicros returns a boolean if a field has been set.
 
-### SetCreditsPerUsdMicrosNil
-
-`func (o *PaymentSucceededRequest) SetCreditsPerUsdMicrosNil(b bool)`
-
- SetCreditsPerUsdMicrosNil sets the value for CreditsPerUsdMicros to be an explicit nil
-
-### UnsetCreditsPerUsdMicros
-`func (o *PaymentSucceededRequest) UnsetCreditsPerUsdMicros()`
-
-UnsetCreditsPerUsdMicros ensures that no value is present for CreditsPerUsdMicros, not even an explicit nil
 ### GetEffectiveAt
 
 `func (o *PaymentSucceededRequest) GetEffectiveAt() time.Time`
@@ -227,16 +207,6 @@ SetEffectiveAt sets EffectiveAt field to given value.
 
 HasEffectiveAt returns a boolean if a field has been set.
 
-### SetEffectiveAtNil
-
-`func (o *PaymentSucceededRequest) SetEffectiveAtNil(b bool)`
-
- SetEffectiveAtNil sets the value for EffectiveAt to be an explicit nil
-
-### UnsetEffectiveAt
-`func (o *PaymentSucceededRequest) UnsetEffectiveAt()`
-
-UnsetEffectiveAt ensures that no value is present for EffectiveAt, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

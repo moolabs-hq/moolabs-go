@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**CreateFxRateEndpointV1**](FxRatesAPI.md#CreateFxRateEndpointV1) | **Post** /v1/fx-rates/rates | Create Fx Rate Endpoint
 [**CreateValueRecognitionEntryEndpointV1Fx**](FxRatesAPI.md#CreateValueRecognitionEntryEndpointV1Fx) | **Post** /v1/fx-rates/value-recognition/entry | Create Value Recognition Entry Endpoint
 [**GetFxRateAtEndpointV1**](FxRatesAPI.md#GetFxRateAtEndpointV1) | **Post** /v1/fx-rates/rates/at | Get Fx Rate At Endpoint
+[**ListFxRatesEndpointV1**](FxRatesAPI.md#ListFxRatesEndpointV1) | **Get** /v1/fx-rates/rates | List Fx Rates Endpoint
 [**ProcessValueRecognitionV1Fx**](FxRatesAPI.md#ProcessValueRecognitionV1Fx) | **Post** /v1/fx-rates/value-recognition/process | Process Value Recognition
 
 
@@ -205,6 +206,76 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListFxRatesEndpointV1
+
+> []FxRateResponse ListFxRatesEndpointV1(ctx).TenantId(tenantId).PoolId(poolId).Limit(limit).Execute()
+
+List Fx Rates Endpoint
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	tenantId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Tenant identifier
+	poolId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Pool identifier
+	limit := int32(56) // int32 | Maximum number of rate versions to return (optional) (default to 50)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FxRatesAPI.ListFxRatesEndpointV1(context.Background()).TenantId(tenantId).PoolId(poolId).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FxRatesAPI.ListFxRatesEndpointV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListFxRatesEndpointV1`: []FxRateResponse
+	fmt.Fprintf(os.Stdout, "Response from `FxRatesAPI.ListFxRatesEndpointV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListFxRatesEndpointV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenantId** | **string** | Tenant identifier | 
+ **poolId** | **string** | Pool identifier | 
+ **limit** | **int32** | Maximum number of rate versions to return | [default to 50]
+
+### Return type
+
+[**[]FxRateResponse**](FxRateResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

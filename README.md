@@ -158,6 +158,34 @@ _, _, err = client.Cls.Grants.CreateGrant(ctx).
     Execute()
 ```
 
+## Lifecycle — always `defer client.Close()`
+
+The SDK starts background goroutines when buffering is enabled (the
+default). `Close()` stops them and drains any in-flight events. **You
+MUST call `Close()` before your program exits**, otherwise:
+
+- pending buffered events may be lost
+- the producer-channel goroutine + the buffer-worker goroutine continue
+  running for the rest of the process lifetime (goroutine leak)
+- a graceful-shutdown signal handler can hang because the buffer is
+  still waiting on its shutdown-flush window
+
+```go
+client, err := moolabs.NewMoolabs(moolabs.Config{APIKey: os.Getenv("MOOLABS_API_KEY")})
+if err != nil {
+    log.Fatal(err)
+}
+defer client.Close()
+```
+
+`Close()` blocks up to `ShutdownFlushTimeout` (60s by default) waiting
+for the buffer to drain. The producer-channel goroutine is stopped after
+the buffer finishes — it drains any remaining channel-side events to the
+buffer before exiting.
+
+`Close()` is idempotent and safe to call multiple times. Calling it
+without ever having submitted an event is a no-op.
+
 ## Error handling
 
 The Go SDK returns errors via the standard `error` interface. Use `errors.As` to inspect typed errors from the underlying HTTP response:

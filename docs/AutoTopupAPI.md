@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**GetRuleV1**](AutoTopupAPI.md#GetRuleV1) | **Get** /v1/auto-topup/rules/{rule_id} | Get Rule
 [**ListRulesV1**](AutoTopupAPI.md#ListRulesV1) | **Get** /v1/auto-topup/rules | List Rules
 [**PatchRuleV1**](AutoTopupAPI.md#PatchRuleV1) | **Patch** /v1/auto-topup/rules/{rule_id} | Patch Rule
+[**PaymentFailedV1**](AutoTopupAPI.md#PaymentFailedV1) | **Post** /v1/auto-topup/payments/failed | Payment Failed
 [**PaymentSucceededV1**](AutoTopupAPI.md#PaymentSucceededV1) | **Post** /v1/auto-topup/payments/succeeded | Payment Succeeded
 [**UpdateRuleV1**](AutoTopupAPI.md#UpdateRuleV1) | **Put** /v1/auto-topup/rules/{rule_id} | Update Rule
 
@@ -18,7 +19,7 @@ Method | HTTP request | Description
 
 ## CheckTriggerV1
 
-> TriggerResponse CheckTriggerV1(ctx, ruleId).CheckTriggerRequest(checkTriggerRequest).Execute()
+> AppApiV1AutoTopupRouterTriggerResponse CheckTriggerV1(ctx, ruleId).CheckTriggerRequest(checkTriggerRequest).Execute()
 
 Check Trigger
 
@@ -47,7 +48,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AutoTopupAPI.CheckTriggerV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CheckTriggerV1`: TriggerResponse
+	// response from `CheckTriggerV1`: AppApiV1AutoTopupRouterTriggerResponse
 	fmt.Fprintf(os.Stdout, "Response from `AutoTopupAPI.CheckTriggerV1`: %v\n", resp)
 }
 ```
@@ -72,7 +73,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TriggerResponse**](TriggerResponse.md)
+[**AppApiV1AutoTopupRouterTriggerResponse**](AppApiV1AutoTopupRouterTriggerResponse.md)
 
 ### Authorization
 
@@ -511,6 +512,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AutoTopupRuleResponse**](AutoTopupRuleResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PaymentFailedV1
+
+> PaymentFailedResponse PaymentFailedV1(ctx).PaymentFailedRequest(paymentFailedRequest).Execute()
+
+Payment Failed
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	paymentFailedRequest := *openapiclient.NewPaymentFailedRequest("TenantId_example", "PoolId_example", "WalletId_example", "PaymentId_example", "FailureReason_example") // PaymentFailedRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AutoTopupAPI.PaymentFailedV1(context.Background()).PaymentFailedRequest(paymentFailedRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoTopupAPI.PaymentFailedV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PaymentFailedV1`: PaymentFailedResponse
+	fmt.Fprintf(os.Stdout, "Response from `AutoTopupAPI.PaymentFailedV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPaymentFailedV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **paymentFailedRequest** | [**PaymentFailedRequest**](PaymentFailedRequest.md) |  | 
+
+### Return type
+
+[**PaymentFailedResponse**](PaymentFailedResponse.md)
 
 ### Authorization
 

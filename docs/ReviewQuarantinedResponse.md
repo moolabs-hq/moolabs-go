@@ -8,13 +8,13 @@ Name | Type | Description | Notes
 **RatingStatus** | **string** |  | 
 **Action** | **string** |  | 
 **ReviewedAt** | **string** |  | 
-**Notes** | **NullableString** |  | 
+**Notes** | **string** |  | 
 
 ## Methods
 
 ### NewReviewQuarantinedResponse
 
-`func NewReviewQuarantinedResponse(usageEventId string, ratingStatus string, action string, reviewedAt string, notes NullableString, ) *ReviewQuarantinedResponse`
+`func NewReviewQuarantinedResponse(usageEventId string, ratingStatus string, action string, reviewedAt string, notes string, ) *ReviewQuarantinedResponse`
 
 NewReviewQuarantinedResponse instantiates a new ReviewQuarantinedResponse object
 This constructor will assign default values to properties that have it defined,
@@ -129,16 +129,6 @@ and a boolean to check if the value has been set.
 SetNotes sets Notes field to given value.
 
 
-### SetNotesNil
-
-`func (o *ReviewQuarantinedResponse) SetNotesNil(b bool)`
-
- SetNotesNil sets the value for Notes to be an explicit nil
-
-### UnsetNotes
-`func (o *ReviewQuarantinedResponse) UnsetNotes()`
-
-UnsetNotes ensures that no value is present for Notes, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -7,13 +7,13 @@ Name | Type | Description | Notes
 **TenantId** | **string** | Tenant identifier | 
 **SubjectId** | **string** | Subject identifier | 
 **PoolId** | **string** | Credit pool identifier | 
-**WalletId** | Pointer to **NullableString** |  | [optional] 
-**SubscriptionId** | Pointer to **NullableString** |  | [optional] 
+**WalletId** | Pointer to **string** | Wallet identifier (optional, will be resolved) | [optional] 
+**SubscriptionId** | Pointer to **string** | Subscription identifier | [optional] 
 **FeatureKey** | **string** | Feature key | 
-**MeterSlug** | Pointer to **NullableString** |  | [optional] 
+**MeterSlug** | Pointer to **string** | Meter slug | [optional] 
 **UsageEventId** | **string** | Usage event ID (idempotency key) | 
-**RequestId** | Pointer to **NullableString** |  | [optional] 
-**JobId** | Pointer to **NullableString** |  | [optional] 
+**RequestId** | Pointer to **string** | Request identifier | [optional] 
+**JobId** | Pointer to **string** | Job identifier | [optional] 
 **EffectiveAt** | **time.Time** | Effective timestamp | 
 **UsageVector** | **map[string]interface{}** | Usage vector (JSON object) | 
 
@@ -121,16 +121,6 @@ SetWalletId sets WalletId field to given value.
 
 HasWalletId returns a boolean if a field has been set.
 
-### SetWalletIdNil
-
-`func (o *RecordUsageRequest) SetWalletIdNil(b bool)`
-
- SetWalletIdNil sets the value for WalletId to be an explicit nil
-
-### UnsetWalletId
-`func (o *RecordUsageRequest) UnsetWalletId()`
-
-UnsetWalletId ensures that no value is present for WalletId, not even an explicit nil
 ### GetSubscriptionId
 
 `func (o *RecordUsageRequest) GetSubscriptionId() string`
@@ -156,16 +146,6 @@ SetSubscriptionId sets SubscriptionId field to given value.
 
 HasSubscriptionId returns a boolean if a field has been set.
 
-### SetSubscriptionIdNil
-
-`func (o *RecordUsageRequest) SetSubscriptionIdNil(b bool)`
-
- SetSubscriptionIdNil sets the value for SubscriptionId to be an explicit nil
-
-### UnsetSubscriptionId
-`func (o *RecordUsageRequest) UnsetSubscriptionId()`
-
-UnsetSubscriptionId ensures that no value is present for SubscriptionId, not even an explicit nil
 ### GetFeatureKey
 
 `func (o *RecordUsageRequest) GetFeatureKey() string`
@@ -211,16 +191,6 @@ SetMeterSlug sets MeterSlug field to given value.
 
 HasMeterSlug returns a boolean if a field has been set.
 
-### SetMeterSlugNil
-
-`func (o *RecordUsageRequest) SetMeterSlugNil(b bool)`
-
- SetMeterSlugNil sets the value for MeterSlug to be an explicit nil
-
-### UnsetMeterSlug
-`func (o *RecordUsageRequest) UnsetMeterSlug()`
-
-UnsetMeterSlug ensures that no value is present for MeterSlug, not even an explicit nil
 ### GetUsageEventId
 
 `func (o *RecordUsageRequest) GetUsageEventId() string`
@@ -266,16 +236,6 @@ SetRequestId sets RequestId field to given value.
 
 HasRequestId returns a boolean if a field has been set.
 
-### SetRequestIdNil
-
-`func (o *RecordUsageRequest) SetRequestIdNil(b bool)`
-
- SetRequestIdNil sets the value for RequestId to be an explicit nil
-
-### UnsetRequestId
-`func (o *RecordUsageRequest) UnsetRequestId()`
-
-UnsetRequestId ensures that no value is present for RequestId, not even an explicit nil
 ### GetJobId
 
 `func (o *RecordUsageRequest) GetJobId() string`
@@ -301,16 +261,6 @@ SetJobId sets JobId field to given value.
 
 HasJobId returns a boolean if a field has been set.
 
-### SetJobIdNil
-
-`func (o *RecordUsageRequest) SetJobIdNil(b bool)`
-
- SetJobIdNil sets the value for JobId to be an explicit nil
-
-### UnsetJobId
-`func (o *RecordUsageRequest) UnsetJobId()`
-
-UnsetJobId ensures that no value is present for JobId, not even an explicit nil
 ### GetEffectiveAt
 
 `func (o *RecordUsageRequest) GetEffectiveAt() time.Time`

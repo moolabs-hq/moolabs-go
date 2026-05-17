@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **TenantId** | **string** | Tenant identifier | 
 **SubscriptionId** | **string** | Subscription identifier | 
-**PeriodEnd** | Pointer to **NullableTime** |  | [optional] 
+**PeriodEnd** | Pointer to **time.Time** | Period end timestamp (defaults to now) | [optional] 
 **GraceWindowSeconds** | Pointer to **int32** | Grace window in seconds | [optional] [default to 3600]
 
 ## Methods
@@ -93,16 +93,6 @@ SetPeriodEnd sets PeriodEnd field to given value.
 
 HasPeriodEnd returns a boolean if a field has been set.
 
-### SetPeriodEndNil
-
-`func (o *RolloverRequest) SetPeriodEndNil(b bool)`
-
- SetPeriodEndNil sets the value for PeriodEnd to be an explicit nil
-
-### UnsetPeriodEnd
-`func (o *RolloverRequest) UnsetPeriodEnd()`
-
-UnsetPeriodEnd ensures that no value is present for PeriodEnd, not even an explicit nil
 ### GetGraceWindowSeconds
 
 `func (o *RolloverRequest) GetGraceWindowSeconds() int32`

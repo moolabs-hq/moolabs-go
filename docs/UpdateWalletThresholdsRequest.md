@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LocalSoftThresholdMicros** | Pointer to **NullableInt32** |  | [optional] 
-**LocalHardCapMicros** | Pointer to **NullableInt32** |  | [optional] 
-**AuditNote** | Pointer to **NullableString** |  | [optional] 
+**LocalSoftThresholdMicros** | Pointer to **int32** | Local soft threshold (micros). Set to null to remove override. | [optional] 
+**LocalHardCapMicros** | Pointer to **int32** | Local hard cap (micros). Set to null to remove override. | [optional] 
+**AuditNote** | Pointer to **string** | Audit note for this change | [optional] 
 
 ## Methods
 
@@ -52,16 +52,6 @@ SetLocalSoftThresholdMicros sets LocalSoftThresholdMicros field to given value.
 
 HasLocalSoftThresholdMicros returns a boolean if a field has been set.
 
-### SetLocalSoftThresholdMicrosNil
-
-`func (o *UpdateWalletThresholdsRequest) SetLocalSoftThresholdMicrosNil(b bool)`
-
- SetLocalSoftThresholdMicrosNil sets the value for LocalSoftThresholdMicros to be an explicit nil
-
-### UnsetLocalSoftThresholdMicros
-`func (o *UpdateWalletThresholdsRequest) UnsetLocalSoftThresholdMicros()`
-
-UnsetLocalSoftThresholdMicros ensures that no value is present for LocalSoftThresholdMicros, not even an explicit nil
 ### GetLocalHardCapMicros
 
 `func (o *UpdateWalletThresholdsRequest) GetLocalHardCapMicros() int32`
@@ -87,16 +77,6 @@ SetLocalHardCapMicros sets LocalHardCapMicros field to given value.
 
 HasLocalHardCapMicros returns a boolean if a field has been set.
 
-### SetLocalHardCapMicrosNil
-
-`func (o *UpdateWalletThresholdsRequest) SetLocalHardCapMicrosNil(b bool)`
-
- SetLocalHardCapMicrosNil sets the value for LocalHardCapMicros to be an explicit nil
-
-### UnsetLocalHardCapMicros
-`func (o *UpdateWalletThresholdsRequest) UnsetLocalHardCapMicros()`
-
-UnsetLocalHardCapMicros ensures that no value is present for LocalHardCapMicros, not even an explicit nil
 ### GetAuditNote
 
 `func (o *UpdateWalletThresholdsRequest) GetAuditNote() string`
@@ -122,16 +102,6 @@ SetAuditNote sets AuditNote field to given value.
 
 HasAuditNote returns a boolean if a field has been set.
 
-### SetAuditNoteNil
-
-`func (o *UpdateWalletThresholdsRequest) SetAuditNoteNil(b bool)`
-
- SetAuditNoteNil sets the value for AuditNote to be an explicit nil
-
-### UnsetAuditNote
-`func (o *UpdateWalletThresholdsRequest) UnsetAuditNote()`
-
-UnsetAuditNote ensures that no value is present for AuditNote, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

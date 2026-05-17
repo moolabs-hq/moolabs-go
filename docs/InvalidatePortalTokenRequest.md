@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Token** | Pointer to **NullableString** |  | [optional] 
-**Subject** | Pointer to **NullableString** |  | [optional] 
+**Token** | Pointer to **string** | Plaintext token to revoke | [optional] 
+**Subject** | Pointer to **string** | Revoke all tokens for subject | [optional] 
 
 ## Methods
 
@@ -51,16 +51,6 @@ SetToken sets Token field to given value.
 
 HasToken returns a boolean if a field has been set.
 
-### SetTokenNil
-
-`func (o *InvalidatePortalTokenRequest) SetTokenNil(b bool)`
-
- SetTokenNil sets the value for Token to be an explicit nil
-
-### UnsetToken
-`func (o *InvalidatePortalTokenRequest) UnsetToken()`
-
-UnsetToken ensures that no value is present for Token, not even an explicit nil
 ### GetSubject
 
 `func (o *InvalidatePortalTokenRequest) GetSubject() string`
@@ -86,16 +76,6 @@ SetSubject sets Subject field to given value.
 
 HasSubject returns a boolean if a field has been set.
 
-### SetSubjectNil
-
-`func (o *InvalidatePortalTokenRequest) SetSubjectNil(b bool)`
-
- SetSubjectNil sets the value for Subject to be an explicit nil
-
-### UnsetSubject
-`func (o *InvalidatePortalTokenRequest) UnsetSubject()`
-
-UnsetSubject ensures that no value is present for Subject, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

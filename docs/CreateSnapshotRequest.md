@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **PoolId** | **string** | Pool identifier | 
 **WalletId** | **string** | Wallet identifier | 
 **AsOfEffectiveAt** | **time.Time** | Effective timestamp for balance calculation | 
-**AsOfRecordedAt** | Pointer to **NullableTime** |  | [optional] 
+**AsOfRecordedAt** | Pointer to **time.Time** | Recorded timestamp (cut time) - defaults to now | [optional] 
 **IsolationLevel** | Pointer to **string** | Transaction isolation level | [optional] [default to "REPEATABLE READ"]
 
 ## Methods
@@ -135,16 +135,6 @@ SetAsOfRecordedAt sets AsOfRecordedAt field to given value.
 
 HasAsOfRecordedAt returns a boolean if a field has been set.
 
-### SetAsOfRecordedAtNil
-
-`func (o *CreateSnapshotRequest) SetAsOfRecordedAtNil(b bool)`
-
- SetAsOfRecordedAtNil sets the value for AsOfRecordedAt to be an explicit nil
-
-### UnsetAsOfRecordedAt
-`func (o *CreateSnapshotRequest) UnsetAsOfRecordedAt()`
-
-UnsetAsOfRecordedAt ensures that no value is present for AsOfRecordedAt, not even an explicit nil
 ### GetIsolationLevel
 
 `func (o *CreateSnapshotRequest) GetIsolationLevel() string`

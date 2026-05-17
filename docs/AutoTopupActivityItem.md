@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
-**RuleId** | Pointer to **NullableString** |  | [optional] 
+**RuleId** | Pointer to **string** |  | [optional] 
 **WalletId** | **string** |  | 
 **TriggeredAt** | **time.Time** |  | 
-**TriggeredBalanceMicros** | Pointer to **NullableInt32** |  | [optional] 
+**TriggeredBalanceMicros** | Pointer to **int32** |  | [optional] 
 **TopupAmountMicros** | **int32** |  | 
 **Status** | **string** |  | 
-**ReferenceId** | Pointer to **NullableString** |  | [optional] 
-**ErrorMessage** | Pointer to **NullableString** |  | [optional] 
+**ReferenceId** | Pointer to **string** |  | [optional] 
+**ErrorMessage** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -78,16 +78,6 @@ SetRuleId sets RuleId field to given value.
 
 HasRuleId returns a boolean if a field has been set.
 
-### SetRuleIdNil
-
-`func (o *AutoTopupActivityItem) SetRuleIdNil(b bool)`
-
- SetRuleIdNil sets the value for RuleId to be an explicit nil
-
-### UnsetRuleId
-`func (o *AutoTopupActivityItem) UnsetRuleId()`
-
-UnsetRuleId ensures that no value is present for RuleId, not even an explicit nil
 ### GetWalletId
 
 `func (o *AutoTopupActivityItem) GetWalletId() string`
@@ -153,16 +143,6 @@ SetTriggeredBalanceMicros sets TriggeredBalanceMicros field to given value.
 
 HasTriggeredBalanceMicros returns a boolean if a field has been set.
 
-### SetTriggeredBalanceMicrosNil
-
-`func (o *AutoTopupActivityItem) SetTriggeredBalanceMicrosNil(b bool)`
-
- SetTriggeredBalanceMicrosNil sets the value for TriggeredBalanceMicros to be an explicit nil
-
-### UnsetTriggeredBalanceMicros
-`func (o *AutoTopupActivityItem) UnsetTriggeredBalanceMicros()`
-
-UnsetTriggeredBalanceMicros ensures that no value is present for TriggeredBalanceMicros, not even an explicit nil
 ### GetTopupAmountMicros
 
 `func (o *AutoTopupActivityItem) GetTopupAmountMicros() int32`
@@ -228,16 +208,6 @@ SetReferenceId sets ReferenceId field to given value.
 
 HasReferenceId returns a boolean if a field has been set.
 
-### SetReferenceIdNil
-
-`func (o *AutoTopupActivityItem) SetReferenceIdNil(b bool)`
-
- SetReferenceIdNil sets the value for ReferenceId to be an explicit nil
-
-### UnsetReferenceId
-`func (o *AutoTopupActivityItem) UnsetReferenceId()`
-
-UnsetReferenceId ensures that no value is present for ReferenceId, not even an explicit nil
 ### GetErrorMessage
 
 `func (o *AutoTopupActivityItem) GetErrorMessage() string`
@@ -263,16 +233,6 @@ SetErrorMessage sets ErrorMessage field to given value.
 
 HasErrorMessage returns a boolean if a field has been set.
 
-### SetErrorMessageNil
-
-`func (o *AutoTopupActivityItem) SetErrorMessageNil(b bool)`
-
- SetErrorMessageNil sets the value for ErrorMessage to be an explicit nil
-
-### UnsetErrorMessage
-`func (o *AutoTopupActivityItem) UnsetErrorMessage()`
-
-UnsetErrorMessage ensures that no value is present for ErrorMessage, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

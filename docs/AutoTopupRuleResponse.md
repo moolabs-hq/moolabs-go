@@ -13,17 +13,17 @@ Name | Type | Description | Notes
 **TopupAmountMicros** | **int32** |  | 
 **TopupCooldownSeconds** | **int32** |  | 
 **MaxTopupsPerDay** | **int32** |  | 
-**PaymentMethodRef** | **NullableString** |  | 
+**PaymentMethodRef** | **string** |  | 
 **InvoiceMode** | **string** |  | 
-**Enabled** | Pointer to **NullableBool** |  | [optional] 
-**LastTriggeredAt** | Pointer to **NullableTime** |  | [optional] 
-**CreatedAt** | Pointer to **NullableTime** |  | [optional] 
+**Enabled** | Pointer to **bool** |  | [optional] [default to true]
+**LastTriggeredAt** | Pointer to **time.Time** |  | [optional] 
+**CreatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
 ### NewAutoTopupRuleResponse
 
-`func NewAutoTopupRuleResponse(id string, tenantId string, poolId string, walletId string, triggerType string, triggerValue string, topupAmountMicros int32, topupCooldownSeconds int32, maxTopupsPerDay int32, paymentMethodRef NullableString, invoiceMode string, ) *AutoTopupRuleResponse`
+`func NewAutoTopupRuleResponse(id string, tenantId string, poolId string, walletId string, triggerType string, triggerValue string, topupAmountMicros int32, topupCooldownSeconds int32, maxTopupsPerDay int32, paymentMethodRef string, invoiceMode string, ) *AutoTopupRuleResponse`
 
 NewAutoTopupRuleResponse instantiates a new AutoTopupRuleResponse object
 This constructor will assign default values to properties that have it defined,
@@ -238,16 +238,6 @@ and a boolean to check if the value has been set.
 SetPaymentMethodRef sets PaymentMethodRef field to given value.
 
 
-### SetPaymentMethodRefNil
-
-`func (o *AutoTopupRuleResponse) SetPaymentMethodRefNil(b bool)`
-
- SetPaymentMethodRefNil sets the value for PaymentMethodRef to be an explicit nil
-
-### UnsetPaymentMethodRef
-`func (o *AutoTopupRuleResponse) UnsetPaymentMethodRef()`
-
-UnsetPaymentMethodRef ensures that no value is present for PaymentMethodRef, not even an explicit nil
 ### GetInvoiceMode
 
 `func (o *AutoTopupRuleResponse) GetInvoiceMode() string`
@@ -293,16 +283,6 @@ SetEnabled sets Enabled field to given value.
 
 HasEnabled returns a boolean if a field has been set.
 
-### SetEnabledNil
-
-`func (o *AutoTopupRuleResponse) SetEnabledNil(b bool)`
-
- SetEnabledNil sets the value for Enabled to be an explicit nil
-
-### UnsetEnabled
-`func (o *AutoTopupRuleResponse) UnsetEnabled()`
-
-UnsetEnabled ensures that no value is present for Enabled, not even an explicit nil
 ### GetLastTriggeredAt
 
 `func (o *AutoTopupRuleResponse) GetLastTriggeredAt() time.Time`
@@ -328,16 +308,6 @@ SetLastTriggeredAt sets LastTriggeredAt field to given value.
 
 HasLastTriggeredAt returns a boolean if a field has been set.
 
-### SetLastTriggeredAtNil
-
-`func (o *AutoTopupRuleResponse) SetLastTriggeredAtNil(b bool)`
-
- SetLastTriggeredAtNil sets the value for LastTriggeredAt to be an explicit nil
-
-### UnsetLastTriggeredAt
-`func (o *AutoTopupRuleResponse) UnsetLastTriggeredAt()`
-
-UnsetLastTriggeredAt ensures that no value is present for LastTriggeredAt, not even an explicit nil
 ### GetCreatedAt
 
 `func (o *AutoTopupRuleResponse) GetCreatedAt() time.Time`
@@ -363,16 +333,6 @@ SetCreatedAt sets CreatedAt field to given value.
 
 HasCreatedAt returns a boolean if a field has been set.
 
-### SetCreatedAtNil
-
-`func (o *AutoTopupRuleResponse) SetCreatedAtNil(b bool)`
-
- SetCreatedAtNil sets the value for CreatedAt to be an explicit nil
-
-### UnsetCreatedAt
-`func (o *AutoTopupRuleResponse) UnsetCreatedAt()`
-
-UnsetCreatedAt ensures that no value is present for CreatedAt, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AsOf** | Pointer to **NullableTime** |  | [optional] 
+**AsOf** | Pointer to **time.Time** | As-of timestamp (defaults to now) | [optional] 
 
 ## Methods
 
@@ -50,16 +50,6 @@ SetAsOf sets AsOf field to given value.
 
 HasAsOf returns a boolean if a field has been set.
 
-### SetAsOfNil
-
-`func (o *CheckTriggerRequest) SetAsOfNil(b bool)`
-
- SetAsOfNil sets the value for AsOf to be an explicit nil
-
-### UnsetAsOf
-`func (o *CheckTriggerRequest) UnsetAsOf()`
-
-UnsetAsOf ensures that no value is present for AsOf, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

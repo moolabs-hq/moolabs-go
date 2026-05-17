@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **TenantId** | **string** | Tenant identifier | 
-**PlanId** | Pointer to **NullableString** |  | [optional] 
+**PlanId** | Pointer to **string** | Plan ID for plan-scoped rate cards (optional) | [optional] 
 **FeatureKey** | **string** | Feature key | 
 **Currency** | Pointer to **string** | Currency code (ISO 4217) | [optional] [default to "USD"]
 **Version** | **string** | Rate card version | 
 **EffectiveFrom** | **time.Time** | Effective from timestamp | 
-**EffectiveTo** | Pointer to **NullableTime** |  | [optional] 
+**EffectiveTo** | Pointer to **time.Time** | Effective to timestamp (None &#x3D; indefinite) | [optional] 
 **PricingModel** | **map[string]interface{}** | Pricing model (JSON object) | 
 
 ## Methods
@@ -77,16 +77,6 @@ SetPlanId sets PlanId field to given value.
 
 HasPlanId returns a boolean if a field has been set.
 
-### SetPlanIdNil
-
-`func (o *CreateRateCardRequest) SetPlanIdNil(b bool)`
-
- SetPlanIdNil sets the value for PlanId to be an explicit nil
-
-### UnsetPlanId
-`func (o *CreateRateCardRequest) UnsetPlanId()`
-
-UnsetPlanId ensures that no value is present for PlanId, not even an explicit nil
 ### GetFeatureKey
 
 `func (o *CreateRateCardRequest) GetFeatureKey() string`
@@ -197,16 +187,6 @@ SetEffectiveTo sets EffectiveTo field to given value.
 
 HasEffectiveTo returns a boolean if a field has been set.
 
-### SetEffectiveToNil
-
-`func (o *CreateRateCardRequest) SetEffectiveToNil(b bool)`
-
- SetEffectiveToNil sets the value for EffectiveTo to be an explicit nil
-
-### UnsetEffectiveTo
-`func (o *CreateRateCardRequest) UnsetEffectiveTo()`
-
-UnsetEffectiveTo ensures that no value is present for EffectiveTo, not even an explicit nil
 ### GetPricingModel
 
 `func (o *CreateRateCardRequest) GetPricingModel() map[string]interface{}`

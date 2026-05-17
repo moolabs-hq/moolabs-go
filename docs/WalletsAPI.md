@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**GetWalletMembers**](WalletsAPI.md#GetWalletMembers) | **Get** /v1/wallets/{wallet_id}/members | Get Wallet Members
 [**ListWalletMembers**](WalletsAPI.md#ListWalletMembers) | **Get** /v1/wallet_members | List Wallet Members
 [**ListWallets**](WalletsAPI.md#ListWallets) | **Get** /v1/wallets | List Wallets
+[**ListWalletsBySubjectsV1**](WalletsAPI.md#ListWalletsBySubjectsV1) | **Post** /v1/wallets/by-subjects | List Wallets By Subjects
 [**ResolveTenantAndPool**](WalletsAPI.md#ResolveTenantAndPool) | **Get** /v1/wallets/resolve | Resolve Tenant And Pool
 [**UpdateWalletSettings**](WalletsAPI.md#UpdateWalletSettings) | **Patch** /v1/wallets/{wallet_id}/settings | Update Wallet Settings
 [**UpdateWalletThresholds**](WalletsAPI.md#UpdateWalletThresholds) | **Patch** /v1/wallets/{wallet_id}/thresholds | Update Wallet Thresholds
@@ -319,7 +320,7 @@ func main() {
 	toEffectiveAt := time.Now() // time.Time | End time for activity range (optional)
 	effectiveAsOf := time.Now() // time.Time | Effective as-of timestamp (business time) for time travel (optional)
 	recordedAsOf := time.Now() // time.Time | Recorded as-of timestamp (system time) for time travel (optional)
-	consistentView := true // bool | Use strong consistency for reads (optional)
+	consistentView := true // bool | Use strong consistency for reads (optional) (default to false)
 	limit := int32(56) // int32 | Maximum number of items to return (optional) (default to 50)
 	cursor := "cursor_example" // string | Pagination cursor (optional)
 
@@ -355,7 +356,7 @@ Name | Type | Description  | Notes
  **toEffectiveAt** | **time.Time** | End time for activity range | 
  **effectiveAsOf** | **time.Time** | Effective as-of timestamp (business time) for time travel | 
  **recordedAsOf** | **time.Time** | Recorded as-of timestamp (system time) for time travel | 
- **consistentView** | **bool** | Use strong consistency for reads | 
+ **consistentView** | **bool** | Use strong consistency for reads | [default to false]
  **limit** | **int32** | Maximum number of items to return | [default to 50]
  **cursor** | **string** | Pagination cursor | 
 
@@ -549,7 +550,7 @@ func main() {
 	ownerId := "ownerId_example" // string | Optional owner_id filter (optional)
 	effectiveAsOf := time.Now() // time.Time | Effective as-of timestamp (business time) for time travel (optional)
 	recordedAsOf := time.Now() // time.Time | Recorded as-of timestamp (system time) for time travel (optional)
-	consistentView := true // bool | Use strong consistency for reads (optional)
+	consistentView := true // bool | Use strong consistency for reads (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -582,7 +583,7 @@ Name | Type | Description  | Notes
  **ownerId** | **string** | Optional owner_id filter | 
  **effectiveAsOf** | **time.Time** | Effective as-of timestamp (business time) for time travel | 
  **recordedAsOf** | **time.Time** | Recorded as-of timestamp (system time) for time travel | 
- **consistentView** | **bool** | Use strong consistency for reads | 
+ **consistentView** | **bool** | Use strong consistency for reads | [default to false]
 
 ### Return type
 
@@ -590,11 +591,77 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListWalletsBySubjectsV1
+
+> interface{} ListWalletsBySubjectsV1(ctx).BatchWalletsBySubjectsRequest(batchWalletsBySubjectsRequest).Execute()
+
+List Wallets By Subjects
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	batchWalletsBySubjectsRequest := *openapiclient.NewBatchWalletsBySubjectsRequest([]string{"SubjectIds_example"}) // BatchWalletsBySubjectsRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.WalletsAPI.ListWalletsBySubjectsV1(context.Background()).BatchWalletsBySubjectsRequest(batchWalletsBySubjectsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAPI.ListWalletsBySubjectsV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListWalletsBySubjectsV1`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `WalletsAPI.ListWalletsBySubjectsV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListWalletsBySubjectsV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **batchWalletsBySubjectsRequest** | [**BatchWalletsBySubjectsRequest**](BatchWalletsBySubjectsRequest.md) |  | 
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

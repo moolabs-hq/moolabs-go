@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **PoolId** | **string** | Pool identifier | 
 **UsageEventId** | **string** | Usage event ID to review | 
 **Action** | **string** | Action: &#39;retry&#39;, &#39;manual_rate&#39;, or &#39;ignore&#39; | 
-**Notes** | Pointer to **NullableString** |  | [optional] 
+**Notes** | Pointer to **string** | Optional notes about the review | [optional] 
 
 ## Methods
 
@@ -134,16 +134,6 @@ SetNotes sets Notes field to given value.
 
 HasNotes returns a boolean if a field has been set.
 
-### SetNotesNil
-
-`func (o *ReviewQuarantinedRequest) SetNotesNil(b bool)`
-
- SetNotesNil sets the value for Notes to be an explicit nil
-
-### UnsetNotes
-`func (o *ReviewQuarantinedRequest) UnsetNotes()`
-
-UnsetNotes ensures that no value is present for Notes, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

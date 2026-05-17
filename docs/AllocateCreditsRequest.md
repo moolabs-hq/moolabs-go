@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **TargetWalletId** | **string** |  | 
 **AmountMicros** | **int32** | Amount in micros to transfer | 
 **SubjectId** | **string** | Subject performing the allocation (for audit) | 
-**Reason** | Pointer to **NullableString** |  | [optional] 
+**Reason** | Pointer to **string** | Audit trail reason | [optional] 
 
 ## Methods
 
@@ -134,16 +134,6 @@ SetReason sets Reason field to given value.
 
 HasReason returns a boolean if a field has been set.
 
-### SetReasonNil
-
-`func (o *AllocateCreditsRequest) SetReasonNil(b bool)`
-
- SetReasonNil sets the value for Reason to be an explicit nil
-
-### UnsetReason
-`func (o *AllocateCreditsRequest) UnsetReason()`
-
-UnsetReason ensures that no value is present for Reason, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

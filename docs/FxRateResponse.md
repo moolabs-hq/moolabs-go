@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **EffectiveAt** | **time.Time** |  | 
 **RateVersion** | **string** |  | 
 **RecordedAt** | **time.Time** |  | 
+**CreatedBy** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -191,6 +192,31 @@ and a boolean to check if the value has been set.
 
 SetRecordedAt sets RecordedAt field to given value.
 
+
+### GetCreatedBy
+
+`func (o *FxRateResponse) GetCreatedBy() string`
+
+GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
+
+### GetCreatedByOk
+
+`func (o *FxRateResponse) GetCreatedByOk() (*string, bool)`
+
+GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedBy
+
+`func (o *FxRateResponse) SetCreatedBy(v string)`
+
+SetCreatedBy sets CreatedBy field to given value.
+
+### HasCreatedBy
+
+`func (o *FxRateResponse) HasCreatedBy() bool`
+
+HasCreatedBy returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

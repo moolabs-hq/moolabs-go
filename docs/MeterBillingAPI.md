@@ -17,7 +17,7 @@ Method | HTTP request | Description
 [**InvoicePendingLinesAction**](MeterBillingAPI.md#InvoicePendingLinesAction) | **Post** /api/v1/billing/invoices/invoice | Invoice a customer based on the pending line items
 [**ListBillingProfileCustomerOverrides**](MeterBillingAPI.md#ListBillingProfileCustomerOverrides) | **Get** /api/v1/billing/customers | List customer overrides
 [**ListBillingProfiles**](MeterBillingAPI.md#ListBillingProfiles) | **Get** /api/v1/billing/profiles | List billing profiles
-[**ListInvoices**](MeterBillingAPI.md#ListInvoices) | **Get** /api/v1/billing/invoices | List invoices
+[**ListInvoicesGet**](MeterBillingAPI.md#ListInvoicesGet) | **Get** /api/v1/billing/invoices | List invoices
 [**RecalculateInvoiceTaxAction**](MeterBillingAPI.md#RecalculateInvoiceTaxAction) | **Post** /api/v1/billing/invoices/{invoiceId}/taxes/recalculate | Recalculate an invoice&#39;s tax amounts
 [**RetryInvoiceAction**](MeterBillingAPI.md#RetryInvoiceAction) | **Post** /api/v1/billing/invoices/{invoiceId}/retry | Retry advancing the invoice after a failed attempt.
 [**SimulateInvoice**](MeterBillingAPI.md#SimulateInvoice) | **Post** /api/v1/billing/customers/{customerId}/invoices/simulate | Simulate an invoice for a customer
@@ -961,9 +961,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## ListInvoices
+## ListInvoicesGet
 
-> InvoicePaginatedResponse ListInvoices(ctx).Statuses(statuses).ExtendedStatuses(extendedStatuses).IssuedAfter(issuedAfter).IssuedBefore(issuedBefore).PeriodStartAfter(periodStartAfter).PeriodStartBefore(periodStartBefore).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Expand(expand).Customers(customers).IncludeDeleted(includeDeleted).Page(page).PageSize(pageSize).Order(order).OrderBy(orderBy).Execute()
+> InvoicePaginatedResponse ListInvoicesGet(ctx).Statuses(statuses).ExtendedStatuses(extendedStatuses).IssuedAfter(issuedAfter).IssuedBefore(issuedBefore).PeriodStartAfter(periodStartAfter).PeriodStartBefore(periodStartBefore).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Expand(expand).Customers(customers).IncludeDeleted(includeDeleted).Page(page).PageSize(pageSize).Order(order).OrderBy(orderBy).Execute()
 
 List invoices
 
@@ -1001,13 +1001,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MeterBillingAPI.ListInvoices(context.Background()).Statuses(statuses).ExtendedStatuses(extendedStatuses).IssuedAfter(issuedAfter).IssuedBefore(issuedBefore).PeriodStartAfter(periodStartAfter).PeriodStartBefore(periodStartBefore).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Expand(expand).Customers(customers).IncludeDeleted(includeDeleted).Page(page).PageSize(pageSize).Order(order).OrderBy(orderBy).Execute()
+	resp, r, err := apiClient.MeterBillingAPI.ListInvoicesGet(context.Background()).Statuses(statuses).ExtendedStatuses(extendedStatuses).IssuedAfter(issuedAfter).IssuedBefore(issuedBefore).PeriodStartAfter(periodStartAfter).PeriodStartBefore(periodStartBefore).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Expand(expand).Customers(customers).IncludeDeleted(includeDeleted).Page(page).PageSize(pageSize).Order(order).OrderBy(orderBy).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.ListInvoices``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeterBillingAPI.ListInvoicesGet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListInvoices`: InvoicePaginatedResponse
-	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.ListInvoices`: %v\n", resp)
+	// response from `ListInvoicesGet`: InvoicePaginatedResponse
+	fmt.Fprintf(os.Stdout, "Response from `MeterBillingAPI.ListInvoicesGet`: %v\n", resp)
 }
 ```
 
@@ -1017,7 +1017,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiListInvoicesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListInvoicesGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

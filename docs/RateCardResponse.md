@@ -6,12 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
 **TenantId** | **string** |  | 
-**PlanId** | Pointer to **NullableString** |  | [optional] 
+**PlanId** | Pointer to **string** |  | [optional] 
 **FeatureKey** | **string** |  | 
 **Currency** | **string** |  | 
 **Version** | **string** |  | 
 **EffectiveFrom** | **time.Time** |  | 
-**EffectiveTo** | **NullableTime** |  | 
+**EffectiveTo** | **time.Time** |  | 
 **PricingFingerprint** | **string** |  | 
 **CreatedAt** | **time.Time** |  | 
 
@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 
 ### NewRateCardResponse
 
-`func NewRateCardResponse(id string, tenantId string, featureKey string, currency string, version string, effectiveFrom time.Time, effectiveTo NullableTime, pricingFingerprint string, createdAt time.Time, ) *RateCardResponse`
+`func NewRateCardResponse(id string, tenantId string, featureKey string, currency string, version string, effectiveFrom time.Time, effectiveTo time.Time, pricingFingerprint string, createdAt time.Time, ) *RateCardResponse`
 
 NewRateCardResponse instantiates a new RateCardResponse object
 This constructor will assign default values to properties that have it defined,
@@ -99,16 +99,6 @@ SetPlanId sets PlanId field to given value.
 
 HasPlanId returns a boolean if a field has been set.
 
-### SetPlanIdNil
-
-`func (o *RateCardResponse) SetPlanIdNil(b bool)`
-
- SetPlanIdNil sets the value for PlanId to be an explicit nil
-
-### UnsetPlanId
-`func (o *RateCardResponse) UnsetPlanId()`
-
-UnsetPlanId ensures that no value is present for PlanId, not even an explicit nil
 ### GetFeatureKey
 
 `func (o *RateCardResponse) GetFeatureKey() string`
@@ -209,16 +199,6 @@ and a boolean to check if the value has been set.
 SetEffectiveTo sets EffectiveTo field to given value.
 
 
-### SetEffectiveToNil
-
-`func (o *RateCardResponse) SetEffectiveToNil(b bool)`
-
- SetEffectiveToNil sets the value for EffectiveTo to be an explicit nil
-
-### UnsetEffectiveTo
-`func (o *RateCardResponse) UnsetEffectiveTo()`
-
-UnsetEffectiveTo ensures that no value is present for EffectiveTo, not even an explicit nil
 ### GetPricingFingerprint
 
 `func (o *RateCardResponse) GetPricingFingerprint() string`

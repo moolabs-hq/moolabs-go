@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ThresholdType** | **string** | PERCENT or ABSOLUTE | 
 **ThresholdValue** | **int32** | Threshold value (0-100 for PERCENT, micros for ABSOLUTE) | 
-**NotifyChannels** | Pointer to **[]string** |  | [optional] 
+**NotifyChannels** | Pointer to [**[]NotifyChannel**](NotifyChannel.md) | Structured notification channels, e.g. [{\&quot;type\&quot;: \&quot;email\&quot;, \&quot;address\&quot;: \&quot;ops@example.com\&quot;}] | [optional] 
 
 ## Methods
 
@@ -69,20 +69,20 @@ SetThresholdValue sets ThresholdValue field to given value.
 
 ### GetNotifyChannels
 
-`func (o *CreateThresholdRequest) GetNotifyChannels() []string`
+`func (o *CreateThresholdRequest) GetNotifyChannels() []NotifyChannel`
 
 GetNotifyChannels returns the NotifyChannels field if non-nil, zero value otherwise.
 
 ### GetNotifyChannelsOk
 
-`func (o *CreateThresholdRequest) GetNotifyChannelsOk() (*[]string, bool)`
+`func (o *CreateThresholdRequest) GetNotifyChannelsOk() (*[]NotifyChannel, bool)`
 
 GetNotifyChannelsOk returns a tuple with the NotifyChannels field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNotifyChannels
 
-`func (o *CreateThresholdRequest) SetNotifyChannels(v []string)`
+`func (o *CreateThresholdRequest) SetNotifyChannels(v []NotifyChannel)`
 
 SetNotifyChannels sets NotifyChannels field to given value.
 
@@ -92,16 +92,6 @@ SetNotifyChannels sets NotifyChannels field to given value.
 
 HasNotifyChannels returns a boolean if a field has been set.
 
-### SetNotifyChannelsNil
-
-`func (o *CreateThresholdRequest) SetNotifyChannelsNil(b bool)`
-
- SetNotifyChannelsNil sets the value for NotifyChannels to be an explicit nil
-
-### UnsetNotifyChannels
-`func (o *CreateThresholdRequest) UnsetNotifyChannels()`
-
-UnsetNotifyChannels ensures that no value is present for NotifyChannels, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

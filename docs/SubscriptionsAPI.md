@@ -4,10 +4,77 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**ActivateSubscription**](SubscriptionsAPI.md#ActivateSubscription) | **Post** /v1/subscriptions/activate | Activate Subscription
 [**GetSubscription**](SubscriptionsAPI.md#GetSubscription) | **Get** /v1/subscriptions/{subscription_id} | Get Subscription
 [**HandleLifecycleEvent**](SubscriptionsAPI.md#HandleLifecycleEvent) | **Post** /v1/subscriptions/lifecycle | Handle Lifecycle Event
 [**SyncSubscription**](SubscriptionsAPI.md#SyncSubscription) | **Post** /v1/subscriptions/sync | Sync Subscription
 
+
+
+## ActivateSubscription
+
+> interface{} ActivateSubscription(ctx).SubscriptionActivateRequest(subscriptionActivateRequest).Execute()
+
+Activate Subscription
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	subscriptionActivateRequest := *openapiclient.NewSubscriptionActivateRequest(map[string]interface{}{"key": interface{}(123)}) // SubscriptionActivateRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SubscriptionsAPI.ActivateSubscription(context.Background()).SubscriptionActivateRequest(subscriptionActivateRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsAPI.ActivateSubscription``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ActivateSubscription`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `SubscriptionsAPI.ActivateSubscription`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiActivateSubscriptionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **subscriptionActivateRequest** | [**SubscriptionActivateRequest**](SubscriptionActivateRequest.md) |  | 
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## GetSubscription
@@ -154,7 +221,7 @@ No authorization required
 
 ## SyncSubscription
 
-> interface{} SyncSubscription(ctx).TenantId(tenantId).SubscriptionSyncRequest(subscriptionSyncRequest).Execute()
+> interface{} SyncSubscription(ctx).TenantId(tenantId).AppApiV1SubscriptionsRouterSubscriptionSyncRequest(appApiV1SubscriptionsRouterSubscriptionSyncRequest).Execute()
 
 Sync Subscription
 
@@ -174,11 +241,11 @@ import (
 
 func main() {
 	tenantId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	subscriptionSyncRequest := *openapiclient.NewSubscriptionSyncRequest("SubscriptionId_example", "BillingAnchor_example", "PlanId_example", "ActiveFrom_example") // SubscriptionSyncRequest | 
+	appApiV1SubscriptionsRouterSubscriptionSyncRequest := *openapiclient.NewAppApiV1SubscriptionsRouterSubscriptionSyncRequest("SubscriptionId_example", "BillingAnchor_example", "PlanId_example", "ActiveFrom_example") // AppApiV1SubscriptionsRouterSubscriptionSyncRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SubscriptionsAPI.SyncSubscription(context.Background()).TenantId(tenantId).SubscriptionSyncRequest(subscriptionSyncRequest).Execute()
+	resp, r, err := apiClient.SubscriptionsAPI.SyncSubscription(context.Background()).TenantId(tenantId).AppApiV1SubscriptionsRouterSubscriptionSyncRequest(appApiV1SubscriptionsRouterSubscriptionSyncRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsAPI.SyncSubscription``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -200,7 +267,7 @@ Other parameters are passed through a pointer to a apiSyncSubscriptionRequest st
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenantId** | **string** |  | 
- **subscriptionSyncRequest** | [**SubscriptionSyncRequest**](SubscriptionSyncRequest.md) |  | 
+ **appApiV1SubscriptionsRouterSubscriptionSyncRequest** | [**AppApiV1SubscriptionsRouterSubscriptionSyncRequest**](AppApiV1SubscriptionsRouterSubscriptionSyncRequest.md) |  | 
 
 ### Return type
 

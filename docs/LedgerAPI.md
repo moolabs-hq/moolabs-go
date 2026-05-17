@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**GetLedgerAudit**](LedgerAPI.md#GetLedgerAudit) | **Get** /v1/ledger/audit | Get Ledger Audit
 [**GetLedgerBalance**](LedgerAPI.md#GetLedgerBalance) | **Get** /v1/ledger/balance | Get Ledger Balance
 [**GetWalletState**](LedgerAPI.md#GetWalletState) | **Get** /v1/ledger/state | Get Wallet State
+[**GetWalletStatesBatch**](LedgerAPI.md#GetWalletStatesBatch) | **Post** /v1/ledger/state/batch | Get Wallet States Batch
 
 
 
@@ -168,7 +169,7 @@ No authorization required
 
 ## GetWalletState
 
-> interface{} GetWalletState(ctx).TenantId(tenantId).PoolId(poolId).WalletId(walletId).AsOf(asOf).Consistency(consistency).EffectiveAsOf(effectiveAsOf).RecordedAsOf(recordedAsOf).ConsistentView(consistentView).Execute()
+> interface{} GetWalletState(ctx).WalletId(walletId).TenantId(tenantId).PoolId(poolId).AsOf(asOf).Consistency(consistency).EffectiveAsOf(effectiveAsOf).RecordedAsOf(recordedAsOf).ConsistentView(consistentView).Execute()
 
 Get Wallet State
 
@@ -188,9 +189,9 @@ import (
 )
 
 func main() {
-	tenantId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Tenant identifier
-	poolId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Credit pool identifier
 	walletId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Wallet identifier
+	tenantId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Tenant identifier (resolved from auth when absent) (optional)
+	poolId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Credit pool identifier (resolved from auth when absent) (optional)
 	asOf := time.Now() // time.Time | As-of timestamp (for time travel, legacy, use effective_as_of instead) (optional)
 	consistency := "consistency_example" // string | Consistency level: 'eventual' or 'STRONG' (optional) (default to "eventual")
 	effectiveAsOf := time.Now() // time.Time | Effective as-of timestamp (business time) for time travel (optional)
@@ -199,7 +200,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LedgerAPI.GetWalletState(context.Background()).TenantId(tenantId).PoolId(poolId).WalletId(walletId).AsOf(asOf).Consistency(consistency).EffectiveAsOf(effectiveAsOf).RecordedAsOf(recordedAsOf).ConsistentView(consistentView).Execute()
+	resp, r, err := apiClient.LedgerAPI.GetWalletState(context.Background()).WalletId(walletId).TenantId(tenantId).PoolId(poolId).AsOf(asOf).Consistency(consistency).EffectiveAsOf(effectiveAsOf).RecordedAsOf(recordedAsOf).ConsistentView(consistentView).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LedgerAPI.GetWalletState``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -220,9 +221,9 @@ Other parameters are passed through a pointer to a apiGetWalletStateRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tenantId** | **string** | Tenant identifier | 
- **poolId** | **string** | Credit pool identifier | 
  **walletId** | **string** | Wallet identifier | 
+ **tenantId** | **string** | Tenant identifier (resolved from auth when absent) | 
+ **poolId** | **string** | Credit pool identifier (resolved from auth when absent) | 
  **asOf** | **time.Time** | As-of timestamp (for time travel, legacy, use effective_as_of instead) | 
  **consistency** | **string** | Consistency level: &#39;eventual&#39; or &#39;STRONG&#39; | [default to &quot;eventual&quot;]
  **effectiveAsOf** | **time.Time** | Effective as-of timestamp (business time) for time travel | 
@@ -240,6 +241,72 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetWalletStatesBatch
+
+> BatchWalletStateResponse GetWalletStatesBatch(ctx).BatchWalletStateRequest(batchWalletStateRequest).Execute()
+
+Get Wallet States Batch
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	batchWalletStateRequest := *openapiclient.NewBatchWalletStateRequest([]openapiclient.BatchWalletStateRequestItem{*openapiclient.NewBatchWalletStateRequestItem("TenantId_example", "PoolId_example", "WalletId_example")}) // BatchWalletStateRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LedgerAPI.GetWalletStatesBatch(context.Background()).BatchWalletStateRequest(batchWalletStateRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LedgerAPI.GetWalletStatesBatch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetWalletStatesBatch`: BatchWalletStateResponse
+	fmt.Fprintf(os.Stdout, "Response from `LedgerAPI.GetWalletStatesBatch`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetWalletStatesBatchRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **batchWalletStateRequest** | [**BatchWalletStateRequest**](BatchWalletStateRequest.md) |  | 
+
+### Return type
+
+[**BatchWalletStateResponse**](BatchWalletStateResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

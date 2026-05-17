@@ -9,11 +9,11 @@ Name | Type | Description | Notes
 **PoolId** | **string** |  | 
 **OwnerType** | [**WalletOwnerType**](WalletOwnerType.md) |  | 
 **OwnerId** | **string** |  | 
-**ParentWalletId** | **NullableString** |  | 
+**ParentWalletId** | **string** |  | 
 **Depth** | **int32** |  | 
 **Policy** | [**WalletPolicy**](WalletPolicy.md) |  | 
-**LocalHardCapMicros** | **NullableInt32** |  | 
-**LocalSoftThresholdMicros** | **NullableInt32** |  | 
+**LocalHardCapMicros** | **int32** |  | 
+**LocalSoftThresholdMicros** | **int32** |  | 
 **CreatedAt** | **time.Time** |  | 
 **UpdatedAt** | **time.Time** |  | 
 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewWalletResponse
 
-`func NewWalletResponse(id string, tenantId string, poolId string, ownerType WalletOwnerType, ownerId string, parentWalletId NullableString, depth int32, policy WalletPolicy, localHardCapMicros NullableInt32, localSoftThresholdMicros NullableInt32, createdAt time.Time, updatedAt time.Time, ) *WalletResponse`
+`func NewWalletResponse(id string, tenantId string, poolId string, ownerType WalletOwnerType, ownerId string, parentWalletId string, depth int32, policy WalletPolicy, localHardCapMicros int32, localSoftThresholdMicros int32, createdAt time.Time, updatedAt time.Time, ) *WalletResponse`
 
 NewWalletResponse instantiates a new WalletResponse object
 This constructor will assign default values to properties that have it defined,
@@ -156,16 +156,6 @@ and a boolean to check if the value has been set.
 SetParentWalletId sets ParentWalletId field to given value.
 
 
-### SetParentWalletIdNil
-
-`func (o *WalletResponse) SetParentWalletIdNil(b bool)`
-
- SetParentWalletIdNil sets the value for ParentWalletId to be an explicit nil
-
-### UnsetParentWalletId
-`func (o *WalletResponse) UnsetParentWalletId()`
-
-UnsetParentWalletId ensures that no value is present for ParentWalletId, not even an explicit nil
 ### GetDepth
 
 `func (o *WalletResponse) GetDepth() int32`
@@ -226,16 +216,6 @@ and a boolean to check if the value has been set.
 SetLocalHardCapMicros sets LocalHardCapMicros field to given value.
 
 
-### SetLocalHardCapMicrosNil
-
-`func (o *WalletResponse) SetLocalHardCapMicrosNil(b bool)`
-
- SetLocalHardCapMicrosNil sets the value for LocalHardCapMicros to be an explicit nil
-
-### UnsetLocalHardCapMicros
-`func (o *WalletResponse) UnsetLocalHardCapMicros()`
-
-UnsetLocalHardCapMicros ensures that no value is present for LocalHardCapMicros, not even an explicit nil
 ### GetLocalSoftThresholdMicros
 
 `func (o *WalletResponse) GetLocalSoftThresholdMicros() int32`
@@ -256,16 +236,6 @@ and a boolean to check if the value has been set.
 SetLocalSoftThresholdMicros sets LocalSoftThresholdMicros field to given value.
 
 
-### SetLocalSoftThresholdMicrosNil
-
-`func (o *WalletResponse) SetLocalSoftThresholdMicrosNil(b bool)`
-
- SetLocalSoftThresholdMicrosNil sets the value for LocalSoftThresholdMicros to be an explicit nil
-
-### UnsetLocalSoftThresholdMicros
-`func (o *WalletResponse) UnsetLocalSoftThresholdMicros()`
-
-UnsetLocalSoftThresholdMicros ensures that no value is present for LocalSoftThresholdMicros, not even an explicit nil
 ### GetCreatedAt
 
 `func (o *WalletResponse) GetCreatedAt() time.Time`

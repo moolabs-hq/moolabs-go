@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**VoidReason** | Pointer to **NullableString** |  | [optional] 
+**VoidReason** | Pointer to **string** | Reason for voiding the grant | [optional] 
 
 ## Methods
 
@@ -50,16 +50,6 @@ SetVoidReason sets VoidReason field to given value.
 
 HasVoidReason returns a boolean if a field has been set.
 
-### SetVoidReasonNil
-
-`func (o *VoidGrantRequest) SetVoidReasonNil(b bool)`
-
- SetVoidReasonNil sets the value for VoidReason to be an explicit nil
-
-### UnsetVoidReason
-`func (o *VoidGrantRequest) UnsetVoidReason()`
-
-UnsetVoidReason ensures that no value is present for VoidReason, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

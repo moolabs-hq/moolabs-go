@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **TenantId** | **string** | Tenant identifier | 
 **PoolId** | **string** | Pool identifier | 
 **JournalEntryId** | **string** | Journal entry ID to process | 
-**EffectiveAt** | Pointer to **NullableTime** |  | [optional] 
+**EffectiveAt** | Pointer to **time.Time** | Effective timestamp (uses journal entry&#39;s if not provided) | [optional] 
 
 ## Methods
 
@@ -113,16 +113,6 @@ SetEffectiveAt sets EffectiveAt field to given value.
 
 HasEffectiveAt returns a boolean if a field has been set.
 
-### SetEffectiveAtNil
-
-`func (o *ProcessValueRecognitionRequest) SetEffectiveAtNil(b bool)`
-
- SetEffectiveAtNil sets the value for EffectiveAt to be an explicit nil
-
-### UnsetEffectiveAt
-`func (o *ProcessValueRecognitionRequest) UnsetEffectiveAt()`
-
-UnsetEffectiveAt ensures that no value is present for EffectiveAt, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

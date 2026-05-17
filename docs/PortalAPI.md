@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateTokenEndpoint
 
-> interface{} CreateTokenEndpoint(ctx).CreatePortalTokenRequest(createPortalTokenRequest).Execute()
+> interface{} CreateTokenEndpoint(ctx).AppApiV1PortalRouterCreatePortalTokenRequest(appApiV1PortalRouterCreatePortalTokenRequest).Execute()
 
 Create Token Endpoint
 
@@ -32,11 +32,11 @@ import (
 )
 
 func main() {
-	createPortalTokenRequest := *openapiclient.NewCreatePortalTokenRequest("Subject_example") // CreatePortalTokenRequest | 
+	appApiV1PortalRouterCreatePortalTokenRequest := *openapiclient.NewAppApiV1PortalRouterCreatePortalTokenRequest("Subject_example") // AppApiV1PortalRouterCreatePortalTokenRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PortalAPI.CreateTokenEndpoint(context.Background()).CreatePortalTokenRequest(createPortalTokenRequest).Execute()
+	resp, r, err := apiClient.PortalAPI.CreateTokenEndpoint(context.Background()).AppApiV1PortalRouterCreatePortalTokenRequest(appApiV1PortalRouterCreatePortalTokenRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PortalAPI.CreateTokenEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -57,7 +57,7 @@ Other parameters are passed through a pointer to a apiCreateTokenEndpointRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createPortalTokenRequest** | [**CreatePortalTokenRequest**](CreatePortalTokenRequest.md) |  | 
+ **appApiV1PortalRouterCreatePortalTokenRequest** | [**AppApiV1PortalRouterCreatePortalTokenRequest**](AppApiV1PortalRouterCreatePortalTokenRequest.md) |  | 
 
 ### Return type
 
