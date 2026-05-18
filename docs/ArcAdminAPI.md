@@ -31,7 +31,7 @@ Method | HTTP request | Description
 
 ## BackfillMalformedDisputesV1ArcAdmin
 
-> BackfillMalformedDisputesResponse BackfillMalformedDisputesV1ArcAdmin(ctx).XAPIKey(xAPIKey).BackfillMalformedDisputesRequest(backfillMalformedDisputesRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> BackfillMalformedDisputesResponse BackfillMalformedDisputesV1ArcAdmin(ctx).BackfillMalformedDisputesRequest(backfillMalformedDisputesRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Repair AI-classified disputes the pre-T4 router mis-routed
 
@@ -50,14 +50,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	backfillMalformedDisputesRequest := *openapiclient.NewBackfillMalformedDisputesRequest() // BackfillMalformedDisputesRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.BackfillMalformedDisputesV1ArcAdmin(context.Background()).XAPIKey(xAPIKey).BackfillMalformedDisputesRequest(backfillMalformedDisputesRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.BackfillMalformedDisputesV1ArcAdmin(context.Background()).BackfillMalformedDisputesRequest(backfillMalformedDisputesRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.BackfillMalformedDisputesV1ArcAdmin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -78,10 +79,11 @@ Other parameters are passed through a pointer to a apiBackfillMalformedDisputesV
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **backfillMalformedDisputesRequest** | [**BackfillMalformedDisputesRequest**](BackfillMalformedDisputesRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -103,7 +105,7 @@ No authorization required
 
 ## BulkReplayEndpointV1Arc
 
-> interface{} BulkReplayEndpointV1Arc(ctx).XAPIKey(xAPIKey).BulkReplayRequest(bulkReplayRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} BulkReplayEndpointV1Arc(ctx).BulkReplayRequest(bulkReplayRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Bulk Replay Endpoint
 
@@ -122,14 +124,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	bulkReplayRequest := *openapiclient.NewBulkReplayRequest() // BulkReplayRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.BulkReplayEndpointV1Arc(context.Background()).XAPIKey(xAPIKey).BulkReplayRequest(bulkReplayRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.BulkReplayEndpointV1Arc(context.Background()).BulkReplayRequest(bulkReplayRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.BulkReplayEndpointV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -150,10 +153,11 @@ Other parameters are passed through a pointer to a apiBulkReplayEndpointV1ArcReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **bulkReplayRequest** | [**BulkReplayRequest**](BulkReplayRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -175,7 +179,7 @@ No authorization required
 
 ## GetAgentRunStatusV1
 
-> interface{} GetAgentRunStatusV1(ctx, runId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} GetAgentRunStatusV1(ctx, runId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get agent run status
 
@@ -193,13 +197,14 @@ import (
 
 func main() {
 	runId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.GetAgentRunStatusV1(context.Background(), runId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.GetAgentRunStatusV1(context.Background(), runId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.GetAgentRunStatusV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -228,6 +233,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -249,7 +255,7 @@ No authorization required
 
 ## GetDeadLettersV1
 
-> interface{} GetDeadLettersV1(ctx).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).Source(source).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} GetDeadLettersV1(ctx).Page(page).PageSize(pageSize).Source(source).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Dead Letters
 
@@ -268,16 +274,17 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	page := int32(56) // int32 |  (optional) (default to 1)
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	source := "source_example" // string |  (optional)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.GetDeadLettersV1(context.Background()).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).Source(source).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.GetDeadLettersV1(context.Background()).Page(page).PageSize(pageSize).Source(source).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.GetDeadLettersV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -298,12 +305,13 @@ Other parameters are passed through a pointer to a apiGetDeadLettersV1Request st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **page** | **int32** |  | [default to 1]
  **pageSize** | **int32** |  | [default to 50]
  **source** | **string** |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -325,7 +333,7 @@ No authorization required
 
 ## GetEmailConfigV1
 
-> EmailConfigOut GetEmailConfigV1(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> EmailConfigOut GetEmailConfigV1(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Email Config
 
@@ -344,13 +352,14 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.GetEmailConfigV1(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.GetEmailConfigV1(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.GetEmailConfigV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -374,6 +383,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -395,7 +405,7 @@ No authorization required
 
 ## GetOutboundFailuresV1
 
-> interface{} GetOutboundFailuresV1(ctx).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} GetOutboundFailuresV1(ctx).Page(page).PageSize(pageSize).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Outbound Failures
 
@@ -414,15 +424,16 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	page := int32(56) // int32 |  (optional) (default to 1)
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.GetOutboundFailuresV1(context.Background()).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.GetOutboundFailuresV1(context.Background()).Page(page).PageSize(pageSize).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.GetOutboundFailuresV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -443,11 +454,12 @@ Other parameters are passed through a pointer to a apiGetOutboundFailuresV1Reque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **page** | **int32** |  | [default to 1]
  **pageSize** | **int32** |  | [default to 50]
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -469,7 +481,7 @@ No authorization required
 
 ## GetPotentialDuplicatesV1
 
-> interface{} GetPotentialDuplicatesV1(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} GetPotentialDuplicatesV1(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Potential Duplicates
 
@@ -488,13 +500,14 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.GetPotentialDuplicatesV1(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.GetPotentialDuplicatesV1(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.GetPotentialDuplicatesV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -518,6 +531,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -539,7 +553,7 @@ No authorization required
 
 ## GetTenantEscalationConfigV1Arc
 
-> TenantEscalationConfigOut GetTenantEscalationConfigV1Arc(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> TenantEscalationConfigOut GetTenantEscalationConfigV1Arc(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Tenant Escalation Config
 
@@ -558,13 +572,14 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.GetTenantEscalationConfigV1Arc(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.GetTenantEscalationConfigV1Arc(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.GetTenantEscalationConfigV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -588,6 +603,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -609,7 +625,7 @@ No authorization required
 
 ## ImportDisputesEndpoint
 
-> interface{} ImportDisputesEndpoint(ctx).XAPIKey(xAPIKey).ImportDisputesRequest(importDisputesRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} ImportDisputesEndpoint(ctx).ImportDisputesRequest(importDisputesRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Import Disputes Endpoint
 
@@ -628,14 +644,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	importDisputesRequest := *openapiclient.NewImportDisputesRequest([]openapiclient.ImportDisputeItem{*openapiclient.NewImportDisputeItem("CaseId_example", "InvoiceId_example", int32(123))}) // ImportDisputesRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.ImportDisputesEndpoint(context.Background()).XAPIKey(xAPIKey).ImportDisputesRequest(importDisputesRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.ImportDisputesEndpoint(context.Background()).ImportDisputesRequest(importDisputesRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.ImportDisputesEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -656,10 +673,11 @@ Other parameters are passed through a pointer to a apiImportDisputesEndpointRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **importDisputesRequest** | [**ImportDisputesRequest**](ImportDisputesRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -681,7 +699,7 @@ No authorization required
 
 ## ImportInvoicesEndpoint
 
-> interface{} ImportInvoicesEndpoint(ctx).XAPIKey(xAPIKey).ImportInvoicesRequest(importInvoicesRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} ImportInvoicesEndpoint(ctx).ImportInvoicesRequest(importInvoicesRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Import Invoices Endpoint
 
@@ -701,14 +719,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	importInvoicesRequest := *openapiclient.NewImportInvoicesRequest([]openapiclient.ImportInvoiceItem{*openapiclient.NewImportInvoiceItem("CaseId_example", "InvoiceId_example", int32(123), time.Now())}) // ImportInvoicesRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.ImportInvoicesEndpoint(context.Background()).XAPIKey(xAPIKey).ImportInvoicesRequest(importInvoicesRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.ImportInvoicesEndpoint(context.Background()).ImportInvoicesRequest(importInvoicesRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.ImportInvoicesEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -729,10 +748,11 @@ Other parameters are passed through a pointer to a apiImportInvoicesEndpointRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **importInvoicesRequest** | [**ImportInvoicesRequest**](ImportInvoicesRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -754,7 +774,7 @@ No authorization required
 
 ## ImportPromisesEndpoint
 
-> interface{} ImportPromisesEndpoint(ctx).XAPIKey(xAPIKey).ImportPromisesRequest(importPromisesRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} ImportPromisesEndpoint(ctx).ImportPromisesRequest(importPromisesRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Import Promises Endpoint
 
@@ -774,14 +794,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	importPromisesRequest := *openapiclient.NewImportPromisesRequest([]openapiclient.ImportPromiseItem{*openapiclient.NewImportPromiseItem("ExternalPtpId_example", "CaseId_example", int32(123), time.Now())}) // ImportPromisesRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.ImportPromisesEndpoint(context.Background()).XAPIKey(xAPIKey).ImportPromisesRequest(importPromisesRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.ImportPromisesEndpoint(context.Background()).ImportPromisesRequest(importPromisesRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.ImportPromisesEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -802,10 +823,11 @@ Other parameters are passed through a pointer to a apiImportPromisesEndpointRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **importPromisesRequest** | [**ImportPromisesRequest**](ImportPromisesRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -827,7 +849,7 @@ No authorization required
 
 ## MergeRemittancesEndpoint
 
-> interface{} MergeRemittancesEndpoint(ctx).XAPIKey(xAPIKey).MergeRemittancesRequest(mergeRemittancesRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} MergeRemittancesEndpoint(ctx).MergeRemittancesRequest(mergeRemittancesRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Merge Remittances Endpoint
 
@@ -846,14 +868,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	mergeRemittancesRequest := *openapiclient.NewMergeRemittancesRequest("SourceId_example", "TargetId_example") // MergeRemittancesRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.MergeRemittancesEndpoint(context.Background()).XAPIKey(xAPIKey).MergeRemittancesRequest(mergeRemittancesRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.MergeRemittancesEndpoint(context.Background()).MergeRemittancesRequest(mergeRemittancesRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.MergeRemittancesEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -874,10 +897,11 @@ Other parameters are passed through a pointer to a apiMergeRemittancesEndpointRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **mergeRemittancesRequest** | [**MergeRemittancesRequest**](MergeRemittancesRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -899,7 +923,7 @@ No authorization required
 
 ## PatchTenantEscalationConfigV1Arc
 
-> TenantEscalationConfigOut PatchTenantEscalationConfigV1Arc(ctx).XAPIKey(xAPIKey).TenantEscalationConfigPatch(tenantEscalationConfigPatch).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).Execute()
+> TenantEscalationConfigOut PatchTenantEscalationConfigV1Arc(ctx).TenantEscalationConfigPatch(tenantEscalationConfigPatch).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).Execute()
 
 Patch Tenant Escalation Config
 
@@ -918,15 +942,16 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	tenantEscalationConfigPatch := *openapiclient.NewTenantEscalationConfigPatch(map[string]interface{}{"key": interface{}(123)}, "ChangeReason_example") // TenantEscalationConfigPatch | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xUserId := "xUserId_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.PatchTenantEscalationConfigV1Arc(context.Background()).XAPIKey(xAPIKey).TenantEscalationConfigPatch(tenantEscalationConfigPatch).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.PatchTenantEscalationConfigV1Arc(context.Background()).TenantEscalationConfigPatch(tenantEscalationConfigPatch).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.PatchTenantEscalationConfigV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -947,10 +972,11 @@ Other parameters are passed through a pointer to a apiPatchTenantEscalationConfi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **tenantEscalationConfigPatch** | [**TenantEscalationConfigPatch**](TenantEscalationConfigPatch.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xUserId** | **string** |  | 
 
 ### Return type
@@ -973,7 +999,7 @@ No authorization required
 
 ## ReclassifyCommunication
 
-> interface{} ReclassifyCommunication(ctx, communicationId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} ReclassifyCommunication(ctx, communicationId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Re-enqueue inbound classification for an existing communication
 
@@ -993,13 +1019,14 @@ import (
 
 func main() {
 	communicationId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.ReclassifyCommunication(context.Background(), communicationId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.ReclassifyCommunication(context.Background(), communicationId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.ReclassifyCommunication``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1028,6 +1055,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -1049,7 +1077,7 @@ No authorization required
 
 ## ReplayDeadLetterEndpointV1
 
-> interface{} ReplayDeadLetterEndpointV1(ctx, eventId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} ReplayDeadLetterEndpointV1(ctx, eventId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Replay Dead Letter Endpoint
 
@@ -1069,13 +1097,14 @@ import (
 
 func main() {
 	eventId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.ReplayDeadLetterEndpointV1(context.Background(), eventId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.ReplayDeadLetterEndpointV1(context.Background(), eventId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.ReplayDeadLetterEndpointV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1104,6 +1133,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -1125,7 +1155,7 @@ No authorization required
 
 ## RetryOutboundFailureEndpointV1
 
-> interface{} RetryOutboundFailureEndpointV1(ctx, eventId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} RetryOutboundFailureEndpointV1(ctx, eventId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Retry Outbound Failure Endpoint
 
@@ -1145,13 +1175,14 @@ import (
 
 func main() {
 	eventId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.RetryOutboundFailureEndpointV1(context.Background(), eventId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.RetryOutboundFailureEndpointV1(context.Background(), eventId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.RetryOutboundFailureEndpointV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1180,6 +1211,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -1201,7 +1233,7 @@ No authorization required
 
 ## RotateInboundSecretV1Arc
 
-> EmailConfigOut RotateInboundSecretV1Arc(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> EmailConfigOut RotateInboundSecretV1Arc(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Rotate Inbound Secret
 
@@ -1220,13 +1252,14 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.RotateInboundSecretV1Arc(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.RotateInboundSecretV1Arc(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.RotateInboundSecretV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1250,6 +1283,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -1271,7 +1305,7 @@ No authorization required
 
 ## RunAgentSync
 
-> interface{} RunAgentSync(ctx, agentType).XAPIKey(xAPIKey).CaseId(caseId).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} RunAgentSync(ctx, agentType).CaseId(caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Run Agent Synchronously
 
@@ -1291,14 +1325,15 @@ import (
 
 func main() {
 	agentType := "agentType_example" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	caseId := "caseId_example" // string | Optional: run only for this case (optional)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.RunAgentSync(context.Background(), agentType).XAPIKey(xAPIKey).CaseId(caseId).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.RunAgentSync(context.Background(), agentType).CaseId(caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.RunAgentSync``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1324,10 +1359,11 @@ Other parameters are passed through a pointer to a apiRunAgentSyncRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **caseId** | **string** | Optional: run only for this case | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -1349,7 +1385,7 @@ No authorization required
 
 ## SeedTenantEndpoint
 
-> interface{} SeedTenantEndpoint(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} SeedTenantEndpoint(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Seed Tenant Endpoint
 
@@ -1368,13 +1404,14 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.SeedTenantEndpoint(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.SeedTenantEndpoint(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.SeedTenantEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1398,6 +1435,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -1419,7 +1457,7 @@ No authorization required
 
 ## UpsertEmailConfigV1
 
-> EmailConfigOut UpsertEmailConfigV1(ctx).XAPIKey(xAPIKey).EmailConfigUpsert(emailConfigUpsert).ForceSecretOverwrite(forceSecretOverwrite).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> EmailConfigOut UpsertEmailConfigV1(ctx).EmailConfigUpsert(emailConfigUpsert).ForceSecretOverwrite(forceSecretOverwrite).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Upsert Email Config
 
@@ -1438,15 +1476,16 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	emailConfigUpsert := *openapiclient.NewEmailConfigUpsert("SenderDomain_example") // EmailConfigUpsert | 
 	forceSecretOverwrite := true // bool | Break-glass: allow this PUT to overwrite an existing non-empty ``inbound_secret`` with a different value. Without this flag the server returns 409 to prevent the smoke-harness drift that silently breaks inbound webhooks for real tenants. Use POST /email-config/rotate-secret for the production rotation flow. (optional) (default to false)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.UpsertEmailConfigV1(context.Background()).XAPIKey(xAPIKey).EmailConfigUpsert(emailConfigUpsert).ForceSecretOverwrite(forceSecretOverwrite).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.UpsertEmailConfigV1(context.Background()).EmailConfigUpsert(emailConfigUpsert).ForceSecretOverwrite(forceSecretOverwrite).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.UpsertEmailConfigV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1467,11 +1506,12 @@ Other parameters are passed through a pointer to a apiUpsertEmailConfigV1Request
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **emailConfigUpsert** | [**EmailConfigUpsert**](EmailConfigUpsert.md) |  | 
  **forceSecretOverwrite** | **bool** | Break-glass: allow this PUT to overwrite an existing non-empty &#x60;&#x60;inbound_secret&#x60;&#x60; with a different value. Without this flag the server returns 409 to prevent the smoke-harness drift that silently breaks inbound webhooks for real tenants. Use POST /email-config/rotate-secret for the production rotation flow. | [default to false]
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -1493,7 +1533,7 @@ No authorization required
 
 ## VerifyEmailConfigV1
 
-> EmailConfigOut VerifyEmailConfigV1(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> EmailConfigOut VerifyEmailConfigV1(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Verify Email Config
 
@@ -1512,13 +1552,14 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.VerifyEmailConfigV1(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.VerifyEmailConfigV1(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.VerifyEmailConfigV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1542,6 +1583,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -1563,7 +1605,7 @@ No authorization required
 
 ## VoidRemittanceEndpoint
 
-> interface{} VoidRemittanceEndpoint(ctx, remittanceId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} VoidRemittanceEndpoint(ctx, remittanceId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Void Remittance Endpoint
 
@@ -1583,13 +1625,14 @@ import (
 
 func main() {
 	remittanceId := "remittanceId_example" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcAdminAPI.VoidRemittanceEndpoint(context.Background(), remittanceId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcAdminAPI.VoidRemittanceEndpoint(context.Background(), remittanceId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcAdminAPI.VoidRemittanceEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1618,6 +1661,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 

@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## ApproveHandoffEndpoint
 
-> interface{} ApproveHandoffEndpoint(ctx, caseId, handoffId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} ApproveHandoffEndpoint(ctx, caseId, handoffId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Approve Handoff Endpoint
 
@@ -36,13 +36,14 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	handoffId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HandoffsAPI.ApproveHandoffEndpoint(context.Background(), caseId, handoffId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.HandoffsAPI.ApproveHandoffEndpoint(context.Background(), caseId, handoffId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HandoffsAPI.ApproveHandoffEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -73,6 +74,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -94,7 +96,7 @@ No authorization required
 
 ## CreateHandoffEndpoint
 
-> interface{} CreateHandoffEndpoint(ctx, caseId).XAPIKey(xAPIKey).HandoffCreateRequest(handoffCreateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} CreateHandoffEndpoint(ctx, caseId).HandoffCreateRequest(handoffCreateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Create Handoff Endpoint
 
@@ -114,14 +116,15 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	handoffCreateRequest := *openapiclient.NewHandoffCreateRequest("HandoffType_example", "PartnerName_example") // HandoffCreateRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HandoffsAPI.CreateHandoffEndpoint(context.Background(), caseId).XAPIKey(xAPIKey).HandoffCreateRequest(handoffCreateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.HandoffsAPI.CreateHandoffEndpoint(context.Background(), caseId).HandoffCreateRequest(handoffCreateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HandoffsAPI.CreateHandoffEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -147,10 +150,11 @@ Other parameters are passed through a pointer to a apiCreateHandoffEndpointReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **handoffCreateRequest** | [**HandoffCreateRequest**](HandoffCreateRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -172,7 +176,7 @@ No authorization required
 
 ## ListEventsEndpoint
 
-> interface{} ListEventsEndpoint(ctx, caseId, handoffId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} ListEventsEndpoint(ctx, caseId, handoffId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Events Endpoint
 
@@ -193,13 +197,14 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	handoffId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HandoffsAPI.ListEventsEndpoint(context.Background(), caseId, handoffId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.HandoffsAPI.ListEventsEndpoint(context.Background(), caseId, handoffId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HandoffsAPI.ListEventsEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -230,6 +235,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -251,7 +257,7 @@ No authorization required
 
 ## ListHandoffsEndpoint
 
-> interface{} ListHandoffsEndpoint(ctx, caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} ListHandoffsEndpoint(ctx, caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Handoffs Endpoint
 
@@ -271,13 +277,14 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HandoffsAPI.ListHandoffsEndpoint(context.Background(), caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.HandoffsAPI.ListHandoffsEndpoint(context.Background(), caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HandoffsAPI.ListHandoffsEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -306,6 +313,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -327,7 +335,7 @@ No authorization required
 
 ## RecallHandoffEndpoint
 
-> interface{} RecallHandoffEndpoint(ctx, caseId, handoffId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).RecallRequest(recallRequest).Execute()
+> interface{} RecallHandoffEndpoint(ctx, caseId, handoffId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).RecallRequest(recallRequest).Execute()
 
 Recall Handoff Endpoint
 
@@ -348,14 +356,15 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	handoffId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	recallRequest := *openapiclient.NewRecallRequest() // RecallRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HandoffsAPI.RecallHandoffEndpoint(context.Background(), caseId, handoffId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).RecallRequest(recallRequest).Execute()
+	resp, r, err := apiClient.HandoffsAPI.RecallHandoffEndpoint(context.Background(), caseId, handoffId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).RecallRequest(recallRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HandoffsAPI.RecallHandoffEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -386,6 +395,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **recallRequest** | [**RecallRequest**](RecallRequest.md) |  | 
 
 ### Return type
@@ -408,7 +418,7 @@ No authorization required
 
 ## SendHandoffEndpoint
 
-> interface{} SendHandoffEndpoint(ctx, caseId, handoffId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} SendHandoffEndpoint(ctx, caseId, handoffId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Send Handoff Endpoint
 
@@ -429,13 +439,14 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	handoffId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HandoffsAPI.SendHandoffEndpoint(context.Background(), caseId, handoffId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.HandoffsAPI.SendHandoffEndpoint(context.Background(), caseId, handoffId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HandoffsAPI.SendHandoffEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -466,6 +477,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 

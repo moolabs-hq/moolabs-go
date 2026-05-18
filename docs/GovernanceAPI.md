@@ -22,7 +22,7 @@ Method | HTTP request | Description
 
 ## CreateStrategyEndpoint
 
-> interface{} CreateStrategyEndpoint(ctx).XAPIKey(xAPIKey).StrategyCreateRequest(strategyCreateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} CreateStrategyEndpoint(ctx).StrategyCreateRequest(strategyCreateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Create Strategy Endpoint
 
@@ -41,14 +41,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	strategyCreateRequest := *openapiclient.NewStrategyCreateRequest("Name_example", "RiskTier_example", []openapiclient.StageSchema{*openapiclient.NewStageSchema(int32(123), "Name_example", int32(123), "Channel_example", "TemplateKey_example")}) // StrategyCreateRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GovernanceAPI.CreateStrategyEndpoint(context.Background()).XAPIKey(xAPIKey).StrategyCreateRequest(strategyCreateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.GovernanceAPI.CreateStrategyEndpoint(context.Background()).StrategyCreateRequest(strategyCreateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GovernanceAPI.CreateStrategyEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -69,10 +70,11 @@ Other parameters are passed through a pointer to a apiCreateStrategyEndpointRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **strategyCreateRequest** | [**StrategyCreateRequest**](StrategyCreateRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -94,7 +96,7 @@ No authorization required
 
 ## DeleteStrategyEndpoint
 
-> interface{} DeleteStrategyEndpoint(ctx, strategyId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} DeleteStrategyEndpoint(ctx, strategyId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Delete Strategy Endpoint
 
@@ -114,13 +116,14 @@ import (
 
 func main() {
 	strategyId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GovernanceAPI.DeleteStrategyEndpoint(context.Background(), strategyId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.GovernanceAPI.DeleteStrategyEndpoint(context.Background(), strategyId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GovernanceAPI.DeleteStrategyEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -149,6 +152,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -170,7 +174,7 @@ No authorization required
 
 ## GetCashAppConfigEndpointV1Arc
 
-> interface{} GetCashAppConfigEndpointV1Arc(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} GetCashAppConfigEndpointV1Arc(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Cash App Config Endpoint
 
@@ -189,13 +193,14 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GovernanceAPI.GetCashAppConfigEndpointV1Arc(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.GovernanceAPI.GetCashAppConfigEndpointV1Arc(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GovernanceAPI.GetCashAppConfigEndpointV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -219,6 +224,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -240,7 +246,7 @@ No authorization required
 
 ## GetStrategyEndpoint
 
-> interface{} GetStrategyEndpoint(ctx, strategyId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} GetStrategyEndpoint(ctx, strategyId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Strategy Endpoint
 
@@ -260,13 +266,14 @@ import (
 
 func main() {
 	strategyId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GovernanceAPI.GetStrategyEndpoint(context.Background(), strategyId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.GovernanceAPI.GetStrategyEndpoint(context.Background(), strategyId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GovernanceAPI.GetStrategyEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -295,6 +302,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -316,7 +324,7 @@ No authorization required
 
 ## KillSwitchEndpointV1Arc
 
-> interface{} KillSwitchEndpointV1Arc(ctx, agentType).XAPIKey(xAPIKey).KillSwitchRequest(killSwitchRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} KillSwitchEndpointV1Arc(ctx, agentType).KillSwitchRequest(killSwitchRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Kill Switch Endpoint
 
@@ -336,14 +344,15 @@ import (
 
 func main() {
 	agentType := "agentType_example" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	killSwitchRequest := *openapiclient.NewKillSwitchRequest(false) // KillSwitchRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GovernanceAPI.KillSwitchEndpointV1Arc(context.Background(), agentType).XAPIKey(xAPIKey).KillSwitchRequest(killSwitchRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.GovernanceAPI.KillSwitchEndpointV1Arc(context.Background(), agentType).KillSwitchRequest(killSwitchRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GovernanceAPI.KillSwitchEndpointV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -369,10 +378,11 @@ Other parameters are passed through a pointer to a apiKillSwitchEndpointV1ArcReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **killSwitchRequest** | [**KillSwitchRequest**](KillSwitchRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -394,7 +404,7 @@ No authorization required
 
 ## ListEvaluationsEndpoint
 
-> interface{} ListEvaluationsEndpoint(ctx).XAPIKey(xAPIKey).AgentType(agentType).EvaluationType(evaluationType).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} ListEvaluationsEndpoint(ctx).AgentType(agentType).EvaluationType(evaluationType).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Evaluations Endpoint
 
@@ -413,15 +423,16 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	agentType := "agentType_example" // string |  (optional)
 	evaluationType := "evaluationType_example" // string |  (optional)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GovernanceAPI.ListEvaluationsEndpoint(context.Background()).XAPIKey(xAPIKey).AgentType(agentType).EvaluationType(evaluationType).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.GovernanceAPI.ListEvaluationsEndpoint(context.Background()).AgentType(agentType).EvaluationType(evaluationType).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GovernanceAPI.ListEvaluationsEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -442,11 +453,12 @@ Other parameters are passed through a pointer to a apiListEvaluationsEndpointReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **agentType** | **string** |  | 
  **evaluationType** | **string** |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -468,7 +480,7 @@ No authorization required
 
 ## ListPoliciesEndpointV1
 
-> interface{} ListPoliciesEndpointV1(ctx).XAPIKey(xAPIKey).AgentType(agentType).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} ListPoliciesEndpointV1(ctx).AgentType(agentType).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Policies Endpoint
 
@@ -487,14 +499,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	agentType := "agentType_example" // string |  (optional)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GovernanceAPI.ListPoliciesEndpointV1(context.Background()).XAPIKey(xAPIKey).AgentType(agentType).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.GovernanceAPI.ListPoliciesEndpointV1(context.Background()).AgentType(agentType).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GovernanceAPI.ListPoliciesEndpointV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -515,10 +528,11 @@ Other parameters are passed through a pointer to a apiListPoliciesEndpointV1Requ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **agentType** | **string** |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -540,7 +554,7 @@ No authorization required
 
 ## ListStrategiesEndpoint
 
-> interface{} ListStrategiesEndpoint(ctx).XAPIKey(xAPIKey).RiskTier(riskTier).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} ListStrategiesEndpoint(ctx).RiskTier(riskTier).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Strategies Endpoint
 
@@ -559,14 +573,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	riskTier := "riskTier_example" // string |  (optional)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GovernanceAPI.ListStrategiesEndpoint(context.Background()).XAPIKey(xAPIKey).RiskTier(riskTier).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.GovernanceAPI.ListStrategiesEndpoint(context.Background()).RiskTier(riskTier).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GovernanceAPI.ListStrategiesEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -587,10 +602,11 @@ Other parameters are passed through a pointer to a apiListStrategiesEndpointRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **riskTier** | **string** |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -612,7 +628,7 @@ No authorization required
 
 ## ShadowModeEndpointV1Arc
 
-> interface{} ShadowModeEndpointV1Arc(ctx, agentType).XAPIKey(xAPIKey).ShadowModeRequest(shadowModeRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} ShadowModeEndpointV1Arc(ctx, agentType).ShadowModeRequest(shadowModeRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Shadow Mode Endpoint
 
@@ -632,14 +648,15 @@ import (
 
 func main() {
 	agentType := "agentType_example" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	shadowModeRequest := *openapiclient.NewShadowModeRequest(false) // ShadowModeRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GovernanceAPI.ShadowModeEndpointV1Arc(context.Background(), agentType).XAPIKey(xAPIKey).ShadowModeRequest(shadowModeRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.GovernanceAPI.ShadowModeEndpointV1Arc(context.Background(), agentType).ShadowModeRequest(shadowModeRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GovernanceAPI.ShadowModeEndpointV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -665,10 +682,11 @@ Other parameters are passed through a pointer to a apiShadowModeEndpointV1ArcReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **shadowModeRequest** | [**ShadowModeRequest**](ShadowModeRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -690,7 +708,7 @@ No authorization required
 
 ## StrategyPreviewEndpointV1
 
-> interface{} StrategyPreviewEndpointV1(ctx).XAPIKey(xAPIKey).StrategyPreviewRequest(strategyPreviewRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} StrategyPreviewEndpointV1(ctx).StrategyPreviewRequest(strategyPreviewRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Strategy Preview Endpoint
 
@@ -709,14 +727,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	strategyPreviewRequest := *openapiclient.NewStrategyPreviewRequest("CaseId_example") // StrategyPreviewRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GovernanceAPI.StrategyPreviewEndpointV1(context.Background()).XAPIKey(xAPIKey).StrategyPreviewRequest(strategyPreviewRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.GovernanceAPI.StrategyPreviewEndpointV1(context.Background()).StrategyPreviewRequest(strategyPreviewRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GovernanceAPI.StrategyPreviewEndpointV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -737,10 +756,11 @@ Other parameters are passed through a pointer to a apiStrategyPreviewEndpointV1R
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **strategyPreviewRequest** | [**StrategyPreviewRequest**](StrategyPreviewRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -762,7 +782,7 @@ No authorization required
 
 ## UpdateCashAppConfigEndpointV1Arc
 
-> interface{} UpdateCashAppConfigEndpointV1Arc(ctx).XAPIKey(xAPIKey).CashAppConfigUpdateRequest(cashAppConfigUpdateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} UpdateCashAppConfigEndpointV1Arc(ctx).CashAppConfigUpdateRequest(cashAppConfigUpdateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Update Cash App Config Endpoint
 
@@ -781,14 +801,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	cashAppConfigUpdateRequest := *openapiclient.NewCashAppConfigUpdateRequest() // CashAppConfigUpdateRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GovernanceAPI.UpdateCashAppConfigEndpointV1Arc(context.Background()).XAPIKey(xAPIKey).CashAppConfigUpdateRequest(cashAppConfigUpdateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.GovernanceAPI.UpdateCashAppConfigEndpointV1Arc(context.Background()).CashAppConfigUpdateRequest(cashAppConfigUpdateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GovernanceAPI.UpdateCashAppConfigEndpointV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -809,10 +830,11 @@ Other parameters are passed through a pointer to a apiUpdateCashAppConfigEndpoin
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **cashAppConfigUpdateRequest** | [**CashAppConfigUpdateRequest**](CashAppConfigUpdateRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -834,7 +856,7 @@ No authorization required
 
 ## UpdatePolicyEndpointV1
 
-> interface{} UpdatePolicyEndpointV1(ctx, policyId).XAPIKey(xAPIKey).PolicyUpdateRequest(policyUpdateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} UpdatePolicyEndpointV1(ctx, policyId).PolicyUpdateRequest(policyUpdateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Update Policy Endpoint
 
@@ -854,14 +876,15 @@ import (
 
 func main() {
 	policyId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	policyUpdateRequest := *openapiclient.NewPolicyUpdateRequest() // PolicyUpdateRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GovernanceAPI.UpdatePolicyEndpointV1(context.Background(), policyId).XAPIKey(xAPIKey).PolicyUpdateRequest(policyUpdateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.GovernanceAPI.UpdatePolicyEndpointV1(context.Background(), policyId).PolicyUpdateRequest(policyUpdateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GovernanceAPI.UpdatePolicyEndpointV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -887,10 +910,11 @@ Other parameters are passed through a pointer to a apiUpdatePolicyEndpointV1Requ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **policyUpdateRequest** | [**PolicyUpdateRequest**](PolicyUpdateRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -912,7 +936,7 @@ No authorization required
 
 ## UpdateStrategyEndpoint
 
-> interface{} UpdateStrategyEndpoint(ctx, strategyId).XAPIKey(xAPIKey).StrategyUpdateRequest(strategyUpdateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} UpdateStrategyEndpoint(ctx, strategyId).StrategyUpdateRequest(strategyUpdateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Update Strategy Endpoint
 
@@ -932,14 +956,15 @@ import (
 
 func main() {
 	strategyId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	strategyUpdateRequest := *openapiclient.NewStrategyUpdateRequest() // StrategyUpdateRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GovernanceAPI.UpdateStrategyEndpoint(context.Background(), strategyId).XAPIKey(xAPIKey).StrategyUpdateRequest(strategyUpdateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.GovernanceAPI.UpdateStrategyEndpoint(context.Background(), strategyId).StrategyUpdateRequest(strategyUpdateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GovernanceAPI.UpdateStrategyEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -965,10 +990,11 @@ Other parameters are passed through a pointer to a apiUpdateStrategyEndpointRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **strategyUpdateRequest** | [**StrategyUpdateRequest**](StrategyUpdateRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 

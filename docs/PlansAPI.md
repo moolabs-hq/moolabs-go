@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## AmendPlanEndpointV1
 
-> interface{} AmendPlanEndpointV1(ctx, caseId, planId).XAPIKey(xAPIKey).PlanAmendRequest(planAmendRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} AmendPlanEndpointV1(ctx, caseId, planId).PlanAmendRequest(planAmendRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Amend Plan Endpoint
 
@@ -36,14 +36,15 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	planId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	planAmendRequest := *openapiclient.NewPlanAmendRequest(int32(123), int32(123), time.Now()) // PlanAmendRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.AmendPlanEndpointV1(context.Background(), caseId, planId).XAPIKey(xAPIKey).PlanAmendRequest(planAmendRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.PlansAPI.AmendPlanEndpointV1(context.Background(), caseId, planId).PlanAmendRequest(planAmendRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.AmendPlanEndpointV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -71,10 +72,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xAPIKey** | **string** |  | 
  **planAmendRequest** | [**PlanAmendRequest**](PlanAmendRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -96,7 +98,7 @@ No authorization required
 
 ## CreatePlanEndpointV1
 
-> interface{} CreatePlanEndpointV1(ctx, caseId).XAPIKey(xAPIKey).PlanCreateRequest(planCreateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} CreatePlanEndpointV1(ctx, caseId).PlanCreateRequest(planCreateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Create Plan Endpoint
 
@@ -117,14 +119,15 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	planCreateRequest := *openapiclient.NewPlanCreateRequest(int32(123), int32(123), time.Now(), "ProposedBy_example") // PlanCreateRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.CreatePlanEndpointV1(context.Background(), caseId).XAPIKey(xAPIKey).PlanCreateRequest(planCreateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.PlansAPI.CreatePlanEndpointV1(context.Background(), caseId).PlanCreateRequest(planCreateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CreatePlanEndpointV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -150,10 +153,11 @@ Other parameters are passed through a pointer to a apiCreatePlanEndpointV1Reques
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **planCreateRequest** | [**PlanCreateRequest**](PlanCreateRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -175,7 +179,7 @@ No authorization required
 
 ## ListInstallmentsEndpointV1
 
-> interface{} ListInstallmentsEndpointV1(ctx, caseId, planId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} ListInstallmentsEndpointV1(ctx, caseId, planId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Installments Endpoint
 
@@ -196,13 +200,14 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	planId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.ListInstallmentsEndpointV1(context.Background(), caseId, planId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.PlansAPI.ListInstallmentsEndpointV1(context.Background(), caseId, planId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.ListInstallmentsEndpointV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -233,6 +238,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -254,7 +260,7 @@ No authorization required
 
 ## RescheduleInstallmentEndpointV1
 
-> interface{} RescheduleInstallmentEndpointV1(ctx, caseId, planId, installmentId).XAPIKey(xAPIKey).RescheduleRequest(rescheduleRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} RescheduleInstallmentEndpointV1(ctx, caseId, planId, installmentId).RescheduleRequest(rescheduleRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Reschedule Installment Endpoint
 
@@ -277,14 +283,15 @@ func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	planId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	installmentId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	rescheduleRequest := *openapiclient.NewRescheduleRequest(time.Now()) // RescheduleRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.RescheduleInstallmentEndpointV1(context.Background(), caseId, planId, installmentId).XAPIKey(xAPIKey).RescheduleRequest(rescheduleRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.PlansAPI.RescheduleInstallmentEndpointV1(context.Background(), caseId, planId, installmentId).RescheduleRequest(rescheduleRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.RescheduleInstallmentEndpointV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -314,10 +321,11 @@ Name | Type | Description  | Notes
 
 
 
- **xAPIKey** | **string** |  | 
  **rescheduleRequest** | [**RescheduleRequest**](RescheduleRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -339,7 +347,7 @@ No authorization required
 
 ## WaiveInstallmentEndpointV1
 
-> interface{} WaiveInstallmentEndpointV1(ctx, caseId, planId, installmentId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} WaiveInstallmentEndpointV1(ctx, caseId, planId, installmentId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Waive Installment Endpoint
 
@@ -361,13 +369,14 @@ func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	planId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	installmentId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.WaiveInstallmentEndpointV1(context.Background(), caseId, planId, installmentId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.PlansAPI.WaiveInstallmentEndpointV1(context.Background(), caseId, planId, installmentId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.WaiveInstallmentEndpointV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -400,6 +409,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 

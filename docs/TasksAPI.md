@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CompleteTask
 
-> TaskResponse CompleteTask(ctx, taskId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).TaskCompleteRequest(taskCompleteRequest).Execute()
+> TaskResponse CompleteTask(ctx, taskId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).TaskCompleteRequest(taskCompleteRequest).Execute()
 
 Complete Task
 
@@ -33,14 +33,15 @@ import (
 
 func main() {
 	taskId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	taskCompleteRequest := *openapiclient.NewTaskCompleteRequest() // TaskCompleteRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TasksAPI.CompleteTask(context.Background(), taskId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).TaskCompleteRequest(taskCompleteRequest).Execute()
+	resp, r, err := apiClient.TasksAPI.CompleteTask(context.Background(), taskId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).TaskCompleteRequest(taskCompleteRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TasksAPI.CompleteTask``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -69,6 +70,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **taskCompleteRequest** | [**TaskCompleteRequest**](TaskCompleteRequest.md) |  | 
 
 ### Return type
@@ -91,7 +93,7 @@ No authorization required
 
 ## GetTask
 
-> TaskResponse GetTask(ctx, taskId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> TaskResponse GetTask(ctx, taskId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Task
 
@@ -111,13 +113,14 @@ import (
 
 func main() {
 	taskId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TasksAPI.GetTask(context.Background(), taskId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.TasksAPI.GetTask(context.Background(), taskId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TasksAPI.GetTask``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -146,6 +149,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -167,7 +171,7 @@ No authorization required
 
 ## ListTasks
 
-> TaskListResponse ListTasks(ctx).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).Status(status).TaskType(taskType).AssignedTo(assignedTo).CaseId(caseId).Search(search).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> TaskListResponse ListTasks(ctx).Page(page).PageSize(pageSize).Status(status).TaskType(taskType).AssignedTo(assignedTo).CaseId(caseId).Search(search).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Tasks
 
@@ -186,7 +190,6 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	page := int32(56) // int32 |  (optional) (default to 1)
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	status := "status_example" // string |  (optional)
@@ -194,12 +197,14 @@ func main() {
 	assignedTo := "assignedTo_example" // string |  (optional)
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string |  (optional)
 	search := "search_example" // string | Substring match on title/description/customer name (optional)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TasksAPI.ListTasks(context.Background()).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).Status(status).TaskType(taskType).AssignedTo(assignedTo).CaseId(caseId).Search(search).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.TasksAPI.ListTasks(context.Background()).Page(page).PageSize(pageSize).Status(status).TaskType(taskType).AssignedTo(assignedTo).CaseId(caseId).Search(search).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TasksAPI.ListTasks``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -220,7 +225,6 @@ Other parameters are passed through a pointer to a apiListTasksRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **page** | **int32** |  | [default to 1]
  **pageSize** | **int32** |  | [default to 50]
  **status** | **string** |  | 
@@ -228,8 +232,10 @@ Name | Type | Description  | Notes
  **assignedTo** | **string** |  | 
  **caseId** | **string** |  | 
  **search** | **string** | Substring match on title/description/customer name | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -251,7 +257,7 @@ No authorization required
 
 ## UpdateTask
 
-> TaskResponse UpdateTask(ctx, taskId).XAPIKey(xAPIKey).TaskUpdate(taskUpdate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> TaskResponse UpdateTask(ctx, taskId).TaskUpdate(taskUpdate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Update Task
 
@@ -271,14 +277,15 @@ import (
 
 func main() {
 	taskId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	taskUpdate := *openapiclient.NewTaskUpdate() // TaskUpdate | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TasksAPI.UpdateTask(context.Background(), taskId).XAPIKey(xAPIKey).TaskUpdate(taskUpdate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.TasksAPI.UpdateTask(context.Background(), taskId).TaskUpdate(taskUpdate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TasksAPI.UpdateTask``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -304,10 +311,11 @@ Other parameters are passed through a pointer to a apiUpdateTaskRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **taskUpdate** | [**TaskUpdate**](TaskUpdate.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 

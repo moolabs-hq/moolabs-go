@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## ApplyCreditMemoV1
 
-> CreditMemoResponse ApplyCreditMemoV1(ctx, memoId).XAPIKey(xAPIKey).CreditMemoApplyRequest(creditMemoApplyRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CreditMemoResponse ApplyCreditMemoV1(ctx, memoId).CreditMemoApplyRequest(creditMemoApplyRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Apply Credit Memo
 
@@ -36,14 +36,15 @@ import (
 
 func main() {
 	memoId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	creditMemoApplyRequest := *openapiclient.NewCreditMemoApplyRequest("InvoiceId_example", int32(123)) // CreditMemoApplyRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CreditMemosAPI.ApplyCreditMemoV1(context.Background(), memoId).XAPIKey(xAPIKey).CreditMemoApplyRequest(creditMemoApplyRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CreditMemosAPI.ApplyCreditMemoV1(context.Background(), memoId).CreditMemoApplyRequest(creditMemoApplyRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CreditMemosAPI.ApplyCreditMemoV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -69,10 +70,11 @@ Other parameters are passed through a pointer to a apiApplyCreditMemoV1Request s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **creditMemoApplyRequest** | [**CreditMemoApplyRequest**](CreditMemoApplyRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -94,7 +96,7 @@ No authorization required
 
 ## ApproveCreditMemoV1
 
-> CreditMemoResponse ApproveCreditMemoV1(ctx, memoId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CreditMemoResponse ApproveCreditMemoV1(ctx, memoId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Approve Credit Memo
 
@@ -114,13 +116,14 @@ import (
 
 func main() {
 	memoId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CreditMemosAPI.ApproveCreditMemoV1(context.Background(), memoId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CreditMemosAPI.ApproveCreditMemoV1(context.Background(), memoId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CreditMemosAPI.ApproveCreditMemoV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -149,6 +152,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -170,7 +174,7 @@ No authorization required
 
 ## CreateCreditMemoV1
 
-> CreditMemoResponse CreateCreditMemoV1(ctx).XAPIKey(xAPIKey).CreditMemoCreate(creditMemoCreate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CreditMemoResponse CreateCreditMemoV1(ctx).CreditMemoCreate(creditMemoCreate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Create Credit Memo
 
@@ -189,14 +193,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	creditMemoCreate := *openapiclient.NewCreditMemoCreate("AccountId_example", "Reason_example", int32(123), "CurrencyCode_example") // CreditMemoCreate | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CreditMemosAPI.CreateCreditMemoV1(context.Background()).XAPIKey(xAPIKey).CreditMemoCreate(creditMemoCreate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CreditMemosAPI.CreateCreditMemoV1(context.Background()).CreditMemoCreate(creditMemoCreate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CreditMemosAPI.CreateCreditMemoV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -217,10 +222,11 @@ Other parameters are passed through a pointer to a apiCreateCreditMemoV1Request 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **creditMemoCreate** | [**CreditMemoCreate**](CreditMemoCreate.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -242,7 +248,7 @@ No authorization required
 
 ## GetCreditMemoV1
 
-> CreditMemoResponse GetCreditMemoV1(ctx, memoId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CreditMemoResponse GetCreditMemoV1(ctx, memoId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Credit Memo
 
@@ -262,13 +268,14 @@ import (
 
 func main() {
 	memoId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CreditMemosAPI.GetCreditMemoV1(context.Background(), memoId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CreditMemosAPI.GetCreditMemoV1(context.Background(), memoId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CreditMemosAPI.GetCreditMemoV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -297,6 +304,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -318,7 +326,7 @@ No authorization required
 
 ## ListCreditMemosV1Get
 
-> CreditMemoListResponse ListCreditMemosV1Get(ctx).XAPIKey(xAPIKey).AccountId(accountId).Status(status).Page(page).PageSize(pageSize).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CreditMemoListResponse ListCreditMemosV1Get(ctx).AccountId(accountId).Status(status).Page(page).PageSize(pageSize).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Credit Memos
 
@@ -337,17 +345,18 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string |  (optional)
 	status := "status_example" // string |  (optional)
 	page := int32(56) // int32 |  (optional) (default to 1)
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CreditMemosAPI.ListCreditMemosV1Get(context.Background()).XAPIKey(xAPIKey).AccountId(accountId).Status(status).Page(page).PageSize(pageSize).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CreditMemosAPI.ListCreditMemosV1Get(context.Background()).AccountId(accountId).Status(status).Page(page).PageSize(pageSize).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CreditMemosAPI.ListCreditMemosV1Get``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -368,13 +377,14 @@ Other parameters are passed through a pointer to a apiListCreditMemosV1GetReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **accountId** | **string** |  | 
  **status** | **string** |  | 
  **page** | **int32** |  | [default to 1]
  **pageSize** | **int32** |  | [default to 50]
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -396,7 +406,7 @@ No authorization required
 
 ## UpdateCreditMemoV1
 
-> CreditMemoResponse UpdateCreditMemoV1(ctx, memoId).XAPIKey(xAPIKey).CreditMemoUpdate(creditMemoUpdate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CreditMemoResponse UpdateCreditMemoV1(ctx, memoId).CreditMemoUpdate(creditMemoUpdate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Update Credit Memo
 
@@ -416,14 +426,15 @@ import (
 
 func main() {
 	memoId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	creditMemoUpdate := *openapiclient.NewCreditMemoUpdate() // CreditMemoUpdate | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CreditMemosAPI.UpdateCreditMemoV1(context.Background(), memoId).XAPIKey(xAPIKey).CreditMemoUpdate(creditMemoUpdate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CreditMemosAPI.UpdateCreditMemoV1(context.Background(), memoId).CreditMemoUpdate(creditMemoUpdate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CreditMemosAPI.UpdateCreditMemoV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -449,10 +460,11 @@ Other parameters are passed through a pointer to a apiUpdateCreditMemoV1Request 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **creditMemoUpdate** | [**CreditMemoUpdate**](CreditMemoUpdate.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -474,7 +486,7 @@ No authorization required
 
 ## VoidCreditMemoV1
 
-> CreditMemoResponse VoidCreditMemoV1(ctx, memoId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CreditMemoResponse VoidCreditMemoV1(ctx, memoId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Void Credit Memo
 
@@ -494,13 +506,14 @@ import (
 
 func main() {
 	memoId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CreditMemosAPI.VoidCreditMemoV1(context.Background(), memoId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CreditMemosAPI.VoidCreditMemoV1(context.Background(), memoId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CreditMemosAPI.VoidCreditMemoV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -529,6 +542,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 

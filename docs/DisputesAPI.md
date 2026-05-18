@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 ## AddEvidenceEndpoint
 
-> EvidenceResponse AddEvidenceEndpoint(ctx, disputeId).XAPIKey(xAPIKey).EvidenceCreateRequest(evidenceCreateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> EvidenceResponse AddEvidenceEndpoint(ctx, disputeId).EvidenceCreateRequest(evidenceCreateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Add Evidence Endpoint
 
@@ -39,14 +39,15 @@ import (
 
 func main() {
 	disputeId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	evidenceCreateRequest := *openapiclient.NewEvidenceCreateRequest("EvidenceType_example") // EvidenceCreateRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DisputesAPI.AddEvidenceEndpoint(context.Background(), disputeId).XAPIKey(xAPIKey).EvidenceCreateRequest(evidenceCreateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.DisputesAPI.AddEvidenceEndpoint(context.Background(), disputeId).EvidenceCreateRequest(evidenceCreateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DisputesAPI.AddEvidenceEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -72,10 +73,11 @@ Other parameters are passed through a pointer to a apiAddEvidenceEndpointRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **evidenceCreateRequest** | [**EvidenceCreateRequest**](EvidenceCreateRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -97,7 +99,7 @@ No authorization required
 
 ## AddExternalDocEvidenceEndpoint
 
-> EvidenceResponse AddExternalDocEvidenceEndpoint(ctx, disputeId).XAPIKey(xAPIKey).EvidenceType(evidenceType).Attachment(attachment).XTenantId(xTenantId).XOrgId(xOrgId).Summary(summary).AmountMicros(amountMicros).Execute()
+> EvidenceResponse AddExternalDocEvidenceEndpoint(ctx, disputeId).EvidenceType(evidenceType).Attachment(attachment).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Summary(summary).AmountMicros(amountMicros).Execute()
 
 Add External Doc Evidence Endpoint
 
@@ -117,17 +119,18 @@ import (
 
 func main() {
 	disputeId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	evidenceType := "evidenceType_example" // string | 
 	attachment := os.NewFile(1234, "some_file") // *os.File | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	summary := "summary_example" // string |  (optional)
 	amountMicros := int32(56) // int32 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DisputesAPI.AddExternalDocEvidenceEndpoint(context.Background(), disputeId).XAPIKey(xAPIKey).EvidenceType(evidenceType).Attachment(attachment).XTenantId(xTenantId).XOrgId(xOrgId).Summary(summary).AmountMicros(amountMicros).Execute()
+	resp, r, err := apiClient.DisputesAPI.AddExternalDocEvidenceEndpoint(context.Background(), disputeId).EvidenceType(evidenceType).Attachment(attachment).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Summary(summary).AmountMicros(amountMicros).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DisputesAPI.AddExternalDocEvidenceEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -153,11 +156,12 @@ Other parameters are passed through a pointer to a apiAddExternalDocEvidenceEndp
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **evidenceType** | **string** |  | 
  **attachment** | ***os.File** |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **summary** | **string** |  | 
  **amountMicros** | **int32** |  | 
 
@@ -181,7 +185,7 @@ No authorization required
 
 ## ApproveDisputeEndpoint
 
-> DisputeResponse ApproveDisputeEndpoint(ctx, disputeId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).DisputeApprovalRequest(disputeApprovalRequest).Execute()
+> DisputeResponse ApproveDisputeEndpoint(ctx, disputeId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).DisputeApprovalRequest(disputeApprovalRequest).Execute()
 
 Approve Dispute Endpoint
 
@@ -201,14 +205,15 @@ import (
 
 func main() {
 	disputeId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	disputeApprovalRequest := *openapiclient.NewDisputeApprovalRequest() // DisputeApprovalRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DisputesAPI.ApproveDisputeEndpoint(context.Background(), disputeId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).DisputeApprovalRequest(disputeApprovalRequest).Execute()
+	resp, r, err := apiClient.DisputesAPI.ApproveDisputeEndpoint(context.Background(), disputeId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).DisputeApprovalRequest(disputeApprovalRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DisputesAPI.ApproveDisputeEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -237,6 +242,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **disputeApprovalRequest** | [**DisputeApprovalRequest**](DisputeApprovalRequest.md) |  | 
 
 ### Return type
@@ -259,7 +265,7 @@ No authorization required
 
 ## GetDisputeEndpoint
 
-> DisputeResponse GetDisputeEndpoint(ctx, disputeId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> DisputeResponse GetDisputeEndpoint(ctx, disputeId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Dispute Endpoint
 
@@ -279,13 +285,14 @@ import (
 
 func main() {
 	disputeId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DisputesAPI.GetDisputeEndpoint(context.Background(), disputeId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.DisputesAPI.GetDisputeEndpoint(context.Background(), disputeId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DisputesAPI.GetDisputeEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -314,6 +321,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -335,7 +343,7 @@ No authorization required
 
 ## ListDisputesEndpoint
 
-> DisputeListResponse ListDisputesEndpoint(ctx).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).CaseId(caseId).Status(status).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> DisputeListResponse ListDisputesEndpoint(ctx).Page(page).PageSize(pageSize).CaseId(caseId).Status(status).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Disputes Endpoint
 
@@ -354,17 +362,18 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	page := int32(56) // int32 |  (optional) (default to 1)
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string |  (optional)
 	status := "status_example" // string |  (optional)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DisputesAPI.ListDisputesEndpoint(context.Background()).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).CaseId(caseId).Status(status).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.DisputesAPI.ListDisputesEndpoint(context.Background()).Page(page).PageSize(pageSize).CaseId(caseId).Status(status).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DisputesAPI.ListDisputesEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -385,13 +394,14 @@ Other parameters are passed through a pointer to a apiListDisputesEndpointReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **page** | **int32** |  | [default to 1]
  **pageSize** | **int32** |  | [default to 50]
  **caseId** | **string** |  | 
  **status** | **string** |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -413,7 +423,7 @@ No authorization required
 
 ## ListEvidenceEndpoint
 
-> EvidenceListResponse ListEvidenceEndpoint(ctx, disputeId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> EvidenceListResponse ListEvidenceEndpoint(ctx, disputeId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Evidence Endpoint
 
@@ -433,13 +443,14 @@ import (
 
 func main() {
 	disputeId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DisputesAPI.ListEvidenceEndpoint(context.Background(), disputeId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.DisputesAPI.ListEvidenceEndpoint(context.Background(), disputeId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DisputesAPI.ListEvidenceEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -468,6 +479,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -489,7 +501,7 @@ No authorization required
 
 ## RejectDisputeEndpoint
 
-> DisputeResponse RejectDisputeEndpoint(ctx, disputeId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).DisputeApprovalRequest(disputeApprovalRequest).Execute()
+> DisputeResponse RejectDisputeEndpoint(ctx, disputeId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).DisputeApprovalRequest(disputeApprovalRequest).Execute()
 
 Reject Dispute Endpoint
 
@@ -509,14 +521,15 @@ import (
 
 func main() {
 	disputeId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	disputeApprovalRequest := *openapiclient.NewDisputeApprovalRequest() // DisputeApprovalRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DisputesAPI.RejectDisputeEndpoint(context.Background(), disputeId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).DisputeApprovalRequest(disputeApprovalRequest).Execute()
+	resp, r, err := apiClient.DisputesAPI.RejectDisputeEndpoint(context.Background(), disputeId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).DisputeApprovalRequest(disputeApprovalRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DisputesAPI.RejectDisputeEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -545,6 +558,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **disputeApprovalRequest** | [**DisputeApprovalRequest**](DisputeApprovalRequest.md) |  | 
 
 ### Return type
@@ -567,7 +581,7 @@ No authorization required
 
 ## ResolveDisputeEndpoint
 
-> DisputeResponse ResolveDisputeEndpoint(ctx, disputeId).XAPIKey(xAPIKey).DisputeResolveRequest(disputeResolveRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> DisputeResponse ResolveDisputeEndpoint(ctx, disputeId).DisputeResolveRequest(disputeResolveRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Resolve Dispute Endpoint
 
@@ -587,14 +601,15 @@ import (
 
 func main() {
 	disputeId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	disputeResolveRequest := *openapiclient.NewDisputeResolveRequest("Resolution_example") // DisputeResolveRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DisputesAPI.ResolveDisputeEndpoint(context.Background(), disputeId).XAPIKey(xAPIKey).DisputeResolveRequest(disputeResolveRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.DisputesAPI.ResolveDisputeEndpoint(context.Background(), disputeId).DisputeResolveRequest(disputeResolveRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DisputesAPI.ResolveDisputeEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -620,10 +635,11 @@ Other parameters are passed through a pointer to a apiResolveDisputeEndpointRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **disputeResolveRequest** | [**DisputeResolveRequest**](DisputeResolveRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -645,7 +661,7 @@ No authorization required
 
 ## ReviewEvidenceEndpoint
 
-> EvidenceResponse ReviewEvidenceEndpoint(ctx, disputeId, evidenceId).XAPIKey(xAPIKey).EvidenceReviewRequest(evidenceReviewRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> EvidenceResponse ReviewEvidenceEndpoint(ctx, disputeId, evidenceId).EvidenceReviewRequest(evidenceReviewRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Review Evidence Endpoint
 
@@ -666,14 +682,15 @@ import (
 func main() {
 	disputeId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	evidenceId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	evidenceReviewRequest := *openapiclient.NewEvidenceReviewRequest("ResolutionStatus_example", int32(123)) // EvidenceReviewRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DisputesAPI.ReviewEvidenceEndpoint(context.Background(), disputeId, evidenceId).XAPIKey(xAPIKey).EvidenceReviewRequest(evidenceReviewRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.DisputesAPI.ReviewEvidenceEndpoint(context.Background(), disputeId, evidenceId).EvidenceReviewRequest(evidenceReviewRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DisputesAPI.ReviewEvidenceEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -701,10 +718,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xAPIKey** | **string** |  | 
  **evidenceReviewRequest** | [**EvidenceReviewRequest**](EvidenceReviewRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -726,7 +744,7 @@ No authorization required
 
 ## UpdateDisputeEndpoint
 
-> DisputeResponse UpdateDisputeEndpoint(ctx, disputeId).XAPIKey(xAPIKey).DisputeUpdateRequest(disputeUpdateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> DisputeResponse UpdateDisputeEndpoint(ctx, disputeId).DisputeUpdateRequest(disputeUpdateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Update Dispute Endpoint
 
@@ -746,14 +764,15 @@ import (
 
 func main() {
 	disputeId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	disputeUpdateRequest := *openapiclient.NewDisputeUpdateRequest() // DisputeUpdateRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DisputesAPI.UpdateDisputeEndpoint(context.Background(), disputeId).XAPIKey(xAPIKey).DisputeUpdateRequest(disputeUpdateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.DisputesAPI.UpdateDisputeEndpoint(context.Background(), disputeId).DisputeUpdateRequest(disputeUpdateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DisputesAPI.UpdateDisputeEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -779,10 +798,11 @@ Other parameters are passed through a pointer to a apiUpdateDisputeEndpointReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **disputeUpdateRequest** | [**DisputeUpdateRequest**](DisputeUpdateRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 

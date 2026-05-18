@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## CreateEscalation
 
-> EscalationResponse CreateEscalation(ctx, caseId).XAPIKey(xAPIKey).EscalationCreate(escalationCreate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> EscalationResponse CreateEscalation(ctx, caseId).EscalationCreate(escalationCreate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Create Escalation
 
@@ -36,14 +36,15 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	escalationCreate := *openapiclient.NewEscalationCreate("Reason_example") // EscalationCreate | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EscalationsAPI.CreateEscalation(context.Background(), caseId).XAPIKey(xAPIKey).EscalationCreate(escalationCreate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.EscalationsAPI.CreateEscalation(context.Background(), caseId).EscalationCreate(escalationCreate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EscalationsAPI.CreateEscalation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -69,10 +70,11 @@ Other parameters are passed through a pointer to a apiCreateEscalationRequest st
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **escalationCreate** | [**EscalationCreate**](EscalationCreate.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -94,7 +96,7 @@ No authorization required
 
 ## DismissEscalation
 
-> EscalationResponse DismissEscalation(ctx, caseId, escalationId).XAPIKey(xAPIKey).EscalationDismissRequest(escalationDismissRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> EscalationResponse DismissEscalation(ctx, caseId, escalationId).EscalationDismissRequest(escalationDismissRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Dismiss Escalation
 
@@ -115,14 +117,15 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	escalationId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	escalationDismissRequest := *openapiclient.NewEscalationDismissRequest("Reason_example") // EscalationDismissRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EscalationsAPI.DismissEscalation(context.Background(), caseId, escalationId).XAPIKey(xAPIKey).EscalationDismissRequest(escalationDismissRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.EscalationsAPI.DismissEscalation(context.Background(), caseId, escalationId).EscalationDismissRequest(escalationDismissRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EscalationsAPI.DismissEscalation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -150,10 +153,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xAPIKey** | **string** |  | 
  **escalationDismissRequest** | [**EscalationDismissRequest**](EscalationDismissRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -175,7 +179,7 @@ No authorization required
 
 ## DispatchEscalationAction
 
-> EscalationActionResponse DispatchEscalationAction(ctx, escalationId).XAPIKey(xAPIKey).EscalationActionRequest(escalationActionRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> EscalationActionResponse DispatchEscalationAction(ctx, escalationId).EscalationActionRequest(escalationActionRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Dispatch Escalation Action
 
@@ -195,14 +199,15 @@ import (
 
 func main() {
 	escalationId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	escalationActionRequest := *openapiclient.NewEscalationActionRequest("ActionType_example") // EscalationActionRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EscalationsAPI.DispatchEscalationAction(context.Background(), escalationId).XAPIKey(xAPIKey).EscalationActionRequest(escalationActionRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.EscalationsAPI.DispatchEscalationAction(context.Background(), escalationId).EscalationActionRequest(escalationActionRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EscalationsAPI.DispatchEscalationAction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -228,10 +233,11 @@ Other parameters are passed through a pointer to a apiDispatchEscalationActionRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **escalationActionRequest** | [**EscalationActionRequest**](EscalationActionRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -253,7 +259,7 @@ No authorization required
 
 ## GetEscalation
 
-> EscalationResponse GetEscalation(ctx, caseId, escalationId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> EscalationResponse GetEscalation(ctx, caseId, escalationId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Escalation
 
@@ -274,13 +280,14 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	escalationId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EscalationsAPI.GetEscalation(context.Background(), caseId, escalationId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.EscalationsAPI.GetEscalation(context.Background(), caseId, escalationId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EscalationsAPI.GetEscalation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -311,6 +318,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -332,7 +340,7 @@ No authorization required
 
 ## ListEscalations
 
-> EscalationListResponse ListEscalations(ctx, caseId).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> EscalationListResponse ListEscalations(ctx, caseId).Page(page).PageSize(pageSize).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Escalations
 
@@ -352,15 +360,16 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	page := int32(56) // int32 |  (optional) (default to 1)
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EscalationsAPI.ListEscalations(context.Background(), caseId).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.EscalationsAPI.ListEscalations(context.Background(), caseId).Page(page).PageSize(pageSize).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EscalationsAPI.ListEscalations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -386,11 +395,12 @@ Other parameters are passed through a pointer to a apiListEscalationsRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **page** | **int32** |  | [default to 1]
  **pageSize** | **int32** |  | [default to 50]
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -412,7 +422,7 @@ No authorization required
 
 ## ResolveEscalation
 
-> EscalationResponse ResolveEscalation(ctx, caseId, escalationId).XAPIKey(xAPIKey).EscalationResolveRequest(escalationResolveRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> EscalationResponse ResolveEscalation(ctx, caseId, escalationId).EscalationResolveRequest(escalationResolveRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Resolve Escalation
 
@@ -433,14 +443,15 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	escalationId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	escalationResolveRequest := *openapiclient.NewEscalationResolveRequest() // EscalationResolveRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EscalationsAPI.ResolveEscalation(context.Background(), caseId, escalationId).XAPIKey(xAPIKey).EscalationResolveRequest(escalationResolveRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.EscalationsAPI.ResolveEscalation(context.Background(), caseId, escalationId).EscalationResolveRequest(escalationResolveRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EscalationsAPI.ResolveEscalation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -468,10 +479,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xAPIKey** | **string** |  | 
  **escalationResolveRequest** | [**EscalationResolveRequest**](EscalationResolveRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -493,7 +505,7 @@ No authorization required
 
 ## UpdateEscalation
 
-> EscalationResponse UpdateEscalation(ctx, caseId, escalationId).XAPIKey(xAPIKey).EscalationUpdate(escalationUpdate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> EscalationResponse UpdateEscalation(ctx, caseId, escalationId).EscalationUpdate(escalationUpdate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Update Escalation
 
@@ -514,14 +526,15 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	escalationId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	escalationUpdate := *openapiclient.NewEscalationUpdate() // EscalationUpdate | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EscalationsAPI.UpdateEscalation(context.Background(), caseId, escalationId).XAPIKey(xAPIKey).EscalationUpdate(escalationUpdate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.EscalationsAPI.UpdateEscalation(context.Background(), caseId, escalationId).EscalationUpdate(escalationUpdate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EscalationsAPI.UpdateEscalation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -549,10 +562,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xAPIKey** | **string** |  | 
  **escalationUpdate** | [**EscalationUpdate**](EscalationUpdate.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 

@@ -28,7 +28,7 @@ Method | HTTP request | Description
 
 ## BatchBackfillManagedPortalSuppressionAckProtectionV1ArcBatch
 
-> interface{} BatchBackfillManagedPortalSuppressionAckProtectionV1ArcBatch(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).NetSuiteManagedPortalProtectionAckRequest(netSuiteManagedPortalProtectionAckRequest).Execute()
+> interface{} BatchBackfillManagedPortalSuppressionAckProtectionV1ArcBatch(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).NetSuiteManagedPortalProtectionAckRequest(netSuiteManagedPortalProtectionAckRequest).Execute()
 
 Batch Backfill Managed Portal Suppression Ack Protection
 
@@ -47,9 +47,10 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xUserId := "xUserId_example" // string |  (optional)
 	xArcRoles := "xArcRoles_example" // string |  (optional)
 	xArcProxySecret := "xArcProxySecret_example" // string |  (optional)
@@ -57,7 +58,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchBackfillManagedPortalSuppressionAckProtectionV1ArcBatch(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).NetSuiteManagedPortalProtectionAckRequest(netSuiteManagedPortalProtectionAckRequest).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchBackfillManagedPortalSuppressionAckProtectionV1ArcBatch(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).NetSuiteManagedPortalProtectionAckRequest(netSuiteManagedPortalProtectionAckRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchBackfillManagedPortalSuppressionAckProtectionV1ArcBatch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -81,6 +82,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xUserId** | **string** |  | 
  **xArcRoles** | **string** |  | 
  **xArcProxySecret** | **string** |  | 
@@ -106,7 +108,7 @@ No authorization required
 
 ## BatchBackfillManagedPortalSuppressionCancelV1ArcBatch
 
-> interface{} BatchBackfillManagedPortalSuppressionCancelV1ArcBatch(ctx, jobId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).NetSuiteManagedPortalBackfillCancelRequest(netSuiteManagedPortalBackfillCancelRequest).Execute()
+> interface{} BatchBackfillManagedPortalSuppressionCancelV1ArcBatch(ctx, jobId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).NetSuiteManagedPortalBackfillCancelRequest(netSuiteManagedPortalBackfillCancelRequest).Execute()
 
 Batch Backfill Managed Portal Suppression Cancel
 
@@ -126,9 +128,10 @@ import (
 
 func main() {
 	jobId := "jobId_example" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xUserId := "xUserId_example" // string |  (optional)
 	xArcRoles := "xArcRoles_example" // string |  (optional)
 	xArcProxySecret := "xArcProxySecret_example" // string |  (optional)
@@ -136,7 +139,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchBackfillManagedPortalSuppressionCancelV1ArcBatch(context.Background(), jobId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).NetSuiteManagedPortalBackfillCancelRequest(netSuiteManagedPortalBackfillCancelRequest).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchBackfillManagedPortalSuppressionCancelV1ArcBatch(context.Background(), jobId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).NetSuiteManagedPortalBackfillCancelRequest(netSuiteManagedPortalBackfillCancelRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchBackfillManagedPortalSuppressionCancelV1ArcBatch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -165,6 +168,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xUserId** | **string** |  | 
  **xArcRoles** | **string** |  | 
  **xArcProxySecret** | **string** |  | 
@@ -190,7 +194,7 @@ No authorization required
 
 ## BatchBackfillManagedPortalSuppressionRunV1ArcBatch
 
-> interface{} BatchBackfillManagedPortalSuppressionRunV1ArcBatch(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).NetSuiteManagedPortalBackfillRunRequest(netSuiteManagedPortalBackfillRunRequest).Execute()
+> interface{} BatchBackfillManagedPortalSuppressionRunV1ArcBatch(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).NetSuiteManagedPortalBackfillRunRequest(netSuiteManagedPortalBackfillRunRequest).Execute()
 
 Batch Backfill Managed Portal Suppression Run
 
@@ -209,9 +213,10 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xUserId := "xUserId_example" // string |  (optional)
 	xArcRoles := "xArcRoles_example" // string |  (optional)
 	xArcProxySecret := "xArcProxySecret_example" // string |  (optional)
@@ -219,7 +224,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchBackfillManagedPortalSuppressionRunV1ArcBatch(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).NetSuiteManagedPortalBackfillRunRequest(netSuiteManagedPortalBackfillRunRequest).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchBackfillManagedPortalSuppressionRunV1ArcBatch(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).NetSuiteManagedPortalBackfillRunRequest(netSuiteManagedPortalBackfillRunRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchBackfillManagedPortalSuppressionRunV1ArcBatch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -243,6 +248,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xUserId** | **string** |  | 
  **xArcRoles** | **string** |  | 
  **xArcProxySecret** | **string** |  | 
@@ -268,7 +274,7 @@ No authorization required
 
 ## BatchBackfillManagedPortalSuppressionRunV1ArcBatchBackfill
 
-> interface{} BatchBackfillManagedPortalSuppressionRunV1ArcBatchBackfill(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).NetSuiteManagedPortalBackfillRunRequest(netSuiteManagedPortalBackfillRunRequest).Execute()
+> interface{} BatchBackfillManagedPortalSuppressionRunV1ArcBatchBackfill(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).NetSuiteManagedPortalBackfillRunRequest(netSuiteManagedPortalBackfillRunRequest).Execute()
 
 Batch Backfill Managed Portal Suppression Run
 
@@ -287,9 +293,10 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xUserId := "xUserId_example" // string |  (optional)
 	xArcRoles := "xArcRoles_example" // string |  (optional)
 	xArcProxySecret := "xArcProxySecret_example" // string |  (optional)
@@ -297,7 +304,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchBackfillManagedPortalSuppressionRunV1ArcBatchBackfill(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).NetSuiteManagedPortalBackfillRunRequest(netSuiteManagedPortalBackfillRunRequest).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchBackfillManagedPortalSuppressionRunV1ArcBatchBackfill(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).NetSuiteManagedPortalBackfillRunRequest(netSuiteManagedPortalBackfillRunRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchBackfillManagedPortalSuppressionRunV1ArcBatchBackfill``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -321,6 +328,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xUserId** | **string** |  | 
  **xArcRoles** | **string** |  | 
  **xArcProxySecret** | **string** |  | 
@@ -346,7 +354,7 @@ No authorization required
 
 ## BatchBackfillManagedPortalSuppressionStatusV1ArcBatch
 
-> interface{} BatchBackfillManagedPortalSuppressionStatusV1ArcBatch(ctx, jobId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
+> interface{} BatchBackfillManagedPortalSuppressionStatusV1ArcBatch(ctx, jobId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
 
 Batch Backfill Managed Portal Suppression Status
 
@@ -366,15 +374,16 @@ import (
 
 func main() {
 	jobId := "jobId_example" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xArcRoles := "xArcRoles_example" // string |  (optional)
 	xArcProxySecret := "xArcProxySecret_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchBackfillManagedPortalSuppressionStatusV1ArcBatch(context.Background(), jobId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchBackfillManagedPortalSuppressionStatusV1ArcBatch(context.Background(), jobId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchBackfillManagedPortalSuppressionStatusV1ArcBatch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -403,6 +412,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xArcRoles** | **string** |  | 
  **xArcProxySecret** | **string** |  | 
 
@@ -426,7 +436,7 @@ No authorization required
 
 ## BatchBackfillManagedPortalSuppressionV1ArcBatch
 
-> interface{} BatchBackfillManagedPortalSuppressionV1ArcBatch(ctx).XAPIKey(xAPIKey).NetSuiteManagedPortalBackfillRequest(netSuiteManagedPortalBackfillRequest).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
+> interface{} BatchBackfillManagedPortalSuppressionV1ArcBatch(ctx).NetSuiteManagedPortalBackfillRequest(netSuiteManagedPortalBackfillRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
 
 Batch Backfill Managed Portal Suppression
 
@@ -445,17 +455,18 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	netSuiteManagedPortalBackfillRequest := *openapiclient.NewNetSuiteManagedPortalBackfillRequest() // NetSuiteManagedPortalBackfillRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xUserId := "xUserId_example" // string |  (optional)
 	xArcRoles := "xArcRoles_example" // string |  (optional)
 	xArcProxySecret := "xArcProxySecret_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchBackfillManagedPortalSuppressionV1ArcBatch(context.Background()).XAPIKey(xAPIKey).NetSuiteManagedPortalBackfillRequest(netSuiteManagedPortalBackfillRequest).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchBackfillManagedPortalSuppressionV1ArcBatch(context.Background()).NetSuiteManagedPortalBackfillRequest(netSuiteManagedPortalBackfillRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchBackfillManagedPortalSuppressionV1ArcBatch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -476,10 +487,11 @@ Other parameters are passed through a pointer to a apiBatchBackfillManagedPortal
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **netSuiteManagedPortalBackfillRequest** | [**NetSuiteManagedPortalBackfillRequest**](NetSuiteManagedPortalBackfillRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xUserId** | **string** |  | 
  **xArcRoles** | **string** |  | 
  **xArcProxySecret** | **string** |  | 
@@ -504,7 +516,7 @@ No authorization required
 
 ## BatchBackfillNetsuiteDeferredInvoicesV1ArcBatch
 
-> interface{} BatchBackfillNetsuiteDeferredInvoicesV1ArcBatch(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} BatchBackfillNetsuiteDeferredInvoicesV1ArcBatch(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Batch Backfill Netsuite Deferred Invoices
 
@@ -523,13 +535,14 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchBackfillNetsuiteDeferredInvoicesV1ArcBatch(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchBackfillNetsuiteDeferredInvoicesV1ArcBatch(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchBackfillNetsuiteDeferredInvoicesV1ArcBatch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -553,6 +566,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -574,7 +588,7 @@ No authorization required
 
 ## BatchBackfillNetsuiteIdentitiesV1Arc
 
-> interface{} BatchBackfillNetsuiteIdentitiesV1Arc(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} BatchBackfillNetsuiteIdentitiesV1Arc(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Batch Backfill Netsuite Identities
 
@@ -593,13 +607,14 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchBackfillNetsuiteIdentitiesV1Arc(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchBackfillNetsuiteIdentitiesV1Arc(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchBackfillNetsuiteIdentitiesV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -623,6 +638,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -644,7 +660,7 @@ No authorization required
 
 ## BatchBootstrapNetsuiteAccountsV1Arc
 
-> interface{} BatchBootstrapNetsuiteAccountsV1Arc(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} BatchBootstrapNetsuiteAccountsV1Arc(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Batch Bootstrap Netsuite Accounts
 
@@ -663,13 +679,14 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchBootstrapNetsuiteAccountsV1Arc(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchBootstrapNetsuiteAccountsV1Arc(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchBootstrapNetsuiteAccountsV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -693,6 +710,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -714,7 +732,7 @@ No authorization required
 
 ## BatchBulkActionV1
 
-> interface{} BatchBulkActionV1(ctx).XAPIKey(xAPIKey).BulkActionRequest(bulkActionRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} BatchBulkActionV1(ctx).BulkActionRequest(bulkActionRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Batch Bulk Action
 
@@ -733,14 +751,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	bulkActionRequest := *openapiclient.NewBulkActionRequest("Action_example", []string{"CaseIds_example"}) // BulkActionRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchBulkActionV1(context.Background()).XAPIKey(xAPIKey).BulkActionRequest(bulkActionRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchBulkActionV1(context.Background()).BulkActionRequest(bulkActionRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchBulkActionV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -761,10 +780,11 @@ Other parameters are passed through a pointer to a apiBatchBulkActionV1Request s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **bulkActionRequest** | [**BulkActionRequest**](BulkActionRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -786,7 +806,7 @@ No authorization required
 
 ## BatchDeleteNetsuiteManagedPortalMappingV1ArcBatch
 
-> interface{} BatchDeleteNetsuiteManagedPortalMappingV1ArcBatch(ctx).XAPIKey(xAPIKey).NetSuiteManagedPortalMappingDeleteRequest(netSuiteManagedPortalMappingDeleteRequest).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
+> interface{} BatchDeleteNetsuiteManagedPortalMappingV1ArcBatch(ctx).NetSuiteManagedPortalMappingDeleteRequest(netSuiteManagedPortalMappingDeleteRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
 
 Batch Delete Netsuite Managed Portal Mapping
 
@@ -805,17 +825,18 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	netSuiteManagedPortalMappingDeleteRequest := *openapiclient.NewNetSuiteManagedPortalMappingDeleteRequest("ChangeReason_example") // NetSuiteManagedPortalMappingDeleteRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xUserId := "xUserId_example" // string |  (optional)
 	xArcRoles := "xArcRoles_example" // string |  (optional)
 	xArcProxySecret := "xArcProxySecret_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchDeleteNetsuiteManagedPortalMappingV1ArcBatch(context.Background()).XAPIKey(xAPIKey).NetSuiteManagedPortalMappingDeleteRequest(netSuiteManagedPortalMappingDeleteRequest).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchDeleteNetsuiteManagedPortalMappingV1ArcBatch(context.Background()).NetSuiteManagedPortalMappingDeleteRequest(netSuiteManagedPortalMappingDeleteRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchDeleteNetsuiteManagedPortalMappingV1ArcBatch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -836,10 +857,11 @@ Other parameters are passed through a pointer to a apiBatchDeleteNetsuiteManaged
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **netSuiteManagedPortalMappingDeleteRequest** | [**NetSuiteManagedPortalMappingDeleteRequest**](NetSuiteManagedPortalMappingDeleteRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xUserId** | **string** |  | 
  **xArcRoles** | **string** |  | 
  **xArcProxySecret** | **string** |  | 
@@ -864,7 +886,7 @@ No authorization required
 
 ## BatchDeleteNetsuiteManagedPortalMappingV1ArcBatchPost
 
-> interface{} BatchDeleteNetsuiteManagedPortalMappingV1ArcBatchPost(ctx).XAPIKey(xAPIKey).NetSuiteManagedPortalMappingDeleteRequest(netSuiteManagedPortalMappingDeleteRequest).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
+> interface{} BatchDeleteNetsuiteManagedPortalMappingV1ArcBatchPost(ctx).NetSuiteManagedPortalMappingDeleteRequest(netSuiteManagedPortalMappingDeleteRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
 
 Batch Delete Netsuite Managed Portal Mapping
 
@@ -883,17 +905,18 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	netSuiteManagedPortalMappingDeleteRequest := *openapiclient.NewNetSuiteManagedPortalMappingDeleteRequest("ChangeReason_example") // NetSuiteManagedPortalMappingDeleteRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xUserId := "xUserId_example" // string |  (optional)
 	xArcRoles := "xArcRoles_example" // string |  (optional)
 	xArcProxySecret := "xArcProxySecret_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchDeleteNetsuiteManagedPortalMappingV1ArcBatchPost(context.Background()).XAPIKey(xAPIKey).NetSuiteManagedPortalMappingDeleteRequest(netSuiteManagedPortalMappingDeleteRequest).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchDeleteNetsuiteManagedPortalMappingV1ArcBatchPost(context.Background()).NetSuiteManagedPortalMappingDeleteRequest(netSuiteManagedPortalMappingDeleteRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchDeleteNetsuiteManagedPortalMappingV1ArcBatchPost``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -914,10 +937,11 @@ Other parameters are passed through a pointer to a apiBatchDeleteNetsuiteManaged
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **netSuiteManagedPortalMappingDeleteRequest** | [**NetSuiteManagedPortalMappingDeleteRequest**](NetSuiteManagedPortalMappingDeleteRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xUserId** | **string** |  | 
  **xArcRoles** | **string** |  | 
  **xArcProxySecret** | **string** |  | 
@@ -942,7 +966,7 @@ No authorization required
 
 ## BatchLinkNetsuiteAccountV1Arc
 
-> interface{} BatchLinkNetsuiteAccountV1Arc(ctx).XAPIKey(xAPIKey).LinkNetSuiteAccountRequest(linkNetSuiteAccountRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} BatchLinkNetsuiteAccountV1Arc(ctx).LinkNetSuiteAccountRequest(linkNetSuiteAccountRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Batch Link Netsuite Account
 
@@ -961,14 +985,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	linkNetSuiteAccountRequest := *openapiclient.NewLinkNetSuiteAccountRequest("AccountId_example", "NetsuiteCustomerId_example") // LinkNetSuiteAccountRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchLinkNetsuiteAccountV1Arc(context.Background()).XAPIKey(xAPIKey).LinkNetSuiteAccountRequest(linkNetSuiteAccountRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchLinkNetsuiteAccountV1Arc(context.Background()).LinkNetSuiteAccountRequest(linkNetSuiteAccountRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchLinkNetsuiteAccountV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -989,10 +1014,11 @@ Other parameters are passed through a pointer to a apiBatchLinkNetsuiteAccountV1
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **linkNetSuiteAccountRequest** | [**LinkNetSuiteAccountRequest**](LinkNetSuiteAccountRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -1014,7 +1040,7 @@ No authorization required
 
 ## BatchRecalculateAgingV1
 
-> interface{} BatchRecalculateAgingV1(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} BatchRecalculateAgingV1(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Batch Recalculate Aging
 
@@ -1033,13 +1059,14 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchRecalculateAgingV1(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchRecalculateAgingV1(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchRecalculateAgingV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1063,6 +1090,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -1084,7 +1112,7 @@ No authorization required
 
 ## BatchReconcilePendingProviderConfirmationsV1ArcBatch
 
-> interface{} BatchReconcilePendingProviderConfirmationsV1ArcBatch(ctx).XAPIKey(xAPIKey).PendingProviderConfirmationReconcileRequest(pendingProviderConfirmationReconcileRequest).XTenantId(xTenantId).XOrgId(xOrgId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
+> interface{} BatchReconcilePendingProviderConfirmationsV1ArcBatch(ctx).PendingProviderConfirmationReconcileRequest(pendingProviderConfirmationReconcileRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
 
 Batch Reconcile Pending Provider Confirmations
 
@@ -1103,16 +1131,17 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	pendingProviderConfirmationReconcileRequest := *openapiclient.NewPendingProviderConfirmationReconcileRequest() // PendingProviderConfirmationReconcileRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xArcRoles := "xArcRoles_example" // string |  (optional)
 	xArcProxySecret := "xArcProxySecret_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchReconcilePendingProviderConfirmationsV1ArcBatch(context.Background()).XAPIKey(xAPIKey).PendingProviderConfirmationReconcileRequest(pendingProviderConfirmationReconcileRequest).XTenantId(xTenantId).XOrgId(xOrgId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchReconcilePendingProviderConfirmationsV1ArcBatch(context.Background()).PendingProviderConfirmationReconcileRequest(pendingProviderConfirmationReconcileRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchReconcilePendingProviderConfirmationsV1ArcBatch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1133,10 +1162,11 @@ Other parameters are passed through a pointer to a apiBatchReconcilePendingProvi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **pendingProviderConfirmationReconcileRequest** | [**PendingProviderConfirmationReconcileRequest**](PendingProviderConfirmationReconcileRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xArcRoles** | **string** |  | 
  **xArcProxySecret** | **string** |  | 
 
@@ -1160,7 +1190,7 @@ No authorization required
 
 ## BatchSetNetsuiteCutoverGuardV1Arc
 
-> interface{} BatchSetNetsuiteCutoverGuardV1Arc(ctx).XAPIKey(xAPIKey).NetSuiteCutoverGuardRequest(netSuiteCutoverGuardRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} BatchSetNetsuiteCutoverGuardV1Arc(ctx).NetSuiteCutoverGuardRequest(netSuiteCutoverGuardRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Batch Set Netsuite Cutover Guard
 
@@ -1179,14 +1209,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	netSuiteCutoverGuardRequest := *openapiclient.NewNetSuiteCutoverGuardRequest(false) // NetSuiteCutoverGuardRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchSetNetsuiteCutoverGuardV1Arc(context.Background()).XAPIKey(xAPIKey).NetSuiteCutoverGuardRequest(netSuiteCutoverGuardRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchSetNetsuiteCutoverGuardV1Arc(context.Background()).NetSuiteCutoverGuardRequest(netSuiteCutoverGuardRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchSetNetsuiteCutoverGuardV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1207,10 +1238,11 @@ Other parameters are passed through a pointer to a apiBatchSetNetsuiteCutoverGua
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **netSuiteCutoverGuardRequest** | [**NetSuiteCutoverGuardRequest**](NetSuiteCutoverGuardRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -1232,7 +1264,7 @@ No authorization required
 
 ## BatchSetNetsuiteManagedPortalMappingV1ArcBatch
 
-> interface{} BatchSetNetsuiteManagedPortalMappingV1ArcBatch(ctx).XAPIKey(xAPIKey).NetSuiteManagedPortalMappingRequest(netSuiteManagedPortalMappingRequest).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
+> interface{} BatchSetNetsuiteManagedPortalMappingV1ArcBatch(ctx).NetSuiteManagedPortalMappingRequest(netSuiteManagedPortalMappingRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
 
 Batch Set Netsuite Managed Portal Mapping
 
@@ -1251,17 +1283,18 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	netSuiteManagedPortalMappingRequest := *openapiclient.NewNetSuiteManagedPortalMappingRequest("SourceFieldId_example", "ChangeReason_example") // NetSuiteManagedPortalMappingRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xUserId := "xUserId_example" // string |  (optional)
 	xArcRoles := "xArcRoles_example" // string |  (optional)
 	xArcProxySecret := "xArcProxySecret_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchSetNetsuiteManagedPortalMappingV1ArcBatch(context.Background()).XAPIKey(xAPIKey).NetSuiteManagedPortalMappingRequest(netSuiteManagedPortalMappingRequest).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchSetNetsuiteManagedPortalMappingV1ArcBatch(context.Background()).NetSuiteManagedPortalMappingRequest(netSuiteManagedPortalMappingRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchSetNetsuiteManagedPortalMappingV1ArcBatch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1282,10 +1315,11 @@ Other parameters are passed through a pointer to a apiBatchSetNetsuiteManagedPor
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **netSuiteManagedPortalMappingRequest** | [**NetSuiteManagedPortalMappingRequest**](NetSuiteManagedPortalMappingRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xUserId** | **string** |  | 
  **xArcRoles** | **string** |  | 
  **xArcProxySecret** | **string** |  | 
@@ -1310,7 +1344,7 @@ No authorization required
 
 ## BatchSyncInvoicesV1
 
-> interface{} BatchSyncInvoicesV1(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).SyncInvoicesRequest(syncInvoicesRequest).Execute()
+> interface{} BatchSyncInvoicesV1(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).SyncInvoicesRequest(syncInvoicesRequest).Execute()
 
 Batch Sync Invoices
 
@@ -1329,14 +1363,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	syncInvoicesRequest := *openapiclient.NewSyncInvoicesRequest() // SyncInvoicesRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchSyncInvoicesV1(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).SyncInvoicesRequest(syncInvoicesRequest).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchSyncInvoicesV1(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).SyncInvoicesRequest(syncInvoicesRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchSyncInvoicesV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1360,6 +1395,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **syncInvoicesRequest** | [**SyncInvoicesRequest**](SyncInvoicesRequest.md) |  | 
 
 ### Return type
@@ -1382,7 +1418,7 @@ No authorization required
 
 ## BatchTriggerNetsuiteSyncV1Arc
 
-> interface{} BatchTriggerNetsuiteSyncV1Arc(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} BatchTriggerNetsuiteSyncV1Arc(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Batch Trigger Netsuite Sync
 
@@ -1401,13 +1437,14 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.BatchTriggerNetsuiteSyncV1Arc(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.BatchAPI.BatchTriggerNetsuiteSyncV1Arc(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.BatchTriggerNetsuiteSyncV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1431,6 +1468,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 

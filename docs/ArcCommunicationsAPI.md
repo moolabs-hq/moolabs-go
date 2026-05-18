@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## ApproveCommunication
 
-> ApprovalActionResponse ApproveCommunication(ctx, caseId, commId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).ApprovalActionRequest(approvalActionRequest).Execute()
+> ApprovalActionResponse ApproveCommunication(ctx, caseId, commId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).ApprovalActionRequest(approvalActionRequest).Execute()
 
 Approve Communication
 
@@ -35,14 +35,15 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	commId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	approvalActionRequest := *openapiclient.NewApprovalActionRequest() // ApprovalActionRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcCommunicationsAPI.ApproveCommunication(context.Background(), caseId, commId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).ApprovalActionRequest(approvalActionRequest).Execute()
+	resp, r, err := apiClient.ArcCommunicationsAPI.ApproveCommunication(context.Background(), caseId, commId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).ApprovalActionRequest(approvalActionRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcCommunicationsAPI.ApproveCommunication``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -73,6 +74,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **approvalActionRequest** | [**ApprovalActionRequest**](ApprovalActionRequest.md) |  | 
 
 ### Return type
@@ -95,7 +97,7 @@ No authorization required
 
 ## CreateCommunication
 
-> CommunicationResponse CreateCommunication(ctx, caseId).XAPIKey(xAPIKey).CommunicationCreate(communicationCreate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CommunicationResponse CreateCommunication(ctx, caseId).CommunicationCreate(communicationCreate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Create Communication
 
@@ -115,14 +117,15 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	communicationCreate := *openapiclient.NewCommunicationCreate() // CommunicationCreate | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcCommunicationsAPI.CreateCommunication(context.Background(), caseId).XAPIKey(xAPIKey).CommunicationCreate(communicationCreate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcCommunicationsAPI.CreateCommunication(context.Background(), caseId).CommunicationCreate(communicationCreate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcCommunicationsAPI.CreateCommunication``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -148,10 +151,11 @@ Other parameters are passed through a pointer to a apiCreateCommunicationRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **communicationCreate** | [**CommunicationCreate**](CommunicationCreate.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -173,7 +177,7 @@ No authorization required
 
 ## ListCommunications
 
-> CommunicationListResponse ListCommunications(ctx, caseId).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).Direction(direction).Channel(channel).Status(status).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CommunicationListResponse ListCommunications(ctx, caseId).Page(page).PageSize(pageSize).Direction(direction).Channel(channel).Status(status).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Communications
 
@@ -193,18 +197,19 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	page := int32(56) // int32 |  (optional) (default to 1)
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	direction := "direction_example" // string |  (optional)
 	channel := "channel_example" // string |  (optional)
 	status := "status_example" // string |  (optional)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcCommunicationsAPI.ListCommunications(context.Background(), caseId).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).Direction(direction).Channel(channel).Status(status).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ArcCommunicationsAPI.ListCommunications(context.Background(), caseId).Page(page).PageSize(pageSize).Direction(direction).Channel(channel).Status(status).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcCommunicationsAPI.ListCommunications``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -230,14 +235,15 @@ Other parameters are passed through a pointer to a apiListCommunicationsRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **page** | **int32** |  | [default to 1]
  **pageSize** | **int32** |  | [default to 50]
  **direction** | **string** |  | 
  **channel** | **string** |  | 
  **status** | **string** |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -259,7 +265,7 @@ No authorization required
 
 ## RejectCommunication
 
-> ApprovalActionResponse RejectCommunication(ctx, caseId, commId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).ApprovalActionRequest(approvalActionRequest).Execute()
+> ApprovalActionResponse RejectCommunication(ctx, caseId, commId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).ApprovalActionRequest(approvalActionRequest).Execute()
 
 Reject Communication
 
@@ -280,14 +286,15 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	commId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	approvalActionRequest := *openapiclient.NewApprovalActionRequest() // ApprovalActionRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcCommunicationsAPI.RejectCommunication(context.Background(), caseId, commId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).ApprovalActionRequest(approvalActionRequest).Execute()
+	resp, r, err := apiClient.ArcCommunicationsAPI.RejectCommunication(context.Background(), caseId, commId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).ApprovalActionRequest(approvalActionRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcCommunicationsAPI.RejectCommunication``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -318,6 +325,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **approvalActionRequest** | [**ApprovalActionRequest**](ApprovalActionRequest.md) |  | 
 
 ### Return type
@@ -340,7 +348,7 @@ No authorization required
 
 ## ResolveProviderConfirmationV1Arc
 
-> ApprovalActionResponse ResolveProviderConfirmationV1Arc(ctx, caseId, commId).XAPIKey(xAPIKey).ProviderConfirmationRepairRequest(providerConfirmationRepairRequest).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
+> ApprovalActionResponse ResolveProviderConfirmationV1Arc(ctx, caseId, commId).ProviderConfirmationRepairRequest(providerConfirmationRepairRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
 
 Resolve Provider Confirmation
 
@@ -361,17 +369,18 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	commId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	providerConfirmationRepairRequest := *openapiclient.NewProviderConfirmationRepairRequest("Outcome_example") // ProviderConfirmationRepairRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xUserId := "xUserId_example" // string |  (optional)
 	xArcRoles := "xArcRoles_example" // string |  (optional)
 	xArcProxySecret := "xArcProxySecret_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcCommunicationsAPI.ResolveProviderConfirmationV1Arc(context.Background(), caseId, commId).XAPIKey(xAPIKey).ProviderConfirmationRepairRequest(providerConfirmationRepairRequest).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
+	resp, r, err := apiClient.ArcCommunicationsAPI.ResolveProviderConfirmationV1Arc(context.Background(), caseId, commId).ProviderConfirmationRepairRequest(providerConfirmationRepairRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).XArcProxySecret(xArcProxySecret).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcCommunicationsAPI.ResolveProviderConfirmationV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -399,10 +408,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xAPIKey** | **string** |  | 
  **providerConfirmationRepairRequest** | [**ProviderConfirmationRepairRequest**](ProviderConfirmationRepairRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xUserId** | **string** |  | 
  **xArcRoles** | **string** |  | 
  **xArcProxySecret** | **string** |  | 

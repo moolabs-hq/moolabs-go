@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## ApproveTask
 
-> ApproveResponse ApproveTask(ctx, taskId).XAPIKey(xAPIKey).ApproveRequest(approveRequest).XTenantId(xTenantId).XOrgId(xOrgId).XActingUser(xActingUser).Execute()
+> ApproveResponse ApproveTask(ctx, taskId).ApproveRequest(approveRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XActingUser(xActingUser).Execute()
 
 Approve Task
 
@@ -32,15 +32,16 @@ import (
 
 func main() {
 	taskId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	approveRequest := *openapiclient.NewApproveRequest() // ApproveRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xActingUser := "xActingUser_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SteeringAPI.ApproveTask(context.Background(), taskId).XAPIKey(xAPIKey).ApproveRequest(approveRequest).XTenantId(xTenantId).XOrgId(xOrgId).XActingUser(xActingUser).Execute()
+	resp, r, err := apiClient.SteeringAPI.ApproveTask(context.Background(), taskId).ApproveRequest(approveRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XActingUser(xActingUser).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SteeringAPI.ApproveTask``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -66,10 +67,11 @@ Other parameters are passed through a pointer to a apiApproveTaskRequest struct 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **approveRequest** | [**ApproveRequest**](ApproveRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xActingUser** | **string** |  | 
 
 ### Return type
@@ -92,7 +94,7 @@ No authorization required
 
 ## SteerAskCustomerV1
 
-> AskCustomerResponse SteerAskCustomerV1(ctx, taskId).XAPIKey(xAPIKey).AskCustomerRequest(askCustomerRequest).XTenantId(xTenantId).XOrgId(xOrgId).XActingUser(xActingUser).Execute()
+> AskCustomerResponse SteerAskCustomerV1(ctx, taskId).AskCustomerRequest(askCustomerRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XActingUser(xActingUser).Execute()
 
 Steer Ask Customer
 
@@ -110,15 +112,16 @@ import (
 
 func main() {
 	taskId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	askCustomerRequest := *openapiclient.NewAskCustomerRequest("MissingField_example") // AskCustomerRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xActingUser := "xActingUser_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SteeringAPI.SteerAskCustomerV1(context.Background(), taskId).XAPIKey(xAPIKey).AskCustomerRequest(askCustomerRequest).XTenantId(xTenantId).XOrgId(xOrgId).XActingUser(xActingUser).Execute()
+	resp, r, err := apiClient.SteeringAPI.SteerAskCustomerV1(context.Background(), taskId).AskCustomerRequest(askCustomerRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XActingUser(xActingUser).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SteeringAPI.SteerAskCustomerV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -144,10 +147,11 @@ Other parameters are passed through a pointer to a apiSteerAskCustomerV1Request 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **askCustomerRequest** | [**AskCustomerRequest**](AskCustomerRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xActingUser** | **string** |  | 
 
 ### Return type
@@ -170,7 +174,7 @@ No authorization required
 
 ## SteerEscalate
 
-> EscalateResponse SteerEscalate(ctx, taskId).XAPIKey(xAPIKey).EscalateRequest(escalateRequest).XTenantId(xTenantId).XOrgId(xOrgId).XActingUser(xActingUser).Execute()
+> EscalateResponse SteerEscalate(ctx, taskId).EscalateRequest(escalateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XActingUser(xActingUser).Execute()
 
 Steer Escalate
 
@@ -188,15 +192,16 @@ import (
 
 func main() {
 	taskId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	escalateRequest := *openapiclient.NewEscalateRequest("Reason_example") // EscalateRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xActingUser := "xActingUser_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SteeringAPI.SteerEscalate(context.Background(), taskId).XAPIKey(xAPIKey).EscalateRequest(escalateRequest).XTenantId(xTenantId).XOrgId(xOrgId).XActingUser(xActingUser).Execute()
+	resp, r, err := apiClient.SteeringAPI.SteerEscalate(context.Background(), taskId).EscalateRequest(escalateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XActingUser(xActingUser).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SteeringAPI.SteerEscalate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -222,10 +227,11 @@ Other parameters are passed through a pointer to a apiSteerEscalateRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **escalateRequest** | [**EscalateRequest**](EscalateRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xActingUser** | **string** |  | 
 
 ### Return type
@@ -248,7 +254,7 @@ No authorization required
 
 ## SteerOverride
 
-> OverrideResponse SteerOverride(ctx, taskId).XAPIKey(xAPIKey).OverrideRequest(overrideRequest).XTenantId(xTenantId).XOrgId(xOrgId).XActingUser(xActingUser).Execute()
+> OverrideResponse SteerOverride(ctx, taskId).OverrideRequest(overrideRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XActingUser(xActingUser).Execute()
 
 Steer Override
 
@@ -266,15 +272,16 @@ import (
 
 func main() {
 	taskId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	overrideRequest := *openapiclient.NewOverrideRequest(map[string]interface{}{"key": interface{}(123)}) // OverrideRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xActingUser := "xActingUser_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SteeringAPI.SteerOverride(context.Background(), taskId).XAPIKey(xAPIKey).OverrideRequest(overrideRequest).XTenantId(xTenantId).XOrgId(xOrgId).XActingUser(xActingUser).Execute()
+	resp, r, err := apiClient.SteeringAPI.SteerOverride(context.Background(), taskId).OverrideRequest(overrideRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XActingUser(xActingUser).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SteeringAPI.SteerOverride``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -300,10 +307,11 @@ Other parameters are passed through a pointer to a apiSteerOverrideRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **overrideRequest** | [**OverrideRequest**](OverrideRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xActingUser** | **string** |  | 
 
 ### Return type
@@ -326,7 +334,7 @@ No authorization required
 
 ## SteerReattempt
 
-> ReattemptResponse SteerReattempt(ctx, taskId).XAPIKey(xAPIKey).ReattemptRequest(reattemptRequest).XTenantId(xTenantId).XOrgId(xOrgId).XActingUser(xActingUser).Execute()
+> ReattemptResponse SteerReattempt(ctx, taskId).ReattemptRequest(reattemptRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XActingUser(xActingUser).Execute()
 
 Steer Reattempt
 
@@ -344,15 +352,16 @@ import (
 
 func main() {
 	taskId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	reattemptRequest := *openapiclient.NewReattemptRequest("Hint_example") // ReattemptRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xActingUser := "xActingUser_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SteeringAPI.SteerReattempt(context.Background(), taskId).XAPIKey(xAPIKey).ReattemptRequest(reattemptRequest).XTenantId(xTenantId).XOrgId(xOrgId).XActingUser(xActingUser).Execute()
+	resp, r, err := apiClient.SteeringAPI.SteerReattempt(context.Background(), taskId).ReattemptRequest(reattemptRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XActingUser(xActingUser).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SteeringAPI.SteerReattempt``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -378,10 +387,11 @@ Other parameters are passed through a pointer to a apiSteerReattemptRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **reattemptRequest** | [**ReattemptRequest**](ReattemptRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xActingUser** | **string** |  | 
 
 ### Return type

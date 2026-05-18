@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 ## CreateAccount
 
-> AccountResponse CreateAccount(ctx).XAPIKey(xAPIKey).AccountCreate(accountCreate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> AccountResponse CreateAccount(ctx).AccountCreate(accountCreate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Create Account
 
@@ -42,14 +42,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	accountCreate := *openapiclient.NewAccountCreate("CustomerId_example", "LegalName_example") // AccountCreate | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountsAPI.CreateAccount(context.Background()).XAPIKey(xAPIKey).AccountCreate(accountCreate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.AccountsAPI.CreateAccount(context.Background()).AccountCreate(accountCreate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountsAPI.CreateAccount``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -70,10 +71,11 @@ Other parameters are passed through a pointer to a apiCreateAccountRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **accountCreate** | [**AccountCreate**](AccountCreate.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -95,7 +97,7 @@ No authorization required
 
 ## CreateContact
 
-> ContactResponse CreateContact(ctx, accountId).XAPIKey(xAPIKey).ContactCreate(contactCreate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> ContactResponse CreateContact(ctx, accountId).ContactCreate(contactCreate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Create Contact
 
@@ -115,14 +117,15 @@ import (
 
 func main() {
 	accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	contactCreate := *openapiclient.NewContactCreate("FullName_example", "Role_example") // ContactCreate | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountsAPI.CreateContact(context.Background(), accountId).XAPIKey(xAPIKey).ContactCreate(contactCreate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.AccountsAPI.CreateContact(context.Background(), accountId).ContactCreate(contactCreate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountsAPI.CreateContact``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -148,10 +151,11 @@ Other parameters are passed through a pointer to a apiCreateContactRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **contactCreate** | [**ContactCreate**](ContactCreate.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -173,7 +177,7 @@ No authorization required
 
 ## GetAccount
 
-> AccountResponse GetAccount(ctx, accountId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> AccountResponse GetAccount(ctx, accountId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Account
 
@@ -193,13 +197,14 @@ import (
 
 func main() {
 	accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountsAPI.GetAccount(context.Background(), accountId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.AccountsAPI.GetAccount(context.Background(), accountId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountsAPI.GetAccount``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -228,6 +233,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -249,7 +255,7 @@ No authorization required
 
 ## GetAccountFilterOptionsV1
 
-> AccountFilterOptionsResponse GetAccountFilterOptionsV1(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> AccountFilterOptionsResponse GetAccountFilterOptionsV1(ctx).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Account Filter Options
 
@@ -268,13 +274,14 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountsAPI.GetAccountFilterOptionsV1(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.AccountsAPI.GetAccountFilterOptionsV1(context.Background()).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountsAPI.GetAccountFilterOptionsV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -298,6 +305,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -319,7 +327,7 @@ No authorization required
 
 ## GetAccountOverview
 
-> AccountOverviewResponse GetAccountOverview(ctx, accountId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> AccountOverviewResponse GetAccountOverview(ctx, accountId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Account Overview
 
@@ -339,13 +347,14 @@ import (
 
 func main() {
 	accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountsAPI.GetAccountOverview(context.Background(), accountId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.AccountsAPI.GetAccountOverview(context.Background(), accountId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountsAPI.GetAccountOverview``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -374,6 +383,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -395,7 +405,7 @@ No authorization required
 
 ## GetChannelPreferences
 
-> ChannelPreferencesResponse GetChannelPreferences(ctx, contactId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> ChannelPreferencesResponse GetChannelPreferences(ctx, contactId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Channel Preferences
 
@@ -415,13 +425,14 @@ import (
 
 func main() {
 	contactId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountsAPI.GetChannelPreferences(context.Background(), contactId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.AccountsAPI.GetChannelPreferences(context.Background(), contactId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountsAPI.GetChannelPreferences``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -450,6 +461,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -471,7 +483,7 @@ No authorization required
 
 ## ListAccountInvoices
 
-> AccountInvoiceListResponse ListAccountInvoices(ctx, accountId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> AccountInvoiceListResponse ListAccountInvoices(ctx, accountId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Account Invoices
 
@@ -491,13 +503,14 @@ import (
 
 func main() {
 	accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountsAPI.ListAccountInvoices(context.Background(), accountId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.AccountsAPI.ListAccountInvoices(context.Background(), accountId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountsAPI.ListAccountInvoices``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -526,6 +539,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -547,7 +561,7 @@ No authorization required
 
 ## ListAccounts
 
-> AccountListResponse ListAccounts(ctx).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).CustomerId(customerId).Search(search).IsStrategic(isStrategic).SourceSystem(sourceSystem).Subsidiary(subsidiary).HasOpenBalance(hasOpenBalance).SortBy(sortBy).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> AccountListResponse ListAccounts(ctx).Page(page).PageSize(pageSize).CustomerId(customerId).Search(search).IsStrategic(isStrategic).SourceSystem(sourceSystem).Subsidiary(subsidiary).HasOpenBalance(hasOpenBalance).SortBy(sortBy).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Accounts
 
@@ -566,7 +580,6 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	page := int32(56) // int32 |  (optional) (default to 1)
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	customerId := "customerId_example" // string |  (optional)
@@ -576,12 +589,14 @@ func main() {
 	subsidiary := []string{"Inner_example"} // []string | Filter by account subsidiary (optional)
 	hasOpenBalance := true // bool | Filter by account open balance (optional)
 	sortBy := "sortBy_example" // string | created_desc, created_asc, open_balance_desc, open_balance_asc (optional)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountsAPI.ListAccounts(context.Background()).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).CustomerId(customerId).Search(search).IsStrategic(isStrategic).SourceSystem(sourceSystem).Subsidiary(subsidiary).HasOpenBalance(hasOpenBalance).SortBy(sortBy).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.AccountsAPI.ListAccounts(context.Background()).Page(page).PageSize(pageSize).CustomerId(customerId).Search(search).IsStrategic(isStrategic).SourceSystem(sourceSystem).Subsidiary(subsidiary).HasOpenBalance(hasOpenBalance).SortBy(sortBy).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountsAPI.ListAccounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -602,7 +617,6 @@ Other parameters are passed through a pointer to a apiListAccountsRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **page** | **int32** |  | [default to 1]
  **pageSize** | **int32** |  | [default to 50]
  **customerId** | **string** |  | 
@@ -612,8 +626,10 @@ Name | Type | Description  | Notes
  **subsidiary** | **[]string** | Filter by account subsidiary | 
  **hasOpenBalance** | **bool** | Filter by account open balance | 
  **sortBy** | **string** | created_desc, created_asc, open_balance_desc, open_balance_asc | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -635,7 +651,7 @@ No authorization required
 
 ## ListContacts
 
-> ContactListResponse ListContacts(ctx, accountId).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).Role(role).IsActive(isActive).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> ContactListResponse ListContacts(ctx, accountId).Page(page).PageSize(pageSize).Role(role).IsActive(isActive).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Contacts
 
@@ -655,17 +671,18 @@ import (
 
 func main() {
 	accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	page := int32(56) // int32 |  (optional) (default to 1)
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	role := "role_example" // string | Filter by contact role (optional)
 	isActive := true // bool | Filter by active status (optional)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountsAPI.ListContacts(context.Background(), accountId).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).Role(role).IsActive(isActive).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.AccountsAPI.ListContacts(context.Background(), accountId).Page(page).PageSize(pageSize).Role(role).IsActive(isActive).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountsAPI.ListContacts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -691,13 +708,14 @@ Other parameters are passed through a pointer to a apiListContactsRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **page** | **int32** |  | [default to 1]
  **pageSize** | **int32** |  | [default to 50]
  **role** | **string** | Filter by contact role | 
  **isActive** | **bool** | Filter by active status | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -719,7 +737,7 @@ No authorization required
 
 ## OptOutV1
 
-> OptOutResponse OptOutV1(ctx, contactId).XAPIKey(xAPIKey).OptOutRequest(optOutRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> OptOutResponse OptOutV1(ctx, contactId).OptOutRequest(optOutRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Opt Out
 
@@ -739,14 +757,15 @@ import (
 
 func main() {
 	contactId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	optOutRequest := *openapiclient.NewOptOutRequest("Channel_example") // OptOutRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountsAPI.OptOutV1(context.Background(), contactId).XAPIKey(xAPIKey).OptOutRequest(optOutRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.AccountsAPI.OptOutV1(context.Background(), contactId).OptOutRequest(optOutRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountsAPI.OptOutV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -772,10 +791,11 @@ Other parameters are passed through a pointer to a apiOptOutV1Request struct via
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **optOutRequest** | [**OptOutRequest**](OptOutRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -797,7 +817,7 @@ No authorization required
 
 ## ResolveJurisdictionV1
 
-> JurisdictionProfileResponse ResolveJurisdictionV1(ctx, accountId).XAPIKey(xAPIKey).JurisdictionResolutionRequest(jurisdictionResolutionRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> JurisdictionProfileResponse ResolveJurisdictionV1(ctx, accountId).JurisdictionResolutionRequest(jurisdictionResolutionRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Resolve Jurisdiction
 
@@ -817,14 +837,15 @@ import (
 
 func main() {
 	accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	jurisdictionResolutionRequest := *openapiclient.NewJurisdictionResolutionRequest("CountryCode_example") // JurisdictionResolutionRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountsAPI.ResolveJurisdictionV1(context.Background(), accountId).XAPIKey(xAPIKey).JurisdictionResolutionRequest(jurisdictionResolutionRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.AccountsAPI.ResolveJurisdictionV1(context.Background(), accountId).JurisdictionResolutionRequest(jurisdictionResolutionRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountsAPI.ResolveJurisdictionV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -850,10 +871,11 @@ Other parameters are passed through a pointer to a apiResolveJurisdictionV1Reque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **jurisdictionResolutionRequest** | [**JurisdictionResolutionRequest**](JurisdictionResolutionRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -875,7 +897,7 @@ No authorization required
 
 ## UpdateAccount
 
-> AccountResponse UpdateAccount(ctx, accountId).XAPIKey(xAPIKey).AccountUpdate(accountUpdate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> AccountResponse UpdateAccount(ctx, accountId).AccountUpdate(accountUpdate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Update Account
 
@@ -895,14 +917,15 @@ import (
 
 func main() {
 	accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	accountUpdate := *openapiclient.NewAccountUpdate() // AccountUpdate | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountsAPI.UpdateAccount(context.Background(), accountId).XAPIKey(xAPIKey).AccountUpdate(accountUpdate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.AccountsAPI.UpdateAccount(context.Background(), accountId).AccountUpdate(accountUpdate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountsAPI.UpdateAccount``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -928,10 +951,11 @@ Other parameters are passed through a pointer to a apiUpdateAccountRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **accountUpdate** | [**AccountUpdate**](AccountUpdate.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -953,7 +977,7 @@ No authorization required
 
 ## UpdateChannelPreferences
 
-> ChannelPreferencesResponse UpdateChannelPreferences(ctx, contactId).XAPIKey(xAPIKey).ChannelPreferenceUpdate(channelPreferenceUpdate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> ChannelPreferencesResponse UpdateChannelPreferences(ctx, contactId).ChannelPreferenceUpdate(channelPreferenceUpdate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Update Channel Preferences
 
@@ -973,14 +997,15 @@ import (
 
 func main() {
 	contactId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	channelPreferenceUpdate := *openapiclient.NewChannelPreferenceUpdate([]openapiclient.ChannelPreferenceCreate{*openapiclient.NewChannelPreferenceCreate("Channel_example")}) // ChannelPreferenceUpdate | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountsAPI.UpdateChannelPreferences(context.Background(), contactId).XAPIKey(xAPIKey).ChannelPreferenceUpdate(channelPreferenceUpdate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.AccountsAPI.UpdateChannelPreferences(context.Background(), contactId).ChannelPreferenceUpdate(channelPreferenceUpdate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountsAPI.UpdateChannelPreferences``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1006,10 +1031,11 @@ Other parameters are passed through a pointer to a apiUpdateChannelPreferencesRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **channelPreferenceUpdate** | [**ChannelPreferenceUpdate**](ChannelPreferenceUpdate.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -1031,7 +1057,7 @@ No authorization required
 
 ## UpdateContact
 
-> ContactResponse UpdateContact(ctx, contactId).XAPIKey(xAPIKey).ContactUpdate(contactUpdate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> ContactResponse UpdateContact(ctx, contactId).ContactUpdate(contactUpdate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Update Contact
 
@@ -1051,14 +1077,15 @@ import (
 
 func main() {
 	contactId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	contactUpdate := *openapiclient.NewContactUpdate() // ContactUpdate | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountsAPI.UpdateContact(context.Background(), contactId).XAPIKey(xAPIKey).ContactUpdate(contactUpdate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.AccountsAPI.UpdateContact(context.Background(), contactId).ContactUpdate(contactUpdate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountsAPI.UpdateContact``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1084,10 +1111,11 @@ Other parameters are passed through a pointer to a apiUpdateContactRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **contactUpdate** | [**ContactUpdate**](ContactUpdate.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 

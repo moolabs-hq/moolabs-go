@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## ApplyCreditEndpointV1
 
-> interface{} ApplyCreditEndpointV1(ctx, creditId).XAPIKey(xAPIKey).ApplyCreditRequest(applyCreditRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} ApplyCreditEndpointV1(ctx, creditId).ApplyCreditRequest(applyCreditRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Apply Credit Endpoint
 
@@ -33,14 +33,15 @@ import (
 
 func main() {
 	creditId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	applyCreditRequest := *openapiclient.NewApplyCreditRequest("InvoiceId_example", int32(123)) // ApplyCreditRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CashCreditsAPI.ApplyCreditEndpointV1(context.Background(), creditId).XAPIKey(xAPIKey).ApplyCreditRequest(applyCreditRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CashCreditsAPI.ApplyCreditEndpointV1(context.Background(), creditId).ApplyCreditRequest(applyCreditRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CashCreditsAPI.ApplyCreditEndpointV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -66,10 +67,11 @@ Other parameters are passed through a pointer to a apiApplyCreditEndpointV1Reque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **applyCreditRequest** | [**ApplyCreditRequest**](ApplyCreditRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -91,7 +93,7 @@ No authorization required
 
 ## ConvertCreditEndpointV1
 
-> interface{} ConvertCreditEndpointV1(ctx, creditId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} ConvertCreditEndpointV1(ctx, creditId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Convert Credit Endpoint
 
@@ -111,13 +113,14 @@ import (
 
 func main() {
 	creditId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CashCreditsAPI.ConvertCreditEndpointV1(context.Background(), creditId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CashCreditsAPI.ConvertCreditEndpointV1(context.Background(), creditId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CashCreditsAPI.ConvertCreditEndpointV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -146,6 +149,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -167,7 +171,7 @@ No authorization required
 
 ## ListCreditsEndpointV1
 
-> interface{} ListCreditsEndpointV1(ctx).XAPIKey(xAPIKey).AccountId(accountId).Status(status).Page(page).PageSize(pageSize).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} ListCreditsEndpointV1(ctx).AccountId(accountId).Status(status).Page(page).PageSize(pageSize).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Credits Endpoint
 
@@ -186,17 +190,18 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string |  (optional)
 	status := "status_example" // string |  (optional)
 	page := int32(56) // int32 |  (optional) (default to 1)
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CashCreditsAPI.ListCreditsEndpointV1(context.Background()).XAPIKey(xAPIKey).AccountId(accountId).Status(status).Page(page).PageSize(pageSize).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CashCreditsAPI.ListCreditsEndpointV1(context.Background()).AccountId(accountId).Status(status).Page(page).PageSize(pageSize).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CashCreditsAPI.ListCreditsEndpointV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -217,13 +222,14 @@ Other parameters are passed through a pointer to a apiListCreditsEndpointV1Reque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **accountId** | **string** |  | 
  **status** | **string** |  | 
  **page** | **int32** |  | [default to 1]
  **pageSize** | **int32** |  | [default to 50]
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -245,7 +251,7 @@ No authorization required
 
 ## RefundCreditEndpointV1
 
-> interface{} RefundCreditEndpointV1(ctx, creditId).XAPIKey(xAPIKey).RefundCreditRequest(refundCreditRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} RefundCreditEndpointV1(ctx, creditId).RefundCreditRequest(refundCreditRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Refund Credit Endpoint
 
@@ -265,14 +271,15 @@ import (
 
 func main() {
 	creditId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	refundCreditRequest := *openapiclient.NewRefundCreditRequest(int32(123)) // RefundCreditRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CashCreditsAPI.RefundCreditEndpointV1(context.Background(), creditId).XAPIKey(xAPIKey).RefundCreditRequest(refundCreditRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CashCreditsAPI.RefundCreditEndpointV1(context.Background(), creditId).RefundCreditRequest(refundCreditRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CashCreditsAPI.RefundCreditEndpointV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -298,10 +305,11 @@ Other parameters are passed through a pointer to a apiRefundCreditEndpointV1Requ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **refundCreditRequest** | [**RefundCreditRequest**](RefundCreditRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 

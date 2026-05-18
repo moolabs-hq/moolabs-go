@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## GetPaymentAllocations
 
-> AllocationsListResponse GetPaymentAllocations(ctx, paymentId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> AllocationsListResponse GetPaymentAllocations(ctx, paymentId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Payment Allocations
 
@@ -36,13 +36,14 @@ import (
 
 func main() {
 	paymentId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PaymentsAPI.GetPaymentAllocations(context.Background(), paymentId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.PaymentsAPI.GetPaymentAllocations(context.Background(), paymentId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PaymentsAPI.GetPaymentAllocations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -71,6 +72,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -92,7 +94,7 @@ No authorization required
 
 ## ListAccountPaymentsV1
 
-> []PaymentResponse ListAccountPaymentsV1(ctx, accountId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> []PaymentResponse ListAccountPaymentsV1(ctx, accountId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Account Payments
 
@@ -112,13 +114,14 @@ import (
 
 func main() {
 	accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PaymentsAPI.ListAccountPaymentsV1(context.Background(), accountId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.PaymentsAPI.ListAccountPaymentsV1(context.Background(), accountId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PaymentsAPI.ListAccountPaymentsV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -147,6 +150,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -168,7 +172,7 @@ No authorization required
 
 ## ListCasePaymentsV1
 
-> PaymentListResponse ListCasePaymentsV1(ctx, caseId).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> PaymentListResponse ListCasePaymentsV1(ctx, caseId).Page(page).PageSize(pageSize).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Case Payments
 
@@ -188,15 +192,16 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	page := int32(56) // int32 |  (optional) (default to 1)
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PaymentsAPI.ListCasePaymentsV1(context.Background(), caseId).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.PaymentsAPI.ListCasePaymentsV1(context.Background(), caseId).Page(page).PageSize(pageSize).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PaymentsAPI.ListCasePaymentsV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -222,11 +227,12 @@ Other parameters are passed through a pointer to a apiListCasePaymentsV1Request 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **page** | **int32** |  | [default to 1]
  **pageSize** | **int32** |  | [default to 50]
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -248,7 +254,7 @@ No authorization required
 
 ## MatchPayment
 
-> PaymentResponse MatchPayment(ctx, paymentId).XAPIKey(xAPIKey).PaymentMatchRequest(paymentMatchRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> PaymentResponse MatchPayment(ctx, paymentId).PaymentMatchRequest(paymentMatchRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Match Payment
 
@@ -268,14 +274,15 @@ import (
 
 func main() {
 	paymentId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	paymentMatchRequest := *openapiclient.NewPaymentMatchRequest("InvoiceId_example") // PaymentMatchRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PaymentsAPI.MatchPayment(context.Background(), paymentId).XAPIKey(xAPIKey).PaymentMatchRequest(paymentMatchRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.PaymentsAPI.MatchPayment(context.Background(), paymentId).PaymentMatchRequest(paymentMatchRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PaymentsAPI.MatchPayment``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -301,10 +308,11 @@ Other parameters are passed through a pointer to a apiMatchPaymentRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **paymentMatchRequest** | [**PaymentMatchRequest**](PaymentMatchRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -326,7 +334,7 @@ No authorization required
 
 ## RecordPayment
 
-> PaymentResponse RecordPayment(ctx).XAPIKey(xAPIKey).PaymentCreate(paymentCreate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> PaymentResponse RecordPayment(ctx).PaymentCreate(paymentCreate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Record Payment
 
@@ -346,14 +354,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	paymentCreate := *openapiclient.NewPaymentCreate("CaseId_example", int32(123), "PaymentMethod_example", time.Now()) // PaymentCreate | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PaymentsAPI.RecordPayment(context.Background()).XAPIKey(xAPIKey).PaymentCreate(paymentCreate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.PaymentsAPI.RecordPayment(context.Background()).PaymentCreate(paymentCreate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PaymentsAPI.RecordPayment``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -374,10 +383,11 @@ Other parameters are passed through a pointer to a apiRecordPaymentRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **paymentCreate** | [**PaymentCreate**](PaymentCreate.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -399,7 +409,7 @@ No authorization required
 
 ## ReversePayment
 
-> PaymentResponse ReversePayment(ctx, paymentId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).PaymentReversalRequest(paymentReversalRequest).Execute()
+> PaymentResponse ReversePayment(ctx, paymentId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).PaymentReversalRequest(paymentReversalRequest).Execute()
 
 Reverse Payment
 
@@ -419,14 +429,15 @@ import (
 
 func main() {
 	paymentId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	paymentReversalRequest := *openapiclient.NewPaymentReversalRequest() // PaymentReversalRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PaymentsAPI.ReversePayment(context.Background(), paymentId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).PaymentReversalRequest(paymentReversalRequest).Execute()
+	resp, r, err := apiClient.PaymentsAPI.ReversePayment(context.Background(), paymentId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).PaymentReversalRequest(paymentReversalRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PaymentsAPI.ReversePayment``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -455,6 +466,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **paymentReversalRequest** | [**PaymentReversalRequest**](PaymentReversalRequest.md) |  | 
 
 ### Return type
@@ -477,7 +489,7 @@ No authorization required
 
 ## SettleHostedCheckoutV1Arc
 
-> HostedCheckoutSettlementResponse SettleHostedCheckoutV1Arc(ctx).XAPIKey(xAPIKey).HostedCheckoutSettlementRequest(hostedCheckoutSettlementRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> HostedCheckoutSettlementResponse SettleHostedCheckoutV1Arc(ctx).HostedCheckoutSettlementRequest(hostedCheckoutSettlementRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Settle Hosted Checkout
 
@@ -497,14 +509,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	hostedCheckoutSettlementRequest := *openapiclient.NewHostedCheckoutSettlementRequest("CaseId_example", "PtpId_example", "InvoiceId_example", int32(123), "ExternalPaymentId_example", time.Now()) // HostedCheckoutSettlementRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PaymentsAPI.SettleHostedCheckoutV1Arc(context.Background()).XAPIKey(xAPIKey).HostedCheckoutSettlementRequest(hostedCheckoutSettlementRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.PaymentsAPI.SettleHostedCheckoutV1Arc(context.Background()).HostedCheckoutSettlementRequest(hostedCheckoutSettlementRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PaymentsAPI.SettleHostedCheckoutV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -525,10 +538,11 @@ Other parameters are passed through a pointer to a apiSettleHostedCheckoutV1ArcR
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **hostedCheckoutSettlementRequest** | [**HostedCheckoutSettlementRequest**](HostedCheckoutSettlementRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 

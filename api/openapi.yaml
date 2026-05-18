@@ -4,7 +4,7 @@ info:
     \ internal service specs: bff, meter, arc, acute. Customers see capability namespaces\
     \ (usage, billing, collections, etc.); the SDK routes per-operation internally."
   title: Moolabs API
-  version: 0.2.0-rc6
+  version: 0.2.0-rc7
 servers:
 - url: /
 paths:
@@ -23054,10 +23054,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -23074,6 +23075,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -23100,10 +23110,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -23120,6 +23131,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -23154,10 +23174,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -23174,6 +23195,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -23210,10 +23240,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -23230,6 +23261,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -23267,10 +23307,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -23287,6 +23328,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -23323,10 +23373,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -23343,6 +23394,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -23378,10 +23438,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -23398,6 +23459,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -23483,10 +23553,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -23503,6 +23574,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -23538,10 +23618,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -23558,6 +23639,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -23604,10 +23694,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -23624,6 +23715,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -23666,10 +23766,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -23686,6 +23787,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -23721,10 +23831,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -23741,6 +23852,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -23783,10 +23903,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -23803,6 +23924,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -23845,10 +23975,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -23865,6 +23996,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -23921,10 +24061,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -23941,6 +24082,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -23982,10 +24132,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -24002,6 +24153,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -24061,10 +24221,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -24081,6 +24242,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -24120,10 +24290,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -24140,6 +24311,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -24309,10 +24489,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -24329,6 +24510,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -24355,10 +24545,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -24375,6 +24566,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -24417,10 +24617,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -24437,6 +24638,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -24472,10 +24682,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -24492,6 +24703,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -24526,10 +24746,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -24546,6 +24767,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -24588,10 +24818,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -24608,6 +24839,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -24650,10 +24890,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -24670,6 +24911,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -24712,10 +24962,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -24732,6 +24983,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -24768,10 +25028,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -24788,6 +25049,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -24831,10 +25101,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -24851,6 +25122,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -24893,10 +25173,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -24913,6 +25194,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -24958,10 +25248,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -24978,6 +25269,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -25021,10 +25321,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -25041,6 +25342,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -25140,10 +25450,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -25160,6 +25471,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -25244,10 +25564,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -25264,6 +25585,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -25299,10 +25629,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -25319,6 +25650,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -25370,10 +25710,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -25390,6 +25731,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -25440,10 +25790,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -25460,6 +25811,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -25510,10 +25870,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -25530,6 +25891,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -25630,10 +26000,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -25650,6 +26021,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -25686,10 +26066,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -25706,6 +26087,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -25741,10 +26131,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -25761,6 +26152,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -25803,10 +26203,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -25823,6 +26224,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -25869,10 +26279,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -25889,6 +26300,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -25933,10 +26353,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -25953,6 +26374,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -25994,10 +26424,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -26014,6 +26445,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -26050,10 +26490,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -26070,6 +26511,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -26113,10 +26563,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -26133,6 +26584,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -26184,10 +26644,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -26204,6 +26665,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -26237,10 +26707,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -26257,6 +26728,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -26291,10 +26771,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -26311,6 +26792,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -26353,10 +26843,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -26373,6 +26864,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -26436,10 +26936,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -26456,6 +26957,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -26502,10 +27012,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -26522,6 +27033,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -26560,10 +27080,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -26580,6 +27101,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -26616,10 +27146,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -26636,6 +27167,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -26677,10 +27217,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -26697,6 +27238,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -26739,10 +27289,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -26759,6 +27310,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -26807,10 +27367,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -26827,6 +27388,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -26900,10 +27470,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -26920,6 +27491,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -26955,10 +27535,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -26975,6 +27556,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -27016,10 +27606,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -27036,6 +27627,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -27077,10 +27677,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -27097,6 +27698,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -27141,10 +27751,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -27161,6 +27772,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -27195,10 +27815,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -27215,6 +27836,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -27266,10 +27896,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -27286,6 +27917,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -27331,10 +27971,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -27351,6 +27992,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -27401,10 +28051,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -27421,6 +28072,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -27465,10 +28125,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -27485,6 +28146,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -27523,10 +28193,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -27543,6 +28214,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -27586,10 +28266,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -27606,6 +28287,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -27646,10 +28336,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -27666,6 +28357,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -27716,10 +28416,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -27736,6 +28437,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -27781,10 +28491,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -27801,6 +28512,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -27860,10 +28580,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -27880,6 +28601,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -27933,10 +28663,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -27953,6 +28684,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -27994,10 +28734,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -28014,6 +28755,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -28048,10 +28798,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -28068,6 +28819,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -28118,10 +28878,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -28138,6 +28899,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -28182,10 +28952,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -28202,6 +28973,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -28246,10 +29026,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -28266,6 +29047,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -28315,10 +29105,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -28335,6 +29126,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -28430,10 +29230,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -28450,6 +29251,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -28486,10 +29296,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -28506,6 +29317,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -28541,10 +29361,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -28561,6 +29382,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -28603,10 +29433,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -28623,6 +29454,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -28664,10 +29504,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -28684,6 +29525,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -28719,10 +29569,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -28739,6 +29590,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -28780,10 +29640,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -28800,6 +29661,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -28841,10 +29711,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -28861,6 +29732,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -28911,10 +29791,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -28931,6 +29812,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -28957,10 +29847,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -28977,6 +29868,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29018,10 +29918,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29038,6 +29939,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29063,10 +29973,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29083,6 +29994,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29124,10 +30044,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29144,6 +30065,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29178,10 +30108,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29198,6 +30129,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29232,10 +30172,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29252,6 +30193,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29284,10 +30234,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29304,6 +30255,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29329,10 +30289,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29349,6 +30310,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29381,10 +30351,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29401,6 +30372,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29429,10 +30409,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29449,6 +30430,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29486,10 +30476,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29506,6 +30497,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29532,10 +30532,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29552,6 +30553,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29578,10 +30588,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29598,6 +30609,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29624,10 +30644,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29644,6 +30665,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29670,10 +30700,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29690,6 +30721,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29745,10 +30785,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29765,6 +30806,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29802,10 +30852,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29822,6 +30873,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29848,10 +30908,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29868,6 +30929,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29893,10 +30963,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29913,6 +30984,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -29972,10 +31052,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -29992,6 +31073,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -30210,10 +31300,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -30230,6 +31321,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -30279,10 +31379,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -30299,6 +31400,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -30332,10 +31442,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -30352,6 +31463,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -30383,10 +31503,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -30403,6 +31524,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -30433,10 +31563,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -30453,6 +31584,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -30483,10 +31623,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -30503,6 +31644,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -30575,10 +31725,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -30595,6 +31746,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -30631,10 +31791,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -30651,6 +31812,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -30678,10 +31848,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -30698,6 +31869,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -30749,10 +31929,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -30769,6 +31950,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -30810,10 +32000,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -30830,6 +32021,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -30884,10 +32084,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -30904,6 +32105,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -30940,10 +32150,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -30960,6 +32171,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -30986,10 +32206,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31006,6 +32227,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31032,10 +32262,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31052,6 +32283,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31092,10 +32332,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31112,6 +32353,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31141,10 +32391,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31161,6 +32412,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31187,10 +32447,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31207,6 +32468,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31239,10 +32509,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31259,6 +32530,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31295,10 +32575,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31315,6 +32596,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31366,10 +32656,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31386,6 +32677,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31420,10 +32720,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31440,6 +32741,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31466,10 +32776,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31486,6 +32797,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31512,10 +32832,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31532,6 +32853,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31564,10 +32894,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31584,6 +32915,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31617,10 +32957,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31637,6 +32978,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31664,10 +33014,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31684,6 +33035,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31711,10 +33071,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31731,6 +33092,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31764,10 +33134,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31784,6 +33155,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31817,10 +33197,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31837,6 +33218,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31896,10 +33286,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31916,6 +33307,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -31976,10 +33376,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -31996,6 +33397,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -32056,10 +33466,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -32076,6 +33487,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -32144,10 +33564,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -32164,6 +33585,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -32209,10 +33639,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -32229,6 +33660,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -32288,10 +33728,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -32308,6 +33749,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -32375,10 +33825,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -32395,6 +33846,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -32454,10 +33914,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -32474,6 +33935,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -32533,10 +34003,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -32553,6 +34024,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -32604,10 +34084,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -32624,6 +34105,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -32651,10 +34141,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -32671,6 +34162,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -32909,10 +34409,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -32929,6 +34430,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -32964,10 +34474,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -32984,6 +34495,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -33035,10 +34555,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -33055,6 +34576,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -33095,10 +34625,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -33115,6 +34646,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -33172,10 +34712,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -33192,6 +34733,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -33227,10 +34777,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -33247,6 +34798,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -33298,10 +34858,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -33318,6 +34879,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -33362,10 +34932,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -33382,6 +34953,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -33433,10 +35013,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -33453,6 +35034,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -33509,10 +35099,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -33529,6 +35120,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -33576,10 +35176,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -33596,6 +35197,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -33667,10 +35277,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -33687,6 +35298,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -33713,10 +35333,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -33733,6 +35354,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -33775,10 +35405,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -33795,6 +35426,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -33830,10 +35470,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -33850,6 +35491,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -33892,10 +35542,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -33912,6 +35563,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -33948,10 +35608,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -33968,6 +35629,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -34010,10 +35680,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -34030,6 +35701,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -34065,10 +35745,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -34085,6 +35766,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -34135,10 +35825,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -34155,6 +35846,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -34205,10 +35905,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -34225,6 +35926,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -34275,10 +35985,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -34295,6 +36006,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -34345,10 +36065,11 @@ paths:
       - explode: false
         in: header
         name: X-API-Key
-        required: true
+        required: false
         schema:
           title: X-Api-Key
           type: string
+          nullable: true
         style: simple
       - explode: false
         in: header
@@ -34365,6 +36086,15 @@ paths:
         required: false
         schema:
           title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
           type: string
           nullable: true
         style: simple
@@ -34423,6 +36153,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Ingest Sdk Batch
       tags:
       - sdk-ingest
@@ -34452,6 +36183,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Create Rate Entry
       tags:
       - rate-catalog
@@ -34496,6 +36228,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: List Current Rates
       tags:
       - rate-catalog
@@ -34558,6 +36291,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Rate History
       tags:
       - rate-catalog
@@ -34605,6 +36339,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Rates Changed Since
       tags:
       - rate-catalog
@@ -34636,6 +36371,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Get Rate Entry
       tags:
       - rate-catalog
@@ -34673,6 +36409,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Update Rate Entry
       tags:
       - rate-catalog
@@ -34702,6 +36439,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Bulk Import Rates
       tags:
       - rate-catalog
@@ -34729,6 +36467,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Ingest Cost Event
       tags:
       - cost-events
@@ -34759,6 +36498,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Batch Ingest Cost Events
       tags:
       - cost-events
@@ -34793,6 +36533,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Submit Adjustment
       tags:
       - cost-events
@@ -34858,6 +36599,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Cost By Customer
       tags:
       - AcuteAnalytics
@@ -34923,6 +36665,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Cost By Feature
       tags:
       - AcuteAnalytics
@@ -34977,6 +36720,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Cost By Model
       tags:
       - AcuteAnalytics
@@ -35035,6 +36779,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Cost By Plan
       tags:
       - AcuteAnalytics
@@ -35099,6 +36844,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Cost Trends
       tags:
       - AcuteAnalytics
@@ -35164,6 +36910,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Top Consumers
       tags:
       - AcuteAnalytics
@@ -35226,6 +36973,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Unit Economics
       tags:
       - AcuteAnalytics
@@ -35258,6 +37006,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Ingest Health
       tags:
       - AcuteAnalytics
@@ -35319,6 +37068,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Overview
       tags:
       - AcuteAnalytics
@@ -35360,6 +37110,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: OTLP/HTTP span ingestion (Tier 2)
       tags:
       - AcuteIntegrations
@@ -35398,6 +37149,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Configure Helicone pull connector
       tags:
       - AcuteIntegrations
@@ -35436,6 +37188,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Configure Langfuse pull connector
       tags:
       - AcuteIntegrations
@@ -35480,6 +37233,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Receive Helicone webhook push events
       tags:
       - AcuteIntegrations
@@ -35521,6 +37275,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Manual Tier 5 aggregate billing import
       tags:
       - AcuteIntegrations
@@ -35556,6 +37311,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: List providers configured in rate catalog
       tags:
       - AcuteIntegrations
@@ -35592,6 +37348,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: List connector health
       tags:
       - AcuteIntegrations
@@ -35642,6 +37399,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Rotate connector API key (24h grace period for previous key)
       tags:
       - AcuteIntegrations
@@ -35700,6 +37458,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: List Rules
       tags:
       - mapping-rules
@@ -35741,6 +37500,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Create Rule
       tags:
       - mapping-rules
@@ -35782,6 +37542,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Disable Rule
       tags:
       - mapping-rules
@@ -35828,6 +37589,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Update Rule
       tags:
       - mapping-rules
@@ -35873,6 +37635,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Dry Run
       tags:
       - mapping-rules
@@ -35908,6 +37671,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Enable Tier3
       tags:
       - mapping-rules
@@ -35980,6 +37744,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Margin per customer
       tags:
       - margins
@@ -36049,6 +37814,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Margin per feature
       tags:
       - margins
@@ -36119,6 +37885,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Daily valued_burn / total_cost ratio time series
       tags:
       - margins
@@ -36202,6 +37969,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Period margin snapshot with reconciliation breakdown
       tags:
       - margins
@@ -36273,6 +38041,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Financial completeness metric
       tags:
       - margins
@@ -36304,6 +38073,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Trigger manual reconciliation (operator)
       tags:
       - margins
@@ -36334,6 +38104,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Trigger snapshot computation (operator)
       tags:
       - margins
@@ -36365,6 +38136,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Import a billing batch
       tags:
       - cloud-billing
@@ -36412,6 +38184,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: List recent import batches
       tags:
       - cloud-billing
@@ -36444,6 +38217,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Get batch details with row-level data
       tags:
       - cloud-billing
@@ -36475,6 +38249,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: "Configure scheduled sync (stores config, returns 202)"
       tags:
       - cloud-billing
@@ -36539,6 +38314,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: List resource_service_map entries
       tags:
       - cloud-billing
@@ -36568,6 +38344,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Create or update a resource mapping
       tags:
       - cloud-billing
@@ -36612,6 +38389,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: List allocation rules for tenant
       tags:
       - allocation-rules
@@ -36639,6 +38417,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Create an allocation rule
       tags:
       - allocation-rules
@@ -36667,6 +38446,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Soft-delete allocation rule (is_active=false)
       tags:
       - allocation-rules
@@ -36697,6 +38477,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Get allocation rule detail
       tags:
       - allocation-rules
@@ -36736,6 +38517,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Update allocation rule (triggers retroactive recompute signal)
       tags:
       - allocation-rules
@@ -36780,6 +38562,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Manually trigger reallocation for a period
       tags:
       - allocation-rules
@@ -36827,6 +38610,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Get all budget utilization summary
       tags:
       - budgets
@@ -36870,6 +38654,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: List budgets for tenant
       tags:
       - budgets
@@ -36898,6 +38683,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Create a budget
       tags:
       - budgets
@@ -36949,6 +38735,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Get budget with current utilization
       tags:
       - budgets
@@ -36985,6 +38772,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Update a budget
       tags:
       - budgets
@@ -37051,6 +38839,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Get alerts for this budget
       tags:
       - budgets
@@ -37089,6 +38878,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Acknowledge an alert
       tags:
       - budgets
@@ -37120,6 +38910,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Trigger shadow attribution run for a period
       tags:
       - attribution
@@ -37179,6 +38970,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: List all shadow attribution runs for tenant
       tags:
       - attribution
@@ -37222,6 +39014,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: "Get WAPE, coverage, and algorithm breakdown for a shadow run"
       tags:
       - attribution
@@ -37266,6 +39059,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Evaluate go/no-go gate for a shadow run
       tags:
       - attribution
@@ -37312,6 +39106,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Promote shadow attribution to production (gate must pass)
       tags:
       - attribution
@@ -37333,6 +39128,7 @@ paths:
           description: Successful Response
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: List all 12 attribution algorithms
       tags:
       - attribution
@@ -37411,6 +39207,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: List BOMs for tenant
       tags:
       - BOM
@@ -37441,6 +39238,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Create BOM (status=draft)
       tags:
       - BOM
@@ -37482,6 +39280,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Get BOM with components
       tags:
       - BOM
@@ -37531,6 +39330,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Create new BOM version (immutable update)
       tags:
       - BOM
@@ -37574,6 +39374,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Submit BOM for approval (draft → pending_approval)
       tags:
       - BOM
@@ -37626,6 +39427,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Approve BOM (pending_approval → active)
       tags:
       - BOM
@@ -37666,6 +39468,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Auto-derive BOM from observed cost_events
       tags:
       - BOM
@@ -37721,6 +39524,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Simulate BOM cost with current rate_catalog rates
       tags:
       - BOM
@@ -37786,6 +39590,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Observation completeness vs BOM expected_span_count
       tags:
       - BOM
@@ -37843,6 +39648,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Variance summary for all features in period
       tags:
       - Variance
@@ -37907,6 +39713,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: "BOM-level variance: standard vs actual"
       tags:
       - Variance
@@ -37984,6 +39791,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Full four-way variance decomposition for feature+period
       tags:
       - Variance
@@ -38014,6 +39822,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: Trigger variance computation (operator)
       tags:
       - Variance
@@ -38050,6 +39859,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: ACE margin simulation — single scenario
       tags:
       - Margin Simulation
@@ -38081,6 +39891,7 @@ paths:
           description: Validation Error
       security:
       - APIKeyHeader: []
+      - HTTPBearer: []
       summary: ACE margin simulation — multi-scenario comparison
       tags:
       - Margin Simulation
@@ -74152,6 +75963,7 @@ components:
       title: Rate Per Unit
   securitySchemes:
     HTTPBearer:
+      bearerFormat: opaque
       scheme: bearer
       type: http
     CloudTokenAuth:

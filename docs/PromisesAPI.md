@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 ## ApprovePtpEndpoint
 
-> interface{} ApprovePtpEndpoint(ctx, ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).PTPApprovalRequest(pTPApprovalRequest).Execute()
+> interface{} ApprovePtpEndpoint(ctx, ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).PTPApprovalRequest(pTPApprovalRequest).Execute()
 
 Approve Ptp Endpoint
 
@@ -37,14 +37,15 @@ import (
 
 func main() {
 	ptpId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	pTPApprovalRequest := *openapiclient.NewPTPApprovalRequest() // PTPApprovalRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PromisesAPI.ApprovePtpEndpoint(context.Background(), ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).PTPApprovalRequest(pTPApprovalRequest).Execute()
+	resp, r, err := apiClient.PromisesAPI.ApprovePtpEndpoint(context.Background(), ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).PTPApprovalRequest(pTPApprovalRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PromisesAPI.ApprovePtpEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -73,6 +74,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **pTPApprovalRequest** | [**PTPApprovalRequest**](PTPApprovalRequest.md) |  | 
 
 ### Return type
@@ -95,7 +97,7 @@ No authorization required
 
 ## BreakPtpEndpointV1Arc
 
-> interface{} BreakPtpEndpointV1Arc(ctx, caseId, ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} BreakPtpEndpointV1Arc(ctx, caseId, ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Break Ptp Endpoint
 
@@ -116,13 +118,14 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	ptpId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PromisesAPI.BreakPtpEndpointV1Arc(context.Background(), caseId, ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.PromisesAPI.BreakPtpEndpointV1Arc(context.Background(), caseId, ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PromisesAPI.BreakPtpEndpointV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -153,6 +156,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -174,7 +178,7 @@ No authorization required
 
 ## CancelPtpEndpointV1Arc
 
-> interface{} CancelPtpEndpointV1Arc(ctx, caseId, ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} CancelPtpEndpointV1Arc(ctx, caseId, ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Cancel Ptp Endpoint
 
@@ -195,13 +199,14 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	ptpId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PromisesAPI.CancelPtpEndpointV1Arc(context.Background(), caseId, ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.PromisesAPI.CancelPtpEndpointV1Arc(context.Background(), caseId, ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PromisesAPI.CancelPtpEndpointV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -232,6 +237,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -253,7 +259,7 @@ No authorization required
 
 ## CreatePtpEndpointV1Arc
 
-> interface{} CreatePtpEndpointV1Arc(ctx, caseId).XAPIKey(xAPIKey).PTPCreateRequest(pTPCreateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} CreatePtpEndpointV1Arc(ctx, caseId).PTPCreateRequest(pTPCreateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Create Ptp Endpoint
 
@@ -274,14 +280,15 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	pTPCreateRequest := *openapiclient.NewPTPCreateRequest(int32(123), time.Now(), "CapturedFromChannel_example", "CapturedBy_example") // PTPCreateRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PromisesAPI.CreatePtpEndpointV1Arc(context.Background(), caseId).XAPIKey(xAPIKey).PTPCreateRequest(pTPCreateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.PromisesAPI.CreatePtpEndpointV1Arc(context.Background(), caseId).PTPCreateRequest(pTPCreateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PromisesAPI.CreatePtpEndpointV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -307,10 +314,11 @@ Other parameters are passed through a pointer to a apiCreatePtpEndpointV1ArcRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **pTPCreateRequest** | [**PTPCreateRequest**](PTPCreateRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -332,7 +340,7 @@ No authorization required
 
 ## CreatePtpPaymentLinkEndpointV1ArcCases
 
-> PTPPaymentLinkResponse CreatePtpPaymentLinkEndpointV1ArcCases(ctx, caseId, ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> PTPPaymentLinkResponse CreatePtpPaymentLinkEndpointV1ArcCases(ctx, caseId, ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Create Ptp Payment Link Endpoint
 
@@ -353,13 +361,14 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	ptpId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PromisesAPI.CreatePtpPaymentLinkEndpointV1ArcCases(context.Background(), caseId, ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.PromisesAPI.CreatePtpPaymentLinkEndpointV1ArcCases(context.Background(), caseId, ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PromisesAPI.CreatePtpPaymentLinkEndpointV1ArcCases``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -390,6 +399,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -411,7 +421,7 @@ No authorization required
 
 ## FulfillPtpEndpointV1Arc
 
-> interface{} FulfillPtpEndpointV1Arc(ctx, caseId, ptpId).XAPIKey(xAPIKey).PTPFulfillRequest(pTPFulfillRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} FulfillPtpEndpointV1Arc(ctx, caseId, ptpId).PTPFulfillRequest(pTPFulfillRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Fulfill Ptp Endpoint
 
@@ -432,14 +442,15 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	ptpId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	pTPFulfillRequest := *openapiclient.NewPTPFulfillRequest("PaymentId_example", int32(123)) // PTPFulfillRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PromisesAPI.FulfillPtpEndpointV1Arc(context.Background(), caseId, ptpId).XAPIKey(xAPIKey).PTPFulfillRequest(pTPFulfillRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.PromisesAPI.FulfillPtpEndpointV1Arc(context.Background(), caseId, ptpId).PTPFulfillRequest(pTPFulfillRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PromisesAPI.FulfillPtpEndpointV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -467,10 +478,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xAPIKey** | **string** |  | 
  **pTPFulfillRequest** | [**PTPFulfillRequest**](PTPFulfillRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -492,7 +504,7 @@ No authorization required
 
 ## ListPtpsEndpointV1Arc
 
-> interface{} ListPtpsEndpointV1Arc(ctx, caseId).XAPIKey(xAPIKey).Status(status).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} ListPtpsEndpointV1Arc(ctx, caseId).Status(status).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Ptps Endpoint
 
@@ -512,14 +524,15 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	status := "status_example" // string |  (optional)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PromisesAPI.ListPtpsEndpointV1Arc(context.Background(), caseId).XAPIKey(xAPIKey).Status(status).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.PromisesAPI.ListPtpsEndpointV1Arc(context.Background(), caseId).Status(status).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PromisesAPI.ListPtpsEndpointV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -545,10 +558,11 @@ Other parameters are passed through a pointer to a apiListPtpsEndpointV1ArcReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **status** | **string** |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -570,7 +584,7 @@ No authorization required
 
 ## RejectPtpEndpoint
 
-> interface{} RejectPtpEndpoint(ctx, ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).PTPApprovalRequest(pTPApprovalRequest).Execute()
+> interface{} RejectPtpEndpoint(ctx, ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).PTPApprovalRequest(pTPApprovalRequest).Execute()
 
 Reject Ptp Endpoint
 
@@ -590,14 +604,15 @@ import (
 
 func main() {
 	ptpId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	pTPApprovalRequest := *openapiclient.NewPTPApprovalRequest() // PTPApprovalRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PromisesAPI.RejectPtpEndpoint(context.Background(), ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).PTPApprovalRequest(pTPApprovalRequest).Execute()
+	resp, r, err := apiClient.PromisesAPI.RejectPtpEndpoint(context.Background(), ptpId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).PTPApprovalRequest(pTPApprovalRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PromisesAPI.RejectPtpEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -626,6 +641,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **pTPApprovalRequest** | [**PTPApprovalRequest**](PTPApprovalRequest.md) |  | 
 
 ### Return type

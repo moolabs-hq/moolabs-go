@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## CreateReportEndpoint
 
-> ReportCreateResponse CreateReportEndpoint(ctx).XAPIKey(xAPIKey).ReportCreateRequest(reportCreateRequest).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).Execute()
+> ReportCreateResponse CreateReportEndpoint(ctx).ReportCreateRequest(reportCreateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).Execute()
 
 Create Report Endpoint
 
@@ -28,16 +28,17 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	reportCreateRequest := *openapiclient.NewReportCreateRequest("ReportType_example", "Format_example") // ReportCreateRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xUserId := "xUserId_example" // string |  (optional)
 	xArcRoles := "xArcRoles_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ReportsAPI.CreateReportEndpoint(context.Background()).XAPIKey(xAPIKey).ReportCreateRequest(reportCreateRequest).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).XArcRoles(xArcRoles).Execute()
+	resp, r, err := apiClient.ReportsAPI.CreateReportEndpoint(context.Background()).ReportCreateRequest(reportCreateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).XArcRoles(xArcRoles).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ReportsAPI.CreateReportEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -58,10 +59,11 @@ Other parameters are passed through a pointer to a apiCreateReportEndpointReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **reportCreateRequest** | [**ReportCreateRequest**](ReportCreateRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xUserId** | **string** |  | 
  **xArcRoles** | **string** |  | 
 
@@ -85,7 +87,7 @@ No authorization required
 
 ## DownloadReportEndpoint
 
-> interface{} DownloadReportEndpoint(ctx, reportId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} DownloadReportEndpoint(ctx, reportId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Download Report Endpoint
 
@@ -103,13 +105,14 @@ import (
 
 func main() {
 	reportId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ReportsAPI.DownloadReportEndpoint(context.Background(), reportId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.ReportsAPI.DownloadReportEndpoint(context.Background(), reportId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ReportsAPI.DownloadReportEndpoint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -138,6 +141,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 

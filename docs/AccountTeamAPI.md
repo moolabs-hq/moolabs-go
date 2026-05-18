@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateAccountTeamMember
 
-> AccountTeamMemberOut CreateAccountTeamMember(ctx, accountId).XAPIKey(xAPIKey).AccountTeamMemberIn(accountTeamMemberIn).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).Execute()
+> AccountTeamMemberOut CreateAccountTeamMember(ctx, accountId).AccountTeamMemberIn(accountTeamMemberIn).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).Execute()
 
 Create Account Team Member
 
@@ -33,15 +33,16 @@ import (
 
 func main() {
 	accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	accountTeamMemberIn := *openapiclient.NewAccountTeamMemberIn(openapiclient.AccountTeamRole("ae"), "Name_example") // AccountTeamMemberIn | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 	xUserId := "xUserId_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountTeamAPI.CreateAccountTeamMember(context.Background(), accountId).XAPIKey(xAPIKey).AccountTeamMemberIn(accountTeamMemberIn).XTenantId(xTenantId).XOrgId(xOrgId).XUserId(xUserId).Execute()
+	resp, r, err := apiClient.AccountTeamAPI.CreateAccountTeamMember(context.Background(), accountId).AccountTeamMemberIn(accountTeamMemberIn).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XUserId(xUserId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountTeamAPI.CreateAccountTeamMember``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -67,10 +68,11 @@ Other parameters are passed through a pointer to a apiCreateAccountTeamMemberReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **accountTeamMemberIn** | [**AccountTeamMemberIn**](AccountTeamMemberIn.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
  **xUserId** | **string** |  | 
 
 ### Return type
@@ -93,7 +95,7 @@ No authorization required
 
 ## DeleteAccountTeamMember
 
-> DeleteAccountTeamMember(ctx, accountId, memberId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> DeleteAccountTeamMember(ctx, accountId, memberId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Delete Account Team Member
 
@@ -112,13 +114,14 @@ import (
 func main() {
 	accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	memberId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AccountTeamAPI.DeleteAccountTeamMember(context.Background(), accountId, memberId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	r, err := apiClient.AccountTeamAPI.DeleteAccountTeamMember(context.Background(), accountId, memberId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountTeamAPI.DeleteAccountTeamMember``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -147,6 +150,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -168,7 +172,7 @@ No authorization required
 
 ## ListAccountTeam
 
-> []AccountTeamMemberOut ListAccountTeam(ctx, accountId).XAPIKey(xAPIKey).NotifyOnly(notifyOnly).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> []AccountTeamMemberOut ListAccountTeam(ctx, accountId).NotifyOnly(notifyOnly).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Account Team
 
@@ -188,14 +192,15 @@ import (
 
 func main() {
 	accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	notifyOnly := true // bool |  (optional) (default to false)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountTeamAPI.ListAccountTeam(context.Background(), accountId).XAPIKey(xAPIKey).NotifyOnly(notifyOnly).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.AccountTeamAPI.ListAccountTeam(context.Background(), accountId).NotifyOnly(notifyOnly).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountTeamAPI.ListAccountTeam``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -221,10 +226,11 @@ Other parameters are passed through a pointer to a apiListAccountTeamRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **notifyOnly** | **bool** |  | [default to false]
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -246,7 +252,7 @@ No authorization required
 
 ## UpdateAccountTeamMember
 
-> AccountTeamMemberOut UpdateAccountTeamMember(ctx, accountId, memberId).XAPIKey(xAPIKey).AccountTeamMemberPatch(accountTeamMemberPatch).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> AccountTeamMemberOut UpdateAccountTeamMember(ctx, accountId, memberId).AccountTeamMemberPatch(accountTeamMemberPatch).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Update Account Team Member
 
@@ -265,14 +271,15 @@ import (
 func main() {
 	accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	memberId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	accountTeamMemberPatch := *openapiclient.NewAccountTeamMemberPatch() // AccountTeamMemberPatch | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountTeamAPI.UpdateAccountTeamMember(context.Background(), accountId, memberId).XAPIKey(xAPIKey).AccountTeamMemberPatch(accountTeamMemberPatch).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.AccountTeamAPI.UpdateAccountTeamMember(context.Background(), accountId, memberId).AccountTeamMemberPatch(accountTeamMemberPatch).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountTeamAPI.UpdateAccountTeamMember``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -300,10 +307,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xAPIKey** | **string** |  | 
  **accountTeamMemberPatch** | [**AccountTeamMemberPatch**](AccountTeamMemberPatch.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 

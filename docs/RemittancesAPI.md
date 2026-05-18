@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## CreateRemittance
 
-> RemittanceResponse CreateRemittance(ctx).XAPIKey(xAPIKey).RemittanceCreateRequest(remittanceCreateRequest).ForceCreate(forceCreate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> RemittanceResponse CreateRemittance(ctx).RemittanceCreateRequest(remittanceCreateRequest).ForceCreate(forceCreate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Create Remittance
 
@@ -31,15 +31,16 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	remittanceCreateRequest := *openapiclient.NewRemittanceCreateRequest("Source_example", int32(123)) // RemittanceCreateRequest | 
 	forceCreate := true // bool |  (optional) (default to false)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RemittancesAPI.CreateRemittance(context.Background()).XAPIKey(xAPIKey).RemittanceCreateRequest(remittanceCreateRequest).ForceCreate(forceCreate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.RemittancesAPI.CreateRemittance(context.Background()).RemittanceCreateRequest(remittanceCreateRequest).ForceCreate(forceCreate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RemittancesAPI.CreateRemittance``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -60,11 +61,12 @@ Other parameters are passed through a pointer to a apiCreateRemittanceRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **remittanceCreateRequest** | [**RemittanceCreateRequest**](RemittanceCreateRequest.md) |  | 
  **forceCreate** | **bool** |  | [default to false]
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -86,7 +88,7 @@ No authorization required
 
 ## GetUnappliedCashV1
 
-> []UnappliedCashResponse GetUnappliedCashV1(ctx, remittanceId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> []UnappliedCashResponse GetUnappliedCashV1(ctx, remittanceId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Unapplied Cash
 
@@ -106,13 +108,14 @@ import (
 
 func main() {
 	remittanceId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RemittancesAPI.GetUnappliedCashV1(context.Background(), remittanceId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.RemittancesAPI.GetUnappliedCashV1(context.Background(), remittanceId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RemittancesAPI.GetUnappliedCashV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -141,6 +144,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -162,7 +166,7 @@ No authorization required
 
 ## ResolveUnappliedEndpointV1
 
-> UnappliedCashResponse ResolveUnappliedEndpointV1(ctx, remittanceId, ucId).XAPIKey(xAPIKey).ResolveUnappliedRequest(resolveUnappliedRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> UnappliedCashResponse ResolveUnappliedEndpointV1(ctx, remittanceId, ucId).ResolveUnappliedRequest(resolveUnappliedRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Resolve Unapplied Endpoint
 
@@ -183,14 +187,15 @@ import (
 func main() {
 	remittanceId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	ucId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	resolveUnappliedRequest := *openapiclient.NewResolveUnappliedRequest("Disposition_example") // ResolveUnappliedRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RemittancesAPI.ResolveUnappliedEndpointV1(context.Background(), remittanceId, ucId).XAPIKey(xAPIKey).ResolveUnappliedRequest(resolveUnappliedRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.RemittancesAPI.ResolveUnappliedEndpointV1(context.Background(), remittanceId, ucId).ResolveUnappliedRequest(resolveUnappliedRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RemittancesAPI.ResolveUnappliedEndpointV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -218,10 +223,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xAPIKey** | **string** |  | 
  **resolveUnappliedRequest** | [**ResolveUnappliedRequest**](ResolveUnappliedRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 

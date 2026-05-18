@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 ## CreateCase
 
-> CaseResponse CreateCase(ctx).XAPIKey(xAPIKey).CaseCreate(caseCreate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CaseResponse CreateCase(ctx).CaseCreate(caseCreate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Create Case
 
@@ -42,14 +42,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	caseCreate := *openapiclient.NewCaseCreate("AccountId_example", "CustomerId_example") // CaseCreate | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CasesAPI.CreateCase(context.Background()).XAPIKey(xAPIKey).CaseCreate(caseCreate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CasesAPI.CreateCase(context.Background()).CaseCreate(caseCreate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CasesAPI.CreateCase``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -70,10 +71,11 @@ Other parameters are passed through a pointer to a apiCreateCaseRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **caseCreate** | [**CaseCreate**](CaseCreate.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -95,7 +97,7 @@ No authorization required
 
 ## DunningHistoryV1
 
-> interface{} DunningHistoryV1(ctx, caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> interface{} DunningHistoryV1(ctx, caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Dunning History
 
@@ -115,13 +117,14 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CasesAPI.DunningHistoryV1(context.Background(), caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CasesAPI.DunningHistoryV1(context.Background(), caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CasesAPI.DunningHistoryV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -150,6 +153,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -171,7 +175,7 @@ No authorization required
 
 ## EscalateCase
 
-> CaseResponse EscalateCase(ctx, caseId).XAPIKey(xAPIKey).CaseEscalateRequest(caseEscalateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CaseResponse EscalateCase(ctx, caseId).CaseEscalateRequest(caseEscalateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Escalate Case
 
@@ -191,14 +195,15 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	caseEscalateRequest := *openapiclient.NewCaseEscalateRequest("Reason_example") // CaseEscalateRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CasesAPI.EscalateCase(context.Background(), caseId).XAPIKey(xAPIKey).CaseEscalateRequest(caseEscalateRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CasesAPI.EscalateCase(context.Background(), caseId).CaseEscalateRequest(caseEscalateRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CasesAPI.EscalateCase``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -224,10 +229,11 @@ Other parameters are passed through a pointer to a apiEscalateCaseRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **caseEscalateRequest** | [**CaseEscalateRequest**](CaseEscalateRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -249,7 +255,7 @@ No authorization required
 
 ## FlagDisputedV1
 
-> FlagDisputedResponse FlagDisputedV1(ctx, caseId, invoiceId).XAPIKey(xAPIKey).FlagDisputedRequest(flagDisputedRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> FlagDisputedResponse FlagDisputedV1(ctx, caseId, invoiceId).FlagDisputedRequest(flagDisputedRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Flag Disputed
 
@@ -270,14 +276,15 @@ import (
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	invoiceId := "invoiceId_example" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	flagDisputedRequest := *openapiclient.NewFlagDisputedRequest(int32(123), "Description_example") // FlagDisputedRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CasesAPI.FlagDisputedV1(context.Background(), caseId, invoiceId).XAPIKey(xAPIKey).FlagDisputedRequest(flagDisputedRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CasesAPI.FlagDisputedV1(context.Background(), caseId, invoiceId).FlagDisputedRequest(flagDisputedRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CasesAPI.FlagDisputedV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -305,10 +312,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xAPIKey** | **string** |  | 
  **flagDisputedRequest** | [**FlagDisputedRequest**](FlagDisputedRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -330,7 +338,7 @@ No authorization required
 
 ## GetCase
 
-> CaseResponse GetCase(ctx, caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CaseResponse GetCase(ctx, caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Get Case
 
@@ -350,13 +358,14 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CasesAPI.GetCase(context.Background(), caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CasesAPI.GetCase(context.Background(), caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CasesAPI.GetCase``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -385,6 +394,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -406,7 +416,7 @@ No authorization required
 
 ## ListCaseTasks
 
-> TaskListResponse ListCaseTasks(ctx, caseId).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).Status(status).TaskType(taskType).AssignedTo(assignedTo).Search(search).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> TaskListResponse ListCaseTasks(ctx, caseId).Page(page).PageSize(pageSize).Status(status).TaskType(taskType).AssignedTo(assignedTo).Search(search).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Case Tasks
 
@@ -426,19 +436,20 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	page := int32(56) // int32 |  (optional) (default to 1)
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	status := "status_example" // string |  (optional)
 	taskType := "taskType_example" // string |  (optional)
 	assignedTo := "assignedTo_example" // string |  (optional)
 	search := "search_example" // string | Substring match on title/description/customer name (optional)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CasesAPI.ListCaseTasks(context.Background(), caseId).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).Status(status).TaskType(taskType).AssignedTo(assignedTo).Search(search).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CasesAPI.ListCaseTasks(context.Background(), caseId).Page(page).PageSize(pageSize).Status(status).TaskType(taskType).AssignedTo(assignedTo).Search(search).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CasesAPI.ListCaseTasks``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -464,15 +475,16 @@ Other parameters are passed through a pointer to a apiListCaseTasksRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **page** | **int32** |  | [default to 1]
  **pageSize** | **int32** |  | [default to 50]
  **status** | **string** |  | 
  **taskType** | **string** |  | 
  **assignedTo** | **string** |  | 
  **search** | **string** | Substring match on title/description/customer name | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -494,7 +506,7 @@ No authorization required
 
 ## ListCases
 
-> CaseListResponse ListCases(ctx).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).Status(status).RiskTier(riskTier).AgingBucket(agingBucket).AccountId(accountId).CustomerId(customerId).Q(q).Search(search).HasPtp(hasPtp).SortBy(sortBy).IncludeInvoices(includeInvoices).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CaseListResponse ListCases(ctx).Page(page).PageSize(pageSize).Status(status).RiskTier(riskTier).AgingBucket(agingBucket).AccountId(accountId).CustomerId(customerId).Q(q).Search(search).HasPtp(hasPtp).SortBy(sortBy).IncludeInvoices(includeInvoices).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 List Cases
 
@@ -513,7 +525,6 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	page := int32(56) // int32 |  (optional) (default to 1)
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	status := []string{"Inner_example"} // []string |  (optional)
@@ -526,12 +537,14 @@ func main() {
 	hasPtp := true // bool | When true, only cases with at least one open PTP; when false, only cases without. Drives the PTP dashboard tile. (optional)
 	sortBy := "sortBy_example" // string | Sort order. Accepted values: created-desc (newest first, default), created-asc (oldest first), amount-desc (highest outstanding first), amount-asc (lowest outstanding first), risk-desc (high risk first). Unknown values fall back to the default active-cases-first ordering. (optional)
 	includeInvoices := true // bool | Include embedded invoices in each list item (optional) (default to false)
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CasesAPI.ListCases(context.Background()).XAPIKey(xAPIKey).Page(page).PageSize(pageSize).Status(status).RiskTier(riskTier).AgingBucket(agingBucket).AccountId(accountId).CustomerId(customerId).Q(q).Search(search).HasPtp(hasPtp).SortBy(sortBy).IncludeInvoices(includeInvoices).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CasesAPI.ListCases(context.Background()).Page(page).PageSize(pageSize).Status(status).RiskTier(riskTier).AgingBucket(agingBucket).AccountId(accountId).CustomerId(customerId).Q(q).Search(search).HasPtp(hasPtp).SortBy(sortBy).IncludeInvoices(includeInvoices).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CasesAPI.ListCases``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -552,7 +565,6 @@ Other parameters are passed through a pointer to a apiListCasesRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **page** | **int32** |  | [default to 1]
  **pageSize** | **int32** |  | [default to 50]
  **status** | **[]string** |  | 
@@ -565,8 +577,10 @@ Name | Type | Description  | Notes
  **hasPtp** | **bool** | When true, only cases with at least one open PTP; when false, only cases without. Drives the PTP dashboard tile. | 
  **sortBy** | **string** | Sort order. Accepted values: created-desc (newest first, default), created-asc (oldest first), amount-desc (highest outstanding first), amount-asc (lowest outstanding first), risk-desc (high risk first). Unknown values fall back to the default active-cases-first ordering. | 
  **includeInvoices** | **bool** | Include embedded invoices in each list item | [default to false]
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -588,7 +602,7 @@ No authorization required
 
 ## OpenFromScopeV1Arc
 
-> CaseResponse OpenFromScopeV1Arc(ctx).XAPIKey(xAPIKey).OpenFromScopeRequest(openFromScopeRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CaseResponse OpenFromScopeV1Arc(ctx).OpenFromScopeRequest(openFromScopeRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Open From Scope
 
@@ -607,14 +621,15 @@ import (
 )
 
 func main() {
-	xAPIKey := "xAPIKey_example" // string | 
 	openFromScopeRequest := *openapiclient.NewOpenFromScopeRequest("AccountId_example", "CustomerId_example") // OpenFromScopeRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CasesAPI.OpenFromScopeV1Arc(context.Background()).XAPIKey(xAPIKey).OpenFromScopeRequest(openFromScopeRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CasesAPI.OpenFromScopeV1Arc(context.Background()).OpenFromScopeRequest(openFromScopeRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CasesAPI.OpenFromScopeV1Arc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -635,10 +650,11 @@ Other parameters are passed through a pointer to a apiOpenFromScopeV1ArcRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xAPIKey** | **string** |  | 
  **openFromScopeRequest** | [**OpenFromScopeRequest**](OpenFromScopeRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -660,7 +676,7 @@ No authorization required
 
 ## PauseCase
 
-> CaseResponse PauseCase(ctx, caseId).XAPIKey(xAPIKey).CasePauseRequest(casePauseRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CaseResponse PauseCase(ctx, caseId).CasePauseRequest(casePauseRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Pause Case
 
@@ -680,14 +696,15 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	casePauseRequest := *openapiclient.NewCasePauseRequest("Reason_example") // CasePauseRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CasesAPI.PauseCase(context.Background(), caseId).XAPIKey(xAPIKey).CasePauseRequest(casePauseRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CasesAPI.PauseCase(context.Background(), caseId).CasePauseRequest(casePauseRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CasesAPI.PauseCase``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -713,10 +730,11 @@ Other parameters are passed through a pointer to a apiPauseCaseRequest struct vi
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **casePauseRequest** | [**CasePauseRequest**](CasePauseRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -738,7 +756,7 @@ No authorization required
 
 ## ReScopeCaseV1
 
-> CaseResponse ReScopeCaseV1(ctx, caseId).XAPIKey(xAPIKey).ReScopeRequest(reScopeRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CaseResponse ReScopeCaseV1(ctx, caseId).ReScopeRequest(reScopeRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Re Scope Case
 
@@ -758,14 +776,15 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	reScopeRequest := *openapiclient.NewReScopeRequest() // ReScopeRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CasesAPI.ReScopeCaseV1(context.Background(), caseId).XAPIKey(xAPIKey).ReScopeRequest(reScopeRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CasesAPI.ReScopeCaseV1(context.Background(), caseId).ReScopeRequest(reScopeRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CasesAPI.ReScopeCaseV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -791,10 +810,11 @@ Other parameters are passed through a pointer to a apiReScopeCaseV1Request struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **reScopeRequest** | [**ReScopeRequest**](ReScopeRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -816,7 +836,7 @@ No authorization required
 
 ## RecomputeStrategyV1
 
-> CaseResponse RecomputeStrategyV1(ctx, caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CaseResponse RecomputeStrategyV1(ctx, caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Recompute Strategy
 
@@ -836,13 +856,14 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CasesAPI.RecomputeStrategyV1(context.Background(), caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CasesAPI.RecomputeStrategyV1(context.Background(), caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CasesAPI.RecomputeStrategyV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -871,6 +892,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -892,7 +914,7 @@ No authorization required
 
 ## ResumeCase
 
-> CaseResponse ResumeCase(ctx, caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CaseResponse ResumeCase(ctx, caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Resume Case
 
@@ -912,13 +934,14 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CasesAPI.ResumeCase(context.Background(), caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CasesAPI.ResumeCase(context.Background(), caseId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CasesAPI.ResumeCase``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -947,6 +970,7 @@ Name | Type | Description  | Notes
  **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -968,7 +992,7 @@ No authorization required
 
 ## UpdateCase
 
-> CaseResponse UpdateCase(ctx, caseId).XAPIKey(xAPIKey).CaseUpdate(caseUpdate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CaseResponse UpdateCase(ctx, caseId).CaseUpdate(caseUpdate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Update Case
 
@@ -988,14 +1012,15 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	caseUpdate := *openapiclient.NewCaseUpdate() // CaseUpdate | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CasesAPI.UpdateCase(context.Background(), caseId).XAPIKey(xAPIKey).CaseUpdate(caseUpdate).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CasesAPI.UpdateCase(context.Background(), caseId).CaseUpdate(caseUpdate).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CasesAPI.UpdateCase``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1021,10 +1046,11 @@ Other parameters are passed through a pointer to a apiUpdateCaseRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **caseUpdate** | [**CaseUpdate**](CaseUpdate.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
@@ -1046,7 +1072,7 @@ No authorization required
 
 ## WriteOffCaseV1
 
-> CaseResponse WriteOffCaseV1(ctx, caseId).XAPIKey(xAPIKey).CaseWriteOffRequest(caseWriteOffRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+> CaseResponse WriteOffCaseV1(ctx, caseId).CaseWriteOffRequest(caseWriteOffRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 
 Write Off Case
 
@@ -1066,14 +1092,15 @@ import (
 
 func main() {
 	caseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	xAPIKey := "xAPIKey_example" // string | 
 	caseWriteOffRequest := *openapiclient.NewCaseWriteOffRequest("Reason_example") // CaseWriteOffRequest | 
+	xAPIKey := "xAPIKey_example" // string |  (optional)
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CasesAPI.WriteOffCaseV1(context.Background(), caseId).XAPIKey(xAPIKey).CaseWriteOffRequest(caseWriteOffRequest).XTenantId(xTenantId).XOrgId(xOrgId).Execute()
+	resp, r, err := apiClient.CasesAPI.WriteOffCaseV1(context.Background(), caseId).CaseWriteOffRequest(caseWriteOffRequest).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CasesAPI.WriteOffCaseV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1099,10 +1126,11 @@ Other parameters are passed through a pointer to a apiWriteOffCaseV1Request stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xAPIKey** | **string** |  | 
  **caseWriteOffRequest** | [**CaseWriteOffRequest**](CaseWriteOffRequest.md) |  | 
+ **xAPIKey** | **string** |  | 
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
+ **authorization** | **string** |  | 
 
 ### Return type
 
