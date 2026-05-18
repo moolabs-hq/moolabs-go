@@ -4,7 +4,7 @@ info:
     \ internal service specs: bff, meter, arc, acute. Customers see capability namespaces\
     \ (usage, billing, collections, etc.); the SDK routes per-operation internally."
   title: Moolabs API
-  version: 0.2.0-rc8
+  version: 0.2.0-rc9
 servers:
 - url: /
 paths:
