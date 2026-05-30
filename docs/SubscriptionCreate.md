@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **CustomerId** | Pointer to **string** | The ID of the customer. Provide either the key or ID. Has presedence over the key. | [optional] 
 **CustomerKey** | Pointer to **string** | The key of the customer. Provide either the key or ID. | [optional] 
 **BillingAnchor** | Pointer to **time.Time** | The billing anchor of the subscription. The provided date will be normalized according to the billing cadence to the nearest recurrence before start time. If not provided, the subscription start time will be used. | [optional] 
+**QuoteOriginKey** | Pointer to **string** | Idempotency key supplied by quote acceptance for new-subscription creates. | [optional] 
 **CustomPlan** | [**CustomPlanInput**](CustomPlanInput.md) | The custom plan description which defines the Subscription. | 
 
 ## Methods
@@ -305,6 +306,31 @@ SetBillingAnchor sets BillingAnchor field to given value.
 `func (o *SubscriptionCreate) HasBillingAnchor() bool`
 
 HasBillingAnchor returns a boolean if a field has been set.
+
+### GetQuoteOriginKey
+
+`func (o *SubscriptionCreate) GetQuoteOriginKey() string`
+
+GetQuoteOriginKey returns the QuoteOriginKey field if non-nil, zero value otherwise.
+
+### GetQuoteOriginKeyOk
+
+`func (o *SubscriptionCreate) GetQuoteOriginKeyOk() (*string, bool)`
+
+GetQuoteOriginKeyOk returns a tuple with the QuoteOriginKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQuoteOriginKey
+
+`func (o *SubscriptionCreate) SetQuoteOriginKey(v string)`
+
+SetQuoteOriginKey sets QuoteOriginKey field to given value.
+
+### HasQuoteOriginKey
+
+`func (o *SubscriptionCreate) HasQuoteOriginKey() bool`
+
+HasQuoteOriginKey returns a boolean if a field has been set.
 
 ### GetCustomPlan
 

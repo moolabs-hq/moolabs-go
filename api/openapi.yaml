@@ -4,7 +4,7 @@ info:
     \ internal service specs: bff, meter, arc, acute. Customers see capability namespaces\
     \ (usage, billing, collections, etc.); the SDK routes per-operation internally."
   title: Moolabs API
-  version: 0.2.0-rc9
+  version: 0.2.0-rc10
 servers:
 - url: /
 paths:
@@ -5803,6 +5803,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+      security:
+      - HTTPBearer: []
       summary: List Sessions
       tags:
       - chat
@@ -5831,6 +5833,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+      security:
+      - HTTPBearer: []
       summary: Delete Session
       tags:
       - chat
@@ -5858,6 +5862,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+      security:
+      - HTTPBearer: []
       summary: Get Session
       tags:
       - chat
@@ -5892,6 +5898,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+      security:
+      - HTTPBearer: []
       summary: Update Session
       tags:
       - chat
@@ -5917,6 +5925,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+      security:
+      - HTTPBearer: []
       summary: Chat
       tags:
       - chat
@@ -8155,6 +8165,47 @@ paths:
       summary: Revoke All Api Keys
       tags:
       - tenant
+  /v1/tenant/quote-settings:
+    get:
+      operationId: getQuoteSettingsV1
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteSettingsResponse'
+          description: Successful Response
+      security:
+      - HTTPBearer: []
+      summary: Get Quote Settings
+      tags:
+      - tenant
+    put:
+      operationId: putQuoteSettingsV1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateQuoteSettingsRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteSettingsResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Put Quote Settings
+      tags:
+      - tenant
   /v1/tenant/moometer-namespace:
     get:
       description: |-
@@ -8368,6 +8419,896 @@ paths:
       summary: Proxy Openmeter
       tags:
       - moometer-proxy
+  /v1/quotes:
+    get:
+      operationId: listQuotes
+      parameters:
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          maximum: 500
+          minimum: 1
+          title: Limit
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          title: Offset
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteListResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: List Quotes
+      tags:
+      - quotes
+    post:
+      operationId: postQuote
+      parameters:
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateQuoteRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quote
+      tags:
+      - quotes
+  /v1/quotes/activation-failures:
+    get:
+      operationId: listQuoteActivationFailuresV1
+      parameters:
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          maximum: 500
+          minimum: 1
+          title: Limit
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          title: Offset
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: List Quote Activation Failures
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}:
+    get:
+      operationId: getQuote
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Quote
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/versions/{version}:
+    get:
+      operationId: getQuoteVersion
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          title: Version
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteVersionResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Quote Version
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/lock:
+    post:
+      operationId: postQuoteLock
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteVersionResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quote Lock
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/unlock:
+    post:
+      operationId: postQuoteUnlock
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteVersionResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quote Unlock
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/submit-approval:
+    post:
+      operationId: postQuoteSubmitApprovalV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteApprovalResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quote Submit Approval
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/approve:
+    post:
+      operationId: postQuoteApprove
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuoteApprovalDecisionRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteApprovalResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quote Approve
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/reject:
+    post:
+      operationId: postQuoteReject
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuoteApprovalDecisionRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteApprovalResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quote Reject
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/send:
+    post:
+      operationId: postQuoteSend
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quote Send
+      tags:
+      - quotes
+  /v1/quotes/signing/webhooks/{provider}:
+    post:
+      operationId: postQuoteSigningWebhook
+      parameters:
+      - explode: false
+        in: path
+        name: provider
+        required: true
+        schema:
+          title: Provider
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: X-Quote-Signature
+        required: false
+        schema:
+          title: X-Quote-Signature
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Post Quote Signing Webhook
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/accept:
+    post:
+      operationId: postQuoteAccept
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_post_quote_accept_v1_quotes__quote_id__accept_post'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quote Accept
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/activate:
+    post:
+      operationId: postQuoteActivate
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quote Activate
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/sessions:
+    post:
+      operationId: postQuoteSession
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSessionResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quote Session
+      tags:
+      - quotes
+  /v1/quote-sessions/{session_id}:
+    patch:
+      operationId: patchQuoteSessionV1
+      parameters:
+      - explode: false
+        in: path
+        name: session_id
+        required: true
+        schema:
+          format: uuid
+          title: Session Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchSessionRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSessionResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Patch Quote Session
+      tags:
+      - quote-sessions
+  /v1/quote-sessions/{session_id}/price:
+    post:
+      operationId: postQuoteSessionPriceV1
+      parameters:
+      - explode: false
+        in: path
+        name: session_id
+        required: true
+        schema:
+          format: uuid
+          title: Session Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceSessionResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quote Session Price
+      tags:
+      - quote-sessions
+  /v1/quote-sessions/{session_id}/shadow-price:
+    post:
+      operationId: postQuoteSessionShadowPriceV1Quote
+      parameters:
+      - explode: false
+        in: path
+        name: session_id
+        required: true
+        schema:
+          format: uuid
+          title: Session Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quote Session Shadow Price
+      tags:
+      - quote-sessions
+  /v1/buyer/quotes:
+    get:
+      operationId: getBuyerQuote
+      parameters:
+      - explode: false
+        in: header
+        name: X-Quote-Buyer-Token
+        required: false
+        schema:
+          title: X-Quote-Buyer-Token
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuyerQuoteProjection'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Buyer Quote
+      tags:
+      - buyer-quotes
+  /v1/buyer/quotes/otp:
+    post:
+      operationId: requestOtp
+      parameters:
+      - explode: false
+        in: header
+        name: X-Quote-Buyer-Token
+        required: false
+        schema:
+          title: X-Quote-Buyer-Token
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuyerOtpRequestResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Request Otp
+      tags:
+      - buyer-quotes
+  /v1/buyer/quotes/otp/verify:
+    post:
+      operationId: verifyOtp
+      parameters:
+      - explode: false
+        in: header
+        name: X-Quote-Buyer-Token
+        required: false
+        schema:
+          title: X-Quote-Buyer-Token
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuyerOtpVerifyRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuyerOtpVerifyResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Verify Otp
+      tags:
+      - buyer-quotes
+  /v1/buyer/quotes/accept:
+    post:
+      operationId: acceptBuyerQuote
+      parameters:
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Quote-Buyer-Token
+        required: false
+        schema:
+          title: X-Quote-Buyer-Token
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuyerAcceptRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                additionalProperties: {}
+                title: Response Accept Buyer Quote V1 Buyer Quotes Accept Post
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Accept Buyer Quote
+      tags:
+      - buyer-quotes
+  /v1/buyer/quotes/reject:
+    post:
+      operationId: rejectBuyerQuote
+      parameters:
+      - explode: false
+        in: header
+        name: X-Quote-Buyer-Token
+        required: false
+        schema:
+          title: X-Quote-Buyer-Token
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuyerRejectRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                additionalProperties: {}
+                title: Response Reject Buyer Quote V1 Buyer Quotes Reject Post
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Reject Buyer Quote
+      tags:
+      - buyer-quotes
   /v1/internal/grants/activate:
     post:
       operationId: activateGrants
@@ -15353,97 +16294,6 @@ paths:
       summary: Update meter
       tags:
       - Meters
-  /api/v1/meters/{meterIdOrSlug}/test-event:
-    post:
-      description: Validate a sample event payload against the meter's local JSONPath
-        extraction rules.
-      operationId: testMeterEvent
-      parameters:
-      - explode: false
-        in: path
-        name: meterIdOrSlug
-        required: true
-        schema:
-          maxLength: 64
-          minLength: 1
-          pattern: "^[a-z0-9]+(?:_[a-z0-9]+)*$|^[0-7][0-9A-HJKMNP-TV-Za-hjkmnp-tv-z]{25}$"
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/testMeterEvent_request'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/testMeterEvent_200_response'
-          description: The request has succeeded.
-        "400":
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/BadRequestProblemResponse'
-          description: "The server cannot or will not process the request due to something\
-            \ that is perceived to be a client error (e.g., malformed request syntax,\
-            \ invalid request message framing, or deceptive request routing)."
-        "401":
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedProblemResponse'
-          description: The request has not been applied because it lacks valid authentication
-            credentials for the target resource.
-        "403":
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/ForbiddenProblemResponse'
-          description: The server understood the request but refuses to authorize
-            it.
-        "404":
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/NotFoundProblemResponse'
-          description: The origin server did not find a current representation for
-            the target resource or is not willing to disclose that one exists.
-        "412":
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/PreconditionFailedProblemResponse'
-          description: One or more conditions given in the request header fields evaluated
-            to false when tested on the server.
-        "500":
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/InternalServerErrorProblemResponse'
-          description: The server encountered an unexpected condition that prevented
-            it from fulfilling the request.
-        "503":
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/ServiceUnavailableProblemResponse'
-          description: "The server is currently unable to handle the request due to\
-            \ a temporary overload or scheduled maintenance, which will likely be\
-            \ alleviated after some delay."
-        default:
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/UnexpectedProblemResponse'
-          description: An unexpected error response.
-      security:
-      - CloudTokenAuth: []
-      summary: Validate a sample event payload against the meter
-      tags:
-      - Meters
   /api/v1/meters/{meterIdOrSlug}/group-by/{groupByKey}/values:
     get:
       description: List meter group by values.
@@ -15852,6 +16702,96 @@ paths:
       security:
       - CloudTokenAuth: []
       summary: List meter subjects
+      tags:
+      - Meters
+  /api/v1/meters/{meterIdOrSlug}/test-event:
+    post:
+      description: Validate a sample event payload against the meter.
+      operationId: testMeterEvent
+      parameters:
+      - explode: false
+        in: path
+        name: meterIdOrSlug
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-z0-9]+(?:_[a-z0-9]+)*$|^[0-7][0-9A-HJKMNP-TV-Za-hjkmnp-tv-z]{25}$"
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeterTestEventRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeterTestEventResponse'
+          description: The request has succeeded.
+        "400":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/BadRequestProblemResponse'
+          description: "The server cannot or will not process the request due to something\
+            \ that is perceived to be a client error (e.g., malformed request syntax,\
+            \ invalid request message framing, or deceptive request routing)."
+        "401":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedProblemResponse'
+          description: The request has not been applied because it lacks valid authentication
+            credentials for the target resource.
+        "403":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenProblemResponse'
+          description: The server understood the request but refuses to authorize
+            it.
+        "404":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemResponse'
+          description: The origin server did not find a current representation for
+            the target resource or is not willing to disclose that one exists.
+        "412":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedProblemResponse'
+          description: One or more conditions given in the request header fields evaluated
+            to false when tested on the server.
+        "500":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorProblemResponse'
+          description: The server encountered an unexpected condition that prevented
+            it from fulfilling the request.
+        "503":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ServiceUnavailableProblemResponse'
+          description: "The server is currently unable to handle the request due to\
+            \ a temporary overload or scheduled maintenance, which will likely be\
+            \ alleviated after some delay."
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/UnexpectedProblemResponse'
+          description: An unexpected error response.
+      security:
+      - CloudTokenAuth: []
+      summary: Validate a sample event payload against the meter
       tags:
       - Meters
   /api/v1/notification/channels:
@@ -20187,6 +21127,12 @@ paths:
               $ref: '#/components/schemas/SubscriptionCreate'
         required: true
       responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+          description: The request has succeeded.
         "201":
           content:
             application/json:
@@ -25823,6 +26769,33 @@ paths:
           type: string
           nullable: true
         style: simple
+      - explode: false
+        in: header
+        name: X-Acting-User
+        required: false
+        schema:
+          title: X-Acting-User
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-User-Id
+        required: false
+        schema:
+          title: X-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
       requestBody:
         content:
           application/json:
@@ -29463,6 +30436,15 @@ paths:
         required: false
         schema:
           title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Acting-User
+        required: false
+        schema:
+          title: X-Acting-User
           type: string
           nullable: true
         style: simple
@@ -41252,6 +42234,242 @@ components:
       required:
       - subject_ids
       title: BatchWalletsBySubjectsRequest
+    Body_post_quote_accept_v1_quotes__quote_id__accept_post:
+      properties:
+        signed_document:
+          format: binary
+          title: Signed Document
+          type: string
+          nullable: true
+        buyer_signer_ref:
+          title: Buyer Signer Ref
+          type: string
+          nullable: true
+        verified_by_ref:
+          title: Verified By Ref
+          type: string
+          nullable: true
+        seller_signer_ref:
+          title: Seller Signer Ref
+          type: string
+          nullable: true
+      title: Body_post_quote_accept_v1_quotes__quote_id__accept_post
+    BuyerAcceptRequest:
+      example:
+        code: code
+      properties:
+        code:
+          maxLength: 6
+          minLength: 6
+          pattern: "^\\d{6}$"
+          title: Code
+          type: string
+      required:
+      - code
+      title: BuyerAcceptRequest
+    BuyerOtpRequestResponse:
+      example:
+        expires_at: expires_at
+        status: status
+        otp_id: otp_id
+      properties:
+        status:
+          title: Status
+          type: string
+        otp_id:
+          title: Otp Id
+          type: string
+        expires_at:
+          title: Expires At
+          type: string
+      required:
+      - expires_at
+      - otp_id
+      - status
+      title: BuyerOtpRequestResponse
+    BuyerOtpVerifyRequest:
+      example:
+        code: code
+      properties:
+        code:
+          maxLength: 6
+          minLength: 6
+          pattern: "^\\d{6}$"
+          title: Code
+          type: string
+      required:
+      - code
+      title: BuyerOtpVerifyRequest
+    BuyerOtpVerifyResponse:
+      example:
+        verified: true
+        otp_id: otp_id
+      properties:
+        verified:
+          title: Verified
+          type: boolean
+        otp_id:
+          title: Otp Id
+          type: string
+      required:
+      - otp_id
+      - verified
+      title: BuyerOtpVerifyResponse
+    BuyerQuoteLineItem:
+      example:
+        unit_price_micros: 1
+        sku_ref: sku_ref
+        quantity_unit: quantity_unit
+        discount_micros: 5
+        quantity: quantity
+        subtotal_micros: 5
+        line_no: 6
+        total_micros: 2
+        feature_key: feature_key
+      properties:
+        line_no:
+          title: Line No
+          type: integer
+        sku_ref:
+          title: Sku Ref
+          type: string
+        feature_key:
+          title: Feature Key
+          type: string
+          nullable: true
+        quantity:
+          title: Quantity
+          type: string
+        quantity_unit:
+          title: Quantity Unit
+          type: string
+          nullable: true
+        unit_price_micros:
+          title: Unit Price Micros
+          type: integer
+          nullable: true
+        subtotal_micros:
+          title: Subtotal Micros
+          type: integer
+        discount_micros:
+          title: Discount Micros
+          type: integer
+        total_micros:
+          title: Total Micros
+          type: integer
+      required:
+      - discount_micros
+      - line_no
+      - quantity
+      - sku_ref
+      - subtotal_micros
+      - total_micros
+      title: BuyerQuoteLineItem
+    BuyerQuotePricing:
+      example:
+        discount_micros: 9
+        subtotal_micros: 7
+        total_micros: 3
+        currency: currency
+      properties:
+        currency:
+          title: Currency
+          type: string
+        subtotal_micros:
+          title: Subtotal Micros
+          type: integer
+        discount_micros:
+          title: Discount Micros
+          type: integer
+        total_micros:
+          title: Total Micros
+          type: integer
+      required:
+      - currency
+      - discount_micros
+      - subtotal_micros
+      - total_micros
+      title: BuyerQuotePricing
+    BuyerQuoteProjection:
+      example:
+        quote_id: quote_id
+        line_items:
+        - unit_price_micros: 1
+          sku_ref: sku_ref
+          quantity_unit: quantity_unit
+          discount_micros: 5
+          quantity: quantity
+          subtotal_micros: 5
+          line_no: 6
+          total_micros: 2
+          feature_key: feature_key
+        - unit_price_micros: 1
+          sku_ref: sku_ref
+          quantity_unit: quantity_unit
+          discount_micros: 5
+          quantity: quantity
+          subtotal_micros: 5
+          line_no: 6
+          total_micros: 2
+          feature_key: feature_key
+        version: 0
+        credit_terms:
+          key: ""
+        commercial_terms:
+          key: ""
+        pricing:
+          discount_micros: 9
+          subtotal_micros: 7
+          total_micros: 3
+          currency: currency
+        status: status
+        buyer_contact:
+          key: ""
+      properties:
+        quote_id:
+          title: Quote Id
+          type: string
+        version:
+          title: Version
+          type: integer
+        status:
+          title: Status
+          type: string
+        buyer_contact:
+          additionalProperties: {}
+          title: Buyer Contact
+        line_items:
+          items:
+            $ref: '#/components/schemas/BuyerQuoteLineItem'
+          type: array
+        commercial_terms:
+          additionalProperties: {}
+          title: Commercial Terms
+        credit_terms:
+          additionalProperties: {}
+          title: Credit Terms
+        pricing:
+          $ref: '#/components/schemas/BuyerQuotePricing'
+      required:
+      - buyer_contact
+      - commercial_terms
+      - credit_terms
+      - line_items
+      - pricing
+      - quote_id
+      - status
+      - version
+      title: BuyerQuoteProjection
+    BuyerRejectRequest:
+      example:
+        reason: reason
+      properties:
+        reason:
+          maxLength: 1000
+          title: Reason
+          type: string
+          nullable: true
+      title: BuyerRejectRequest
     CardType:
       enum:
       - insight
@@ -41894,6 +43112,34 @@ components:
       - subject
       - token
       title: CreatePortalTokenResponse
+    CreateQuoteRequest:
+      example:
+        account_ref:
+          key: ""
+        buyer_contact_ref:
+          key: ""
+        quote_type: new_subscription
+        deal_ref:
+          key: ""
+      properties:
+        account_ref:
+          additionalProperties: {}
+          title: Account Ref
+        deal_ref:
+          additionalProperties: {}
+          title: Deal Ref
+          nullable: true
+        buyer_contact_ref:
+          additionalProperties: {}
+          title: Buyer Contact Ref
+          nullable: true
+        quote_type:
+          default: new_subscription
+          title: Quote Type
+          type: string
+      required:
+      - account_ref
+      title: CreateQuoteRequest
     CreateRateCardRequest:
       description: Request to create a rate card.
       example:
@@ -42010,6 +43256,42 @@ components:
       - to_effective_at
       - trigger_event_id
       title: CreateReconstructionRunRequest
+    CreateSessionResponse:
+      example:
+        tenant_id: tenant_id
+        scratchpad:
+          key: ""
+        quote_id: quote_id
+        id: id
+        state: state
+        quote_version: 0
+      properties:
+        id:
+          title: Id
+          type: string
+        tenant_id:
+          title: Tenant Id
+          type: string
+        quote_id:
+          title: Quote Id
+          type: string
+        quote_version:
+          title: Quote Version
+          type: integer
+        state:
+          title: State
+          type: string
+        scratchpad:
+          additionalProperties: {}
+          title: Scratchpad
+      required:
+      - id
+      - quote_id
+      - quote_version
+      - scratchpad
+      - state
+      - tenant_id
+      title: CreateSessionResponse
     CreateSnapshotRequest:
       description: Request to create a balance snapshot.
       example:
@@ -44277,6 +45559,118 @@ components:
       required:
       - items
       title: PaginatedSyncRuns
+    PatchSessionRequest:
+      example:
+        scratchpad:
+          key: ""
+        line_items:
+        - quantity_unit: unit
+          quantity: "1"
+          pricing_basis: recurring
+          line_no: 1
+          requested_discount:
+            key: ""
+          sku_version: sku_version
+          rate_card_ref: rate_card_ref
+          subscription_id: subscription_id
+          sku_ref: sku_ref
+          plan_version: plan_version
+          feature_key: feature_key
+          feature_overrides:
+          - key: ""
+          - key: ""
+          - key: ""
+          - key: ""
+          - key: ""
+          plan_id: plan_id
+        - quantity_unit: unit
+          quantity: "1"
+          pricing_basis: recurring
+          line_no: 1
+          requested_discount:
+            key: ""
+          sku_version: sku_version
+          rate_card_ref: rate_card_ref
+          subscription_id: subscription_id
+          sku_ref: sku_ref
+          plan_version: plan_version
+          feature_key: feature_key
+          feature_overrides:
+          - key: ""
+          - key: ""
+          - key: ""
+          - key: ""
+          - key: ""
+          plan_id: plan_id
+        - quantity_unit: unit
+          quantity: "1"
+          pricing_basis: recurring
+          line_no: 1
+          requested_discount:
+            key: ""
+          sku_version: sku_version
+          rate_card_ref: rate_card_ref
+          subscription_id: subscription_id
+          sku_ref: sku_ref
+          plan_version: plan_version
+          feature_key: feature_key
+          feature_overrides:
+          - key: ""
+          - key: ""
+          - key: ""
+          - key: ""
+          - key: ""
+          plan_id: plan_id
+        - quantity_unit: unit
+          quantity: "1"
+          pricing_basis: recurring
+          line_no: 1
+          requested_discount:
+            key: ""
+          sku_version: sku_version
+          rate_card_ref: rate_card_ref
+          subscription_id: subscription_id
+          sku_ref: sku_ref
+          plan_version: plan_version
+          feature_key: feature_key
+          feature_overrides:
+          - key: ""
+          - key: ""
+          - key: ""
+          - key: ""
+          - key: ""
+          plan_id: plan_id
+        - quantity_unit: unit
+          quantity: "1"
+          pricing_basis: recurring
+          line_no: 1
+          requested_discount:
+            key: ""
+          sku_version: sku_version
+          rate_card_ref: rate_card_ref
+          subscription_id: subscription_id
+          sku_ref: sku_ref
+          plan_version: plan_version
+          feature_key: feature_key
+          feature_overrides:
+          - key: ""
+          - key: ""
+          - key: ""
+          - key: ""
+          - key: ""
+          plan_id: plan_id
+      properties:
+        scratchpad:
+          additionalProperties: {}
+          title: Scratchpad
+          nullable: true
+        line_items:
+          items:
+            $ref: '#/components/schemas/QuoteLineItemInput'
+          maxItems: 100
+          type: array
+          nullable: true
+      title: PatchSessionRequest
     PaymentFailedRequest:
       description: Request for payment failed callback.
       example:
@@ -44678,6 +46072,75 @@ components:
       - status
       - subject
       title: PortalTokenItem
+    PriceSessionResponse:
+      example:
+        normalized_input:
+          key: ""
+        discount_micros: 1
+        subtotal_micros: 6
+        pricing_snapshot_id: pricing_snapshot_id
+        quote_id: quote_id
+        pricing_trace:
+          key: ""
+        pricing_trace_digest: pricing_trace_digest
+        source_versions:
+          key: ""
+        total_micros: 5
+        currency: USD
+        priced_output:
+          key: ""
+        quote_version: 0
+      properties:
+        quote_id:
+          title: Quote Id
+          type: string
+        quote_version:
+          title: Quote Version
+          type: integer
+        pricing_snapshot_id:
+          title: Pricing Snapshot Id
+          type: string
+        normalized_input:
+          additionalProperties: {}
+          title: Normalized Input
+        priced_output:
+          additionalProperties: {}
+          title: Priced Output
+        pricing_trace:
+          additionalProperties: {}
+          title: Pricing Trace
+        pricing_trace_digest:
+          title: Pricing Trace Digest
+          type: string
+        source_versions:
+          additionalProperties: {}
+          title: Source Versions
+        currency:
+          default: USD
+          title: Currency
+          type: string
+        subtotal_micros:
+          title: Subtotal Micros
+          type: integer
+        discount_micros:
+          title: Discount Micros
+          type: integer
+        total_micros:
+          title: Total Micros
+          type: integer
+      required:
+      - discount_micros
+      - normalized_input
+      - priced_output
+      - pricing_snapshot_id
+      - pricing_trace
+      - pricing_trace_digest
+      - quote_id
+      - quote_version
+      - source_versions
+      - subtotal_micros
+      - total_micros
+      title: PriceSessionResponse
     PriceTierPayload:
       example:
         upTo: 7.457744773683766
@@ -44799,6 +46262,338 @@ components:
       - sync_direction
       - sync_frequency
       title: QuickBooksConnectRequest
+    QuoteApprovalDecisionRequest:
+      example:
+        decision_reason: decision_reason
+      properties:
+        decision_reason:
+          maxLength: 1024
+          title: Decision Reason
+          type: string
+          nullable: true
+      title: QuoteApprovalDecisionRequest
+    QuoteApprovalResponse:
+      example:
+        tenant_id: tenant_id
+        approval_policy_version: approval_policy_version
+        required_role: required_role
+        reasons:
+        - key: ""
+        - key: ""
+        approval_basis_digest: approval_basis_digest
+        quote_id: quote_id
+        approval_required: true
+        version: 0
+        status: status
+        approval_id: approval_id
+      properties:
+        quote_id:
+          title: Quote Id
+          type: string
+        tenant_id:
+          title: Tenant Id
+          type: string
+        version:
+          title: Version
+          type: integer
+        status:
+          title: Status
+          type: string
+        approval_required:
+          title: Approval Required
+          type: boolean
+        required_role:
+          title: Required Role
+          type: string
+          nullable: true
+        approval_policy_version:
+          title: Approval Policy Version
+          type: string
+        approval_basis_digest:
+          title: Approval Basis Digest
+          type: string
+          nullable: true
+        reasons:
+          items:
+            additionalProperties: {}
+          type: array
+        approval_id:
+          title: Approval Id
+          type: string
+          nullable: true
+      required:
+      - approval_policy_version
+      - approval_required
+      - quote_id
+      - status
+      - tenant_id
+      - version
+      title: QuoteApprovalResponse
+    QuoteLineItemInput:
+      additionalProperties: {}
+      example:
+        quantity_unit: unit
+        quantity: "1"
+        pricing_basis: recurring
+        line_no: 1
+        requested_discount:
+          key: ""
+        sku_version: sku_version
+        rate_card_ref: rate_card_ref
+        subscription_id: subscription_id
+        sku_ref: sku_ref
+        plan_version: plan_version
+        feature_key: feature_key
+        feature_overrides:
+        - key: ""
+        - key: ""
+        - key: ""
+        - key: ""
+        - key: ""
+        plan_id: plan_id
+      properties:
+        line_no:
+          minimum: 1.0
+          title: Line No
+          nullable: true
+        sku_ref:
+          minLength: 1
+          title: Sku Ref
+        feature_key:
+          title: Feature Key
+          nullable: true
+        sku_version:
+          title: Sku Version
+          nullable: true
+        rate_card_ref:
+          title: Rate Card Ref
+          nullable: true
+        plan_id:
+          title: Plan Id
+          nullable: true
+        subscription_id:
+          title: Subscription Id
+          nullable: true
+        plan_version:
+          title: Plan Version
+          nullable: true
+        quantity:
+          default: "1"
+          title: Quantity
+        quantity_unit:
+          default: unit
+          title: Quantity Unit
+        pricing_basis:
+          default: recurring
+          enum:
+          - recurring
+          - one_time
+          - usage_estimate
+          title: Pricing Basis
+        requested_discount:
+          additionalProperties: {}
+          title: Requested Discount
+          nullable: true
+        feature_overrides:
+          items:
+            additionalProperties: {}
+          maxItems: 20
+          title: Feature Overrides
+      required:
+      - sku_ref
+      title: QuoteLineItemInput
+    QuoteListResponse:
+      example:
+        total: 5
+        offset: 1
+        limit: 6
+        items:
+        - tenant_id: tenant_id
+          expires_at: expires_at
+          account_ref:
+            key: ""
+          owner_user_id: owner_user_id
+          buyer_contact_ref:
+            key: ""
+          current_version: 0
+          id: id
+          state: state
+          deal_ref:
+            key: ""
+        - tenant_id: tenant_id
+          expires_at: expires_at
+          account_ref:
+            key: ""
+          owner_user_id: owner_user_id
+          buyer_contact_ref:
+            key: ""
+          current_version: 0
+          id: id
+          state: state
+          deal_ref:
+            key: ""
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/QuoteResponse'
+          type: array
+        limit:
+          title: Limit
+          type: integer
+        offset:
+          title: Offset
+          type: integer
+        total:
+          title: Total
+          type: integer
+      required:
+      - items
+      - limit
+      - offset
+      - total
+      title: QuoteListResponse
+    QuoteResponse:
+      example:
+        tenant_id: tenant_id
+        expires_at: expires_at
+        account_ref:
+          key: ""
+        owner_user_id: owner_user_id
+        buyer_contact_ref:
+          key: ""
+        current_version: 0
+        id: id
+        state: state
+        deal_ref:
+          key: ""
+      properties:
+        id:
+          title: Id
+          type: string
+        tenant_id:
+          title: Tenant Id
+          type: string
+        account_ref:
+          additionalProperties: {}
+          title: Account Ref
+        deal_ref:
+          additionalProperties: {}
+          title: Deal Ref
+          nullable: true
+        buyer_contact_ref:
+          additionalProperties: {}
+          title: Buyer Contact Ref
+          nullable: true
+        owner_user_id:
+          title: Owner User Id
+          type: string
+        current_version:
+          title: Current Version
+          type: integer
+        state:
+          title: State
+          type: string
+        expires_at:
+          title: Expires At
+          type: string
+          nullable: true
+      required:
+      - account_ref
+      - buyer_contact_ref
+      - current_version
+      - deal_ref
+      - id
+      - owner_user_id
+      - state
+      - tenant_id
+      title: QuoteResponse
+    QuoteSettingsResponse:
+      example:
+        tenant_id: tenant_id
+        booking_trigger: booking_trigger
+      properties:
+        tenant_id:
+          title: Tenant Id
+          type: string
+        booking_trigger:
+          title: Booking Trigger
+          type: string
+      required:
+      - booking_trigger
+      - tenant_id
+      title: QuoteSettingsResponse
+    QuoteVersionResponse:
+      example:
+        tenant_id: tenant_id
+        quote_version_digest: quote_version_digest
+        booking_trigger: booking_trigger
+        pricing_snapshot_id: pricing_snapshot_id
+        locked_at: locked_at
+        quote_id: quote_id
+        source_versions:
+          key: ""
+        state: state
+        line_items:
+        - key: ""
+        - key: ""
+        version: 0
+        credit_terms:
+          key: ""
+        commercial_terms:
+          key: ""
+      properties:
+        quote_id:
+          title: Quote Id
+          type: string
+        tenant_id:
+          title: Tenant Id
+          type: string
+        version:
+          title: Version
+          type: integer
+        state:
+          title: State
+          type: string
+        line_items:
+          items:
+            additionalProperties: {}
+          type: array
+        commercial_terms:
+          additionalProperties: {}
+          title: Commercial Terms
+        credit_terms:
+          additionalProperties: {}
+          title: Credit Terms
+        source_versions:
+          additionalProperties: {}
+          title: Source Versions
+          nullable: true
+        pricing_snapshot_id:
+          title: Pricing Snapshot Id
+          type: string
+          nullable: true
+        quote_version_digest:
+          title: Quote Version Digest
+          type: string
+          nullable: true
+        booking_trigger:
+          title: Booking Trigger
+          type: string
+          nullable: true
+        locked_at:
+          title: Locked At
+          type: string
+          nullable: true
+      required:
+      - commercial_terms
+      - credit_terms
+      - line_items
+      - pricing_snapshot_id
+      - quote_id
+      - state
+      - tenant_id
+      - version
+      title: QuoteVersionResponse
     RateCardDiscountInput:
       example:
         duration: entire
@@ -45990,6 +47785,16 @@ components:
           type: string
           nullable: true
       title: UpdateCreditPoolRequest
+    UpdateQuoteSettingsRequest:
+      example:
+        booking_trigger: booking_trigger
+      properties:
+        booking_trigger:
+          title: Booking Trigger
+          type: string
+      required:
+      - booking_trigger
+      title: UpdateQuoteSettingsRequest
     UpdateThresholdRequest:
       description: Request to update a threshold.
       example:
@@ -46559,6 +48364,10 @@ components:
           title: Subscription
         commercialOverrides:
           $ref: '#/components/schemas/CommercialOverridesPayload'
+        quote_origin_key:
+          title: Quote Origin Key
+          type: string
+          nullable: true
       required:
       - customer_id
       - operation
@@ -49240,6 +51049,11 @@ components:
           example: 2023-01-01T01:01:01.001Z
           format: date-time
           type: string
+        quoteOriginKey:
+          allOf:
+          - $ref: '#/components/schemas/QuoteOriginKey'
+          description: Idempotency key supplied by quote acceptance for new-subscription
+            creates.
       required:
       - customPlan
       title: Create custom
@@ -56098,6 +57912,37 @@ components:
       - value
       - windowEnd
       - windowStart
+    MeterTestEventRequest:
+      example:
+        data:
+          key: ""
+      properties:
+        data:
+          additionalProperties: {}
+      required:
+      - data
+    MeterTestEventResponse:
+      example:
+        groupByValues:
+          key: groupByValues
+        reason: reason
+        isNumeric: true
+        extractedValue: 0.8008281904610115
+      properties:
+        extractedValue:
+          format: double
+          type: number
+          nullable: true
+        isNumeric:
+          type: boolean
+        groupByValues:
+          additionalProperties:
+            type: string
+        reason:
+          type: string
+      required:
+      - groupByValues
+      - isNumeric
     MeterUpdate:
       description: |-
         A meter update model.
@@ -59113,6 +60958,7 @@ components:
       example:
         customerKey: customerKey
         metadata: ""
+        quoteOriginKey: ""
         startingPhase: startingPhase
         timing: ""
         name: name
@@ -59178,6 +61024,11 @@ components:
           example: 2023-01-01T01:01:01.001Z
           format: date-time
           type: string
+        quoteOriginKey:
+          allOf:
+          - $ref: '#/components/schemas/QuoteOriginKey'
+          description: Idempotency key supplied by quote acceptance for new-subscription
+            creates.
       required:
       - plan
       title: Create from plan
@@ -59325,6 +61176,11 @@ components:
       - success
       - total
       - updatedAt
+    QuoteOriginKey:
+      maxLength: 256
+      minLength: 1
+      pattern: ^\S(?:.*\S)?$
+      type: string
     RateCard:
       description: A rate card defines the pricing and entitlement of a feature or
         service.
@@ -60418,6 +62274,7 @@ components:
       description: Subscription is an exact subscription instance.
       example:
         metadata: "{}"
+        quoteOriginKey: ""
         billingAnchor: 2023-01-01T01:01:01.001Z
         description: description
         annotations: ""
@@ -60433,6 +62290,7 @@ components:
         alignment: ""
         billingCadence: P1M
         plan: ""
+        grantsStatus: grantsStatus
         activeFrom: 2023-01-01T01:01:01.001Z
         updatedAt: 2024-01-01T01:01:01.001Z
         status: ""
@@ -60554,6 +62412,19 @@ components:
             \ wallet policy)."
           readOnly: true
           title: Commercial overrides
+        quoteOriginKey:
+          allOf:
+          - $ref: '#/components/schemas/QuoteOriginKey'
+          description: Idempotency key linking this subscription to the accepted quote
+            version that created it.
+          readOnly: true
+          title: Quote origin key
+        grantsStatus:
+          description: Transient grant activation status returned by create and quote-origin
+            duplicate recovery flows.
+          readOnly: true
+          title: Grants status
+          type: string
       required:
       - activeFrom
       - billingAnchor
@@ -61116,6 +62987,7 @@ components:
       description: Expanded subscription
       example:
         metadata: "{}"
+        quoteOriginKey: ""
         billingAnchor: 2023-01-01T01:01:01.001Z
         description: description
         annotations: ""
@@ -61131,6 +63003,7 @@ components:
         billingCadence: P1M
         alignment: ""
         plan: ""
+        grantsStatus: grantsStatus
         activeFrom: 2023-01-01T01:01:01.001Z
         phases:
         - metadata: "{}"
@@ -61429,6 +63302,19 @@ components:
             \ wallet policy)."
           readOnly: true
           title: Commercial overrides
+        quoteOriginKey:
+          allOf:
+          - $ref: '#/components/schemas/QuoteOriginKey'
+          description: Idempotency key linking this subscription to the accepted quote
+            version that created it.
+          readOnly: true
+          title: Quote origin key
+        grantsStatus:
+          description: Transient grant activation status returned by create and quote-origin
+            duplicate recovery flows.
+          readOnly: true
+          title: Grants status
+          type: string
         alignment:
           allOf:
           - $ref: '#/components/schemas/SubscriptionAlignment'
@@ -61617,6 +63503,7 @@ components:
         totalCount: 500
         items:
         - metadata: "{}"
+          quoteOriginKey: ""
           billingAnchor: 2023-01-01T01:01:01.001Z
           description: description
           annotations: ""
@@ -61632,10 +63519,12 @@ components:
           alignment: ""
           billingCadence: P1M
           plan: ""
+          grantsStatus: grantsStatus
           activeFrom: 2023-01-01T01:01:01.001Z
           updatedAt: 2024-01-01T01:01:01.001Z
           status: ""
         - metadata: "{}"
+          quoteOriginKey: ""
           billingAnchor: 2023-01-01T01:01:01.001Z
           description: description
           annotations: ""
@@ -61651,6 +63540,7 @@ components:
           alignment: ""
           billingCadence: P1M
           plan: ""
+          grantsStatus: grantsStatus
           activeFrom: 2023-01-01T01:01:01.001Z
           updatedAt: 2024-01-01T01:01:01.001Z
           status: ""
@@ -66537,10 +68427,16 @@ components:
     EmailConfigOut:
       example:
         tenant_id: tenant_id
+        reply_domain: reply_domain
+        reply_verification_status: reply_verification_status
+        reply_dns_records:
+        - key: ""
+        - key: ""
         dns_records:
         - key: ""
         - key: ""
         resend_domain_id: resend_domain_id
+        reply_resend_domain_id: reply_resend_domain_id
         verification_status: verification_status
         from_address: from_address
         inbound_secret_last4: inbound_secret_last4
@@ -66564,6 +68460,17 @@ components:
         verification_status:
           title: Verification Status
           type: string
+        reply_domain:
+          title: Reply Domain
+          type: string
+          nullable: true
+        reply_resend_domain_id:
+          title: Reply Resend Domain Id
+          type: string
+          nullable: true
+        reply_verification_status:
+          title: Reply Verification Status
+          type: string
         inbound_secret_last4:
           title: Inbound Secret Last4
           type: string
@@ -66573,9 +68480,17 @@ components:
             additionalProperties: {}
           type: array
           nullable: true
+        reply_dns_records:
+          items:
+            additionalProperties: {}
+          type: array
+          nullable: true
       required:
       - from_address
       - inbound_secret_last4
+      - reply_domain
+      - reply_resend_domain_id
+      - reply_verification_status
       - resend_domain_id
       - sender_domain
       - tenant_id
@@ -66583,6 +68498,7 @@ components:
       title: EmailConfigOut
     EmailConfigUpsert:
       example:
+        reply_domain: reply_domain
         from_address: from_address
         sender_domain: sender_domain
         inbound_secret: inbound_secret
@@ -66595,6 +68511,11 @@ components:
         from_address:
           maxLength: 255
           title: From Address
+          type: string
+          nullable: true
+        reply_domain:
+          maxLength: 255
+          title: Reply Domain
           type: string
           nullable: true
         inbound_secret:
@@ -75621,33 +77542,6 @@ components:
           type: string
       required:
       - apiKey
-    testMeterEvent_request:
-      properties:
-        data:
-          additionalProperties: {}
-      required:
-      - data
-    testMeterEvent_200_response:
-      example:
-        groupByValues:
-          key: groupByValues
-        reason: reason
-        isNumeric: true
-        extractedValue: 0.8008281904610115
-      properties:
-        extractedValue:
-          type: number
-          nullable: true
-        isNumeric:
-          type: boolean
-        groupByValues:
-          additionalProperties:
-            type: string
-        reason:
-          type: string
-      required:
-      - groupByValues
-      - isNumeric
     invalidatePortalTokens_request:
       properties:
         id:

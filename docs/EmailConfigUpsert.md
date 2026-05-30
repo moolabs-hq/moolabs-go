@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **SenderDomain** | **string** |  | 
 **FromAddress** | Pointer to **string** |  | [optional] 
+**ReplyDomain** | Pointer to **string** |  | [optional] 
 **InboundSecret** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -71,6 +72,31 @@ SetFromAddress sets FromAddress field to given value.
 `func (o *EmailConfigUpsert) HasFromAddress() bool`
 
 HasFromAddress returns a boolean if a field has been set.
+
+### GetReplyDomain
+
+`func (o *EmailConfigUpsert) GetReplyDomain() string`
+
+GetReplyDomain returns the ReplyDomain field if non-nil, zero value otherwise.
+
+### GetReplyDomainOk
+
+`func (o *EmailConfigUpsert) GetReplyDomainOk() (*string, bool)`
+
+GetReplyDomainOk returns a tuple with the ReplyDomain field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReplyDomain
+
+`func (o *EmailConfigUpsert) SetReplyDomain(v string)`
+
+SetReplyDomain sets ReplyDomain field to given value.
+
+### HasReplyDomain
+
+`func (o *EmailConfigUpsert) HasReplyDomain() bool`
+
+HasReplyDomain returns a boolean if a field has been set.
 
 ### GetInboundSecret
 

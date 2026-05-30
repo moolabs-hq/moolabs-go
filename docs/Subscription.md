@@ -23,6 +23,8 @@ Name | Type | Description | Notes
 **ProRatingConfig** | Pointer to [**ProRatingConfig**](ProRatingConfig.md) | The pro-rating configuration for the subscriptions. | [optional] [readonly] 
 **BillingAnchor** | **time.Time** | The normalizedbilling anchor of the subscription. | [readonly] 
 **CommercialOverrides** | Pointer to [**CommercialOverrides**](CommercialOverrides.md) | Commercial terms for this subscription (discounts, pool overrides, wallet policy). | [optional] [readonly] 
+**QuoteOriginKey** | Pointer to **string** | Idempotency key linking this subscription to the accepted quote version that created it. | [optional] [readonly] 
+**GrantsStatus** | Pointer to **string** | Transient grant activation status returned by create and quote-origin duplicate recovery flows. | [optional] [readonly] 
 
 ## Methods
 
@@ -467,6 +469,56 @@ SetCommercialOverrides sets CommercialOverrides field to given value.
 `func (o *Subscription) HasCommercialOverrides() bool`
 
 HasCommercialOverrides returns a boolean if a field has been set.
+
+### GetQuoteOriginKey
+
+`func (o *Subscription) GetQuoteOriginKey() string`
+
+GetQuoteOriginKey returns the QuoteOriginKey field if non-nil, zero value otherwise.
+
+### GetQuoteOriginKeyOk
+
+`func (o *Subscription) GetQuoteOriginKeyOk() (*string, bool)`
+
+GetQuoteOriginKeyOk returns a tuple with the QuoteOriginKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQuoteOriginKey
+
+`func (o *Subscription) SetQuoteOriginKey(v string)`
+
+SetQuoteOriginKey sets QuoteOriginKey field to given value.
+
+### HasQuoteOriginKey
+
+`func (o *Subscription) HasQuoteOriginKey() bool`
+
+HasQuoteOriginKey returns a boolean if a field has been set.
+
+### GetGrantsStatus
+
+`func (o *Subscription) GetGrantsStatus() string`
+
+GetGrantsStatus returns the GrantsStatus field if non-nil, zero value otherwise.
+
+### GetGrantsStatusOk
+
+`func (o *Subscription) GetGrantsStatusOk() (*string, bool)`
+
+GetGrantsStatusOk returns a tuple with the GrantsStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGrantsStatus
+
+`func (o *Subscription) SetGrantsStatus(v string)`
+
+SetGrantsStatus sets GrantsStatus field to given value.
+
+### HasGrantsStatus
+
+`func (o *Subscription) HasGrantsStatus() bool`
+
+HasGrantsStatus returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

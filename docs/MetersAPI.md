@@ -687,7 +687,7 @@ Name | Type | Description  | Notes
 
 ## TestMeterEvent
 
-> TestMeterEvent200Response TestMeterEvent(ctx, meterIdOrSlug).TestMeterEventRequest(testMeterEventRequest).Execute()
+> MeterTestEventResponse TestMeterEvent(ctx, meterIdOrSlug).MeterTestEventRequest(meterTestEventRequest).Execute()
 
 Validate a sample event payload against the meter
 
@@ -707,16 +707,16 @@ import (
 
 func main() {
 	meterIdOrSlug := "meterIdOrSlug_example" // string | 
-	testMeterEventRequest := *openapiclient.NewTestMeterEventRequest(map[string]interface{}{"key": interface{}(123)}) // TestMeterEventRequest | 
+	meterTestEventRequest := *openapiclient.NewMeterTestEventRequest(map[string]interface{}{"key": interface{}(123)}) // MeterTestEventRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MetersAPI.TestMeterEvent(context.Background(), meterIdOrSlug).TestMeterEventRequest(testMeterEventRequest).Execute()
+	resp, r, err := apiClient.MetersAPI.TestMeterEvent(context.Background(), meterIdOrSlug).MeterTestEventRequest(meterTestEventRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MetersAPI.TestMeterEvent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `TestMeterEvent`: TestMeterEvent200Response
+	// response from `TestMeterEvent`: MeterTestEventResponse
 	fmt.Fprintf(os.Stdout, "Response from `MetersAPI.TestMeterEvent`: %v\n", resp)
 }
 ```
@@ -737,11 +737,11 @@ Other parameters are passed through a pointer to a apiTestMeterEventRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **testMeterEventRequest** | [**TestMeterEventRequest**](TestMeterEventRequest.md) |  | 
+ **meterTestEventRequest** | [**MeterTestEventRequest**](MeterTestEventRequest.md) |  | 
 
 ### Return type
 
-[**TestMeterEvent200Response**](TestMeterEvent200Response.md)
+[**MeterTestEventResponse**](MeterTestEventResponse.md)
 
 ### Authorization
 

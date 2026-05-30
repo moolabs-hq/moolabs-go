@@ -92,7 +92,14 @@ func (e *IngestError) Unwrap() error { return e.Cause }
 
 // Terminal reports whether this error is non-retryable.
 func (e *IngestError) Terminal() bool {
-	switch e.StatusCode {
+	return isTerminalStatusCode(e.StatusCode)
+}
+
+// isTerminalStatusCode reports whether an HTTP status is non-retryable for
+// ingest (auth/validation/not-found): retrying with the same key/body fails
+// identically. Shared by the usage IngestError path and the cost-buffer drain.
+func isTerminalStatusCode(code int) bool {
+	switch code {
 	case 400, 401, 403, 404, 422:
 		return true
 	}
@@ -147,6 +154,11 @@ func postEventsBatch(ctx context.Context, baseURL, apiKey string, events []any) 
 
 const defaultBaseURL = "moolabs.com"
 
+// defaultIngestTimeout bounds each ingest HTTP attempt when Config.Timeout
+// is unset. Generous for batch ingest; prevents an unreachable server from
+// hanging a caller goroutine or a buffer drain indefinitely.
+const defaultIngestTimeout = 30 * time.Second
+
 // Config configures a Moolabs client.
 type Config struct {
 	// APIKey is the customer's dashboard-issued Moolabs API key. The same
@@ -170,6 +182,18 @@ type Config struct {
 	// throughput should raise this to avoid drop_oldest on steady-state
 	// load.
 	BufferMax int
+
+	// Timeout bounds each INGEST HTTP attempt (the background buffer drains)
+	// so an unreachable/black-hole server can never hang a drain goroutine
+	// indefinitely. Zero means "use default" (= defaultIngestTimeout).
+	//
+	// Scope: applied per-attempt via context.WithTimeout in the usage + cost
+	// buffer drains ONLY. It is deliberately NOT installed as a client-wide
+	// HTTP timeout on the generated backend clients — doing so would also cap
+	// NON-ingest calls (billing, reports, credits, subscriptions, …) at the
+	// ingest ceiling and break legitimately long customer operations. Those
+	// calls are bounded by the caller's own context deadline instead.
+	Timeout time.Duration
 
 	// Logger receives the SDK's per-event diagnostic warnings — terminal
 	// drops (auth/validation upstream error), buffer overflow, drain
@@ -208,10 +232,16 @@ type Moolabs struct {
 	baseURL        string
 	bufferEnabled  bool
 	bufferMax      int
+	timeout        time.Duration
 	logger         Logger
 	ingestResolver *IngestURLResolver
 	ingestBuffer   *IngestBuffer
 	bufferOnce     sync.Once
+	// Cost capability gets its own buffer (separate drain endpoint from usage:
+	// ACUTE /api/v1/cost/ingest/batch vs Meter /api/v1/events). Same generic
+	// IngestBuffer + ProducerChannel machinery as usage.
+	costBuffer     *IngestBuffer
+	costBufferOnce sync.Once
 
 	bffClient   *APIClient
 	meterClient *APIClient
@@ -304,6 +334,14 @@ type CollectionsNamespace struct {
 type CostNamespace struct {
 	*CostEventsAPIService
 	*SdkIngestAPIService
+
+	// G5 buffer + producer-channel for non-blocking cost ingest — mirrors
+	// UsageNamespace. The customer's IngestEvents call does a non-blocking
+	// channel send (~50 ns); a producer goroutine moves batches into the
+	// buffer; the buffer's drain worker POSTs via the generated cost client.
+	// Nil when Buffer is disabled (strict-sync mode).
+	buffer   *IngestBuffer
+	producer *ProducerChannel
 }
 
 type NotificationsNamespace struct {
@@ -380,12 +418,17 @@ func NewMoolabs(cfg Config) (*Moolabs, error) {
 	}
 	bufferMax := cfg.BufferMax
 	if bufferMax == 0 {
-		bufferMax = 1000   // matches DefaultIngestBufferConfig.MaxSize
+		bufferMax = 1000 // matches DefaultIngestBufferConfig.MaxSize
+	}
+
+	timeout := cfg.Timeout
+	if timeout == 0 {
+		timeout = defaultIngestTimeout
 	}
 
 	logger := cfg.Logger
 	if logger == nil {
-		logger = NoopLogger{}   // default = no output (library never pollutes customer stderr)
+		logger = NoopLogger{} // default = no output (library never pollutes customer stderr)
 	}
 
 	m := &Moolabs{
@@ -393,6 +436,7 @@ func NewMoolabs(cfg Config) (*Moolabs, error) {
 		baseURL:       baseURL,
 		bufferEnabled: bufferEnabled,
 		bufferMax:     bufferMax,
+		timeout:       timeout,
 		logger:        logger,
 	}
 
@@ -424,15 +468,26 @@ func NewMoolabs(cfg Config) (*Moolabs, error) {
 // Close drains the ingest buffer (if started), bounded by the buffer's
 // ShutdownFlushTimeout, and releases per-backend resources. Idempotent.
 func (m *Moolabs) Close() error {
-	// Stop the producer first so it drains pending channel events into
-	// the buffer; then close the buffer so it can do its final HTTP drain.
+	// Stop producers first so they drain pending channel events into their
+	// buffers; then close the buffers so they can do their final HTTP drain.
 	if m.Usage != nil {
 		m.Usage.stopProducer()
 	}
-	if m.ingestBuffer != nil {
-		return m.ingestBuffer.Close()
+	if m.Cost != nil {
+		m.Cost.stopProducer()
 	}
-	return nil
+	var firstErr error
+	if m.ingestBuffer != nil {
+		if err := m.ingestBuffer.Close(); err != nil {
+			firstErr = err
+		}
+	}
+	if m.costBuffer != nil {
+		if err := m.costBuffer.Close(); err != nil && firstErr == nil {
+			firstErr = err
+		}
+	}
+	return firstErr
 }
 
 // IngestQueueDropped returns events dropped at the producer-channel
@@ -535,12 +590,76 @@ func (u *UsageNamespace) stopProducer() {
 	u.producer.Stop()
 }
 
+// ── G5 buffering on CostNamespace (mirrors UsageNamespace) ──
+
+// IngestEvents enqueues cost events for buffered, non-blocking delivery to the
+// ACUTE cost-ingest endpoint, mirroring UsageNamespace.IngestEvents.
+//
+// Default mode (Buffer enabled): non-blocking — a ~50 ns channel send; a
+// producer goroutine moves the batch into the buffer; the buffer's drain
+// worker POSTs via the generated CostEventsAPI batch endpoint, holding +
+// retrying on transient failure. Returns (len(events), nil) on accept, or
+// (0, nil) on producer-channel overflow (observable via IngestQueueDropped()).
+//
+// Strict-sync mode (Config.Buffer = &false): blocking — POSTs inline via the
+// generated client and returns (delivered, error).
+//
+// Retry is safe: each CostEventIngest carries idempotency_key and the backend
+// dedups, so re-sending a held batch cannot double-charge.
+func (c *CostNamespace) IngestEvents(ctx context.Context, events []CostEventIngest) (int, error) {
+	if len(events) == 0 {
+		return 0, nil
+	}
+	if c.buffer != nil {
+		anyEvents := make([]any, len(events))
+		for i := range events {
+			anyEvents[i] = events[i]
+		}
+		return c.producer.SubmitAndCount(anyEvents), nil
+	}
+	// Strict-sync: caller wants delivery confirmation per call.
+	req := NewBatchIngestRequest(events)
+	_, resp, err := c.CostEventsAPIService.IngestEventsBatch(ctx).BatchIngestRequest(*req).Execute()
+	if err != nil {
+		if resp != nil && isTerminalStatusCode(resp.StatusCode) {
+			return 0, err
+		}
+		return 0, fmt.Errorf("moolabs: cost ingest failed and buffer disabled: %w", err)
+	}
+	return len(events), nil
+}
+
+// stopProducer signals the cost producer to exit + waits for drain. Called
+// from Moolabs.Close().
+func (c *CostNamespace) stopProducer() {
+	if c.producer == nil {
+		return // never constructed
+	}
+	c.producer.Stop()
+}
+
+// IngestQueueDropped returns cost events dropped at the producer-channel layer
+// (channel full at Submit). Distinct from buffer-layer drop_oldest.
+func (c *CostNamespace) IngestQueueDropped() int64 {
+	if c.producer == nil {
+		return 0
+	}
+	return c.producer.IngestQueueDropped()
+}
+
 // ── internals ──
 
 func (m *Moolabs) makeClientAtURL(host string) *APIClient {
 	cfg := NewConfiguration()
 	cfg.Servers = ServerConfigurations{{URL: host}}
 	cfg.AddDefaultHeader("Authorization", "Bearer "+m.apiKey)
+	// Deliberately do NOT install m.timeout as a client-wide HTTP timeout here.
+	// m.timeout is the *ingest* drain budget; it's applied per-attempt via
+	// context.WithTimeout in bufferDrain/costBufferDrain. Forcing it on the
+	// shared generated clients would also cap NON-ingest calls (billing,
+	// reports, credits, subscriptions, …) at the ingest ceiling, breaking
+	// legitimately long customer operations. Non-ingest calls are bounded by
+	// the caller's own context instead.
 	return NewAPIClient(cfg)
 }
 
@@ -591,14 +710,28 @@ func (m *Moolabs) wireCapabilities() {
 		ReportsAPIService:           m.arcClient.ReportsAPI,
 		TasksAPIService:             m.arcClient.TasksAPI,
 	}
-	m.Cost = &CostNamespace{
+	costBuf := m.lazyCostBuffer()
+	cost := &CostNamespace{
 		// sdk-cost-capability-acute-backing US-008 (Ralph iter 23 follow-up):
 		// route client.cost.* DIRECT to acute.{baseURL} instead of the BFF
 		// cost-ingest-proxy. Two backing services per HLD Appendix D.5 / RFC
 		// + the parity-check'd dx_routing.go CapabilityMap["cost"] entry.
 		CostEventsAPIService: m.acuteClient.CostEventsAPI,
 		SdkIngestAPIService:  m.acuteClient.SdkIngestAPI,
+		buffer:               costBuf,
 	}
+	// Producer-channel only wired when the buffer is enabled. Channel cap
+	// scales with BufferMax: max(1024, BufferMax/8), same as usage.
+	if costBuf != nil {
+		chanCap := 1024
+		if m.bufferMax/8 > chanCap {
+			chanCap = m.bufferMax / 8
+		}
+		cost.producer = NewProducerChannel(chanCap, func(events []any) {
+			_ = costBuf.Enqueue(events)
+		}, m.logger)
+	}
+	m.Cost = cost
 	m.Notifications = &NotificationsNamespace{
 		NotificationsAPIService: m.meterClient.NotificationsAPI,
 		AlertsAPIService:        m.bffClient.AlertsAPI,
@@ -633,7 +766,7 @@ func (m *Moolabs) lazyBuffer() *IngestBuffer {
 	m.bufferOnce.Do(func() {
 		cfg := DefaultIngestBufferConfig
 		cfg.MaxSize = m.bufferMax
-		cfg.Logger = m.logger    // propagate customer-supplied logger (NoopLogger if none)
+		cfg.Logger = m.logger // propagate customer-supplied logger (NoopLogger if none)
 		buf, err := NewIngestBuffer(m.bufferDrain, cfg)
 		if err != nil {
 			// Validation failure on default config is a programmer error;
@@ -661,6 +794,11 @@ func (m *Moolabs) lazyBuffer() *IngestBuffer {
 // a single bad API key fills the buffer forever and silently loses
 // every customer event.
 func (m *Moolabs) bufferDrain(ctx context.Context, events []any) (int, error) {
+	if m.timeout > 0 {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, m.timeout)
+		defer cancel()
+	}
 	url := m.ingestResolver.GetIngestURL()
 	delivered, err := postEventsBatch(ctx, url, m.apiKey, events)
 	if err != nil {
@@ -690,6 +828,75 @@ func (m *Moolabs) bufferDrain(ctx context.Context, events []any) (int, error) {
 	}
 	m.ingestResolver.ReportPostOutcome(url, true)
 	return delivered, nil
+}
+
+// lazyCostBuffer constructs + starts the cost buffer on first use. Mirrors
+// lazyBuffer; separate instance because cost drains to a different endpoint.
+func (m *Moolabs) lazyCostBuffer() *IngestBuffer {
+	if !m.bufferEnabled {
+		return nil
+	}
+	m.costBufferOnce.Do(func() {
+		cfg := DefaultIngestBufferConfig
+		cfg.MaxSize = m.bufferMax
+		cfg.Logger = m.logger // NoopLogger if customer provided none
+		buf, err := NewIngestBuffer(m.costBufferDrain, cfg)
+		if err != nil {
+			panic("moolabs: building cost IngestBuffer: " + err.Error())
+		}
+		// Publish before Start (same ordering rationale as lazyBuffer: the
+		// drain reads m.costBuffer for terminal-drop bumps).
+		m.costBuffer = buf
+		buf.Start()
+	})
+	return m.costBuffer
+}
+
+// costBufferDrain is the cost buffer's drain callback. It POSTs queued cost
+// events to ACUTE's batch endpoint via the generated CostEventsAPI client.
+//
+// Terminal errors (4xx auth/validation) DISCARD the batch — retry fails
+// identically; the count is recorded and a WARN logged (only surfaced if the
+// customer supplied a Logger). Transient errors return 0 so the batch is
+// retried next tick. Retry is idempotency-key safe (backend dedups).
+func (m *Moolabs) costBufferDrain(ctx context.Context, events []any) (int, error) {
+	if m.timeout > 0 {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, m.timeout)
+		defer cancel()
+	}
+	costEvents := make([]CostEventIngest, 0, len(events))
+	for _, e := range events {
+		if ce, ok := e.(CostEventIngest); ok {
+			costEvents = append(costEvents, ce)
+		}
+	}
+	if len(costEvents) == 0 {
+		// Nothing valid to send — treat as drained so a malformed entry can
+		// never wedge the queue (defensive; should not happen via IngestEvents).
+		return len(events), nil
+	}
+	req := NewBatchIngestRequest(costEvents)
+	_, resp, err := m.acuteClient.CostEventsAPI.IngestEventsBatch(ctx).BatchIngestRequest(*req).Execute()
+	if err != nil {
+		status := 0
+		if resp != nil {
+			status = resp.StatusCode
+		}
+		if isTerminalStatusCode(status) {
+			if m.costBuffer != nil {
+				m.costBuffer.recordTerminalDrop(len(events))
+			}
+			m.logger.Warn("moolabs.cost_buffer.terminal_drop",
+				"status", status,
+				"count", len(events),
+				"err", err,
+			)
+			return len(events), nil // discard — retry would fail identically
+		}
+		return 0, err // transient — re-enqueue + retry next tick
+	}
+	return len(events), nil
 }
 
 // discoverTenantConfig is the F2 resolver's DiscoveryFn. Calls GET

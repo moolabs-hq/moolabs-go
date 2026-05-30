@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**GetIntegrationsMapping**](TenantAPI.md#GetIntegrationsMapping) | **Get** /v1/tenant/integrations/mapping | Get Integrations Mapping
 [**GetMoometerNamespaceIdV1**](TenantAPI.md#GetMoometerNamespaceIdV1) | **Get** /v1/tenant/moometer-namespace | Get Moometer Namespace Id
 [**GetPortalTokensV1**](TenantAPI.md#GetPortalTokensV1) | **Get** /v1/tenant/portal-tokens | Get Portal Tokens
+[**GetQuoteSettingsV1**](TenantAPI.md#GetQuoteSettingsV1) | **Get** /v1/tenant/quote-settings | Get Quote Settings
 [**GetRevenueRecognitionV1**](TenantAPI.md#GetRevenueRecognitionV1) | **Get** /v1/tenant/revenue-recognition | Get Revenue Recognition
 [**GetSender**](TenantAPI.md#GetSender) | **Get** /v1/tenant/communications/sender | Get Sender
 [**GetTemplate**](TenantAPI.md#GetTemplate) | **Get** /v1/tenant/communications/templates/{template_id} | Get Template
@@ -43,6 +44,7 @@ Method | HTTP request | Description
 [**PutDomain**](TenantAPI.md#PutDomain) | **Put** /v1/tenant/communications/domain | Put Domain
 [**PutFeatureFlagV1**](TenantAPI.md#PutFeatureFlagV1) | **Put** /v1/tenant/audit/feature-flags/{flag_id} | Put Feature Flag
 [**PutIntegration**](TenantAPI.md#PutIntegration) | **Put** /v1/tenant/integrations/{provider} | Put Integration
+[**PutQuoteSettingsV1**](TenantAPI.md#PutQuoteSettingsV1) | **Put** /v1/tenant/quote-settings | Put Quote Settings
 [**PutSender**](TenantAPI.md#PutSender) | **Put** /v1/tenant/communications/sender | Put Sender
 [**PutTemplate**](TenantAPI.md#PutTemplate) | **Put** /v1/tenant/communications/templates/{template_id} | Put Template
 [**PutWebhook**](TenantAPI.md#PutWebhook) | **Put** /v1/tenant/communications/webhook | Put Webhook
@@ -873,6 +875,65 @@ Other parameters are passed through a pointer to a apiGetPortalTokensV1Request s
 ### Return type
 
 [**[]PortalTokenItem**](PortalTokenItem.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetQuoteSettingsV1
+
+> QuoteSettingsResponse GetQuoteSettingsV1(ctx).Execute()
+
+Get Quote Settings
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TenantAPI.GetQuoteSettingsV1(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.GetQuoteSettingsV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetQuoteSettingsV1`: QuoteSettingsResponse
+	fmt.Fprintf(os.Stdout, "Response from `TenantAPI.GetQuoteSettingsV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetQuoteSettingsV1Request struct via the builder pattern
+
+
+### Return type
+
+[**QuoteSettingsResponse**](QuoteSettingsResponse.md)
 
 ### Authorization
 
@@ -2549,6 +2610,70 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ConnectorItem**](ConnectorItem.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutQuoteSettingsV1
+
+> QuoteSettingsResponse PutQuoteSettingsV1(ctx).UpdateQuoteSettingsRequest(updateQuoteSettingsRequest).Execute()
+
+Put Quote Settings
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	updateQuoteSettingsRequest := *openapiclient.NewUpdateQuoteSettingsRequest("BookingTrigger_example") // UpdateQuoteSettingsRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TenantAPI.PutQuoteSettingsV1(context.Background()).UpdateQuoteSettingsRequest(updateQuoteSettingsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.PutQuoteSettingsV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutQuoteSettingsV1`: QuoteSettingsResponse
+	fmt.Fprintf(os.Stdout, "Response from `TenantAPI.PutQuoteSettingsV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutQuoteSettingsV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateQuoteSettingsRequest** | [**UpdateQuoteSettingsRequest**](UpdateQuoteSettingsRequest.md) |  | 
+
+### Return type
+
+[**QuoteSettingsResponse**](QuoteSettingsResponse.md)
 
 ### Authorization
 

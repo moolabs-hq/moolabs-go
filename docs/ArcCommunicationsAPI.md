@@ -265,7 +265,7 @@ No authorization required
 
 ## RejectCommunication
 
-> ApprovalActionResponse RejectCommunication(ctx, caseId, commId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).ApprovalActionRequest(approvalActionRequest).Execute()
+> ApprovalActionResponse RejectCommunication(ctx, caseId, commId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XActingUser(xActingUser).XUserId(xUserId).XArcProxySecret(xArcProxySecret).ApprovalActionRequest(approvalActionRequest).Execute()
 
 Reject Communication
 
@@ -290,11 +290,14 @@ func main() {
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
 	authorization := "authorization_example" // string |  (optional)
+	xActingUser := "xActingUser_example" // string |  (optional)
+	xUserId := "xUserId_example" // string |  (optional)
+	xArcProxySecret := "xArcProxySecret_example" // string |  (optional)
 	approvalActionRequest := *openapiclient.NewApprovalActionRequest() // ApprovalActionRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ArcCommunicationsAPI.RejectCommunication(context.Background(), caseId, commId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).ApprovalActionRequest(approvalActionRequest).Execute()
+	resp, r, err := apiClient.ArcCommunicationsAPI.RejectCommunication(context.Background(), caseId, commId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XActingUser(xActingUser).XUserId(xUserId).XArcProxySecret(xArcProxySecret).ApprovalActionRequest(approvalActionRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ArcCommunicationsAPI.RejectCommunication``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -326,6 +329,9 @@ Name | Type | Description  | Notes
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
  **authorization** | **string** |  | 
+ **xActingUser** | **string** |  | 
+ **xUserId** | **string** |  | 
+ **xArcProxySecret** | **string** |  | 
  **approvalActionRequest** | [**ApprovalActionRequest**](ApprovalActionRequest.md) |  | 
 
 ### Return type

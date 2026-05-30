@@ -1,4 +1,4 @@
-# TestMeterEventRequest
+# MeterTestEventRequest
 
 ## Properties
 
@@ -8,39 +8,39 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewTestMeterEventRequest
+### NewMeterTestEventRequest
 
-`func NewTestMeterEventRequest(data map[string]interface{}, ) *TestMeterEventRequest`
+`func NewMeterTestEventRequest(data map[string]interface{}, ) *MeterTestEventRequest`
 
-NewTestMeterEventRequest instantiates a new TestMeterEventRequest object
+NewMeterTestEventRequest instantiates a new MeterTestEventRequest object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewTestMeterEventRequestWithDefaults
+### NewMeterTestEventRequestWithDefaults
 
-`func NewTestMeterEventRequestWithDefaults() *TestMeterEventRequest`
+`func NewMeterTestEventRequestWithDefaults() *MeterTestEventRequest`
 
-NewTestMeterEventRequestWithDefaults instantiates a new TestMeterEventRequest object
+NewMeterTestEventRequestWithDefaults instantiates a new MeterTestEventRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetData
 
-`func (o *TestMeterEventRequest) GetData() map[string]interface{}`
+`func (o *MeterTestEventRequest) GetData() map[string]interface{}`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *TestMeterEventRequest) GetDataOk() (*map[string]interface{}, bool)`
+`func (o *MeterTestEventRequest) GetDataOk() (*map[string]interface{}, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *TestMeterEventRequest) SetData(v map[string]interface{})`
+`func (o *MeterTestEventRequest) SetData(v map[string]interface{})`
 
 SetData sets Data field to given value.
 

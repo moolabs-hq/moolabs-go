@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CompleteTask
 
-> TaskResponse CompleteTask(ctx, taskId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).TaskCompleteRequest(taskCompleteRequest).Execute()
+> TaskResponse CompleteTask(ctx, taskId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XActingUser(xActingUser).TaskCompleteRequest(taskCompleteRequest).Execute()
 
 Complete Task
 
@@ -37,11 +37,12 @@ func main() {
 	xTenantId := "xTenantId_example" // string |  (optional)
 	xOrgId := "xOrgId_example" // string |  (optional)
 	authorization := "authorization_example" // string |  (optional)
+	xActingUser := "xActingUser_example" // string |  (optional)
 	taskCompleteRequest := *openapiclient.NewTaskCompleteRequest() // TaskCompleteRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TasksAPI.CompleteTask(context.Background(), taskId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).TaskCompleteRequest(taskCompleteRequest).Execute()
+	resp, r, err := apiClient.TasksAPI.CompleteTask(context.Background(), taskId).XAPIKey(xAPIKey).XTenantId(xTenantId).XOrgId(xOrgId).Authorization(authorization).XActingUser(xActingUser).TaskCompleteRequest(taskCompleteRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TasksAPI.CompleteTask``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -71,6 +72,7 @@ Name | Type | Description  | Notes
  **xTenantId** | **string** |  | 
  **xOrgId** | **string** |  | 
  **authorization** | **string** |  | 
+ **xActingUser** | **string** |  | 
  **taskCompleteRequest** | [**TaskCompleteRequest**](TaskCompleteRequest.md) |  | 
 
 ### Return type

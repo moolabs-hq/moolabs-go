@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **EffectiveAt** | Pointer to **time.Time** |  | [optional] 
 **Subscription** | **map[string]interface{}** |  | 
 **CommercialOverrides** | Pointer to [**CommercialOverridesPayload**](CommercialOverridesPayload.md) |  | [optional] 
+**QuoteOriginKey** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -201,6 +202,31 @@ SetCommercialOverrides sets CommercialOverrides field to given value.
 `func (o *AppApiV1InternalSubscriptionSyncSchemasSubscriptionSyncRequest) HasCommercialOverrides() bool`
 
 HasCommercialOverrides returns a boolean if a field has been set.
+
+### GetQuoteOriginKey
+
+`func (o *AppApiV1InternalSubscriptionSyncSchemasSubscriptionSyncRequest) GetQuoteOriginKey() string`
+
+GetQuoteOriginKey returns the QuoteOriginKey field if non-nil, zero value otherwise.
+
+### GetQuoteOriginKeyOk
+
+`func (o *AppApiV1InternalSubscriptionSyncSchemasSubscriptionSyncRequest) GetQuoteOriginKeyOk() (*string, bool)`
+
+GetQuoteOriginKeyOk returns a tuple with the QuoteOriginKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQuoteOriginKey
+
+`func (o *AppApiV1InternalSubscriptionSyncSchemasSubscriptionSyncRequest) SetQuoteOriginKey(v string)`
+
+SetQuoteOriginKey sets QuoteOriginKey field to given value.
+
+### HasQuoteOriginKey
+
+`func (o *AppApiV1InternalSubscriptionSyncSchemasSubscriptionSyncRequest) HasQuoteOriginKey() bool`
+
+HasQuoteOriginKey returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

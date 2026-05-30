@@ -9,14 +9,18 @@ Name | Type | Description | Notes
 **FromAddress** | **string** |  | 
 **ResendDomainId** | **string** |  | 
 **VerificationStatus** | **string** |  | 
+**ReplyDomain** | **string** |  | 
+**ReplyResendDomainId** | **string** |  | 
+**ReplyVerificationStatus** | **string** |  | 
 **InboundSecretLast4** | **string** |  | 
 **DnsRecords** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**ReplyDnsRecords** | Pointer to **[]map[string]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewEmailConfigOut
 
-`func NewEmailConfigOut(tenantId string, senderDomain string, fromAddress string, resendDomainId string, verificationStatus string, inboundSecretLast4 string, ) *EmailConfigOut`
+`func NewEmailConfigOut(tenantId string, senderDomain string, fromAddress string, resendDomainId string, verificationStatus string, replyDomain string, replyResendDomainId string, replyVerificationStatus string, inboundSecretLast4 string, ) *EmailConfigOut`
 
 NewEmailConfigOut instantiates a new EmailConfigOut object
 This constructor will assign default values to properties that have it defined,
@@ -131,6 +135,66 @@ and a boolean to check if the value has been set.
 SetVerificationStatus sets VerificationStatus field to given value.
 
 
+### GetReplyDomain
+
+`func (o *EmailConfigOut) GetReplyDomain() string`
+
+GetReplyDomain returns the ReplyDomain field if non-nil, zero value otherwise.
+
+### GetReplyDomainOk
+
+`func (o *EmailConfigOut) GetReplyDomainOk() (*string, bool)`
+
+GetReplyDomainOk returns a tuple with the ReplyDomain field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReplyDomain
+
+`func (o *EmailConfigOut) SetReplyDomain(v string)`
+
+SetReplyDomain sets ReplyDomain field to given value.
+
+
+### GetReplyResendDomainId
+
+`func (o *EmailConfigOut) GetReplyResendDomainId() string`
+
+GetReplyResendDomainId returns the ReplyResendDomainId field if non-nil, zero value otherwise.
+
+### GetReplyResendDomainIdOk
+
+`func (o *EmailConfigOut) GetReplyResendDomainIdOk() (*string, bool)`
+
+GetReplyResendDomainIdOk returns a tuple with the ReplyResendDomainId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReplyResendDomainId
+
+`func (o *EmailConfigOut) SetReplyResendDomainId(v string)`
+
+SetReplyResendDomainId sets ReplyResendDomainId field to given value.
+
+
+### GetReplyVerificationStatus
+
+`func (o *EmailConfigOut) GetReplyVerificationStatus() string`
+
+GetReplyVerificationStatus returns the ReplyVerificationStatus field if non-nil, zero value otherwise.
+
+### GetReplyVerificationStatusOk
+
+`func (o *EmailConfigOut) GetReplyVerificationStatusOk() (*string, bool)`
+
+GetReplyVerificationStatusOk returns a tuple with the ReplyVerificationStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReplyVerificationStatus
+
+`func (o *EmailConfigOut) SetReplyVerificationStatus(v string)`
+
+SetReplyVerificationStatus sets ReplyVerificationStatus field to given value.
+
+
 ### GetInboundSecretLast4
 
 `func (o *EmailConfigOut) GetInboundSecretLast4() string`
@@ -175,6 +239,31 @@ SetDnsRecords sets DnsRecords field to given value.
 `func (o *EmailConfigOut) HasDnsRecords() bool`
 
 HasDnsRecords returns a boolean if a field has been set.
+
+### GetReplyDnsRecords
+
+`func (o *EmailConfigOut) GetReplyDnsRecords() []map[string]interface{}`
+
+GetReplyDnsRecords returns the ReplyDnsRecords field if non-nil, zero value otherwise.
+
+### GetReplyDnsRecordsOk
+
+`func (o *EmailConfigOut) GetReplyDnsRecordsOk() (*[]map[string]interface{}, bool)`
+
+GetReplyDnsRecordsOk returns a tuple with the ReplyDnsRecords field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReplyDnsRecords
+
+`func (o *EmailConfigOut) SetReplyDnsRecords(v []map[string]interface{})`
+
+SetReplyDnsRecords sets ReplyDnsRecords field to given value.
+
+### HasReplyDnsRecords
+
+`func (o *EmailConfigOut) HasReplyDnsRecords() bool`
+
+HasReplyDnsRecords returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
