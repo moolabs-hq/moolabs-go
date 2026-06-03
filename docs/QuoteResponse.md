@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **AccountRef** | **map[string]interface{}** |  | 
 **DealRef** | **map[string]interface{}** |  | 
 **BuyerContactRef** | **map[string]interface{}** |  | 
+**QuoteType** | Pointer to **string** |  | [optional] [default to "new_subscription"]
 **OwnerUserId** | **string** |  | 
 **CurrentVersion** | **int32** |  | 
 **State** | **string** |  | 
@@ -132,6 +133,31 @@ and a boolean to check if the value has been set.
 
 SetBuyerContactRef sets BuyerContactRef field to given value.
 
+
+### GetQuoteType
+
+`func (o *QuoteResponse) GetQuoteType() string`
+
+GetQuoteType returns the QuoteType field if non-nil, zero value otherwise.
+
+### GetQuoteTypeOk
+
+`func (o *QuoteResponse) GetQuoteTypeOk() (*string, bool)`
+
+GetQuoteTypeOk returns a tuple with the QuoteType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQuoteType
+
+`func (o *QuoteResponse) SetQuoteType(v string)`
+
+SetQuoteType sets QuoteType field to given value.
+
+### HasQuoteType
+
+`func (o *QuoteResponse) HasQuoteType() bool`
+
+HasQuoteType returns a boolean if a field has been set.
 
 ### GetOwnerUserId
 

@@ -36,6 +36,18 @@ func Test_moolabs_QuotesAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test QuotesAPIService GetQuoteSettings", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.QuotesAPI.GetQuoteSettings(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test QuotesAPIService GetQuoteVersion", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -56,6 +68,48 @@ func Test_moolabs_QuotesAPIService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.QuotesAPI.ListQuoteActivationFailuresV1(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test QuotesAPIService ListQuoteAgentCardsV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var quoteId string
+
+		resp, httpRes, err := apiClient.QuotesAPI.ListQuoteAgentCardsV1(context.Background(), quoteId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test QuotesAPIService ListQuoteAgentRunsV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var quoteId string
+
+		resp, httpRes, err := apiClient.QuotesAPI.ListQuoteAgentRunsV1(context.Background(), quoteId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test QuotesAPIService ListQuoteRedlines", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var quoteId string
+
+		resp, httpRes, err := apiClient.QuotesAPI.ListQuoteRedlines(context.Background(), quoteId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -143,6 +197,50 @@ func Test_moolabs_QuotesAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test QuotesAPIService PostQuoteRedline", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var quoteId string
+
+		resp, httpRes, err := apiClient.QuotesAPI.PostQuoteRedline(context.Background(), quoteId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test QuotesAPIService PostQuoteRedlineAccept", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var quoteId string
+		var redlineId string
+
+		resp, httpRes, err := apiClient.QuotesAPI.PostQuoteRedlineAccept(context.Background(), quoteId, redlineId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test QuotesAPIService PostQuoteRedlineReject", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var quoteId string
+		var redlineId string
+
+		resp, httpRes, err := apiClient.QuotesAPI.PostQuoteRedlineReject(context.Background(), quoteId, redlineId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test QuotesAPIService PostQuoteReject", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -220,6 +318,18 @@ func Test_moolabs_QuotesAPIService(t *testing.T) {
 		var quoteId string
 
 		resp, httpRes, err := apiClient.QuotesAPI.PostQuoteUnlock(context.Background(), quoteId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test QuotesAPIService PutQuoteSettings", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.QuotesAPI.PutQuoteSettings(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

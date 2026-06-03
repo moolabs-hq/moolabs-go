@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Metadata** | Pointer to **map[string]string** | Arbitrary metadata associated with the subscription. | [optional] 
 **CommercialOverrides** | Pointer to [**CommercialOverrides**](CommercialOverrides.md) | Commercial terms for this subscription (replaces prior overrides when set on change). | [optional] 
 **Plan** | [**PlanReferenceInput**](PlanReferenceInput.md) | The plan reference to change to. | 
+**QuoteOriginKey** | Pointer to **string** | Idempotency key supplied by accepted quote activation for subscription create or change requests. | [optional] 
 **StartingPhase** | Pointer to **string** | The key of the phase to start the subscription in. If not provided, the subscription will start in the first phase of the plan. | [optional] 
 **Name** | Pointer to **string** | The name of the Subscription. If not provided the plan name is used. | [optional] 
 **Description** | Pointer to **string** | Description for the Subscription. | [optional] 
@@ -15,7 +16,6 @@ Name | Type | Description | Notes
 **CustomerId** | Pointer to **string** | The ID of the customer. Provide either the key or ID. Has presedence over the key. | [optional] 
 **CustomerKey** | Pointer to **string** | The key of the customer. Provide either the key or ID. | [optional] 
 **BillingAnchor** | Pointer to **time.Time** | The billing anchor of the subscription. The provided date will be normalized according to the billing cadence to the nearest recurrence before start time. If not provided, the subscription start time will be used. | [optional] 
-**QuoteOriginKey** | Pointer to **string** | Idempotency key supplied by quote acceptance for new-subscription creates. | [optional] 
 
 ## Methods
 
@@ -130,6 +130,31 @@ and a boolean to check if the value has been set.
 
 SetPlan sets Plan field to given value.
 
+
+### GetQuoteOriginKey
+
+`func (o *PlanSubscriptionCreate) GetQuoteOriginKey() string`
+
+GetQuoteOriginKey returns the QuoteOriginKey field if non-nil, zero value otherwise.
+
+### GetQuoteOriginKeyOk
+
+`func (o *PlanSubscriptionCreate) GetQuoteOriginKeyOk() (*string, bool)`
+
+GetQuoteOriginKeyOk returns a tuple with the QuoteOriginKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQuoteOriginKey
+
+`func (o *PlanSubscriptionCreate) SetQuoteOriginKey(v string)`
+
+SetQuoteOriginKey sets QuoteOriginKey field to given value.
+
+### HasQuoteOriginKey
+
+`func (o *PlanSubscriptionCreate) HasQuoteOriginKey() bool`
+
+HasQuoteOriginKey returns a boolean if a field has been set.
 
 ### GetStartingPhase
 
@@ -305,31 +330,6 @@ SetBillingAnchor sets BillingAnchor field to given value.
 `func (o *PlanSubscriptionCreate) HasBillingAnchor() bool`
 
 HasBillingAnchor returns a boolean if a field has been set.
-
-### GetQuoteOriginKey
-
-`func (o *PlanSubscriptionCreate) GetQuoteOriginKey() string`
-
-GetQuoteOriginKey returns the QuoteOriginKey field if non-nil, zero value otherwise.
-
-### GetQuoteOriginKeyOk
-
-`func (o *PlanSubscriptionCreate) GetQuoteOriginKeyOk() (*string, bool)`
-
-GetQuoteOriginKeyOk returns a tuple with the QuoteOriginKey field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetQuoteOriginKey
-
-`func (o *PlanSubscriptionCreate) SetQuoteOriginKey(v string)`
-
-SetQuoteOriginKey sets QuoteOriginKey field to given value.
-
-### HasQuoteOriginKey
-
-`func (o *PlanSubscriptionCreate) HasQuoteOriginKey() bool`
-
-HasQuoteOriginKey returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

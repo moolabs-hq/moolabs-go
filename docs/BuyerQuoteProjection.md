@@ -7,10 +7,12 @@ Name | Type | Description | Notes
 **QuoteId** | **string** |  | 
 **Version** | **int32** |  | 
 **Status** | **string** |  | 
+**QuoteType** | Pointer to **string** |  | [optional] [default to "new_subscription"]
 **BuyerContact** | **map[string]interface{}** |  | 
 **LineItems** | [**[]BuyerQuoteLineItem**](BuyerQuoteLineItem.md) |  | 
 **CommercialTerms** | **map[string]interface{}** |  | 
 **CreditTerms** | **map[string]interface{}** |  | 
+**LifecycleTerms** | Pointer to **map[string]interface{}** |  | [optional] 
 **Pricing** | [**BuyerQuotePricing**](BuyerQuotePricing.md) |  | 
 
 ## Methods
@@ -92,6 +94,31 @@ and a boolean to check if the value has been set.
 SetStatus sets Status field to given value.
 
 
+### GetQuoteType
+
+`func (o *BuyerQuoteProjection) GetQuoteType() string`
+
+GetQuoteType returns the QuoteType field if non-nil, zero value otherwise.
+
+### GetQuoteTypeOk
+
+`func (o *BuyerQuoteProjection) GetQuoteTypeOk() (*string, bool)`
+
+GetQuoteTypeOk returns a tuple with the QuoteType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQuoteType
+
+`func (o *BuyerQuoteProjection) SetQuoteType(v string)`
+
+SetQuoteType sets QuoteType field to given value.
+
+### HasQuoteType
+
+`func (o *BuyerQuoteProjection) HasQuoteType() bool`
+
+HasQuoteType returns a boolean if a field has been set.
+
 ### GetBuyerContact
 
 `func (o *BuyerQuoteProjection) GetBuyerContact() map[string]interface{}`
@@ -171,6 +198,31 @@ and a boolean to check if the value has been set.
 
 SetCreditTerms sets CreditTerms field to given value.
 
+
+### GetLifecycleTerms
+
+`func (o *BuyerQuoteProjection) GetLifecycleTerms() map[string]interface{}`
+
+GetLifecycleTerms returns the LifecycleTerms field if non-nil, zero value otherwise.
+
+### GetLifecycleTermsOk
+
+`func (o *BuyerQuoteProjection) GetLifecycleTermsOk() (*map[string]interface{}, bool)`
+
+GetLifecycleTermsOk returns a tuple with the LifecycleTerms field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLifecycleTerms
+
+`func (o *BuyerQuoteProjection) SetLifecycleTerms(v map[string]interface{})`
+
+SetLifecycleTerms sets LifecycleTerms field to given value.
+
+### HasLifecycleTerms
+
+`func (o *BuyerQuoteProjection) HasLifecycleTerms() bool`
+
+HasLifecycleTerms returns a boolean if a field has been set.
 
 ### GetPricing
 

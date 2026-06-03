@@ -6,6 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Scratchpad** | Pointer to **map[string]interface{}** |  | [optional] 
 **LineItems** | Pointer to [**[]QuoteLineItemInput**](QuoteLineItemInput.md) |  | [optional] 
+**CommercialTerms** | Pointer to **map[string]interface{}** |  | [optional] 
+**CreditTerms** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -75,6 +77,56 @@ SetLineItems sets LineItems field to given value.
 `func (o *PatchSessionRequest) HasLineItems() bool`
 
 HasLineItems returns a boolean if a field has been set.
+
+### GetCommercialTerms
+
+`func (o *PatchSessionRequest) GetCommercialTerms() map[string]interface{}`
+
+GetCommercialTerms returns the CommercialTerms field if non-nil, zero value otherwise.
+
+### GetCommercialTermsOk
+
+`func (o *PatchSessionRequest) GetCommercialTermsOk() (*map[string]interface{}, bool)`
+
+GetCommercialTermsOk returns a tuple with the CommercialTerms field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCommercialTerms
+
+`func (o *PatchSessionRequest) SetCommercialTerms(v map[string]interface{})`
+
+SetCommercialTerms sets CommercialTerms field to given value.
+
+### HasCommercialTerms
+
+`func (o *PatchSessionRequest) HasCommercialTerms() bool`
+
+HasCommercialTerms returns a boolean if a field has been set.
+
+### GetCreditTerms
+
+`func (o *PatchSessionRequest) GetCreditTerms() map[string]interface{}`
+
+GetCreditTerms returns the CreditTerms field if non-nil, zero value otherwise.
+
+### GetCreditTermsOk
+
+`func (o *PatchSessionRequest) GetCreditTermsOk() (*map[string]interface{}, bool)`
+
+GetCreditTermsOk returns a tuple with the CreditTerms field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreditTerms
+
+`func (o *PatchSessionRequest) SetCreditTerms(v map[string]interface{})`
+
+SetCreditTerms sets CreditTerms field to given value.
+
+### HasCreditTerms
+
+`func (o *PatchSessionRequest) HasCreditTerms() bool`
+
+HasCreditTerms returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

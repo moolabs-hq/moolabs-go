@@ -46,6 +46,21 @@ func Test_moolabs_IntegrationsAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test IntegrationsAPIService GetCrmQuoteRecordCard", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var provider string
+		var quoteId string
+
+		resp, httpRes, err := apiClient.IntegrationsAPI.GetCrmQuoteRecordCard(context.Background(), provider, quoteId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test IntegrationsAPIService InvoiceUpsertV1", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -75,6 +90,58 @@ func Test_moolabs_IntegrationsAPIService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.IntegrationsAPI.OpenmeterWebhookBatch(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IntegrationsAPIService PostCrmQuoteContext", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var provider string
+
+		resp, httpRes, err := apiClient.IntegrationsAPI.PostCrmQuoteContext(context.Background(), provider).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IntegrationsAPIService PostCrmQuoteDraft", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var provider string
+
+		resp, httpRes, err := apiClient.IntegrationsAPI.PostCrmQuoteDraft(context.Background(), provider).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IntegrationsAPIService PostGoogleChatQuoteEventV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.IntegrationsAPI.PostGoogleChatQuoteEventV1(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IntegrationsAPIService PostSlackQuoteCommand", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.IntegrationsAPI.PostSlackQuoteCommand(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

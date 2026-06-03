@@ -4,6 +4,7 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**ActOnTemplateConfirmationCardV1Chat**](ChatAPI.md#ActOnTemplateConfirmationCardV1Chat) | **Post** /v1/chat/template-confirmation-cards/{card_id}/actions | Act On Template Confirmation Card
 [**Chat**](ChatAPI.md#Chat) | **Post** /v1/chat | Chat
 [**DeleteSession**](ChatAPI.md#DeleteSession) | **Delete** /v1/chat/sessions/{session_id} | Delete Session
 [**DownloadArcReport**](ChatAPI.md#DownloadArcReport) | **Get** /v1/chat/reports/{report_id}/download | Download Arc Report
@@ -12,6 +13,76 @@ Method | HTTP request | Description
 [**ListSessions**](ChatAPI.md#ListSessions) | **Get** /v1/chat/sessions | List Sessions
 [**UpdateSession**](ChatAPI.md#UpdateSession) | **Patch** /v1/chat/sessions/{session_id} | Update Session
 
+
+
+## ActOnTemplateConfirmationCardV1Chat
+
+> interface{} ActOnTemplateConfirmationCardV1Chat(ctx, cardId).TemplateCardActionRequest(templateCardActionRequest).Execute()
+
+Act On Template Confirmation Card
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	cardId := "cardId_example" // string | 
+	templateCardActionRequest := *openapiclient.NewTemplateCardActionRequest("Action_example", "IdempotencyKey_example") // TemplateCardActionRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChatAPI.ActOnTemplateConfirmationCardV1Chat(context.Background(), cardId).TemplateCardActionRequest(templateCardActionRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChatAPI.ActOnTemplateConfirmationCardV1Chat``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ActOnTemplateConfirmationCardV1Chat`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `ChatAPI.ActOnTemplateConfirmationCardV1Chat`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**cardId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiActOnTemplateConfirmationCardV1ChatRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **templateCardActionRequest** | [**TemplateCardActionRequest**](TemplateCardActionRequest.md) |  | 
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## Chat

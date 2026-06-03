@@ -11,6 +11,13 @@ Name | Type | Description | Notes
 **LineItems** | **[]map[string]interface{}** |  | 
 **CommercialTerms** | **map[string]interface{}** |  | 
 **CreditTerms** | **map[string]interface{}** |  | 
+**LifecycleMetadata** | Pointer to **map[string]interface{}** |  | [optional] 
+**TargetSubscriptionRef** | Pointer to **map[string]interface{}** |  | [optional] 
+**CurrentContractSnapshotDigest** | Pointer to **string** |  | [optional] 
+**EffectiveDate** | Pointer to **string** |  | [optional] 
+**CoTermBehavior** | Pointer to **string** |  | [optional] 
+**ProrationBasis** | Pointer to **map[string]interface{}** |  | [optional] 
+**ChangeReason** | Pointer to **string** |  | [optional] 
 **SourceVersions** | Pointer to **map[string]interface{}** |  | [optional] 
 **PricingSnapshotId** | **string** |  | 
 **QuoteVersionDigest** | Pointer to **string** |  | [optional] 
@@ -175,6 +182,181 @@ and a boolean to check if the value has been set.
 
 SetCreditTerms sets CreditTerms field to given value.
 
+
+### GetLifecycleMetadata
+
+`func (o *QuoteVersionResponse) GetLifecycleMetadata() map[string]interface{}`
+
+GetLifecycleMetadata returns the LifecycleMetadata field if non-nil, zero value otherwise.
+
+### GetLifecycleMetadataOk
+
+`func (o *QuoteVersionResponse) GetLifecycleMetadataOk() (*map[string]interface{}, bool)`
+
+GetLifecycleMetadataOk returns a tuple with the LifecycleMetadata field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLifecycleMetadata
+
+`func (o *QuoteVersionResponse) SetLifecycleMetadata(v map[string]interface{})`
+
+SetLifecycleMetadata sets LifecycleMetadata field to given value.
+
+### HasLifecycleMetadata
+
+`func (o *QuoteVersionResponse) HasLifecycleMetadata() bool`
+
+HasLifecycleMetadata returns a boolean if a field has been set.
+
+### GetTargetSubscriptionRef
+
+`func (o *QuoteVersionResponse) GetTargetSubscriptionRef() map[string]interface{}`
+
+GetTargetSubscriptionRef returns the TargetSubscriptionRef field if non-nil, zero value otherwise.
+
+### GetTargetSubscriptionRefOk
+
+`func (o *QuoteVersionResponse) GetTargetSubscriptionRefOk() (*map[string]interface{}, bool)`
+
+GetTargetSubscriptionRefOk returns a tuple with the TargetSubscriptionRef field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTargetSubscriptionRef
+
+`func (o *QuoteVersionResponse) SetTargetSubscriptionRef(v map[string]interface{})`
+
+SetTargetSubscriptionRef sets TargetSubscriptionRef field to given value.
+
+### HasTargetSubscriptionRef
+
+`func (o *QuoteVersionResponse) HasTargetSubscriptionRef() bool`
+
+HasTargetSubscriptionRef returns a boolean if a field has been set.
+
+### GetCurrentContractSnapshotDigest
+
+`func (o *QuoteVersionResponse) GetCurrentContractSnapshotDigest() string`
+
+GetCurrentContractSnapshotDigest returns the CurrentContractSnapshotDigest field if non-nil, zero value otherwise.
+
+### GetCurrentContractSnapshotDigestOk
+
+`func (o *QuoteVersionResponse) GetCurrentContractSnapshotDigestOk() (*string, bool)`
+
+GetCurrentContractSnapshotDigestOk returns a tuple with the CurrentContractSnapshotDigest field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCurrentContractSnapshotDigest
+
+`func (o *QuoteVersionResponse) SetCurrentContractSnapshotDigest(v string)`
+
+SetCurrentContractSnapshotDigest sets CurrentContractSnapshotDigest field to given value.
+
+### HasCurrentContractSnapshotDigest
+
+`func (o *QuoteVersionResponse) HasCurrentContractSnapshotDigest() bool`
+
+HasCurrentContractSnapshotDigest returns a boolean if a field has been set.
+
+### GetEffectiveDate
+
+`func (o *QuoteVersionResponse) GetEffectiveDate() string`
+
+GetEffectiveDate returns the EffectiveDate field if non-nil, zero value otherwise.
+
+### GetEffectiveDateOk
+
+`func (o *QuoteVersionResponse) GetEffectiveDateOk() (*string, bool)`
+
+GetEffectiveDateOk returns a tuple with the EffectiveDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEffectiveDate
+
+`func (o *QuoteVersionResponse) SetEffectiveDate(v string)`
+
+SetEffectiveDate sets EffectiveDate field to given value.
+
+### HasEffectiveDate
+
+`func (o *QuoteVersionResponse) HasEffectiveDate() bool`
+
+HasEffectiveDate returns a boolean if a field has been set.
+
+### GetCoTermBehavior
+
+`func (o *QuoteVersionResponse) GetCoTermBehavior() string`
+
+GetCoTermBehavior returns the CoTermBehavior field if non-nil, zero value otherwise.
+
+### GetCoTermBehaviorOk
+
+`func (o *QuoteVersionResponse) GetCoTermBehaviorOk() (*string, bool)`
+
+GetCoTermBehaviorOk returns a tuple with the CoTermBehavior field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCoTermBehavior
+
+`func (o *QuoteVersionResponse) SetCoTermBehavior(v string)`
+
+SetCoTermBehavior sets CoTermBehavior field to given value.
+
+### HasCoTermBehavior
+
+`func (o *QuoteVersionResponse) HasCoTermBehavior() bool`
+
+HasCoTermBehavior returns a boolean if a field has been set.
+
+### GetProrationBasis
+
+`func (o *QuoteVersionResponse) GetProrationBasis() map[string]interface{}`
+
+GetProrationBasis returns the ProrationBasis field if non-nil, zero value otherwise.
+
+### GetProrationBasisOk
+
+`func (o *QuoteVersionResponse) GetProrationBasisOk() (*map[string]interface{}, bool)`
+
+GetProrationBasisOk returns a tuple with the ProrationBasis field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProrationBasis
+
+`func (o *QuoteVersionResponse) SetProrationBasis(v map[string]interface{})`
+
+SetProrationBasis sets ProrationBasis field to given value.
+
+### HasProrationBasis
+
+`func (o *QuoteVersionResponse) HasProrationBasis() bool`
+
+HasProrationBasis returns a boolean if a field has been set.
+
+### GetChangeReason
+
+`func (o *QuoteVersionResponse) GetChangeReason() string`
+
+GetChangeReason returns the ChangeReason field if non-nil, zero value otherwise.
+
+### GetChangeReasonOk
+
+`func (o *QuoteVersionResponse) GetChangeReasonOk() (*string, bool)`
+
+GetChangeReasonOk returns a tuple with the ChangeReason field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChangeReason
+
+`func (o *QuoteVersionResponse) SetChangeReason(v string)`
+
+SetChangeReason sets ChangeReason field to given value.
+
+### HasChangeReason
+
+`func (o *QuoteVersionResponse) HasChangeReason() bool`
+
+HasChangeReason returns a boolean if a field has been set.
 
 ### GetSourceVersions
 

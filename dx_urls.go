@@ -23,6 +23,7 @@ package moolabs
 import (
 	"fmt"
 	"net/url"
+	"os"
 	"sort"
 	"strings"
 	"sync"
@@ -201,6 +202,7 @@ type IngestURLResolver struct {
 	cv                    *sync.Cond // singleflight discovery wait — uses &mu
 	discoveryInFlight     bool       // true while one goroutine runs discoveryFn
 	cachedURL             string
+	envPinnedURL          string // sticky pin from MOOLABS_INGEST_HOST; survives cache clear
 	discoveryBlockedUntil time.Time
 	recentlyFailed        map[string]time.Time // URL → expiry
 	postFailures          map[string]int       // URL → consecutive count
@@ -222,7 +224,52 @@ func NewIngestURLResolver(baseURL string, discoveryFn DiscoveryFn) (*IngestURLRe
 		postFailures:   make(map[string]int),
 	}
 	r.cv = sync.NewCond(&r.mu)
+
+	// MOOLABS_INGEST_HOST env var override — short-circuits the F2 chain.
+	// Customers running on single-region self-hosted or non-standard
+	// cloud deployments (e.g., a regional ingest subdomain that hasn't
+	// been provisioned yet) can pin the ingest host explicitly. Set
+	// this BEFORE the resolver runs through steps 2-4; the value
+	// populates cachedURL so step-1 returns it verbatim.
+	//
+	// Accepts either a bare host (`meter.dev.moolabs.com`,
+	// `https://meter.dev.moolabs.com`) or a full URL — the path-doubling
+	// guard in postEventsBatch normalizes either form. Empty string is
+	// treated as unset. Sibling of Python's MOOLABS_INGEST_HOST override.
+	if envHost := os.Getenv("MOOLABS_INGEST_HOST"); envHost != "" {
+		if !strings.HasPrefix(envHost, "http://") && !strings.HasPrefix(envHost, "https://") {
+			envHost = "https://" + envHost
+		}
+		r.cachedURL = envHost
+		// Stickiness: env pin survives ReportPostOutcome cache clearing
+		// (Phase 2 review 2026-06-03 Finding 3). Without this, N transient
+		// failures silently fall back to the F2 chain which derives a
+		// possibly-dead regional host.
+		r.envPinnedURL = envHost
+	}
 	return r, nil
+}
+
+// stripPath collapses a URL to scheme + host (no path / query / fragment).
+//
+// The F2 IngestURLResolver emits full URLs like
+// "https://meter.moolabs.com/api/v1/events", but postEventsBatch appends
+// ingestPath ("/api/v1/events") to whatever baseURL it receives. Without
+// this collapse the final URL is "/api/v1/events/api/v1/events". Sibling
+// of Python's _strip_path and TypeScript's stripPath.
+//
+// A bare host like "https://meter.moolabs.com" is preserved verbatim.
+// Cross-language parity is asserted by the US-013 envelope-parity test.
+//
+// If url.Parse fails, the input is returned unchanged — better to let
+// the downstream HTTP layer surface a malformed-URL error than to panic
+// inside a hot path.
+func stripPath(hostOrURL string) string {
+	u, err := url.Parse(hostOrURL)
+	if err != nil || u.Scheme == "" || u.Host == "" {
+		return hostOrURL
+	}
+	return u.Scheme + "://" + u.Host
 }
 
 // WithRegion overrides the region used by step-3 fallback.
@@ -348,7 +395,15 @@ func (r *IngestURLResolver) ReportPostOutcome(postURL string, success bool) {
 	r.postFailures[postURL] = count
 	if count >= r.config.PostFailureThreshold {
 		if r.cachedURL == postURL {
-			r.cachedURL = ""
+			// Env-pinned URL is sticky (Phase 2 review Finding 3): if the
+			// operator explicitly set MOOLABS_INGEST_HOST, don't fall
+			// through to F2 (which derives a possibly-dead regional host).
+			// Keep cache populated with the pin.
+			if r.envPinnedURL != "" && postURL == r.envPinnedURL {
+				// Keep cachedURL == envPinnedURL.
+			} else {
+				r.cachedURL = ""
+			}
 		}
 		r.recentlyFailed[postURL] = r.clock().Add(r.config.RecentlyFailedTTL)
 		delete(r.postFailures, postURL)

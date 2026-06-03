@@ -5,11 +5,15 @@ Unified Go SDK for the Moolabs platform. One module, one client, one auth flow �
 ```go
 import (
     "context"
+    "log"
     "github.com/moolabs/moolabs-go"
 )
 
 ctx := context.Background()
-client := moolabs.NewMoolabs(moolabs.Config{APIKey: "moo_live_..."})
+client, err := moolabs.NewMoolabs(moolabs.Config{APIKey: "moo_live_..."})
+if err != nil {
+    log.Fatalf("moolabs init: %v", err)
+}
 
 // Billing / wallets / grants — routed to api.moolabs.com (CLS)
 wallet, _, err := client.Cls.Wallets.CreateWallet(ctx).WalletCreate(in).Execute()
@@ -39,19 +43,25 @@ go get github.com/moolabs/moolabs-go@v0.1.0
 Generate an API key in your Moolabs dashboard. The same key authenticates against both backends; the SDK handles routing internally.
 
 ```go
-client := moolabs.NewMoolabs(moolabs.Config{
+client, err := moolabs.NewMoolabs(moolabs.Config{
     APIKey: "moo_live_...",
 })
+if err != nil {
+    log.Fatalf("moolabs init: %v", err)
+}
 ```
 
 For staging or private deployments, override the base URLs:
 
 ```go
-client := moolabs.NewMoolabs(moolabs.Config{
+client, err := moolabs.NewMoolabs(moolabs.Config{
     APIKey:       "moo_test_...",
     ClsBaseURL:   "https://staging-api.moolabs.com",
     MeterBaseURL: "https://staging-meter.moolabs.com",
 })
+if err != nil {
+    log.Fatalf("moolabs init: %v", err)
+}
 ```
 
 ## Two namespaces
@@ -115,6 +125,117 @@ if err != nil {
     log.Fatalf("ingest: %v", err)
 }
 ```
+
+### Unified ergonomic ingest (recommended)
+
+Three struct-arg methods cover usage, cost, and dual-lane emission. The
+SDK builds the CloudEvent envelope, validates required fields
+synchronously, and routes through the existing buffer + retry chain:
+
+```go
+// Usage-lane — MeterSlug + Value required.
+res, err := client.Usage.IngestEvent(ctx, moolabs.IngestEventArgs{
+    EventType:  "ai.chat",
+    CustomerID: "cust_42",
+    EntityID:   "req_abc",          // → data.request_id on the wire
+    MeterSlug:  "llm_tokens",
+    Value:      724,
+    Source:     "my-app/v2.3.1",     // optional; defaults to "moolabs-sdk"
+    Meta:       map[string]any{"feature": "ai_chat"},
+})
+
+// Cost-lane — per-span breakdown for AI cost intelligence.
+res, err = client.Cost.IngestEvent(ctx, moolabs.IngestCostEventArgs{
+    EventType:  "ai.chat.cost",
+    CustomerID: "cust_42",
+    EntityID:   "req_abc",
+    Spans: []map[string]any{
+        {"span_id": "sp_chat", "model": "gpt-4o-mini", "tokens": 724, "cost": 0.000724},
+    },
+})
+
+// Dual-lane — usage + cost in one call.
+meterSlug := "llm_tokens"
+value := 844.0
+res, err = client.Events.Ingest(ctx, moolabs.IngestArgs{
+    EventType:  "ai.chat",
+    CustomerID: "cust_42",
+    EntityID:   "req_abc",
+    MeterSlug:  &meterSlug, // pointer-optional: nil = lane absent
+    Value:      &value,
+    Spans: []map[string]any{
+        {"span_id": "sp_embed", "model": "text-embedding-3-small", "tokens": 120, "cost": 1.8e-7},
+    },
+})
+```
+
+Each returns `IngestResult{EventID, Transport, AcceptedAt}`. `TenantID`
+is intentionally NOT a field — the server derives tenant identity from
+the API key.
+
+#### Canonical well-known data fields
+
+Seven AI-event fields are first-class on `IngestEventArgs`,
+`IngestCostEventArgs`, and `IngestArgs`. They are pointer-typed (omit by
+leaving `nil`) and land at `data.<key>` on the wire (snake_case). Use
+them directly instead of nesting under `Meta`. Free-form fields keep
+going through `Meta` and nest at `data.meta.<key>`.
+
+| field | wire | declare as |
+|---|---|---|
+| `Provider *string` | `data.provider` | `provider := "openai"; ... &provider` |
+| `Model *string` | `data.model` | `model := "gpt-4o"; ... &model` |
+| `TotalInputTokens *int64` | `data.total_input_tokens` | `var n int64 = 1250; ... &n` |
+| `TotalOutputTokens *int64` | `data.total_output_tokens` | `var n int64 = 3800; ... &n` |
+| `TotalTokens *int64` | `data.total_tokens` | `var n int64 = 5050; ... &n` |
+| `LatencyMs *int64` | `data.latency_ms` | `var n int64 = 2340; ... &n` |
+| `Status *string` | `data.status` | `status := "success"; ... &status` |
+
+The token and latency fields are `*int64` to match wire-format
+integers; declare the locals as `int64` so the `&n` address-of matches
+the pointer type. `IngestEventArgs.MeterSlug` and `Value` are NOT
+pointers (they're required for the usage lane), so pass plain literals
+for those.
+
+```go
+provider := "openai"
+model := "gpt-4o"
+var inTok, outTok, totTok int64 = 1250, 3800, 5050
+var latency int64 = 2340
+status := "success"
+
+_, err := client.Usage.IngestEvent(ctx, moolabs.IngestEventArgs{
+    EventType:         "ai.completion",
+    CustomerID:        "cust_acme_42",
+    EntityID:          "req_a1b2c3d4",
+    MeterSlug:         "ai_tokens",
+    Value:             1,
+    Provider:          &provider,
+    Model:             &model,
+    TotalInputTokens:  &inTok,
+    TotalOutputTokens: &outTok,
+    TotalTokens:       &totTok,
+    LatencyMs:         &latency,
+    Status:            &status,
+    Meta:              map[string]any{"feature_key": "ai_chat"},
+})
+```
+
+Spans on the cost lane use `span_id` (snake_case) as moo-acute's per-span
+dedup grain (`sdk:{span_id}`). Always emit `span_id` in the map.
+
+### Pointing the SDK at a non-default ingest host
+
+Set `MOOLABS_INGEST_HOST` to override the F2 region fallback for
+self-hosted, preview, or hybrid deployments:
+
+```bash
+export MOOLABS_INGEST_HOST=meter.dev.moolabs.com    # https:// auto-added
+# OR
+export MOOLABS_INGEST_HOST=https://my-relay.example.com
+```
+
+Mirrored on Python (`os.environ`) and TypeScript (`process.env`).
 
 ### Check entitlement
 
@@ -221,7 +342,7 @@ The published Go module path is `github.com/moolabs/moolabs-go`. Import in your 
 import "github.com/moolabs/moolabs-go"
 
 // Usage
-client := moolabs.NewMoolabs(moolabs.Config{...})
+client, err := moolabs.NewMoolabs(moolabs.Config{...})
 ```
 
 The package name is `moolabs` even though the repo is `moolabs-go` — Go convention is to omit language suffixes from the import alias.

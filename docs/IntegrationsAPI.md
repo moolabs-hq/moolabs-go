@@ -6,9 +6,14 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CustomerUpsertV1**](IntegrationsAPI.md#CustomerUpsertV1) | **Post** /v1/integrations/netsuite-sim/events/customer | Customer Upsert
 [**EnqueueArcTransactionV1Integrations**](IntegrationsAPI.md#EnqueueArcTransactionV1Integrations) | **Post** /v1/integrations/netsuite-sim/arc-transactions | Enqueue Arc Transaction
+[**GetCrmQuoteRecordCard**](IntegrationsAPI.md#GetCrmQuoteRecordCard) | **Get** /v1/integrations/crm/quotes/{provider}/cards/{quote_id} | Get Crm Quote Record Card
 [**InvoiceUpsertV1**](IntegrationsAPI.md#InvoiceUpsertV1) | **Post** /v1/integrations/netsuite-sim/events/invoice | Invoice Upsert
 [**OpenmeterWebhook**](IntegrationsAPI.md#OpenmeterWebhook) | **Post** /v1/integrations/moometer/webhooks/moometer | Openmeter Webhook
 [**OpenmeterWebhookBatch**](IntegrationsAPI.md#OpenmeterWebhookBatch) | **Post** /v1/integrations/moometer/webhooks/moometer/batch | Openmeter Webhook Batch
+[**PostCrmQuoteContext**](IntegrationsAPI.md#PostCrmQuoteContext) | **Post** /v1/integrations/crm/quotes/{provider}/context | Post Crm Quote Context
+[**PostCrmQuoteDraft**](IntegrationsAPI.md#PostCrmQuoteDraft) | **Post** /v1/integrations/crm/quotes/{provider}/draft | Post Crm Quote Draft
+[**PostGoogleChatQuoteEventV1**](IntegrationsAPI.md#PostGoogleChatQuoteEventV1) | **Post** /v1/integrations/google-chat/quotes/events | Post Google Chat Quote Event
+[**PostSlackQuoteCommand**](IntegrationsAPI.md#PostSlackQuoteCommand) | **Post** /v1/integrations/slack/quotes/commands | Post Slack Quote Command
 [**ProcessPendingV1Integrations**](IntegrationsAPI.md#ProcessPendingV1Integrations) | **Post** /v1/integrations/netsuite-sim/process-pending | Process Pending
 [**ReadinessV1**](IntegrationsAPI.md#ReadinessV1) | **Get** /v1/integrations/netsuite-sim/readiness | Readiness
 
@@ -140,6 +145,83 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCrmQuoteRecordCard
+
+> CrmQuoteRecordCardResponse GetCrmQuoteRecordCard(ctx, provider, quoteId).QuoteVersion(quoteVersion).RecordType(recordType).RecordId(recordId).Execute()
+
+Get Crm Quote Record Card
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	provider := "provider_example" // string | 
+	quoteId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+	quoteVersion := int32(56) // int32 |  (optional)
+	recordType := "recordType_example" // string |  (optional)
+	recordId := "recordId_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.GetCrmQuoteRecordCard(context.Background(), provider, quoteId).QuoteVersion(quoteVersion).RecordType(recordType).RecordId(recordId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.GetCrmQuoteRecordCard``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCrmQuoteRecordCard`: CrmQuoteRecordCardResponse
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.GetCrmQuoteRecordCard`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**provider** | **string** |  | 
+**quoteId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCrmQuoteRecordCardRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **quoteVersion** | **int32** |  | 
+ **recordType** | **string** |  | 
+ **recordId** | **string** |  | 
+
+### Return type
+
+[**CrmQuoteRecordCardResponse**](CrmQuoteRecordCardResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -335,6 +417,264 @@ Name | Type | Description  | Notes
 ### Return type
 
 **interface{}**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCrmQuoteContext
+
+> CrmQuoteContextResponse PostCrmQuoteContext(ctx, provider).CrmQuoteContextRequest(crmQuoteContextRequest).Execute()
+
+Post Crm Quote Context
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	provider := "provider_example" // string | 
+	crmQuoteContextRequest := *openapiclient.NewCrmQuoteContextRequest("RecordType_example", "RecordId_example", "QuoteId_example", int32(123)) // CrmQuoteContextRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.PostCrmQuoteContext(context.Background(), provider).CrmQuoteContextRequest(crmQuoteContextRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.PostCrmQuoteContext``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCrmQuoteContext`: CrmQuoteContextResponse
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.PostCrmQuoteContext`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**provider** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCrmQuoteContextRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **crmQuoteContextRequest** | [**CrmQuoteContextRequest**](CrmQuoteContextRequest.md) |  | 
+
+### Return type
+
+[**CrmQuoteContextResponse**](CrmQuoteContextResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCrmQuoteDraft
+
+> CrmQuoteDraftResponse PostCrmQuoteDraft(ctx, provider).CrmQuoteDraftRequest(crmQuoteDraftRequest).Execute()
+
+Post Crm Quote Draft
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	provider := "provider_example" // string | 
+	crmQuoteDraftRequest := *openapiclient.NewCrmQuoteDraftRequest("RecordType_example", "RecordId_example", "QuoteId_example", int32(123)) // CrmQuoteDraftRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.PostCrmQuoteDraft(context.Background(), provider).CrmQuoteDraftRequest(crmQuoteDraftRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.PostCrmQuoteDraft``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCrmQuoteDraft`: CrmQuoteDraftResponse
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.PostCrmQuoteDraft`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**provider** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCrmQuoteDraftRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **crmQuoteDraftRequest** | [**CrmQuoteDraftRequest**](CrmQuoteDraftRequest.md) |  | 
+
+### Return type
+
+[**CrmQuoteDraftResponse**](CrmQuoteDraftResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostGoogleChatQuoteEventV1
+
+> GoogleChatQuoteResponse PostGoogleChatQuoteEventV1(ctx).Execute()
+
+Post Google Chat Quote Event
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.PostGoogleChatQuoteEventV1(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.PostGoogleChatQuoteEventV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostGoogleChatQuoteEventV1`: GoogleChatQuoteResponse
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.PostGoogleChatQuoteEventV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGoogleChatQuoteEventV1Request struct via the builder pattern
+
+
+### Return type
+
+[**GoogleChatQuoteResponse**](GoogleChatQuoteResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostSlackQuoteCommand
+
+> SlackQuoteCommandResponse PostSlackQuoteCommand(ctx).Execute()
+
+Post Slack Quote Command
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.PostSlackQuoteCommand(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.PostSlackQuoteCommand``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostSlackQuoteCommand`: SlackQuoteCommandResponse
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.PostSlackQuoteCommand`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostSlackQuoteCommandRequest struct via the builder pattern
+
+
+### Return type
+
+[**SlackQuoteCommandResponse**](SlackQuoteCommandResponse.md)
 
 ### Authorization
 

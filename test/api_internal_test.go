@@ -22,11 +22,37 @@ func Test_moolabs_InternalAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test InternalAPIService GrantArcDunningTemplatePermissionV1InternalArc", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.InternalAPI.GrantArcDunningTemplatePermissionV1InternalArc(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test InternalAPIService ReplayTenantProvisioningV1", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.InternalAPI.ReplayTenantProvisioningV1(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test InternalAPIService RevokeArcDunningTemplatePermissionV1InternalArc", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var grantId string
+
+		resp, httpRes, err := apiClient.InternalAPI.RevokeArcDunningTemplatePermissionV1InternalArc(context.Background(), grantId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

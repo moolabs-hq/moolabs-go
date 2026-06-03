@@ -121,11 +121,18 @@ func isTerminalIngestError(err error) bool {
 // with the batch content-type and Bearer auth. Returns (delivered, *IngestError)
 // where `delivered` is len(events) on 2xx and 0 otherwise. Callers should
 // check isTerminalIngestError(err) to decide whether to retry/buffer.
+//
+// Path-doubling guard (sibling of Python _strip_path / TS stripPath):
+// the F2 IngestURLResolver emits full URLs INCLUDING /api/v1/events, but
+// this function appends ingestPath. Strip any existing path from baseURL
+// first so the concatenation can't double. Verified by the 2026-06-02
+// dev.moolabs.com live test.
 func postEventsBatch(ctx context.Context, baseURL, apiKey string, events []any) (int, error) {
 	body, err := json.Marshal(events)
 	if err != nil {
 		return 0, fmt.Errorf("moolabs: marshalling events: %w", err)
 	}
+	baseURL = stripPath(baseURL)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, baseURL+ingestPath, bytes.NewReader(body))
 	if err != nil {
 		return 0, fmt.Errorf("moolabs: building ingest request: %w", err)
@@ -262,6 +269,15 @@ type Moolabs struct {
 	Collections   *CollectionsNamespace
 	Cost          *CostNamespace
 	Notifications *NotificationsNamespace
+
+	// Events is the dual-lane unified ingest namespace (US-011). Customers
+	// who don't want to know about usage vs cost can call
+	// client.Events.Ingest(ctx, IngestArgs{...}) once and let the SDK
+	// translate the args into a CloudEvent envelope. The empty-lane guard
+	// rejects calls that supply neither lane synchronously at the call
+	// site (FR-6). NOT a capability in CapabilityMap — there's no backing
+	// API service; the namespace is a thin wrapper over the meter F2 chain.
+	Events *EventsNamespace
 }
 
 // ── Capability namespace types ──
@@ -342,6 +358,25 @@ type CostNamespace struct {
 	// Nil when Buffer is disabled (strict-sync mode).
 	buffer   *IngestBuffer
 	producer *ProducerChannel
+
+	// Meter-routing hooks for the new unified IngestEvent method (US-010
+	// of the SDK Unified Ingest Methods PRD). The new ergonomic
+	// IngestEvent posts a CloudEvent envelope to the SAME meter endpoint
+	// as UsageNamespace.IngestEvent — both lanes are unified at the wire
+	// level. These share the same *IngestURLResolver and meter buffer +
+	// producer as UsageNamespace, populated by wireCapabilities. They are
+	// independent of the acute-routed buffer/producer above (which is
+	// still used by the legacy IngestEvents batch method).
+	meterResolver *IngestURLResolver
+	meterBuffer   *IngestBuffer
+	meterProducer *ProducerChannel
+	apiKey        string
+
+	// One-shot deprecation latch for the legacy CostNamespace.IngestEvents
+	// batch method. Customers calling that method see a single warn log
+	// per instance pointing at the new IngestEvent surface (US-010).
+	legacyIngestEventsDeprecationOnce sync.Once
+	logger                            Logger
 }
 
 type NotificationsNamespace struct {
@@ -581,6 +616,93 @@ func (u *UsageNamespace) IngestEvents(ctx context.Context, events []any) (int, e
 	return delivered, nil
 }
 
+// IngestEvent is the ergonomic struct-arg usage-lane ingest method
+// (US-009 — SDK Unified Ingest Methods PRD §3.2). Mirror of Python
+// UsageNamespace.ingest_event and TypeScript UsageNamespace.ingestEvent.
+//
+// Builds a CloudEvent envelope from args (see buildEnvelope in
+// dx_envelope.go), performs boundary checks synchronously, then routes
+// through the existing F2 + G5 path:
+//
+//   - When Buffer is enabled (default), enqueues via the producer channel
+//     (~50 ns) and returns IngestResult{Transport: TransportBuffered}.
+//   - When Buffer is disabled (Config.Buffer = &false), POSTs inline via
+//     the F2 chain and returns IngestResult{Transport: TransportSync}.
+//
+// On a boundary-check failure (empty required field, non-finite Value,
+// missing span_id, non-JSON-serializable Meta), returns IngestResult{}
+// and the error. The envelope is NOT enqueued, so a bad call cannot leak
+// half-formed events into the buffer (FR-6).
+//
+// On HTTP error in strict-sync mode, returns IngestResult{} and the
+// wrapped error. Terminal errors (401/403/400/422/404) are surfaced as
+// *IngestError so callers can errors.As() and decide retry-or-not.
+//
+// TenantID is NOT a field on IngestEventArgs (FR-3) — the server
+// derives tenant identity from the API key.
+func (u *UsageNamespace) IngestEvent(ctx context.Context, args IngestEventArgs) (IngestResult, error) {
+	if args.MeterSlug == "" {
+		return IngestResult{}, errors.New("meter_slug must be a non-empty string")
+	}
+	envelope, err := buildEnvelope(buildEnvelopeArgs{
+		EventType:  args.EventType,
+		CustomerID: args.CustomerID,
+		EntityID:   args.EntityID,
+		MeterSlug:  args.MeterSlug,
+		HasValue:   true,
+		Value:      args.Value,
+		// Well-known top-level data.* keys (canonical wire shape).
+		Provider:          args.Provider,
+		Model:             args.Model,
+		TotalInputTokens:  args.TotalInputTokens,
+		TotalOutputTokens: args.TotalOutputTokens,
+		TotalTokens:       args.TotalTokens,
+		LatencyMs:         args.LatencyMs,
+		Status:            args.Status,
+		EventID:           args.EventID,
+		Source:            args.Source,
+		Time:              args.Time,
+		Meta:              args.Meta,
+	})
+	if err != nil {
+		return IngestResult{}, err
+	}
+	acceptedAt := time.Now().UTC()
+	eventID, _ := envelope["id"].(string)
+
+	if u.buffer != nil {
+		// Buffered (default) — non-blocking channel send. Producer is
+		// guaranteed non-nil whenever buffer is non-nil (see
+		// wireCapabilities below). SubmitAndCount's return value is
+		// intentionally ignored: an overflow drop is observable via
+		// IngestQueueDropped() and we still report the envelope as
+		// "buffered" — the customer's contract is "we accepted it; check
+		// stats for backpressure", identical to IngestEvents.
+		_ = u.producer.SubmitAndCount([]any{envelope})
+		return IngestResult{
+			EventID:    eventID,
+			Transport:  TransportBuffered,
+			AcceptedAt: acceptedAt,
+		}, nil
+	}
+
+	// Strict-sync: caller wants delivery confirmation per call.
+	url := u.resolver.GetIngestURL()
+	if _, postErr := postEventsBatch(ctx, url, u.apiKey, []any{envelope}); postErr != nil {
+		if isTerminalIngestError(postErr) {
+			return IngestResult{}, postErr
+		}
+		u.resolver.ReportPostOutcome(url, false)
+		return IngestResult{}, fmt.Errorf("moolabs: ingest failed and buffer disabled: %w", postErr)
+	}
+	u.resolver.ReportPostOutcome(url, true)
+	return IngestResult{
+		EventID:    eventID,
+		Transport:  TransportSync,
+		AcceptedAt: acceptedAt,
+	}, nil
+}
+
 // stopProducer signals the producer to exit + waits for drain. Called
 // from Moolabs.Close(). Delegated to ProducerChannel.Stop().
 func (u *UsageNamespace) stopProducer() {
@@ -610,6 +732,17 @@ func (c *CostNamespace) IngestEvents(ctx context.Context, events []CostEventInge
 	if len(events) == 0 {
 		return 0, nil
 	}
+	// US-010 deprecation latch: warn ONCE per instance the first time a
+	// customer hits the legacy batch path. The unified IngestEvent surface
+	// (which posts a CloudEvent envelope to meter, not a batched
+	// CostEventIngest list to acute) is the going-forward path.
+	if c.logger != nil {
+		c.legacyIngestEventsDeprecationOnce.Do(func() {
+			c.logger.Warn("moolabs.cost.ingest_events.deprecated",
+				"detail", "CostNamespace.IngestEvents is deprecated; use IngestEvent for per-call ingestion or IngestEventsBatch directly for the legacy acute path",
+			)
+		})
+	}
 	if c.buffer != nil {
 		anyEvents := make([]any, len(events))
 		for i := range events {
@@ -627,6 +760,149 @@ func (c *CostNamespace) IngestEvents(ctx context.Context, events []CostEventInge
 		return 0, fmt.Errorf("moolabs: cost ingest failed and buffer disabled: %w", err)
 	}
 	return len(events), nil
+}
+
+// IngestEvent is the ergonomic struct-arg cost-lane ingest method (US-010 —
+// SDK Unified Ingest Methods PRD §3.3). Mirror of Python
+// _CostNamespace.ingest_event and TypeScript CostNamespace.ingestEvent.
+//
+// Builds a CloudEvent envelope from args (no MeterSlug, no Value — cost
+// lane carries data.spans[] instead) and routes to METER, not acute:
+// unified ingest at the wire layer. Behavior is otherwise identical to
+// UsageNamespace.IngestEvent:
+//
+//   - When the meter buffer is enabled (default), enqueues via the meter
+//     producer channel (~50 ns) and returns IngestResult{Transport:
+//     TransportBuffered}.
+//   - When the meter buffer is disabled (Config.Buffer = &false), POSTs
+//     inline via the meter F2 chain and returns IngestResult{Transport:
+//     TransportSync}.
+//
+// Boundary checks (FR-6) fire synchronously BEFORE buffer enqueue:
+//   - empty EventType / CustomerID / EntityID
+//   - empty Spans slice (cost lane requires at least one span)
+//   - missing / empty span_id on any span
+//   - non-JSON-serializable Meta
+//
+// TenantID is NOT a field on IngestCostEventArgs (FR-3).
+//
+// NOTE: The legacy CostNamespace.IngestEvents batch method (above) still
+// routes to acute and is retained for backward compatibility. This new
+// IngestEvent method is the going-forward unified-surface entrypoint.
+func (c *CostNamespace) IngestEvent(ctx context.Context, args IngestCostEventArgs) (IngestResult, error) {
+	if len(args.Spans) == 0 {
+		return IngestResult{}, errors.New("spans must contain at least one span")
+	}
+	envelope, err := buildEnvelope(costArgsToBuildEnvelopeArgs(args))
+	if err != nil {
+		return IngestResult{}, err
+	}
+	acceptedAt := time.Now().UTC()
+	eventID, _ := envelope["id"].(string)
+
+	if c.meterBuffer != nil {
+		_ = c.meterProducer.SubmitAndCount([]any{envelope})
+		return IngestResult{
+			EventID:    eventID,
+			Transport:  TransportBuffered,
+			AcceptedAt: acceptedAt,
+		}, nil
+	}
+
+	// Strict-sync: caller wants delivery confirmation per call.
+	url := c.meterResolver.GetIngestURL()
+	if _, postErr := postEventsBatch(ctx, url, c.apiKey, []any{envelope}); postErr != nil {
+		if isTerminalIngestError(postErr) {
+			return IngestResult{}, postErr
+		}
+		c.meterResolver.ReportPostOutcome(url, false)
+		return IngestResult{}, fmt.Errorf("moolabs: cost ingest failed and buffer disabled: %w", postErr)
+	}
+	c.meterResolver.ReportPostOutcome(url, true)
+	return IngestResult{
+		EventID:    eventID,
+		Transport:  TransportSync,
+		AcceptedAt: acceptedAt,
+	}, nil
+}
+
+// ── EventsNamespace (US-011 — dual-lane unified ingest) ──────────────────
+
+// EventsNamespace is the standalone dual-lane ingest namespace. It does
+// NOT embed any openapi-generated service — there's no "events" backing
+// API in CapabilityMap. The single method client.Events.Ingest accepts
+// IngestArgs (with optional MeterSlug + Value for the usage lane and
+// optional Spans for the cost lane), runs the empty-lane guard, and
+// routes a CloudEvent envelope through the same meter F2 + buffer chain
+// as UsageNamespace.IngestEvent and CostNamespace.IngestEvent.
+//
+// Mirrors Python _EventsNamespace (US-004) and TypeScript EventsNamespace
+// (US-008). Cross-language parity (US-013) asserts the same lane semantics
+// across all three SDKs.
+type EventsNamespace struct {
+	// Meter-routing hooks. Identical to UsageNamespace's set — populated
+	// by wireCapabilities at Moolabs construction.
+	meterResolver *IngestURLResolver
+	meterBuffer   *IngestBuffer
+	meterProducer *ProducerChannel
+	apiKey        string
+}
+
+// Ingest is the dual-lane ergonomic entrypoint (US-011).
+//
+// Empty-lane guard (FR §3.4): synchronous error when BOTH the usage lane
+// is incomplete (MeterSlug == nil OR Value == nil) AND the cost lane is
+// absent (len(Spans) == 0). Customers who want JUST usage pass
+// MeterSlug + Value; customers who want JUST cost pass Spans; customers
+// emitting both lanes for a single entity (e.g., an LLM call with both
+// a counter delta AND per-span breakdown) pass all three.
+//
+// Boundary checks (FR-6) fire synchronously BEFORE buffer enqueue: empty
+// EventType / CustomerID / EntityID, non-finite *Value, missing /
+// empty / non-string span_id on any span, non-JSON-serializable Meta.
+//
+// Routes to the meter F2 chain (same target as Usage.IngestEvent and
+// Cost.IngestEvent), so cost-shape envelopes and usage-shape envelopes
+// hit a single unified ingest endpoint.
+func (e *EventsNamespace) Ingest(ctx context.Context, args IngestArgs) (IngestResult, error) {
+	// Empty-lane guard. Mirrors the Python _EventsNamespace.ingest check
+	// and the TypeScript EventsNamespace.ingest check — the error message
+	// is intentionally identical wording across the three SDKs (US-013
+	// cross-language parity test will assert this).
+	if !args.IsUsageLanePresent() && !args.IsCostLanePresent() {
+		return IngestResult{}, errors.New("at least one lane required: pass MeterSlug + Value (usage), Spans (cost), or both")
+	}
+	envelope, err := buildEnvelope(ingestArgsToBuildEnvelopeArgs(args))
+	if err != nil {
+		return IngestResult{}, err
+	}
+	acceptedAt := time.Now().UTC()
+	eventID, _ := envelope["id"].(string)
+
+	if e.meterBuffer != nil {
+		_ = e.meterProducer.SubmitAndCount([]any{envelope})
+		return IngestResult{
+			EventID:    eventID,
+			Transport:  TransportBuffered,
+			AcceptedAt: acceptedAt,
+		}, nil
+	}
+
+	// Strict-sync: caller wants delivery confirmation per call.
+	url := e.meterResolver.GetIngestURL()
+	if _, postErr := postEventsBatch(ctx, url, e.apiKey, []any{envelope}); postErr != nil {
+		if isTerminalIngestError(postErr) {
+			return IngestResult{}, postErr
+		}
+		e.meterResolver.ReportPostOutcome(url, false)
+		return IngestResult{}, fmt.Errorf("moolabs: events ingest failed and buffer disabled: %w", postErr)
+	}
+	e.meterResolver.ReportPostOutcome(url, true)
+	return IngestResult{
+		EventID:    eventID,
+		Transport:  TransportSync,
+		AcceptedAt: acceptedAt,
+	}, nil
 }
 
 // stopProducer signals the cost producer to exit + waits for drain. Called
@@ -710,32 +986,15 @@ func (m *Moolabs) wireCapabilities() {
 		ReportsAPIService:           m.arcClient.ReportsAPI,
 		TasksAPIService:             m.arcClient.TasksAPI,
 	}
-	costBuf := m.lazyCostBuffer()
-	cost := &CostNamespace{
-		// sdk-cost-capability-acute-backing US-008 (Ralph iter 23 follow-up):
-		// route client.cost.* DIRECT to acute.{baseURL} instead of the BFF
-		// cost-ingest-proxy. Two backing services per HLD Appendix D.5 / RFC
-		// + the parity-check'd dx_routing.go CapabilityMap["cost"] entry.
-		CostEventsAPIService: m.acuteClient.CostEventsAPI,
-		SdkIngestAPIService:  m.acuteClient.SdkIngestAPI,
-		buffer:               costBuf,
-	}
-	// Producer-channel only wired when the buffer is enabled. Channel cap
-	// scales with BufferMax: max(1024, BufferMax/8), same as usage.
-	if costBuf != nil {
-		chanCap := 1024
-		if m.bufferMax/8 > chanCap {
-			chanCap = m.bufferMax / 8
-		}
-		cost.producer = NewProducerChannel(chanCap, func(events []any) {
-			_ = costBuf.Enqueue(events)
-		}, m.logger)
-	}
-	m.Cost = cost
 	m.Notifications = &NotificationsNamespace{
 		NotificationsAPIService: m.meterClient.NotificationsAPI,
 		AlertsAPIService:        m.bffClient.AlertsAPI,
 	}
+	// Usage capability first — the meter F2 resolver + buffer + producer
+	// it owns are shared with Cost (US-010) for the unified IngestEvent
+	// surface that posts cost-shape CloudEvent envelopes to meter (not
+	// acute). The legacy CostEventsAPIService.IngestEventsBatch path
+	// remains routed to acute via the separate costBuf below.
 	buf := m.lazyBuffer()
 	usage := &UsageNamespace{
 		EventsAPIService: m.meterClient.EventsAPI,
@@ -757,6 +1016,48 @@ func (m *Moolabs) wireCapabilities() {
 		}, m.logger)
 	}
 	m.Usage = usage
+
+	// EventsNamespace (US-011) shares the SAME meter F2 chain + buffer +
+	// producer as UsageNamespace. The dual-lane Ingest method routes a
+	// single CloudEvent envelope through this shared pipeline; the
+	// EventsNamespace doesn't own any additional resources.
+	m.Events = &EventsNamespace{
+		meterResolver: m.ingestResolver,
+		meterBuffer:   buf,
+		meterProducer: usage.producer,
+		apiKey:        m.apiKey,
+	}
+
+	costBuf := m.lazyCostBuffer()
+	cost := &CostNamespace{
+		// sdk-cost-capability-acute-backing US-008 (Ralph iter 23 follow-up):
+		// route client.cost.* DIRECT to acute.{baseURL} instead of the BFF
+		// cost-ingest-proxy. Two backing services per HLD Appendix D.5 / RFC
+		// + the parity-check'd dx_routing.go CapabilityMap["cost"] entry.
+		CostEventsAPIService: m.acuteClient.CostEventsAPI,
+		SdkIngestAPIService:  m.acuteClient.SdkIngestAPI,
+		buffer:               costBuf,
+		// US-010: Cost.IngestEvent routes to METER (not acute). Share the
+		// usage resolver + buffer + producer + apiKey so both capabilities
+		// hit the same unified ingest endpoint with shared backpressure.
+		meterResolver: m.ingestResolver,
+		meterBuffer:   buf,
+		meterProducer: usage.producer,
+		apiKey:        m.apiKey,
+		logger:        m.logger,
+	}
+	// Producer-channel only wired when the buffer is enabled. Channel cap
+	// scales with BufferMax: max(1024, BufferMax/8), same as usage.
+	if costBuf != nil {
+		chanCap := 1024
+		if m.bufferMax/8 > chanCap {
+			chanCap = m.bufferMax / 8
+		}
+		cost.producer = NewProducerChannel(chanCap, func(events []any) {
+			_ = costBuf.Enqueue(events)
+		}, m.logger)
+	}
+	m.Cost = cost
 }
 
 func (m *Moolabs) lazyBuffer() *IngestBuffer {

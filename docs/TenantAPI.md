@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**GetAuditTraces**](TenantAPI.md#GetAuditTraces) | **Get** /v1/tenant/audit/traces | Get Audit Traces
 [**GetAuditWarnings**](TenantAPI.md#GetAuditWarnings) | **Get** /v1/tenant/audit/warnings | Get Audit Warnings
 [**GetDomain**](TenantAPI.md#GetDomain) | **Get** /v1/tenant/communications/domain | Get Domain
+[**GetEffectivePermissionsEndpoint**](TenantAPI.md#GetEffectivePermissionsEndpoint) | **Get** /v1/tenant/permissions/effective | Get Effective Permissions Endpoint
 [**GetFeatureFlagsV1**](TenantAPI.md#GetFeatureFlagsV1) | **Get** /v1/tenant/audit/feature-flags | Get Feature Flags
 [**GetIntegrations**](TenantAPI.md#GetIntegrations) | **Get** /v1/tenant/integrations | Get Integrations
 [**GetIntegrationsHealth**](TenantAPI.md#GetIntegrationsHealth) | **Get** /v1/tenant/integrations/health | Get Integrations Health
@@ -509,6 +510,65 @@ Other parameters are passed through a pointer to a apiGetDomainRequest struct vi
 ### Return type
 
 [**DomainResponse**](DomainResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetEffectivePermissionsEndpoint
+
+> EffectivePermissionsResponse GetEffectivePermissionsEndpoint(ctx).Execute()
+
+Get Effective Permissions Endpoint
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TenantAPI.GetEffectivePermissionsEndpoint(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.GetEffectivePermissionsEndpoint``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetEffectivePermissionsEndpoint`: EffectivePermissionsResponse
+	fmt.Fprintf(os.Stdout, "Response from `TenantAPI.GetEffectivePermissionsEndpoint`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetEffectivePermissionsEndpointRequest struct via the builder pattern
+
+
+### Return type
+
+[**EffectivePermissionsResponse**](EffectivePermissionsResponse.md)
 
 ### Authorization
 

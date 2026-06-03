@@ -22,6 +22,20 @@ func Test_moolabs_ChatAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test ChatAPIService ActOnTemplateConfirmationCardV1Chat", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var cardId string
+
+		resp, httpRes, err := apiClient.ChatAPI.ActOnTemplateConfirmationCardV1Chat(context.Background(), cardId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ChatAPIService Chat", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

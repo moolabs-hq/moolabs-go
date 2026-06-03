@@ -4,7 +4,7 @@ info:
     \ internal service specs: bff, meter, arc, acute. Customers see capability namespaces\
     \ (usage, billing, collections, etc.); the SDK routes per-operation internally."
   title: Moolabs API
-  version: 0.2.0-rc10
+  version: 0.3.0-rc1
 servers:
 - url: /
 paths:
@@ -4334,6 +4334,175 @@ paths:
       summary: Trigger Sync
       tags:
       - netsuite-sync
+  /v1/integrations/crm/quotes/{provider}/context:
+    post:
+      operationId: postCrmQuoteContext
+      parameters:
+      - explode: false
+        in: path
+        name: provider
+        required: true
+        schema:
+          title: Provider
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmQuoteContextRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmQuoteContextResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Crm Quote Context
+      tags:
+      - integrations
+  /v1/integrations/crm/quotes/{provider}/draft:
+    post:
+      operationId: postCrmQuoteDraft
+      parameters:
+      - explode: false
+        in: path
+        name: provider
+        required: true
+        schema:
+          title: Provider
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmQuoteDraftRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmQuoteDraftResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Crm Quote Draft
+      tags:
+      - integrations
+  /v1/integrations/crm/quotes/{provider}/cards/{quote_id}:
+    get:
+      operationId: getCrmQuoteRecordCard
+      parameters:
+      - explode: false
+        in: path
+        name: provider
+        required: true
+        schema:
+          title: Provider
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: quote_version
+        required: false
+        schema:
+          minimum: 1
+          title: Quote Version
+          type: integer
+          nullable: true
+        style: form
+      - explode: true
+        in: query
+        name: record_type
+        required: false
+        schema:
+          maxLength: 64
+          minLength: 1
+          title: Record Type
+          type: string
+          nullable: true
+        style: form
+      - explode: true
+        in: query
+        name: record_id
+        required: false
+        schema:
+          maxLength: 255
+          minLength: 1
+          title: Record Id
+          type: string
+          nullable: true
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmQuoteRecordCardResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Crm Quote Record Card
+      tags:
+      - integrations
+  /v1/integrations/google-chat/quotes/events:
+    post:
+      operationId: postGoogleChatQuoteEventV1
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleChatQuoteResponse'
+          description: Successful Response
+      summary: Post Google Chat Quote Event
+      tags:
+      - integrations
+  /v1/integrations/slack/quotes/commands:
+    post:
+      operationId: postSlackQuoteCommand
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackQuoteCommandResponse'
+          description: Successful Response
+      summary: Post Slack Quote Command
+      tags:
+      - integrations
   /v1/performance/queries/slow:
     get:
       description: |-
@@ -5928,6 +6097,41 @@ paths:
       security:
       - HTTPBearer: []
       summary: Chat
+      tags:
+      - chat
+  /v1/chat/template-confirmation-cards/{card_id}/actions:
+    post:
+      operationId: actOnTemplateConfirmationCardV1Chat
+      parameters:
+      - explode: false
+        in: path
+        name: card_id
+        required: true
+        schema:
+          title: Card Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateCardActionRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Act On Template Confirmation Card
       tags:
       - chat
   /v1/chat/reports/{report_id}/download:
@@ -7992,6 +8196,21 @@ paths:
       summary: Get Integrations Mapping
       tags:
       - tenant
+  /v1/tenant/permissions/effective:
+    get:
+      operationId: getEffectivePermissionsEndpoint
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EffectivePermissionsResponse'
+          description: Successful Response
+      security:
+      - HTTPBearer: []
+      summary: Get Effective Permissions Endpoint
+      tags:
+      - tenant
   /v1/tenant/revenue-recognition:
     get:
       description: Get tenant revenue recognition config. Returns defaults if not
@@ -8540,6 +8759,47 @@ paths:
       summary: List Quote Activation Failures
       tags:
       - quotes
+  /v1/quotes/settings:
+    get:
+      operationId: getQuoteSettings
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteSettingsResponse'
+          description: Successful Response
+      security:
+      - HTTPBearer: []
+      summary: Get Quote Settings
+      tags:
+      - quotes
+    put:
+      operationId: putQuoteSettings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateQuoteSettingsRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteSettingsResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Put Quote Settings
+      tags:
+      - quotes
   /v1/quotes/{quote_id}:
     get:
       operationId: getQuote
@@ -8608,6 +8868,346 @@ paths:
       security:
       - HTTPBearer: []
       summary: Get Quote Version
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/agent-runs:
+    get:
+      operationId: listQuoteAgentRunsV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: quote_version
+        required: false
+        schema:
+          minimum: 1
+          title: Quote Version
+          type: integer
+          nullable: true
+        style: form
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 50
+          maximum: 500
+          minimum: 1
+          title: Limit
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          title: Offset
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/QuoteAgentProvenanceRunResponse'
+                type: array
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: List Quote Agent Runs
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/agent-cards:
+    get:
+      operationId: listQuoteAgentCardsV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: quote_version
+        required: false
+        schema:
+          minimum: 1
+          title: Quote Version
+          type: integer
+          nullable: true
+        style: form
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 20
+          maximum: 100
+          minimum: 1
+          title: Limit
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          title: Offset
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: List Quote Agent Cards
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/redlines:
+    get:
+      operationId: listQuoteRedlines
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          enum:
+          - proposed
+          - accepted
+          - rejected
+          title: Status
+          type: string
+          nullable: true
+        style: form
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          maximum: 500
+          minimum: 1
+          title: Limit
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          title: Offset
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/QuoteRedlineResponse'
+                type: array
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: List Quote Redlines
+      tags:
+      - quotes
+    post:
+      operationId: postQuoteRedline
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateQuoteRedlineRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteRedlineResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quote Redline
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/redlines/{redline_id}/accept:
+    post:
+      operationId: postQuoteRedlineAccept
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: redline_id
+        required: true
+        schema:
+          format: uuid
+          title: Redline Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteVersionResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quote Redline Accept
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/redlines/{redline_id}/reject:
+    post:
+      operationId: postQuoteRedlineReject
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: redline_id
+        required: true
+        schema:
+          format: uuid
+          title: Redline Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuoteRedlineDecisionRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteRedlineResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quote Redline Reject
       tags:
       - quotes
   /v1/quotes/{quote_id}/lock:
@@ -9135,6 +9735,149 @@ paths:
       summary: Post Quote Session Shadow Price
       tags:
       - quote-sessions
+  /v1/quote-agents/policies:
+    get:
+      operationId: listPoliciesV1
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/QuoteAgentPolicyResponse'
+                type: array
+          description: Successful Response
+      security:
+      - HTTPBearer: []
+      summary: List Policies
+      tags:
+      - quote-agents
+  /v1/quote-agents/policies/{agent_name}:
+    patch:
+      operationId: patchPolicyV1
+      parameters:
+      - explode: false
+        in: path
+        name: agent_name
+        required: true
+        schema:
+          title: Agent Name
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchQuoteAgentPolicyRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteAgentPolicyResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Patch Policy
+      tags:
+      - quote-agents
+  /v1/quote-agents/runs:
+    get:
+      operationId: listAgentRunsV1
+      parameters:
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          maximum: 500
+          minimum: 1
+          title: Limit
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          title: Offset
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/QuoteAgentRunResponse'
+                type: array
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: List Agent Runs
+      tags:
+      - quote-agents
+  /v1/quote-agents/evaluations:
+    get:
+      operationId: listAgentEvaluationsV1
+      parameters:
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          maximum: 500
+          minimum: 1
+          title: Limit
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          title: Offset
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/QuoteAgentEvaluationResponse'
+                type: array
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: List Agent Evaluations
+      tags:
+      - quote-agents
   /v1/buyer/quotes:
     get:
       operationId: getBuyerQuote
@@ -9533,6 +10276,64 @@ paths:
       summary: Sync Subscription
       tags:
       - internal-subscriptions
+  /v1/internal/arc-dunning-template-permissions/grants:
+    post:
+      operationId: grantArcDunningTemplatePermissionV1InternalArc
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArcDunningPermissionGrantRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Grant Arc Dunning Template Permission
+      tags:
+      - internal
+  /v1/internal/arc-dunning-template-permissions/grants/{grant_id}/revoke:
+    post:
+      operationId: revokeArcDunningTemplatePermissionV1InternalArc
+      parameters:
+      - explode: false
+        in: path
+        name: grant_id
+        required: true
+        schema:
+          format: uuid
+          title: Grant Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArcDunningPermissionRevokeRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Revoke Arc Dunning Template Permission
+      tags:
+      - internal
   /v1/internal/tenant-provision:
     post:
       operationId: tenantProvisionV1
@@ -31325,6 +32126,2792 @@ paths:
       summary: Update Cash App Config Endpoint
       tags:
       - governance
+  /v1/arc/dunning-template-registry:
+    get:
+      operationId: getDunningTemplateRegistryV1Arc
+      parameters:
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: Get Dunning Template Registry
+      tags:
+      - dunning-templates
+  /v1/arc/dunning-template-payment-instructions:
+    get:
+      operationId: getPaymentInstructionsV1ArcDunning
+      parameters:
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentInstructionsResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: Get Payment Instructions
+      tags:
+      - dunning-templates
+    put:
+      operationId: putPaymentInstructionsV1ArcDunning
+      parameters:
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentInstructionsUpdateRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentInstructionsResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: Put Payment Instructions
+      tags:
+      - dunning-templates
+  /v1/arc/dunning-template-provider-readiness:
+    get:
+      operationId: getProviderReadinessV1ArcDunning
+      parameters:
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderReadinessResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: Get Provider Readiness
+      tags:
+      - dunning-templates
+  /v1/arc/dunning-template-disclosure-policy:
+    get:
+      operationId: getDisclosurePolicyV1ArcDunning
+      parameters:
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DisclosurePolicyResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: Get Disclosure Policy
+      tags:
+      - dunning-templates
+    put:
+      operationId: putDisclosurePolicyV1ArcDunning
+      parameters:
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisclosurePolicyUpdateRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DisclosurePolicyResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: Put Disclosure Policy
+      tags:
+      - dunning-templates
+  /v1/arc/dunning-template-test-sends:
+    post:
+      operationId: postTemplateTestSendV1ArcDunning
+      parameters:
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestSendRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestSendResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: Post Template Test Send
+      tags:
+      - dunning-templates
+  /v1/arc/dunning-template-keys:
+    get:
+      operationId: getTemplateKeysV1Arc
+      parameters:
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateKeyListResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: Get Template Keys
+      tags:
+      - dunning-templates
+    post:
+      operationId: postTemplateKeyV1Arc
+      parameters:
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateKeyCreateRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateKeyResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: Post Template Key
+      tags:
+      - dunning-templates
+  /v1/arc/dunning-template-keys/{template_key}/archive:
+    post:
+      operationId: postArchiveTemplateKeyV1Arc
+      parameters:
+      - explode: false
+        in: path
+        name: template_key
+        required: true
+        schema:
+          title: Template Key
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateArchiveRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateKeyResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: Post Archive Template Key
+      tags:
+      - dunning-templates
+  /v1/arc/dunning-templates/{template_key}/validate:
+    post:
+      operationId: validateDunningTemplateV1
+      parameters:
+      - explode: false
+        in: path
+        name: template_key
+        required: true
+        schema:
+          title: Template Key
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateTemplateRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateTemplateResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: Validate Dunning Template
+      tags:
+      - dunning-templates
+  /v1/arc/dunning-templates/{template_key}/drafts:
+    post:
+      operationId: saveDunningTemplateDraftV1
+      parameters:
+      - explode: false
+        in: path
+        name: template_key
+        required: true
+        schema:
+          title: Template Key
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DraftSaveRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateVersionResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: Save Dunning Template Draft
+      tags:
+      - dunning-templates
+  /v1/arc/dunning-templates/{template_key}/versions:
+    get:
+      operationId: listDunningTemplateVersionsV1
+      parameters:
+      - explode: false
+        in: path
+        name: template_key
+        required: true
+        schema:
+          title: Template Key
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateVersionListResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: List Dunning Template Versions
+      tags:
+      - dunning-templates
+  /v1/arc/dunning-templates/{template_key}/versions/{version_id}:
+    get:
+      operationId: getDunningTemplateVersionV1
+      parameters:
+      - explode: false
+        in: path
+        name: template_key
+        required: true
+        schema:
+          title: Template Key
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: version_id
+        required: true
+        schema:
+          title: Version Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateVersionResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: Get Dunning Template Version
+      tags:
+      - dunning-templates
+  /v1/arc/dunning-templates/{template_key}/drafts/{version_id}/lock:
+    post:
+      operationId: lockDunningTemplateDraftV1
+      parameters:
+      - explode: false
+        in: path
+        name: template_key
+        required: true
+        schema:
+          title: Template Key
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: version_id
+        required: true
+        schema:
+          title: Version Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DraftLockRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftLockResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: Lock Dunning Template Draft
+      tags:
+      - dunning-templates
+  /v1/arc/dunning-templates/{template_key}/drafts/{version_id}/unlock:
+    post:
+      operationId: unlockDunningTemplateDraftV1
+      parameters:
+      - explode: false
+        in: path
+        name: template_key
+        required: true
+        schema:
+          title: Template Key
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: version_id
+        required: true
+        schema:
+          title: Version Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DraftUnlockRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateVersionResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: Unlock Dunning Template Draft
+      tags:
+      - dunning-templates
+  /v1/arc/dunning-templates/{template_key}/preview:
+    post:
+      operationId: previewDunningTemplateV1
+      parameters:
+      - explode: false
+        in: path
+        name: template_key
+        required: true
+        schema:
+          title: Template Key
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreviewTemplateRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreviewTemplateResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: Preview Dunning Template
+      tags:
+      - dunning-templates
+  /v1/arc/dunning-templates/{template_key}/publish:
+    post:
+      operationId: publishDunningTemplateV1
+      parameters:
+      - explode: false
+        in: path
+        name: template_key
+        required: true
+        schema:
+          title: Template Key
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Proxy-Secret
+        required: false
+        schema:
+          title: X-Arc-Proxy-Secret
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Feature-Flags
+        required: false
+        schema:
+          title: X-Arc-Feature-Flags
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Roles
+        required: false
+        schema:
+          title: X-Arc-Roles
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-User-Id
+        required: false
+        schema:
+          title: X-Arc-Actor-User-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Display
+        required: false
+        schema:
+          title: X-Arc-Actor-Display
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Actor-Email
+        required: false
+        schema:
+          title: X-Arc-Actor-Email
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Arc-Source
+        required: false
+        schema:
+          title: X-Arc-Source
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Org-Id
+        required: false
+        schema:
+          title: X-Org-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Chat-Session-Id
+        required: false
+        schema:
+          title: X-Chat-Session-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Request-Id
+        required: false
+        schema:
+          title: X-Request-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Correlation-ID
+        required: false
+        schema:
+          title: X-Correlation-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-API-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Tenant-Id
+        required: false
+        schema:
+          title: X-Tenant-Id
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          title: Authorization
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishTemplateRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateVersionResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcHTTPValidationError'
+          description: Validation Error
+      summary: Publish Dunning Template
+      tags:
+      - dunning-templates
   /v1/arc/analytics/overview:
     get:
       description: GET /analytics/overview — Combined dashboard analytics payload.
@@ -41890,6 +45477,62 @@ components:
       - name
       - status
       title: ApiKeyItem
+    ArcDunningPermissionGrantRequest:
+      example:
+        tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        user_subject: user_subject
+        org_id: org_id
+        idempotency_key: idempotency_key
+        grant_reason: grant_reason
+      properties:
+        tenant_id:
+          format: uuid
+          title: Tenant Id
+          type: string
+        org_id:
+          maxLength: 255
+          minLength: 1
+          title: Org Id
+          type: string
+        user_subject:
+          maxLength: 255
+          minLength: 1
+          title: User Subject
+          type: string
+        grant_reason:
+          maxLength: 1000
+          minLength: 1
+          title: Grant Reason
+          type: string
+        idempotency_key:
+          maxLength: 255
+          title: Idempotency Key
+          type: string
+          nullable: true
+      required:
+      - grant_reason
+      - org_id
+      - tenant_id
+      - user_subject
+      title: ArcDunningPermissionGrantRequest
+    ArcDunningPermissionRevokeRequest:
+      example:
+        revoke_reason: revoke_reason
+        idempotency_key: idempotency_key
+      properties:
+        revoke_reason:
+          maxLength: 1000
+          minLength: 1
+          title: Revoke Reason
+          type: string
+        idempotency_key:
+          maxLength: 255
+          title: Idempotency Key
+          type: string
+          nullable: true
+      required:
+      - revoke_reason
+      title: ArcDunningPermissionRevokeRequest
     ArcTransactionRequest:
       example:
         effective_at: 2000-01-23T04:56:07.000+00:00
@@ -42392,6 +46035,8 @@ components:
       title: BuyerQuotePricing
     BuyerQuoteProjection:
       example:
+        lifecycle_terms:
+          key: ""
         quote_id: quote_id
         line_items:
         - unit_price_micros: 1
@@ -42412,6 +46057,7 @@ components:
           line_no: 6
           total_micros: 2
           feature_key: feature_key
+        quote_type: new_subscription
         version: 0
         credit_terms:
           key: ""
@@ -42435,6 +46081,10 @@ components:
         status:
           title: Status
           type: string
+        quote_type:
+          default: new_subscription
+          title: Quote Type
+          type: string
         buyer_contact:
           additionalProperties: {}
           title: Buyer Contact
@@ -42448,6 +46098,10 @@ components:
         credit_terms:
           additionalProperties: {}
           title: Credit Terms
+        lifecycle_terms:
+          additionalProperties: {}
+          title: Lifecycle Terms
+          nullable: true
         pricing:
           $ref: '#/components/schemas/BuyerQuotePricing'
       required:
@@ -43112,13 +46766,56 @@ components:
       - subject
       - token
       title: CreatePortalTokenResponse
+    CreateQuoteRedlineRequest:
+      example:
+        evidence_metadata:
+          key: ""
+        source: buyer
+        quote_version: 0
+        proposed_terms:
+          key: ""
+        redline_text: redline_text
+      properties:
+        quote_version:
+          title: Quote Version
+          type: integer
+        source:
+          enum:
+          - buyer
+          - seller
+          title: Source
+          type: string
+        proposed_terms:
+          additionalProperties: {}
+          title: Proposed Terms
+        redline_text:
+          maxLength: 16384
+          minLength: 1
+          title: Redline Text
+          type: string
+        evidence_metadata:
+          additionalProperties: {}
+          title: Evidence Metadata
+      required:
+      - quote_version
+      - redline_text
+      - source
+      title: CreateQuoteRedlineRequest
     CreateQuoteRequest:
       example:
+        proration_basis:
+          key: ""
+        change_reason: change_reason
         account_ref:
           key: ""
+        current_contract_snapshot_digest: current_contract_snapshot_digest
+        effective_date: 2000-01-23
         buyer_contact_ref:
           key: ""
         quote_type: new_subscription
+        target_subscription_ref:
+          key: ""
+        co_term_behavior: co_term_behavior
         deal_ref:
           key: ""
       properties:
@@ -43135,8 +46832,40 @@ components:
           nullable: true
         quote_type:
           default: new_subscription
+          enum:
+          - new_subscription
+          - renewal
+          - expansion
+          - contraction
+          - amendment
           title: Quote Type
           type: string
+        target_subscription_ref:
+          additionalProperties: {}
+          title: Target Subscription Ref
+          nullable: true
+        current_contract_snapshot_digest:
+          title: Current Contract Snapshot Digest
+          type: string
+          nullable: true
+        effective_date:
+          format: date
+          title: Effective Date
+          type: string
+          nullable: true
+        co_term_behavior:
+          title: Co Term Behavior
+          type: string
+          nullable: true
+        proration_basis:
+          additionalProperties: {}
+          title: Proration Basis
+          nullable: true
+        change_reason:
+          maxLength: 255
+          title: Change Reason
+          type: string
+          nullable: true
       required:
       - account_ref
       title: CreateQuoteRequest
@@ -43668,6 +47397,271 @@ components:
       required:
       - poolOverrides
       title: CreditOverridePayload
+    CrmQuoteContextRequest:
+      example:
+        record_id: record_id
+        quote_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        record_type: record_type
+        quote_version: 1
+      properties:
+        record_type:
+          maxLength: 64
+          minLength: 1
+          title: Record Type
+          type: string
+        record_id:
+          maxLength: 255
+          minLength: 1
+          title: Record Id
+          type: string
+        quote_id:
+          format: uuid
+          title: Quote Id
+          type: string
+        quote_version:
+          minimum: 1.0
+          title: Quote Version
+          type: integer
+      required:
+      - quote_id
+      - quote_version
+      - record_id
+      - record_type
+      title: CrmQuoteContextRequest
+    CrmQuoteContextResponse:
+      example:
+        record_id: record_id
+        record_title: record_title
+        source_evidence_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        provider: provider
+        crm_refs:
+          key: crm_refs
+        source_uri: source_uri
+        record_type: record_type
+        record_summary: record_summary
+      properties:
+        provider:
+          title: Provider
+          type: string
+        record_type:
+          title: Record Type
+          type: string
+        record_id:
+          title: Record Id
+          type: string
+        record_title:
+          title: Record Title
+          type: string
+        record_summary:
+          title: Record Summary
+          type: string
+        crm_refs:
+          additionalProperties:
+            type: string
+          title: Crm Refs
+        source_uri:
+          title: Source Uri
+          type: string
+        source_evidence_id:
+          format: uuid
+          title: Source Evidence Id
+          type: string
+      required:
+      - crm_refs
+      - provider
+      - record_id
+      - record_summary
+      - record_title
+      - record_type
+      - source_evidence_id
+      - source_uri
+      title: CrmQuoteContextResponse
+    CrmQuoteDraftRequest:
+      example:
+        record_id: record_id
+        quote_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        idempotency_key: idempotency_key
+        record_type: record_type
+        quote_version: 1
+        candidate_lines:
+        - key: ""
+        - key: ""
+      properties:
+        record_type:
+          maxLength: 64
+          minLength: 1
+          title: Record Type
+          type: string
+        record_id:
+          maxLength: 255
+          minLength: 1
+          title: Record Id
+          type: string
+        quote_id:
+          format: uuid
+          title: Quote Id
+          type: string
+        quote_version:
+          minimum: 1.0
+          title: Quote Version
+          type: integer
+        candidate_lines:
+          items:
+            additionalProperties: {}
+          type: array
+        idempotency_key:
+          maxLength: 255
+          title: Idempotency Key
+          type: string
+          nullable: true
+      required:
+      - quote_id
+      - quote_version
+      - record_id
+      - record_type
+      title: CrmQuoteDraftRequest
+    CrmQuoteDraftResponse:
+      example:
+        confirmation_required: true
+        source_evidence_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        surface_session_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        draft_status: draft_status
+        ok: true
+        surface_response:
+          plain_text_summary: plain_text_summary
+          surface: surface
+          confirmation_status: confirmation_status
+          provider: provider
+          deep_links:
+          - key: deep_links
+          - key: deep_links
+          redacted_evidence_summary:
+          - key: redacted_evidence_summary
+          - key: redacted_evidence_summary
+        open_quote_url: open_quote_url
+        command:
+          key: ""
+        card:
+          key: ""
+      properties:
+        ok:
+          title: Ok
+          type: boolean
+        draft_status:
+          title: Draft Status
+          type: string
+        confirmation_required:
+          title: Confirmation Required
+          type: boolean
+        surface_response:
+          $ref: '#/components/schemas/CrmSurfaceResponse'
+        open_quote_url:
+          title: Open Quote Url
+          type: string
+        source_evidence_id:
+          format: uuid
+          title: Source Evidence Id
+          type: string
+        surface_session_id:
+          format: uuid
+          title: Surface Session Id
+          type: string
+        command:
+          additionalProperties: {}
+          title: Command
+          nullable: true
+        card:
+          additionalProperties: {}
+          title: Card
+          nullable: true
+      required:
+      - confirmation_required
+      - draft_status
+      - ok
+      - open_quote_url
+      - source_evidence_id
+      - surface_response
+      - surface_session_id
+      title: CrmQuoteDraftResponse
+    CrmQuoteRecordCardResponse:
+      example:
+        provider: provider
+        quote_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        quote_state: quote_state
+        last_agent_summary: last_agent_summary
+        quote_version: 0
+        open_quote_url: open_quote_url
+      properties:
+        provider:
+          title: Provider
+          type: string
+        quote_id:
+          format: uuid
+          title: Quote Id
+          type: string
+        quote_version:
+          title: Quote Version
+          type: integer
+        quote_state:
+          title: Quote State
+          type: string
+        last_agent_summary:
+          title: Last Agent Summary
+          type: string
+          nullable: true
+        open_quote_url:
+          title: Open Quote Url
+          type: string
+      required:
+      - open_quote_url
+      - provider
+      - quote_id
+      - quote_state
+      - quote_version
+      title: CrmQuoteRecordCardResponse
+    CrmSurfaceResponse:
+      example:
+        plain_text_summary: plain_text_summary
+        surface: surface
+        confirmation_status: confirmation_status
+        provider: provider
+        deep_links:
+        - key: deep_links
+        - key: deep_links
+        redacted_evidence_summary:
+        - key: redacted_evidence_summary
+        - key: redacted_evidence_summary
+      properties:
+        surface:
+          title: Surface
+          type: string
+        provider:
+          title: Provider
+          type: string
+        plain_text_summary:
+          title: Plain Text Summary
+          type: string
+        deep_links:
+          items:
+            additionalProperties:
+              type: string
+          type: array
+        confirmation_status:
+          title: Confirmation Status
+          type: string
+        redacted_evidence_summary:
+          items:
+            additionalProperties:
+              type: string
+          type: array
+      required:
+      - confirmation_status
+      - deep_links
+      - plain_text_summary
+      - provider
+      - redacted_evidence_summary
+      - surface
+      title: CrmSurfaceResponse
     CustomerItem:
       example:
         netsuite_id: netsuite_id
@@ -43849,6 +47843,98 @@ components:
           type: string
           nullable: true
       title: DomainUpdate
+    EffectivePermissionGrantDto:
+      example:
+        permission: arc_dunning_template_admin
+        id: id
+        status: active
+      properties:
+        id:
+          title: Id
+          type: string
+        permission:
+          enum:
+          - arc_dunning_template_admin
+          title: Permission
+          type: string
+        status:
+          enum:
+          - active
+          - revoked
+          title: Status
+          type: string
+      required:
+      - id
+      - permission
+      - status
+      title: EffectivePermissionGrantDto
+    EffectivePermissionsResponse:
+      example:
+        tenant_id: tenant_id
+        actor_user_id: actor_user_id
+        grants:
+        - permission: arc_dunning_template_admin
+          id: id
+          status: active
+        - permission: arc_dunning_template_admin
+          id: id
+          status: active
+        org_id: org_id
+        permissions:
+        - arc_dunning_template_admin
+        - arc_dunning_template_admin
+        actor_display: actor_display
+        actor_email: actor_email
+        org_role: owner
+        is_org_admin: true
+      properties:
+        tenant_id:
+          title: Tenant Id
+          type: string
+        org_id:
+          title: Org Id
+          type: string
+        actor_user_id:
+          title: Actor User Id
+          type: string
+        actor_display:
+          title: Actor Display
+          type: string
+          nullable: true
+        actor_email:
+          title: Actor Email
+          type: string
+          nullable: true
+        org_role:
+          enum:
+          - owner
+          - admin
+          - member
+          - viewer
+          title: Org Role
+          type: string
+          nullable: true
+        is_org_admin:
+          title: Is Org Admin
+          type: boolean
+        permissions:
+          items:
+            enum:
+            - arc_dunning_template_admin
+            type: string
+          type: array
+        grants:
+          items:
+            $ref: '#/components/schemas/EffectivePermissionGrantDto'
+          type: array
+      required:
+      - actor_user_id
+      - grants
+      - is_org_admin
+      - org_id
+      - permissions
+      - tenant_id
+      title: EffectivePermissionsResponse
     EndpointsResponse:
       example:
         api: api
@@ -44163,6 +48249,23 @@ components:
       - pool_id
       - tenant_id
       title: GetFxRateRequest
+    GoogleChatQuoteResponse:
+      example:
+        text: text
+        cardsV2:
+        - key: ""
+        - key: ""
+      properties:
+        text:
+          title: Text
+          type: string
+        cardsV2:
+          items:
+            additionalProperties: {}
+          type: array
+      required:
+      - text
+      title: GoogleChatQuoteResponse
     GrantActivationRequest:
       example:
         tenant_id: tenant_id
@@ -45559,6 +49662,51 @@ components:
       required:
       - items
       title: PaginatedSyncRuns
+    PatchQuoteAgentPolicyRequest:
+      example:
+        allowed_surfaces:
+        - allowed_surfaces
+        - allowed_surfaces
+        - allowed_surfaces
+        - allowed_surfaces
+        - allowed_surfaces
+        evidence_coverage_threshold: 8
+        rate_limit_per_minute: 603
+        kill_switch: true
+        shadow_mode: true
+        enabled: true
+      properties:
+        enabled:
+          title: Enabled
+          type: boolean
+          nullable: true
+        kill_switch:
+          title: Kill Switch
+          type: boolean
+          nullable: true
+        shadow_mode:
+          title: Shadow Mode
+          type: boolean
+          nullable: true
+        evidence_coverage_threshold:
+          maximum: 100.0
+          minimum: 0.0
+          title: Evidence Coverage Threshold
+          type: integer
+          nullable: true
+        rate_limit_per_minute:
+          maximum: 1000.0
+          minimum: 1.0
+          title: Rate Limit Per Minute
+          type: integer
+          nullable: true
+        allowed_surfaces:
+          items:
+            type: string
+          maxItems: 20
+          type: array
+          nullable: true
+      title: PatchQuoteAgentPolicyRequest
     PatchSessionRequest:
       example:
         scratchpad:
@@ -45659,6 +49807,10 @@ components:
           - key: ""
           - key: ""
           plan_id: plan_id
+        credit_terms:
+          key: ""
+        commercial_terms:
+          key: ""
       properties:
         scratchpad:
           additionalProperties: {}
@@ -45669,6 +49821,14 @@ components:
             $ref: '#/components/schemas/QuoteLineItemInput'
           maxItems: 100
           type: array
+          nullable: true
+        commercial_terms:
+          additionalProperties: {}
+          title: Commercial Terms
+          nullable: true
+        credit_terms:
+          additionalProperties: {}
+          title: Credit Terms
           nullable: true
       title: PatchSessionRequest
     PaymentFailedRequest:
@@ -46262,6 +50422,341 @@ components:
       - sync_direction
       - sync_frequency
       title: QuickBooksConnectRequest
+    QuoteAgentEvaluationResponse:
+      example:
+        tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        agent_run_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        human_override_reason: human_override_reason
+        evidence_coverage: 0
+        command_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        created_at: 2000-01-23T04:56:07.000+00:00
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        reviewer_actor_id: reviewer_actor_id
+        metrics:
+          key: ""
+        outcome: outcome
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        tenant_id:
+          format: uuid
+          title: Tenant Id
+          type: string
+        agent_run_id:
+          format: uuid
+          title: Agent Run Id
+          type: string
+        command_id:
+          format: uuid
+          title: Command Id
+          type: string
+          nullable: true
+        outcome:
+          title: Outcome
+          type: string
+        reviewer_actor_id:
+          title: Reviewer Actor Id
+          type: string
+          nullable: true
+        human_override_reason:
+          title: Human Override Reason
+          type: string
+          nullable: true
+        evidence_coverage:
+          title: Evidence Coverage
+          type: integer
+          nullable: true
+        metrics:
+          additionalProperties: {}
+          title: Metrics
+        created_at:
+          format: date-time
+          title: Created At
+          type: string
+      required:
+      - agent_run_id
+      - command_id
+      - created_at
+      - evidence_coverage
+      - human_override_reason
+      - id
+      - metrics
+      - outcome
+      - reviewer_actor_id
+      - tenant_id
+      title: QuoteAgentEvaluationResponse
+    QuoteAgentPolicyResponse:
+      example:
+        tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        agent_name: agent_name
+        evidence_coverage_threshold: 6
+        created_at: 2000-01-23T04:56:07.000+00:00
+        kill_switch: true
+        shadow_mode: true
+        enabled: true
+        trust_tier: 0
+        allowed_surfaces:
+        - allowed_surfaces
+        - allowed_surfaces
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        rate_limit_per_minute: 1
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        max_autonomy: max_autonomy
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        tenant_id:
+          format: uuid
+          title: Tenant Id
+          type: string
+        agent_name:
+          title: Agent Name
+          type: string
+        trust_tier:
+          title: Trust Tier
+          type: integer
+        enabled:
+          title: Enabled
+          type: boolean
+        kill_switch:
+          title: Kill Switch
+          type: boolean
+        shadow_mode:
+          title: Shadow Mode
+          type: boolean
+        max_autonomy:
+          title: Max Autonomy
+          type: string
+        evidence_coverage_threshold:
+          title: Evidence Coverage Threshold
+          type: integer
+        rate_limit_per_minute:
+          title: Rate Limit Per Minute
+          type: integer
+        allowed_surfaces:
+          items:
+            type: string
+          type: array
+        created_at:
+          format: date-time
+          title: Created At
+          type: string
+        updated_at:
+          format: date-time
+          title: Updated At
+          type: string
+      required:
+      - agent_name
+      - allowed_surfaces
+      - created_at
+      - enabled
+      - evidence_coverage_threshold
+      - id
+      - kill_switch
+      - max_autonomy
+      - rate_limit_per_minute
+      - shadow_mode
+      - tenant_id
+      - trust_tier
+      - updated_at
+      title: QuoteAgentPolicyResponse
+    QuoteAgentProvenanceRunResponse:
+      example:
+        tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        agent_name: agent_name
+        surface: surface
+        actor_type: actor_type
+        quote_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        quote_version: 0
+        completed_at: 2000-01-23T04:56:07.000+00:00
+        rationale_summary: rationale_summary
+        trust_tier: 6
+        started_at: 2000-01-23T04:56:07.000+00:00
+        error_code: error_code
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        actor_id: actor_id
+        status: status
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        tenant_id:
+          format: uuid
+          title: Tenant Id
+          type: string
+        quote_id:
+          format: uuid
+          title: Quote Id
+          type: string
+        quote_version:
+          title: Quote Version
+          type: integer
+          nullable: true
+        agent_name:
+          title: Agent Name
+          type: string
+        trust_tier:
+          title: Trust Tier
+          type: integer
+        surface:
+          title: Surface
+          type: string
+        actor_type:
+          title: Actor Type
+          type: string
+        actor_id:
+          title: Actor Id
+          type: string
+        status:
+          title: Status
+          type: string
+        started_at:
+          format: date-time
+          title: Started At
+          type: string
+        completed_at:
+          format: date-time
+          title: Completed At
+          type: string
+          nullable: true
+        rationale_summary:
+          title: Rationale Summary
+          type: string
+          nullable: true
+        error_code:
+          title: Error Code
+          type: string
+          nullable: true
+      required:
+      - actor_id
+      - actor_type
+      - agent_name
+      - completed_at
+      - error_code
+      - id
+      - quote_id
+      - quote_version
+      - rationale_summary
+      - started_at
+      - status
+      - surface
+      - tenant_id
+      - trust_tier
+      title: QuoteAgentProvenanceRunResponse
+    QuoteAgentRunResponse:
+      example:
+        tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        input_hash: input_hash
+        trace_id: trace_id
+        agent_name: agent_name
+        surface: surface
+        actor_type: actor_type
+        quote_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        quote_version: 0
+        completed_at: 2000-01-23T04:56:07.000+00:00
+        rationale_summary: rationale_summary
+        trust_tier: 6
+        tool_trace:
+        - key: ""
+        - key: ""
+        started_at: 2000-01-23T04:56:07.000+00:00
+        output_hash: output_hash
+        error_code: error_code
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        actor_id: actor_id
+        status: status
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        tenant_id:
+          format: uuid
+          title: Tenant Id
+          type: string
+        quote_id:
+          format: uuid
+          title: Quote Id
+          type: string
+        quote_version:
+          title: Quote Version
+          type: integer
+          nullable: true
+        agent_name:
+          title: Agent Name
+          type: string
+        trust_tier:
+          title: Trust Tier
+          type: integer
+        surface:
+          title: Surface
+          type: string
+        actor_type:
+          title: Actor Type
+          type: string
+        actor_id:
+          title: Actor Id
+          type: string
+        status:
+          title: Status
+          type: string
+        started_at:
+          format: date-time
+          title: Started At
+          type: string
+        completed_at:
+          format: date-time
+          title: Completed At
+          type: string
+          nullable: true
+        input_hash:
+          title: Input Hash
+          type: string
+        output_hash:
+          title: Output Hash
+          type: string
+          nullable: true
+        rationale_summary:
+          title: Rationale Summary
+          type: string
+          nullable: true
+        tool_trace:
+          items:
+            additionalProperties: {}
+          type: array
+        error_code:
+          title: Error Code
+          type: string
+          nullable: true
+        trace_id:
+          title: Trace Id
+          type: string
+          nullable: true
+      required:
+      - actor_id
+      - actor_type
+      - agent_name
+      - completed_at
+      - error_code
+      - id
+      - input_hash
+      - output_hash
+      - quote_id
+      - quote_version
+      - rationale_summary
+      - started_at
+      - status
+      - surface
+      - tenant_id
+      - tool_trace
+      - trace_id
+      - trust_tier
+      title: QuoteAgentRunResponse
     QuoteApprovalDecisionRequest:
       example:
         decision_reason: decision_reason
@@ -46418,6 +50913,7 @@ components:
           current_version: 0
           id: id
           state: state
+          quote_type: new_subscription
           deal_ref:
             key: ""
         - tenant_id: tenant_id
@@ -46430,6 +50926,7 @@ components:
           current_version: 0
           id: id
           state: state
+          quote_type: new_subscription
           deal_ref:
             key: ""
       properties:
@@ -46452,6 +50949,98 @@ components:
       - offset
       - total
       title: QuoteListResponse
+    QuoteRedlineDecisionRequest:
+      example:
+        decision_reason: decision_reason
+      properties:
+        decision_reason:
+          maxLength: 1024
+          title: Decision Reason
+          type: string
+          nullable: true
+      title: QuoteRedlineDecisionRequest
+    QuoteRedlineResponse:
+      example:
+        tenant_id: tenant_id
+        created_by_actor_id: created_by_actor_id
+        quote_id: quote_id
+        created_at: created_at
+        source: source
+        created_by_actor_type: created_by_actor_type
+        accepted_at: accepted_at
+        quote_version: 0
+        proposed_terms:
+          key: ""
+        evidence_metadata:
+          key: ""
+        accepted_by_actor_id: accepted_by_actor_id
+        resulting_quote_version: 6
+        id: id
+        status: status
+        redline_text: redline_text
+      properties:
+        id:
+          title: Id
+          type: string
+        tenant_id:
+          title: Tenant Id
+          type: string
+        quote_id:
+          title: Quote Id
+          type: string
+        quote_version:
+          title: Quote Version
+          type: integer
+        source:
+          title: Source
+          type: string
+        status:
+          title: Status
+          type: string
+        proposed_terms:
+          additionalProperties: {}
+          title: Proposed Terms
+        redline_text:
+          title: Redline Text
+          type: string
+        evidence_metadata:
+          additionalProperties: {}
+          title: Evidence Metadata
+        created_by_actor_type:
+          title: Created By Actor Type
+          type: string
+        created_by_actor_id:
+          title: Created By Actor Id
+          type: string
+        accepted_by_actor_id:
+          title: Accepted By Actor Id
+          type: string
+          nullable: true
+        accepted_at:
+          title: Accepted At
+          type: string
+          nullable: true
+        resulting_quote_version:
+          title: Resulting Quote Version
+          type: integer
+          nullable: true
+        created_at:
+          title: Created At
+          type: string
+          nullable: true
+      required:
+      - created_by_actor_id
+      - created_by_actor_type
+      - evidence_metadata
+      - id
+      - proposed_terms
+      - quote_id
+      - quote_version
+      - redline_text
+      - source
+      - status
+      - tenant_id
+      title: QuoteRedlineResponse
     QuoteResponse:
       example:
         tenant_id: tenant_id
@@ -46464,6 +51053,7 @@ components:
         current_version: 0
         id: id
         state: state
+        quote_type: new_subscription
         deal_ref:
           key: ""
       properties:
@@ -46484,6 +51074,16 @@ components:
           additionalProperties: {}
           title: Buyer Contact Ref
           nullable: true
+        quote_type:
+          default: new_subscription
+          enum:
+          - new_subscription
+          - renewal
+          - expansion
+          - contraction
+          - amendment
+          title: Quote Type
+          type: string
         owner_user_id:
           title: Owner User Id
           type: string
@@ -46525,18 +51125,28 @@ components:
     QuoteVersionResponse:
       example:
         tenant_id: tenant_id
-        quote_version_digest: quote_version_digest
-        booking_trigger: booking_trigger
+        proration_basis:
+          key: ""
         pricing_snapshot_id: pricing_snapshot_id
-        locked_at: locked_at
         quote_id: quote_id
         source_versions:
           key: ""
-        state: state
         line_items:
         - key: ""
         - key: ""
         version: 0
+        co_term_behavior: co_term_behavior
+        lifecycle_metadata:
+          key: ""
+        quote_version_digest: quote_version_digest
+        change_reason: change_reason
+        booking_trigger: booking_trigger
+        current_contract_snapshot_digest: current_contract_snapshot_digest
+        locked_at: locked_at
+        effective_date: effective_date
+        state: state
+        target_subscription_ref:
+          key: ""
         credit_terms:
           key: ""
         commercial_terms:
@@ -46564,6 +51174,33 @@ components:
         credit_terms:
           additionalProperties: {}
           title: Credit Terms
+        lifecycle_metadata:
+          additionalProperties: {}
+          title: Lifecycle Metadata
+        target_subscription_ref:
+          additionalProperties: {}
+          title: Target Subscription Ref
+          nullable: true
+        current_contract_snapshot_digest:
+          title: Current Contract Snapshot Digest
+          type: string
+          nullable: true
+        effective_date:
+          title: Effective Date
+          type: string
+          nullable: true
+        co_term_behavior:
+          title: Co Term Behavior
+          type: string
+          nullable: true
+        proration_basis:
+          additionalProperties: {}
+          title: Proration Basis
+          nullable: true
+        change_reason:
+          title: Change Reason
+          type: string
+          nullable: true
         source_versions:
           additionalProperties: {}
           title: Source Versions
@@ -47214,6 +51851,34 @@ components:
           type: string
           nullable: true
       title: SenderUpdate
+    SlackQuoteCommandResponse:
+      example:
+        deep_links:
+        - key: deep_links
+        - key: deep_links
+        response_type: ephemeral
+        text: text
+        command_kind: command_kind
+      properties:
+        response_type:
+          default: ephemeral
+          title: Response Type
+          type: string
+        text:
+          title: Text
+          type: string
+        command_kind:
+          title: Command Kind
+          type: string
+        deep_links:
+          items:
+            additionalProperties:
+              type: string
+          type: array
+      required:
+      - command_kind
+      - text
+      title: SlackQuoteCommandResponse
     SnapshotResponse:
       description: Response from creating a balance snapshot.
       example:
@@ -47384,6 +52049,42 @@ components:
       - status
       - tenant_id
       title: SyncRunItem
+    TemplateCardActionRequest:
+      example:
+        change_reason: change_reason
+        action: action
+        idempotency_key: idempotency_key
+        confirmation:
+          key: ""
+        preview_case_id: preview_case_id
+        chat_session_id: chat_session_id
+      properties:
+        action:
+          title: Action
+          type: string
+        idempotency_key:
+          title: Idempotency Key
+          type: string
+        chat_session_id:
+          title: Chat Session Id
+          type: string
+          nullable: true
+        confirmation:
+          additionalProperties: {}
+          title: Confirmation
+          nullable: true
+        change_reason:
+          title: Change Reason
+          type: string
+          nullable: true
+        preview_case_id:
+          title: Preview Case Id
+          type: string
+          nullable: true
+      required:
+      - action
+      - idempotency_key
+      title: TemplateCardActionRequest
     TemplateItem:
       example:
         subject: subject
@@ -51010,6 +55711,11 @@ components:
           allOf:
           - $ref: '#/components/schemas/CustomPlanInput'
           description: The custom plan description which defines the Subscription.
+        quoteOriginKey:
+          allOf:
+          - $ref: '#/components/schemas/QuoteOriginKey'
+          description: Idempotency key supplied by accepted quote activation for subscription
+            create or change requests.
       required:
       - customPlan
       - timing
@@ -51024,6 +55730,11 @@ components:
           allOf:
           - $ref: '#/components/schemas/CustomPlanInput'
           description: The custom plan description which defines the Subscription.
+        quoteOriginKey:
+          allOf:
+          - $ref: '#/components/schemas/QuoteOriginKey'
+          description: Idempotency key supplied by accepted quote activation for subscription
+            create or change requests.
         timing:
           allOf:
           - $ref: '#/components/schemas/SubscriptionTiming'
@@ -51049,11 +55760,6 @@ components:
           example: 2023-01-01T01:01:01.001Z
           format: date-time
           type: string
-        quoteOriginKey:
-          allOf:
-          - $ref: '#/components/schemas/QuoteOriginKey'
-          description: Idempotency key supplied by quote acceptance for new-subscription
-            creates.
       required:
       - customPlan
       title: Create custom
@@ -60897,6 +65603,7 @@ components:
       description: Change subscription based on plan.
       example:
         metadata: ""
+        quoteOriginKey: ""
         timing: ""
         startingPhase: startingPhase
         name: name
@@ -60929,6 +65636,11 @@ components:
           allOf:
           - $ref: '#/components/schemas/PlanReferenceInput'
           description: The plan reference to change to.
+        quoteOriginKey:
+          allOf:
+          - $ref: '#/components/schemas/QuoteOriginKey'
+          description: Idempotency key supplied by accepted quote activation for subscription
+            create or change requests.
         startingPhase:
           description: |-
             The key of the phase to start the subscription in.
@@ -60986,6 +65698,11 @@ components:
           allOf:
           - $ref: '#/components/schemas/PlanReferenceInput'
           description: The plan reference to change to.
+        quoteOriginKey:
+          allOf:
+          - $ref: '#/components/schemas/QuoteOriginKey'
+          description: Idempotency key supplied by accepted quote activation for subscription
+            create or change requests.
         startingPhase:
           description: |-
             The key of the phase to start the subscription in.
@@ -61024,11 +65741,6 @@ components:
           example: 2023-01-01T01:01:01.001Z
           format: date-time
           type: string
-        quoteOriginKey:
-          allOf:
-          - $ref: '#/components/schemas/QuoteOriginKey'
-          description: Idempotency key supplied by quote acceptance for new-subscription
-            creates.
       required:
       - plan
       title: Create from plan
@@ -68090,6 +72802,57 @@ components:
       - dso
       - ptp_summary
       title: DashboardOverviewResponse
+    DisclosurePolicyResponse:
+      example:
+        policy_hash: policy_hash
+        updated_by_actor_id: updated_by_actor_id
+        disclosure_text: disclosure_text
+        requirement: requirement
+      properties:
+        requirement:
+          title: Requirement
+          type: string
+        disclosure_text:
+          title: Disclosure Text
+          type: string
+          nullable: true
+        policy_hash:
+          title: Policy Hash
+          type: string
+        updated_by_actor_id:
+          title: Updated By Actor Id
+          type: string
+          nullable: true
+      required:
+      - policy_hash
+      - requirement
+      title: DisclosurePolicyResponse
+    DisclosurePolicyUpdateRequest:
+      example:
+        change_reason: change_reason
+        disclosure_text: disclosure_text
+        requirement: not_required
+      properties:
+        requirement:
+          default: not_required
+          enum:
+          - not_required
+          - required
+          title: Requirement
+          type: string
+        disclosure_text:
+          maxLength: 4000
+          title: Disclosure Text
+          type: string
+          nullable: true
+        change_reason:
+          maxLength: 1000
+          minLength: 1
+          title: Change Reason
+          type: string
+      required:
+      - change_reason
+      title: DisclosurePolicyUpdateRequest
     DisputeApprovalRequest:
       example:
         note: note
@@ -68424,6 +73187,132 @@ components:
           type: string
           nullable: true
       title: DisputeUpdateRequest
+    DraftLockRequest:
+      example:
+        ttl_seconds: 343
+      properties:
+        ttl_seconds:
+          default: 900
+          maximum: 3600.0
+          minimum: 60.0
+          title: Ttl Seconds
+          type: integer
+      title: DraftLockRequest
+    DraftLockResponse:
+      example:
+        lock_expires_at: lock_expires_at
+        lock_owner_actor_id: lock_owner_actor_id
+        version_id: version_id
+        lock_owner_display: lock_owner_display
+        lock_id: lock_id
+        lock_token: lock_token
+      properties:
+        version_id:
+          title: Version Id
+          type: string
+        lock_id:
+          title: Lock Id
+          type: string
+        lock_token:
+          title: Lock Token
+          type: string
+        lock_owner_actor_id:
+          title: Lock Owner Actor Id
+          type: string
+        lock_owner_display:
+          title: Lock Owner Display
+          type: string
+          nullable: true
+        lock_expires_at:
+          title: Lock Expires At
+          type: string
+      required:
+      - lock_expires_at
+      - lock_id
+      - lock_owner_actor_id
+      - lock_token
+      - version_id
+      title: DraftLockResponse
+    DraftSaveRequest:
+      example:
+        base_version_id: base_version_id
+        change_reason: change_reason
+        channel: email
+        subject_template: subject_template
+        prompt_summary: prompt_summary
+        idempotency_key: idempotency_key
+        body_template: body_template
+        lock_id: lock_id
+        lock_token: lock_token
+      properties:
+        channel:
+          default: email
+          enum:
+          - email
+          title: Channel
+          type: string
+        subject_template:
+          maxLength: 1000
+          minLength: 1
+          title: Subject Template
+          type: string
+        body_template:
+          maxLength: 20000
+          minLength: 1
+          title: Body Template
+          type: string
+        change_reason:
+          maxLength: 1000
+          minLength: 1
+          title: Change Reason
+          type: string
+        prompt_summary:
+          maxLength: 1000
+          title: Prompt Summary
+          type: string
+          nullable: true
+        idempotency_key:
+          maxLength: 255
+          title: Idempotency Key
+          type: string
+          nullable: true
+        base_version_id:
+          minLength: 1
+          title: Base Version Id
+          type: string
+          nullable: true
+        lock_id:
+          minLength: 1
+          title: Lock Id
+          type: string
+          nullable: true
+        lock_token:
+          minLength: 1
+          title: Lock Token
+          type: string
+          nullable: true
+      required:
+      - body_template
+      - change_reason
+      - subject_template
+      title: DraftSaveRequest
+    DraftUnlockRequest:
+      example:
+        lock_id: lock_id
+        lock_token: lock_token
+      properties:
+        lock_id:
+          minLength: 1
+          title: Lock Id
+          type: string
+        lock_token:
+          minLength: 1
+          title: Lock Token
+          type: string
+      required:
+      - lock_id
+      - lock_token
+      title: DraftUnlockRequest
     EmailConfigOut:
       example:
         tenant_id: tenant_id
@@ -70526,6 +75415,55 @@ components:
       - payment_method
       - received_at
       title: PaymentCreate
+    PaymentInstructionsResponse:
+      example:
+        payment_instructions_text: payment_instructions_text
+        updated_at: updated_at
+        payment_instructions_hash: payment_instructions_hash
+        ready: true
+        updated_by_actor_id: updated_by_actor_id
+      properties:
+        ready:
+          title: Ready
+          type: boolean
+        payment_instructions_text:
+          title: Payment Instructions Text
+          type: string
+          nullable: true
+        payment_instructions_hash:
+          title: Payment Instructions Hash
+          type: string
+        updated_by_actor_id:
+          title: Updated By Actor Id
+          type: string
+          nullable: true
+        updated_at:
+          title: Updated At
+          type: string
+          nullable: true
+      required:
+      - payment_instructions_hash
+      - ready
+      title: PaymentInstructionsResponse
+    PaymentInstructionsUpdateRequest:
+      example:
+        payment_instructions_text: payment_instructions_text
+        change_reason: change_reason
+      properties:
+        payment_instructions_text:
+          maxLength: 4000
+          minLength: 1
+          title: Payment Instructions Text
+          type: string
+        change_reason:
+          maxLength: 1000
+          minLength: 1
+          title: Change Reason
+          type: string
+      required:
+      - change_reason
+      - payment_instructions_text
+      title: PaymentInstructionsUpdateRequest
     PaymentListResponse:
       description: Paginated payments list.
       example:
@@ -70980,6 +75918,62 @@ components:
       required:
       - channels
       title: PortalPreferencesRequest
+    PreviewTemplateRequest:
+      example:
+        case_id: case_id
+        version_id: version_id
+        preview_mode: sample
+      properties:
+        version_id:
+          minLength: 1
+          title: Version Id
+          type: string
+        preview_mode:
+          enum:
+          - sample
+          - real_case
+          title: Preview Mode
+          type: string
+          nullable: true
+        case_id:
+          minLength: 1
+          title: Case Id
+          type: string
+          nullable: true
+      required:
+      - version_id
+      title: PreviewTemplateRequest
+    PreviewTemplateResponse:
+      example:
+        canonical_template_key: canonical_template_key
+        subject: subject
+        context_summary:
+          key: ""
+        version_id: version_id
+        body: body
+      properties:
+        subject:
+          title: Subject
+          type: string
+        body:
+          title: Body
+          type: string
+        context_summary:
+          additionalProperties: {}
+          title: Context Summary
+        version_id:
+          title: Version Id
+          type: string
+        canonical_template_key:
+          title: Canonical Template Key
+          type: string
+      required:
+      - body
+      - canonical_template_key
+      - context_summary
+      - subject
+      - version_id
+      title: PreviewTemplateResponse
     PromiseResponse:
       description: |-
         Embedded PTP within a case-detail response.
@@ -71087,6 +76081,79 @@ components:
       required:
       - outcome
       title: ProviderConfirmationRepairRequest
+    ProviderReadinessResponse:
+      example:
+        payment_instructions_ready: true
+        ready: true
+        blocking_reasons:
+        - blocking_reasons
+        - blocking_reasons
+        verification_status: verification_status
+        from_address: from_address
+        readiness_hash: readiness_hash
+      properties:
+        ready:
+          title: Ready
+          type: boolean
+        from_address:
+          title: From Address
+          type: string
+          nullable: true
+        verification_status:
+          title: Verification Status
+          type: string
+          nullable: true
+        payment_instructions_ready:
+          title: Payment Instructions Ready
+          type: boolean
+        blocking_reasons:
+          items:
+            type: string
+          type: array
+        readiness_hash:
+          title: Readiness Hash
+          type: string
+      required:
+      - blocking_reasons
+      - payment_instructions_ready
+      - readiness_hash
+      - ready
+      title: ProviderReadinessResponse
+    PublishTemplateRequest:
+      example:
+        change_reason: change_reason
+        prompt_summary: prompt_summary
+        idempotency_key: idempotency_key
+        version_id: version_id
+        confirmation_ack: true
+      properties:
+        version_id:
+          minLength: 1
+          title: Version Id
+          type: string
+        confirmation_ack:
+          title: Confirmation Ack
+          type: boolean
+        change_reason:
+          maxLength: 1000
+          minLength: 1
+          title: Change Reason
+          type: string
+        prompt_summary:
+          maxLength: 1000
+          title: Prompt Summary
+          type: string
+          nullable: true
+        idempotency_key:
+          maxLength: 255
+          title: Idempotency Key
+          type: string
+          nullable: true
+      required:
+      - change_reason
+      - confirmation_ack
+      - version_id
+      title: PublishTemplateRequest
     ReScopeRequest:
       description: "POST /cases/{id}/re-scope — add/remove invoices."
       example:
@@ -71909,6 +76976,412 @@ components:
           type: string
           nullable: true
       title: TaskUpdate
+    TemplateArchiveRequest:
+      example:
+        change_reason: change_reason
+      properties:
+        change_reason:
+          maxLength: 1000
+          minLength: 1
+          title: Change Reason
+          type: string
+      required:
+      - change_reason
+      title: TemplateArchiveRequest
+    TemplateKeyCreateRequest:
+      example:
+        canonical_template_key: canonical_template_key
+        change_reason: change_reason
+        display_name: display_name
+      properties:
+        canonical_template_key:
+          maxLength: 100
+          minLength: 3
+          title: Canonical Template Key
+          type: string
+        display_name:
+          maxLength: 255
+          minLength: 1
+          title: Display Name
+          type: string
+        change_reason:
+          maxLength: 1000
+          minLength: 1
+          title: Change Reason
+          type: string
+      required:
+      - canonical_template_key
+      - change_reason
+      - display_name
+      title: TemplateKeyCreateRequest
+    TemplateKeyListResponse:
+      example:
+        seeded_keys:
+        - archived: false
+          canonical_template_key: canonical_template_key
+          system_seeded: true
+          selectable: true
+          channel: email
+          legacy_aliases:
+          - legacy_aliases
+          - legacy_aliases
+          id: id
+          key_source: seeded
+          display_name: display_name
+          allowed_variables:
+          - allowed_variables
+          - allowed_variables
+          variable_policy:
+            key: ""
+          required_variables:
+          - required_variables
+          - required_variables
+        - archived: false
+          canonical_template_key: canonical_template_key
+          system_seeded: true
+          selectable: true
+          channel: email
+          legacy_aliases:
+          - legacy_aliases
+          - legacy_aliases
+          id: id
+          key_source: seeded
+          display_name: display_name
+          allowed_variables:
+          - allowed_variables
+          - allowed_variables
+          variable_policy:
+            key: ""
+          required_variables:
+          - required_variables
+          - required_variables
+        channel: email
+        custom_keys:
+        - archived: false
+          canonical_template_key: canonical_template_key
+          system_seeded: true
+          selectable: true
+          channel: email
+          legacy_aliases:
+          - legacy_aliases
+          - legacy_aliases
+          id: id
+          key_source: seeded
+          display_name: display_name
+          allowed_variables:
+          - allowed_variables
+          - allowed_variables
+          variable_policy:
+            key: ""
+          required_variables:
+          - required_variables
+          - required_variables
+        - archived: false
+          canonical_template_key: canonical_template_key
+          system_seeded: true
+          selectable: true
+          channel: email
+          legacy_aliases:
+          - legacy_aliases
+          - legacy_aliases
+          id: id
+          key_source: seeded
+          display_name: display_name
+          allowed_variables:
+          - allowed_variables
+          - allowed_variables
+          variable_policy:
+            key: ""
+          required_variables:
+          - required_variables
+          - required_variables
+      properties:
+        channel:
+          default: email
+          enum:
+          - email
+          title: Channel
+          type: string
+        seeded_keys:
+          items:
+            $ref: '#/components/schemas/TemplateKeyResponse'
+          type: array
+        custom_keys:
+          items:
+            $ref: '#/components/schemas/TemplateKeyResponse'
+          type: array
+      required:
+      - custom_keys
+      - seeded_keys
+      title: TemplateKeyListResponse
+    TemplateKeyResponse:
+      example:
+        archived: false
+        canonical_template_key: canonical_template_key
+        system_seeded: true
+        selectable: true
+        channel: email
+        legacy_aliases:
+        - legacy_aliases
+        - legacy_aliases
+        id: id
+        key_source: seeded
+        display_name: display_name
+        allowed_variables:
+        - allowed_variables
+        - allowed_variables
+        variable_policy:
+          key: ""
+        required_variables:
+        - required_variables
+        - required_variables
+      properties:
+        id:
+          title: Id
+          type: string
+          nullable: true
+        canonical_template_key:
+          title: Canonical Template Key
+          type: string
+        display_name:
+          title: Display Name
+          type: string
+        channel:
+          default: email
+          enum:
+          - email
+          title: Channel
+          type: string
+        key_source:
+          enum:
+          - seeded
+          - custom
+          title: Key Source
+          type: string
+        variable_policy:
+          additionalProperties: {}
+          title: Variable Policy
+        allowed_variables:
+          items:
+            type: string
+          type: array
+        required_variables:
+          items:
+            type: string
+          type: array
+        legacy_aliases:
+          items:
+            type: string
+          type: array
+        system_seeded:
+          title: System Seeded
+          type: boolean
+        selectable:
+          title: Selectable
+          type: boolean
+        archived:
+          default: false
+          title: Archived
+          type: boolean
+      required:
+      - allowed_variables
+      - canonical_template_key
+      - display_name
+      - key_source
+      - required_variables
+      - selectable
+      - system_seeded
+      - variable_policy
+      title: TemplateKeyResponse
+    TemplateVersionListResponse:
+      example:
+        items:
+        - lock_expires_at: lock_expires_at
+          canonical_template_key: canonical_template_key
+          published_by_actor_id: published_by_actor_id
+          created_by_actor_id: created_by_actor_id
+          payment_instructions_hash: payment_instructions_hash
+          stale_reason: stale_reason
+          channel: email
+          subject_template: subject_template
+          validation_snapshot:
+            key: ""
+          disclosure_policy_hash: disclosure_policy_hash
+          base_published_version_id: base_published_version_id
+          body_template: body_template
+          provider_readiness_hash: provider_readiness_hash
+          lock_owner_display: lock_owner_display
+          version: 0
+          created_by_actor_display: created_by_actor_display
+          lock_owner_actor_id: lock_owner_actor_id
+          draft_state: draft_state
+          id: id
+          content_hash: content_hash
+          draft_group_id: draft_group_id
+          published_at: published_at
+          locked: false
+          status: status
+        - lock_expires_at: lock_expires_at
+          canonical_template_key: canonical_template_key
+          published_by_actor_id: published_by_actor_id
+          created_by_actor_id: created_by_actor_id
+          payment_instructions_hash: payment_instructions_hash
+          stale_reason: stale_reason
+          channel: email
+          subject_template: subject_template
+          validation_snapshot:
+            key: ""
+          disclosure_policy_hash: disclosure_policy_hash
+          base_published_version_id: base_published_version_id
+          body_template: body_template
+          provider_readiness_hash: provider_readiness_hash
+          lock_owner_display: lock_owner_display
+          version: 0
+          created_by_actor_display: created_by_actor_display
+          lock_owner_actor_id: lock_owner_actor_id
+          draft_state: draft_state
+          id: id
+          content_hash: content_hash
+          draft_group_id: draft_group_id
+          published_at: published_at
+          locked: false
+          status: status
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/TemplateVersionResponse'
+          type: array
+      required:
+      - items
+      title: TemplateVersionListResponse
+    TemplateVersionResponse:
+      example:
+        lock_expires_at: lock_expires_at
+        canonical_template_key: canonical_template_key
+        published_by_actor_id: published_by_actor_id
+        created_by_actor_id: created_by_actor_id
+        payment_instructions_hash: payment_instructions_hash
+        stale_reason: stale_reason
+        channel: email
+        subject_template: subject_template
+        validation_snapshot:
+          key: ""
+        disclosure_policy_hash: disclosure_policy_hash
+        base_published_version_id: base_published_version_id
+        body_template: body_template
+        provider_readiness_hash: provider_readiness_hash
+        lock_owner_display: lock_owner_display
+        version: 0
+        created_by_actor_display: created_by_actor_display
+        lock_owner_actor_id: lock_owner_actor_id
+        draft_state: draft_state
+        id: id
+        content_hash: content_hash
+        draft_group_id: draft_group_id
+        published_at: published_at
+        locked: false
+        status: status
+      properties:
+        id:
+          title: Id
+          type: string
+        canonical_template_key:
+          title: Canonical Template Key
+          type: string
+        channel:
+          default: email
+          enum:
+          - email
+          title: Channel
+          type: string
+        version:
+          title: Version
+          type: integer
+        status:
+          title: Status
+          type: string
+        draft_group_id:
+          title: Draft Group Id
+          type: string
+          nullable: true
+        draft_state:
+          title: Draft State
+          type: string
+          nullable: true
+        stale_reason:
+          title: Stale Reason
+          type: string
+          nullable: true
+        base_published_version_id:
+          title: Base Published Version Id
+          type: string
+          nullable: true
+        subject_template:
+          title: Subject Template
+          type: string
+        body_template:
+          title: Body Template
+          type: string
+        content_hash:
+          title: Content Hash
+          type: string
+        validation_snapshot:
+          additionalProperties: {}
+          title: Validation Snapshot
+        disclosure_policy_hash:
+          title: Disclosure Policy Hash
+          type: string
+        provider_readiness_hash:
+          title: Provider Readiness Hash
+          type: string
+        payment_instructions_hash:
+          title: Payment Instructions Hash
+          type: string
+        created_by_actor_id:
+          title: Created By Actor Id
+          type: string
+        created_by_actor_display:
+          title: Created By Actor Display
+          type: string
+          nullable: true
+        published_by_actor_id:
+          title: Published By Actor Id
+          type: string
+          nullable: true
+        published_at:
+          title: Published At
+          type: string
+          nullable: true
+        locked:
+          default: false
+          title: Locked
+          type: boolean
+        lock_owner_actor_id:
+          title: Lock Owner Actor Id
+          type: string
+          nullable: true
+        lock_owner_display:
+          title: Lock Owner Display
+          type: string
+          nullable: true
+        lock_expires_at:
+          title: Lock Expires At
+          type: string
+          nullable: true
+      required:
+      - body_template
+      - canonical_template_key
+      - content_hash
+      - created_by_actor_id
+      - disclosure_policy_hash
+      - id
+      - payment_instructions_hash
+      - provider_readiness_hash
+      - status
+      - subject_template
+      - validation_snapshot
+      - version
+      title: TemplateVersionResponse
     TenantEscalationConfigOut:
       example:
         tenant_id: tenant_id
@@ -71982,6 +77455,63 @@ components:
       - change_reason
       - config
       title: TenantEscalationConfigPatch
+    TestSendRequest:
+      example:
+        mode: sample
+        case_id: case_id
+        recipient_email: recipient_email
+        version_id: version_id
+      properties:
+        version_id:
+          minLength: 1
+          title: Version Id
+          type: string
+        mode:
+          enum:
+          - sample
+          - real_case
+          title: Mode
+          type: string
+          nullable: true
+        case_id:
+          minLength: 1
+          title: Case Id
+          type: string
+          nullable: true
+        recipient_email:
+          maxLength: 320
+          minLength: 3
+          title: Recipient Email
+          type: string
+      required:
+      - recipient_email
+      - version_id
+      title: TestSendRequest
+    TestSendResponse:
+      example:
+        recipient_email: recipient_email
+        id: id
+        version_id: version_id
+        status: status
+      properties:
+        id:
+          title: Id
+          type: string
+        status:
+          title: Status
+          type: string
+        recipient_email:
+          title: Recipient Email
+          type: string
+        version_id:
+          title: Version Id
+          type: string
+      required:
+      - id
+      - recipient_email
+      - status
+      - version_id
+      title: TestSendResponse
     UnappliedCashResponse:
       description: Response for a single unapplied cash entry.
       example:
@@ -72043,6 +77573,60 @@ components:
       - tenant_id
       - updated_at
       title: UnappliedCashResponse
+    ValidateTemplateRequest:
+      example:
+        channel: email
+        case_id: case_id
+        subject_template: subject_template
+        body_template: body_template
+        preview_mode: sample
+      properties:
+        channel:
+          default: email
+          enum:
+          - email
+          title: Channel
+          type: string
+        subject_template:
+          minLength: 1
+          title: Subject Template
+          type: string
+        body_template:
+          minLength: 1
+          title: Body Template
+          type: string
+        preview_mode:
+          enum:
+          - sample
+          - real_case
+          title: Preview Mode
+          type: string
+          nullable: true
+        case_id:
+          title: Case Id
+          type: string
+          nullable: true
+      required:
+      - body_template
+      - subject_template
+      title: ValidateTemplateRequest
+    ValidateTemplateResponse:
+      example:
+        validation:
+          key: ""
+        render_context_summary:
+          key: ""
+      properties:
+        validation:
+          additionalProperties: {}
+          title: Validation
+        render_context_summary:
+          additionalProperties: {}
+          title: Render Context Summary
+          nullable: true
+      required:
+      - validation
+      title: ValidateTemplateResponse
     ArcValidationError:
       example:
         msg: msg
