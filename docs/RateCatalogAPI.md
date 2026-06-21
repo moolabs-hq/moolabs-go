@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 
 ## CreateRateEntry
 
-> RateCatalogResponse CreateRateEntry(ctx).RateCatalogCreate(rateCatalogCreate).Execute()
+> RateCatalogResponse CreateRateEntry(ctx).RateCatalogCreate(rateCatalogCreate).IdempotencyKey(idempotencyKey).Execute()
 
 Create Rate Entry
 
@@ -104,10 +104,11 @@ import (
 
 func main() {
 	rateCatalogCreate := *openapiclient.NewRateCatalogCreate("TenantId_example", "Provider_example", "Model_example", "MetricType_example", *openapiclient.NewRatePerUnit(), time.Now()) // RateCatalogCreate | 
+	idempotencyKey := "idempotencyKey_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RateCatalogAPI.CreateRateEntry(context.Background()).RateCatalogCreate(rateCatalogCreate).Execute()
+	resp, r, err := apiClient.RateCatalogAPI.CreateRateEntry(context.Background()).RateCatalogCreate(rateCatalogCreate).IdempotencyKey(idempotencyKey).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RateCatalogAPI.CreateRateEntry``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -129,6 +130,7 @@ Other parameters are passed through a pointer to a apiCreateRateEntryRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **rateCatalogCreate** | [**RateCatalogCreate**](RateCatalogCreate.md) |  | 
+ **idempotencyKey** | **string** |  | 
 
 ### Return type
 
@@ -288,7 +290,7 @@ Name | Type | Description  | Notes
 
 ## RateHistory
 
-> []RateCatalogResponse RateHistory(ctx).TenantId(tenantId).Provider(provider).Model(model).MetricType(metricType).Execute()
+> []RateCatalogResponse RateHistory(ctx).TenantId(tenantId).Provider(provider).Model(model).MetricType(metricType).EffectiveFromAfter(effectiveFromAfter).EffectiveFromBefore(effectiveFromBefore).Execute()
 
 Rate History
 
@@ -303,6 +305,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+    "time"
 	openapiclient "github.com/moolabs/moolabs-go"
 )
 
@@ -311,10 +314,12 @@ func main() {
 	provider := "provider_example" // string |  (optional)
 	model := "model_example" // string |  (optional)
 	metricType := "metricType_example" // string |  (optional)
+	effectiveFromAfter := time.Now() // time.Time |  (optional)
+	effectiveFromBefore := time.Now() // time.Time |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RateCatalogAPI.RateHistory(context.Background()).TenantId(tenantId).Provider(provider).Model(model).MetricType(metricType).Execute()
+	resp, r, err := apiClient.RateCatalogAPI.RateHistory(context.Background()).TenantId(tenantId).Provider(provider).Model(model).MetricType(metricType).EffectiveFromAfter(effectiveFromAfter).EffectiveFromBefore(effectiveFromBefore).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RateCatalogAPI.RateHistory``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -339,6 +344,8 @@ Name | Type | Description  | Notes
  **provider** | **string** |  | 
  **model** | **string** |  | 
  **metricType** | **string** |  | 
+ **effectiveFromAfter** | **time.Time** |  | 
+ **effectiveFromBefore** | **time.Time** |  | 
 
 ### Return type
 

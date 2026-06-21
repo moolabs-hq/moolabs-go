@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DiagnoseSubscription**](AdminAPI.md#DiagnoseSubscription) | **Get** /v1/admin/diagnostics/subscription/{subscription_id} | Diagnose Subscription
+[**GetIngestDeadLetterEndpointV1**](AdminAPI.md#GetIngestDeadLetterEndpointV1) | **Get** /v1/admin/ingest/dead-letters/{dead_letter_id} | Get Ingest Dead Letter Endpoint
 [**GetIngestDeadLettersV1**](AdminAPI.md#GetIngestDeadLettersV1) | **Get** /v1/admin/ingest/dead-letters | Get Ingest Dead Letters
 [**GetLedgerAuditGet**](AdminAPI.md#GetLedgerAuditGet) | **Get** /v1/admin/ledger/audit | Get Ledger Audit
 [**GetLedgerBalanceGet**](AdminAPI.md#GetLedgerBalanceGet) | **Get** /v1/admin/ledger/balance | Get Ledger Balance
@@ -77,7 +78,77 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetIngestDeadLetterEndpointV1
+
+> interface{} GetIngestDeadLetterEndpointV1(ctx, deadLetterId).Execute()
+
+Get Ingest Dead Letter Endpoint
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	deadLetterId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Dead-letter row identifier
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AdminAPI.GetIngestDeadLetterEndpointV1(context.Background(), deadLetterId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.GetIngestDeadLetterEndpointV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetIngestDeadLetterEndpointV1`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AdminAPI.GetIngestDeadLetterEndpointV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**deadLetterId** | **string** | Dead-letter row identifier | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetIngestDeadLetterEndpointV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -110,7 +181,7 @@ import (
 )
 
 func main() {
-	tenantId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Optional tenant filter (optional)
+	tenantId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Optional tenant filter (ignored for per-tenant auth) (optional)
 	poolId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Optional pool filter (optional)
 	replayStatus := "replayStatus_example" // string | Optional replay status filter: PENDING/REPLAYED/FAILED (optional)
 	reasonCode := "reasonCode_example" // string | Optional reason code filter (optional)
@@ -139,7 +210,7 @@ Other parameters are passed through a pointer to a apiGetIngestDeadLettersV1Requ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tenantId** | **string** | Optional tenant filter | 
+ **tenantId** | **string** | Optional tenant filter (ignored for per-tenant auth) | 
  **poolId** | **string** | Optional pool filter | 
  **replayStatus** | **string** | Optional replay status filter: PENDING/REPLAYED/FAILED | 
  **reasonCode** | **string** | Optional reason code filter | 
@@ -151,7 +222,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -232,7 +303,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -307,7 +378,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -374,7 +445,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -446,7 +517,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -518,7 +589,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -584,7 +655,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -650,7 +721,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -720,7 +791,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 

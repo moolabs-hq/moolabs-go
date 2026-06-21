@@ -4,8 +4,12 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**CreateTemplateV1**](TenantAPI.md#CreateTemplateV1) | **Post** /v1/tenant/quote-templates | Create Template
 [**DeletePortalTokenV1**](TenantAPI.md#DeletePortalTokenV1) | **Delete** /v1/tenant/portal-tokens/{token_id} | Delete Portal Token
+[**DeleteTemplateV1**](TenantAPI.md#DeleteTemplateV1) | **Delete** /v1/tenant/quote-templates/{template_id} | Delete Template
 [**GetApiKeysV1**](TenantAPI.md#GetApiKeysV1) | **Get** /v1/tenant/api-keys | Get Api Keys
+[**GetApprovalPolicyHistoryV1**](TenantAPI.md#GetApprovalPolicyHistoryV1) | **Get** /v1/tenant/approval-policy/history | Get Approval Policy History
+[**GetApprovalPolicyV1**](TenantAPI.md#GetApprovalPolicyV1) | **Get** /v1/tenant/approval-policy | Get Approval Policy
 [**GetAuditChanges**](TenantAPI.md#GetAuditChanges) | **Get** /v1/tenant/audit/changes | Get Audit Changes
 [**GetAuditEvidence**](TenantAPI.md#GetAuditEvidence) | **Get** /v1/tenant/audit/evidence | Get Audit Evidence
 [**GetAuditTraces**](TenantAPI.md#GetAuditTraces) | **Get** /v1/tenant/audit/traces | Get Audit Traces
@@ -27,12 +31,15 @@ Method | HTTP request | Description
 [**GetWebhook**](TenantAPI.md#GetWebhook) | **Get** /v1/tenant/communications/webhook | Get Webhook
 [**GetWebhookLogs**](TenantAPI.md#GetWebhookLogs) | **Get** /v1/tenant/webhook/logs | Get Webhook Logs
 [**GetWebhookMetrics**](TenantAPI.md#GetWebhookMetrics) | **Get** /v1/tenant/webhook/metrics | Get Webhook Metrics
+[**GrantArcDunningTemplateAdminEndpointV1TenantPermissions**](TenantAPI.md#GrantArcDunningTemplateAdminEndpointV1TenantPermissions) | **Post** /v1/tenant/permissions/arc-dunning-template-admin/grants | Grant Arc Dunning Template Admin Endpoint
 [**HubspotConnect**](TenantAPI.md#HubspotConnect) | **Post** /v1/tenant/integrations/hubspot/connect | Hubspot Connect
 [**HubspotDisconnect**](TenantAPI.md#HubspotDisconnect) | **Post** /v1/tenant/integrations/hubspot/disconnect | Hubspot Disconnect
 [**HubspotOauthCallback**](TenantAPI.md#HubspotOauthCallback) | **Get** /v1/tenant/integrations/hubspot/oauth/callback | Hubspot Oauth Callback
 [**HubspotTestConnection**](TenantAPI.md#HubspotTestConnection) | **Post** /v1/tenant/integrations/hubspot/test | Hubspot Test Connection
 [**IssueIntegrationKey**](TenantAPI.md#IssueIntegrationKey) | **Post** /v1/tenant/integrations/{provider}/keys | Issue Integration Key
+[**ListArcDunningTemplateAdminUsersEndpointV1TenantPermissions**](TenantAPI.md#ListArcDunningTemplateAdminUsersEndpointV1TenantPermissions) | **Get** /v1/tenant/permissions/arc-dunning-template-admin/users | List Arc Dunning Template Admin Users Endpoint
 [**ListTemplates**](TenantAPI.md#ListTemplates) | **Get** /v1/tenant/communications/templates | List Templates
+[**ListTemplatesV1**](TenantAPI.md#ListTemplatesV1) | **Get** /v1/tenant/quote-templates | List Templates
 [**NetsuiteConnect**](TenantAPI.md#NetsuiteConnect) | **Post** /v1/tenant/integrations/netsuite/connect | Netsuite Connect
 [**NetsuiteDisconnect**](TenantAPI.md#NetsuiteDisconnect) | **Post** /v1/tenant/integrations/netsuite/disconnect | Netsuite Disconnect
 [**NetsuiteOauthCallback**](TenantAPI.md#NetsuiteOauthCallback) | **Get** /v1/tenant/integrations/netsuite/oauth/callback | Netsuite Oauth Callback
@@ -42,6 +49,7 @@ Method | HTTP request | Description
 [**PostPortalTokenV1**](TenantAPI.md#PostPortalTokenV1) | **Post** /v1/tenant/portal-tokens | Post Portal Token
 [**PostRevokeApiKeyV1**](TenantAPI.md#PostRevokeApiKeyV1) | **Post** /v1/tenant/api-keys/{key_id}/revoke | Post Revoke Api Key
 [**PreviewTemplate**](TenantAPI.md#PreviewTemplate) | **Post** /v1/tenant/communications/templates/{template_id}/preview | Preview Template
+[**PutApprovalPolicyV1**](TenantAPI.md#PutApprovalPolicyV1) | **Put** /v1/tenant/approval-policy | Put Approval Policy
 [**PutDomain**](TenantAPI.md#PutDomain) | **Put** /v1/tenant/communications/domain | Put Domain
 [**PutFeatureFlagV1**](TenantAPI.md#PutFeatureFlagV1) | **Put** /v1/tenant/audit/feature-flags/{flag_id} | Put Feature Flag
 [**PutIntegration**](TenantAPI.md#PutIntegration) | **Put** /v1/tenant/integrations/{provider} | Put Integration
@@ -56,6 +64,7 @@ Method | HTTP request | Description
 [**RetryFailedDeliveries**](TenantAPI.md#RetryFailedDeliveries) | **Post** /v1/tenant/webhook/retry | Retry Failed Deliveries
 [**RevokeAllApiKeysV1TenantDanger**](TenantAPI.md#RevokeAllApiKeysV1TenantDanger) | **Post** /v1/tenant/danger/revoke-all-api-keys | Revoke All Api Keys
 [**RevokeAllPortalTokensV1TenantDanger**](TenantAPI.md#RevokeAllPortalTokensV1TenantDanger) | **Post** /v1/tenant/danger/revoke-all-portal-tokens | Revoke All Portal Tokens
+[**RevokeArcDunningTemplateAdminEndpointV1TenantPermissions**](TenantAPI.md#RevokeArcDunningTemplateAdminEndpointV1TenantPermissions) | **Post** /v1/tenant/permissions/arc-dunning-template-admin/grants/{grant_id}/revoke | Revoke Arc Dunning Template Admin Endpoint
 [**SalesforceConnect**](TenantAPI.md#SalesforceConnect) | **Post** /v1/tenant/integrations/salesforce/connect | Salesforce Connect
 [**SalesforceDisconnect**](TenantAPI.md#SalesforceDisconnect) | **Post** /v1/tenant/integrations/salesforce/disconnect | Salesforce Disconnect
 [**SalesforceOauthCallback**](TenantAPI.md#SalesforceOauthCallback) | **Get** /v1/tenant/integrations/salesforce/oauth/callback | Salesforce Oauth Callback
@@ -63,11 +72,76 @@ Method | HTTP request | Description
 [**TestSendTemplateV1**](TenantAPI.md#TestSendTemplateV1) | **Post** /v1/tenant/communications/templates/{template_id}/test-send | Test Send Template
 [**TestWebhook**](TenantAPI.md#TestWebhook) | **Post** /v1/tenant/communications/webhook/test | Test Webhook
 [**UpdateRevenueRecognitionV1**](TenantAPI.md#UpdateRevenueRecognitionV1) | **Put** /v1/tenant/revenue-recognition | Update Revenue Recognition
+[**UpdateTemplateV1**](TenantAPI.md#UpdateTemplateV1) | **Put** /v1/tenant/quote-templates/{template_id} | Update Template
 [**XeroConnect**](TenantAPI.md#XeroConnect) | **Post** /v1/tenant/integrations/xero/connect | Xero Connect
 [**XeroDisconnect**](TenantAPI.md#XeroDisconnect) | **Post** /v1/tenant/integrations/xero/disconnect | Xero Disconnect
 [**XeroOauthCallback**](TenantAPI.md#XeroOauthCallback) | **Get** /v1/tenant/integrations/xero/oauth/callback | Xero Oauth Callback
 [**XeroTestConnection**](TenantAPI.md#XeroTestConnection) | **Post** /v1/tenant/integrations/xero/test | Xero Test Connection
 
+
+
+## CreateTemplateV1
+
+> QuoteTemplateResponse CreateTemplateV1(ctx).CreateQuoteTemplateRequest(createQuoteTemplateRequest).Execute()
+
+Create Template
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	createQuoteTemplateRequest := *openapiclient.NewCreateQuoteTemplateRequest("Name_example") // CreateQuoteTemplateRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TenantAPI.CreateTemplateV1(context.Background()).CreateQuoteTemplateRequest(createQuoteTemplateRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.CreateTemplateV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateTemplateV1`: QuoteTemplateResponse
+	fmt.Fprintf(os.Stdout, "Response from `TenantAPI.CreateTemplateV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateTemplateV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createQuoteTemplateRequest** | [**CreateQuoteTemplateRequest**](CreateQuoteTemplateRequest.md) |  | 
+
+### Return type
+
+[**QuoteTemplateResponse**](QuoteTemplateResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeletePortalTokenV1
@@ -142,6 +216,72 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## DeleteTemplateV1
+
+> DeleteTemplateV1(ctx, templateId).Execute()
+
+Delete Template
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	templateId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.TenantAPI.DeleteTemplateV1(context.Background(), templateId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.DeleteTemplateV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**templateId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteTemplateV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetApiKeysV1
 
 > []ApiKeyItem GetApiKeysV1(ctx).Execute()
@@ -188,6 +328,124 @@ Other parameters are passed through a pointer to a apiGetApiKeysV1Request struct
 ### Return type
 
 [**[]ApiKeyItem**](ApiKeyItem.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetApprovalPolicyHistoryV1
+
+> interface{} GetApprovalPolicyHistoryV1(ctx).Execute()
+
+Get Approval Policy History
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TenantAPI.GetApprovalPolicyHistoryV1(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.GetApprovalPolicyHistoryV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetApprovalPolicyHistoryV1`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `TenantAPI.GetApprovalPolicyHistoryV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetApprovalPolicyHistoryV1Request struct via the builder pattern
+
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetApprovalPolicyV1
+
+> ApprovalPolicyResponse GetApprovalPolicyV1(ctx).Execute()
+
+Get Approval Policy
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TenantAPI.GetApprovalPolicyV1(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.GetApprovalPolicyV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetApprovalPolicyV1`: ApprovalPolicyResponse
+	fmt.Fprintf(os.Stdout, "Response from `TenantAPI.GetApprovalPolicyV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetApprovalPolicyV1Request struct via the builder pattern
+
+
+### Return type
+
+[**ApprovalPolicyResponse**](ApprovalPolicyResponse.md)
 
 ### Authorization
 
@@ -1511,6 +1769,70 @@ Other parameters are passed through a pointer to a apiGetWebhookMetricsRequest s
 [[Back to README]](../README.md)
 
 
+## GrantArcDunningTemplateAdminEndpointV1TenantPermissions
+
+> ArcDunningTemplateAdminGrantResponse GrantArcDunningTemplateAdminEndpointV1TenantPermissions(ctx).ArcDunningTemplateAdminGrantRequest(arcDunningTemplateAdminGrantRequest).Execute()
+
+Grant Arc Dunning Template Admin Endpoint
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	arcDunningTemplateAdminGrantRequest := *openapiclient.NewArcDunningTemplateAdminGrantRequest("UserSubject_example") // ArcDunningTemplateAdminGrantRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TenantAPI.GrantArcDunningTemplateAdminEndpointV1TenantPermissions(context.Background()).ArcDunningTemplateAdminGrantRequest(arcDunningTemplateAdminGrantRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.GrantArcDunningTemplateAdminEndpointV1TenantPermissions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GrantArcDunningTemplateAdminEndpointV1TenantPermissions`: ArcDunningTemplateAdminGrantResponse
+	fmt.Fprintf(os.Stdout, "Response from `TenantAPI.GrantArcDunningTemplateAdminEndpointV1TenantPermissions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGrantArcDunningTemplateAdminEndpointV1TenantPermissionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **arcDunningTemplateAdminGrantRequest** | [**ArcDunningTemplateAdminGrantRequest**](ArcDunningTemplateAdminGrantRequest.md) |  | 
+
+### Return type
+
+[**ArcDunningTemplateAdminGrantResponse**](ArcDunningTemplateAdminGrantResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## HubspotConnect
 
 > interface{} HubspotConnect(ctx).HubSpotConnectRequest(hubSpotConnectRequest).Execute()
@@ -1829,6 +2151,65 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ListArcDunningTemplateAdminUsersEndpointV1TenantPermissions
+
+> ArcDunningTemplateAdminUsersResponse ListArcDunningTemplateAdminUsersEndpointV1TenantPermissions(ctx).Execute()
+
+List Arc Dunning Template Admin Users Endpoint
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TenantAPI.ListArcDunningTemplateAdminUsersEndpointV1TenantPermissions(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.ListArcDunningTemplateAdminUsersEndpointV1TenantPermissions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListArcDunningTemplateAdminUsersEndpointV1TenantPermissions`: ArcDunningTemplateAdminUsersResponse
+	fmt.Fprintf(os.Stdout, "Response from `TenantAPI.ListArcDunningTemplateAdminUsersEndpointV1TenantPermissions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListArcDunningTemplateAdminUsersEndpointV1TenantPermissionsRequest struct via the builder pattern
+
+
+### Return type
+
+[**ArcDunningTemplateAdminUsersResponse**](ArcDunningTemplateAdminUsersResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListTemplates
 
 > []TemplateItem ListTemplates(ctx).Execute()
@@ -1875,6 +2256,65 @@ Other parameters are passed through a pointer to a apiListTemplatesRequest struc
 ### Return type
 
 [**[]TemplateItem**](TemplateItem.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListTemplatesV1
+
+> QuoteTemplateListResponse ListTemplatesV1(ctx).Execute()
+
+List Templates
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TenantAPI.ListTemplatesV1(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.ListTemplatesV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListTemplatesV1`: QuoteTemplateListResponse
+	fmt.Fprintf(os.Stdout, "Response from `TenantAPI.ListTemplatesV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListTemplatesV1Request struct via the builder pattern
+
+
+### Return type
+
+[**QuoteTemplateListResponse**](QuoteTemplateListResponse.md)
 
 ### Authorization
 
@@ -2460,6 +2900,70 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**TemplatePreviewResponse**](TemplatePreviewResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutApprovalPolicyV1
+
+> ApprovalPolicyResponse PutApprovalPolicyV1(ctx).UpdateApprovalPolicyRequest(updateApprovalPolicyRequest).Execute()
+
+Put Approval Policy
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	updateApprovalPolicyRequest := *openapiclient.NewUpdateApprovalPolicyRequest(map[string]interface{}{"key": interface{}(123)}) // UpdateApprovalPolicyRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TenantAPI.PutApprovalPolicyV1(context.Background()).UpdateApprovalPolicyRequest(updateApprovalPolicyRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.PutApprovalPolicyV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutApprovalPolicyV1`: ApprovalPolicyResponse
+	fmt.Fprintf(os.Stdout, "Response from `TenantAPI.PutApprovalPolicyV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutApprovalPolicyV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateApprovalPolicyRequest** | [**UpdateApprovalPolicyRequest**](UpdateApprovalPolicyRequest.md) |  | 
+
+### Return type
+
+[**ApprovalPolicyResponse**](ApprovalPolicyResponse.md)
 
 ### Authorization
 
@@ -3396,6 +3900,76 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## RevokeArcDunningTemplateAdminEndpointV1TenantPermissions
+
+> ArcDunningTemplateAdminGrantResponse RevokeArcDunningTemplateAdminEndpointV1TenantPermissions(ctx, grantId).ArcDunningTemplateAdminRevokeRequest(arcDunningTemplateAdminRevokeRequest).Execute()
+
+Revoke Arc Dunning Template Admin Endpoint
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	grantId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+	arcDunningTemplateAdminRevokeRequest := *openapiclient.NewArcDunningTemplateAdminRevokeRequest() // ArcDunningTemplateAdminRevokeRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TenantAPI.RevokeArcDunningTemplateAdminEndpointV1TenantPermissions(context.Background(), grantId).ArcDunningTemplateAdminRevokeRequest(arcDunningTemplateAdminRevokeRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.RevokeArcDunningTemplateAdminEndpointV1TenantPermissions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RevokeArcDunningTemplateAdminEndpointV1TenantPermissions`: ArcDunningTemplateAdminGrantResponse
+	fmt.Fprintf(os.Stdout, "Response from `TenantAPI.RevokeArcDunningTemplateAdminEndpointV1TenantPermissions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**grantId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiRevokeArcDunningTemplateAdminEndpointV1TenantPermissionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **arcDunningTemplateAdminRevokeRequest** | [**ArcDunningTemplateAdminRevokeRequest**](ArcDunningTemplateAdminRevokeRequest.md) |  | 
+
+### Return type
+
+[**ArcDunningTemplateAdminGrantResponse**](ArcDunningTemplateAdminGrantResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## SalesforceConnect
 
 > interface{} SalesforceConnect(ctx).SalesforceConnectRequest(salesforceConnectRequest).Execute()
@@ -3828,6 +4402,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 **interface{}**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateTemplateV1
+
+> QuoteTemplateResponse UpdateTemplateV1(ctx, templateId).UpdateQuoteTemplateRequest(updateQuoteTemplateRequest).Execute()
+
+Update Template
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	templateId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+	updateQuoteTemplateRequest := *openapiclient.NewUpdateQuoteTemplateRequest() // UpdateQuoteTemplateRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TenantAPI.UpdateTemplateV1(context.Background(), templateId).UpdateQuoteTemplateRequest(updateQuoteTemplateRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.UpdateTemplateV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateTemplateV1`: QuoteTemplateResponse
+	fmt.Fprintf(os.Stdout, "Response from `TenantAPI.UpdateTemplateV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**templateId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateTemplateV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **updateQuoteTemplateRequest** | [**UpdateQuoteTemplateRequest**](UpdateQuoteTemplateRequest.md) |  | 
+
+### Return type
+
+[**QuoteTemplateResponse**](QuoteTemplateResponse.md)
 
 ### Authorization
 

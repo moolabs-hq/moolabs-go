@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Model** | **string** |  | 
 **MetricType** | **string** |  | 
 **Tier** | **string** |  | 
-**RatePerUnit** | **float32** |  | 
+**RatePerUnit** | **string** |  | 
 **RateUnitScale** | **int32** |  | 
 **Currency** | **string** |  | 
 **Source** | **string** |  | 
@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 
 ### NewRateCatalogResponse
 
-`func NewRateCatalogResponse(id string, tenantId string, provider string, model string, metricType string, tier string, ratePerUnit float32, rateUnitScale int32, currency string, source string, sourceRef string, effectiveFrom time.Time, effectiveTo time.Time, pricingRules map[string]interface{}, createdAt time.Time, updatedAt time.Time, ) *RateCatalogResponse`
+`func NewRateCatalogResponse(id string, tenantId string, provider string, model string, metricType string, tier string, ratePerUnit string, rateUnitScale int32, currency string, source string, sourceRef string, effectiveFrom time.Time, effectiveTo time.Time, pricingRules map[string]interface{}, createdAt time.Time, updatedAt time.Time, ) *RateCatalogResponse`
 
 NewRateCatalogResponse instantiates a new RateCatalogResponse object
 This constructor will assign default values to properties that have it defined,
@@ -162,20 +162,20 @@ SetTier sets Tier field to given value.
 
 ### GetRatePerUnit
 
-`func (o *RateCatalogResponse) GetRatePerUnit() float32`
+`func (o *RateCatalogResponse) GetRatePerUnit() string`
 
 GetRatePerUnit returns the RatePerUnit field if non-nil, zero value otherwise.
 
 ### GetRatePerUnitOk
 
-`func (o *RateCatalogResponse) GetRatePerUnitOk() (*float32, bool)`
+`func (o *RateCatalogResponse) GetRatePerUnitOk() (*string, bool)`
 
 GetRatePerUnitOk returns a tuple with the RatePerUnit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRatePerUnit
 
-`func (o *RateCatalogResponse) SetRatePerUnit(v float32)`
+`func (o *RateCatalogResponse) SetRatePerUnit(v string)`
 
 SetRatePerUnit sets RatePerUnit field to given value.
 

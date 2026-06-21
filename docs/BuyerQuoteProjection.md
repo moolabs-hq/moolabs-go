@@ -14,6 +14,9 @@ Name | Type | Description | Notes
 **CreditTerms** | **map[string]interface{}** |  | 
 **LifecycleTerms** | Pointer to **map[string]interface{}** |  | [optional] 
 **Pricing** | [**BuyerQuotePricing**](BuyerQuotePricing.md) |  | 
+**SellerBranding** | Pointer to **map[string]interface{}** |  | [optional] 
+**TermsAndConditions** | Pointer to **string** |  | [optional] 
+**BuyerRequestStatus** | Pointer to **string** |  | [optional] [default to "none"]
 
 ## Methods
 
@@ -243,6 +246,81 @@ and a boolean to check if the value has been set.
 
 SetPricing sets Pricing field to given value.
 
+
+### GetSellerBranding
+
+`func (o *BuyerQuoteProjection) GetSellerBranding() map[string]interface{}`
+
+GetSellerBranding returns the SellerBranding field if non-nil, zero value otherwise.
+
+### GetSellerBrandingOk
+
+`func (o *BuyerQuoteProjection) GetSellerBrandingOk() (*map[string]interface{}, bool)`
+
+GetSellerBrandingOk returns a tuple with the SellerBranding field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSellerBranding
+
+`func (o *BuyerQuoteProjection) SetSellerBranding(v map[string]interface{})`
+
+SetSellerBranding sets SellerBranding field to given value.
+
+### HasSellerBranding
+
+`func (o *BuyerQuoteProjection) HasSellerBranding() bool`
+
+HasSellerBranding returns a boolean if a field has been set.
+
+### GetTermsAndConditions
+
+`func (o *BuyerQuoteProjection) GetTermsAndConditions() string`
+
+GetTermsAndConditions returns the TermsAndConditions field if non-nil, zero value otherwise.
+
+### GetTermsAndConditionsOk
+
+`func (o *BuyerQuoteProjection) GetTermsAndConditionsOk() (*string, bool)`
+
+GetTermsAndConditionsOk returns a tuple with the TermsAndConditions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTermsAndConditions
+
+`func (o *BuyerQuoteProjection) SetTermsAndConditions(v string)`
+
+SetTermsAndConditions sets TermsAndConditions field to given value.
+
+### HasTermsAndConditions
+
+`func (o *BuyerQuoteProjection) HasTermsAndConditions() bool`
+
+HasTermsAndConditions returns a boolean if a field has been set.
+
+### GetBuyerRequestStatus
+
+`func (o *BuyerQuoteProjection) GetBuyerRequestStatus() string`
+
+GetBuyerRequestStatus returns the BuyerRequestStatus field if non-nil, zero value otherwise.
+
+### GetBuyerRequestStatusOk
+
+`func (o *BuyerQuoteProjection) GetBuyerRequestStatusOk() (*string, bool)`
+
+GetBuyerRequestStatusOk returns a tuple with the BuyerRequestStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBuyerRequestStatus
+
+`func (o *BuyerQuoteProjection) SetBuyerRequestStatus(v string)`
+
+SetBuyerRequestStatus sets BuyerRequestStatus field to given value.
+
+### HasBuyerRequestStatus
+
+`func (o *BuyerQuoteProjection) HasBuyerRequestStatus() bool`
+
+HasBuyerRequestStatus returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

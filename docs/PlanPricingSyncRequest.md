@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **PlanId** | **string** |  | 
 **Plan** | Pointer to **map[string]interface{}** |  | [optional] 
 **EffectiveAt** | Pointer to **time.Time** |  | [optional] 
+**PricingShape** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -138,6 +139,31 @@ SetEffectiveAt sets EffectiveAt field to given value.
 `func (o *PlanPricingSyncRequest) HasEffectiveAt() bool`
 
 HasEffectiveAt returns a boolean if a field has been set.
+
+### GetPricingShape
+
+`func (o *PlanPricingSyncRequest) GetPricingShape() string`
+
+GetPricingShape returns the PricingShape field if non-nil, zero value otherwise.
+
+### GetPricingShapeOk
+
+`func (o *PlanPricingSyncRequest) GetPricingShapeOk() (*string, bool)`
+
+GetPricingShapeOk returns a tuple with the PricingShape field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPricingShape
+
+`func (o *PlanPricingSyncRequest) SetPricingShape(v string)`
+
+SetPricingShape sets PricingShape field to given value.
+
+### HasPricingShape
+
+`func (o *PlanPricingSyncRequest) HasPricingShape() bool`
+
+HasPricingShape returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -171,7 +171,8 @@ type IngestResolverConfig struct {
 	PostFailureThreshold int
 
 	// RecentlyFailedTTL — how long the SDK remembers a URL as "recently
-	// failed" so a subsequent discovery returning it falls through to step 3.
+	// failed" so a subsequent discovery returning it falls through to
+	// step 4 (meter.{baseURL}).
 	RecentlyFailedTTL time.Duration
 }
 
@@ -243,8 +244,8 @@ func NewIngestURLResolver(baseURL string, discoveryFn DiscoveryFn) (*IngestURLRe
 		r.cachedURL = envHost
 		// Stickiness: env pin survives ReportPostOutcome cache clearing
 		// (Phase 2 review 2026-06-03 Finding 3). Without this, N transient
-		// failures silently fall back to the F2 chain which derives a
-		// possibly-dead regional host.
+		// failures would silently fall back to step 4 and substitute
+		// meter.{baseURL} for the operator's explicit pin.
 		r.envPinnedURL = envHost
 	}
 	return r, nil
@@ -272,7 +273,12 @@ func stripPath(hostOrURL string) string {
 	return u.Scheme + "://" + u.Host
 }
 
-// WithRegion overrides the region used by step-3 fallback.
+// WithRegion stores the customer's region marker on the resolver.
+// Retained for cross-language parity with the Python / TS SDKs and as
+// forward-compat metadata. The step-3 region-map fallback that previously
+// consumed this value was removed 2026-06-20 (PR #673); discovery is now
+// the only path that yields a regional URL. The value is preserved as-is
+// for callers that read it back via construction-time observability.
 func (r *IngestURLResolver) WithRegion(region string) *IngestURLResolver {
 	r.region = region
 	return r
@@ -291,8 +297,8 @@ func (r *IngestURLResolver) WithClock(c Clock) *IngestURLResolver {
 }
 
 // GetIngestURL runs the F2 chain and returns a URL to POST events to.
-// Always returns a URL; discovery failures fall through to step 3/4 rather
-// than returning an error.
+// Always returns a URL; discovery failures fall through to step 4
+// (meter.{baseURL}) rather than returning an error.
 //
 // Singleflight discovery (post-PR #395 review I3): the 10s HTTP discovery
 // call is made WITHOUT holding the resolver mutex so concurrent operations
@@ -397,8 +403,9 @@ func (r *IngestURLResolver) ReportPostOutcome(postURL string, success bool) {
 		if r.cachedURL == postURL {
 			// Env-pinned URL is sticky (Phase 2 review Finding 3): if the
 			// operator explicitly set MOOLABS_INGEST_HOST, don't fall
-			// through to F2 (which derives a possibly-dead regional host).
-			// Keep cache populated with the pin.
+			// through to step 4 (which would silently substitute
+			// meter.{baseURL} for the operator's pin). Keep cache populated
+			// with the pin.
 			if r.envPinnedURL != "" && postURL == r.envPinnedURL {
 				// Keep cachedURL == envPinnedURL.
 			} else {
@@ -569,16 +576,34 @@ func hostMatchesBaseURL(rawURL, baseURL string) bool {
 	return host == base || strings.HasSuffix(host, "."+base)
 }
 
+// regionFallbackURLLocked returns "meter.{baseURL}/api/v1/events" — the single
+// source of truth for ingest when discovery (step 2) is unavailable or has
+// failed.
+//
+// Earlier versions of this method tried to construct regional ingest hosts
+// ("https://ingest.{regionCode}.{baseURL}/api/v1/events") from the SDK's local
+// region map. Two problems with that:
+//
+//  1. Wrong URL for non-apex baseURLs. For "dev.moolabs.com" or any
+//     customer-chosen env root, there is no "ingest.{region}.{root}" subdomain
+//     — DNS doesn't resolve, the POST fails. The first N events per process
+//     lifetime would be silently lost before the recentlyFailed mark caused
+//     the SDK to fall through.
+//
+//  2. Local region construction is a guess. The right place to learn the
+//     customer's regional ingest URL is BFF discovery (step 2 via
+//     "/v1/tenant/config"). When discovery is enabled and reachable, it
+//     returns the authoritative URL; the SDK should NEVER guess from a local
+//     region map. When discovery is unavailable, "meter.{baseURL}" is the
+//     always-derivable steady-state route for env-rooted and self-hosted
+//     bases per contracts §3.5a.
+//
+// Result: every call routes to "meter.{baseURL}/api/v1/events" from #1 onward
+// — no lossy preamble, no regional URL guessing. Multi-region routing still
+// works via discovery (step 2) when the customer opts in via
+// WithIngestDiscovery(true).
 func (r *IngestURLResolver) regionFallbackURLLocked() string {
-	regionCode, ok := RegionIngestMap[r.region]
-	if !ok {
-		return r.Step4LastResortURL()
-	}
-	candidate := "https://ingest." + regionCode + "." + r.baseURL + meterIngestPath
-	if _, recent := r.recentlyFailed[candidate]; recent {
-		return r.Step4LastResortURL()
-	}
-	return candidate
+	return r.Step4LastResortURL()
 }
 
 func (r *IngestURLResolver) expireRecentlyFailedLocked() {

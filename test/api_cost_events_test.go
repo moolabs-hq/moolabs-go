@@ -46,6 +46,44 @@ func Test_moolabs_CostEventsAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test CostEventsAPIService ListCostEventSummariesByUsageEventApiV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.CostEventsAPI.ListCostEventSummariesByUsageEventApiV1(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test CostEventsAPIService ListCostEventsByUsageEventApiV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var usageEventId string
+
+		resp, httpRes, err := apiClient.CostEventsAPI.ListCostEventsByUsageEventApiV1(context.Background(), usageEventId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test CostEventsAPIService ListCostEventsByUsageEventQueryApiV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.CostEventsAPI.ListCostEventsByUsageEventQueryApiV1(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test CostEventsAPIService SubmitAdjustment", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

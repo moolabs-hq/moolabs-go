@@ -22,6 +22,18 @@ func Test_moolabs_TenantAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test TenantAPIService CreateTemplateV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.TenantAPI.CreateTemplateV1(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test TenantAPIService DeletePortalTokenV1", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -36,11 +48,48 @@ func Test_moolabs_TenantAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test TenantAPIService DeleteTemplateV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var templateId string
+
+		httpRes, err := apiClient.TenantAPI.DeleteTemplateV1(context.Background(), templateId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test TenantAPIService GetApiKeysV1", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.TenantAPI.GetApiKeysV1(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test TenantAPIService GetApprovalPolicyHistoryV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.TenantAPI.GetApprovalPolicyHistoryV1(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test TenantAPIService GetApprovalPolicyV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.TenantAPI.GetApprovalPolicyV1(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -302,6 +351,18 @@ func Test_moolabs_TenantAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test TenantAPIService GrantArcDunningTemplateAdminEndpointV1TenantPermissions", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.TenantAPI.GrantArcDunningTemplateAdminEndpointV1TenantPermissions(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test TenantAPIService HubspotConnect", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -364,11 +425,35 @@ func Test_moolabs_TenantAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test TenantAPIService ListArcDunningTemplateAdminUsersEndpointV1TenantPermissions", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.TenantAPI.ListArcDunningTemplateAdminUsersEndpointV1TenantPermissions(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test TenantAPIService ListTemplates", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.TenantAPI.ListTemplates(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test TenantAPIService ListTemplatesV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.TenantAPI.ListTemplatesV1(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -481,6 +566,18 @@ func Test_moolabs_TenantAPIService(t *testing.T) {
 		var templateId string
 
 		resp, httpRes, err := apiClient.TenantAPI.PreviewTemplate(context.Background(), templateId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test TenantAPIService PutApprovalPolicyV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.TenantAPI.PutApprovalPolicyV1(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -662,6 +759,20 @@ func Test_moolabs_TenantAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test TenantAPIService RevokeArcDunningTemplateAdminEndpointV1TenantPermissions", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var grantId string
+
+		resp, httpRes, err := apiClient.TenantAPI.RevokeArcDunningTemplateAdminEndpointV1TenantPermissions(context.Background(), grantId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test TenantAPIService SalesforceConnect", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -741,6 +852,20 @@ func Test_moolabs_TenantAPIService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.TenantAPI.UpdateRevenueRecognitionV1(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test TenantAPIService UpdateTemplateV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var templateId string
+
+		resp, httpRes, err := apiClient.TenantAPI.UpdateTemplateV1(context.Background(), templateId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

@@ -19,6 +19,11 @@ Name | Type | Description | Notes
 **AcceptedAt** | Pointer to **string** |  | [optional] 
 **ResultingQuoteVersion** | Pointer to **int32** |  | [optional] 
 **CreatedAt** | Pointer to **string** |  | [optional] 
+**ClauseFamily** | Pointer to **string** |  | [optional] 
+**Verdict** | Pointer to **string** |  | [optional] 
+**MatchedTier** | Pointer to **string** |  | [optional] 
+**CitedSpan** | Pointer to **map[string]interface{}** |  | [optional] 
+**Confidence** | Pointer to **float32** |  | [optional] 
 
 ## Methods
 
@@ -358,6 +363,131 @@ SetCreatedAt sets CreatedAt field to given value.
 `func (o *QuoteRedlineResponse) HasCreatedAt() bool`
 
 HasCreatedAt returns a boolean if a field has been set.
+
+### GetClauseFamily
+
+`func (o *QuoteRedlineResponse) GetClauseFamily() string`
+
+GetClauseFamily returns the ClauseFamily field if non-nil, zero value otherwise.
+
+### GetClauseFamilyOk
+
+`func (o *QuoteRedlineResponse) GetClauseFamilyOk() (*string, bool)`
+
+GetClauseFamilyOk returns a tuple with the ClauseFamily field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClauseFamily
+
+`func (o *QuoteRedlineResponse) SetClauseFamily(v string)`
+
+SetClauseFamily sets ClauseFamily field to given value.
+
+### HasClauseFamily
+
+`func (o *QuoteRedlineResponse) HasClauseFamily() bool`
+
+HasClauseFamily returns a boolean if a field has been set.
+
+### GetVerdict
+
+`func (o *QuoteRedlineResponse) GetVerdict() string`
+
+GetVerdict returns the Verdict field if non-nil, zero value otherwise.
+
+### GetVerdictOk
+
+`func (o *QuoteRedlineResponse) GetVerdictOk() (*string, bool)`
+
+GetVerdictOk returns a tuple with the Verdict field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVerdict
+
+`func (o *QuoteRedlineResponse) SetVerdict(v string)`
+
+SetVerdict sets Verdict field to given value.
+
+### HasVerdict
+
+`func (o *QuoteRedlineResponse) HasVerdict() bool`
+
+HasVerdict returns a boolean if a field has been set.
+
+### GetMatchedTier
+
+`func (o *QuoteRedlineResponse) GetMatchedTier() string`
+
+GetMatchedTier returns the MatchedTier field if non-nil, zero value otherwise.
+
+### GetMatchedTierOk
+
+`func (o *QuoteRedlineResponse) GetMatchedTierOk() (*string, bool)`
+
+GetMatchedTierOk returns a tuple with the MatchedTier field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMatchedTier
+
+`func (o *QuoteRedlineResponse) SetMatchedTier(v string)`
+
+SetMatchedTier sets MatchedTier field to given value.
+
+### HasMatchedTier
+
+`func (o *QuoteRedlineResponse) HasMatchedTier() bool`
+
+HasMatchedTier returns a boolean if a field has been set.
+
+### GetCitedSpan
+
+`func (o *QuoteRedlineResponse) GetCitedSpan() map[string]interface{}`
+
+GetCitedSpan returns the CitedSpan field if non-nil, zero value otherwise.
+
+### GetCitedSpanOk
+
+`func (o *QuoteRedlineResponse) GetCitedSpanOk() (*map[string]interface{}, bool)`
+
+GetCitedSpanOk returns a tuple with the CitedSpan field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCitedSpan
+
+`func (o *QuoteRedlineResponse) SetCitedSpan(v map[string]interface{})`
+
+SetCitedSpan sets CitedSpan field to given value.
+
+### HasCitedSpan
+
+`func (o *QuoteRedlineResponse) HasCitedSpan() bool`
+
+HasCitedSpan returns a boolean if a field has been set.
+
+### GetConfidence
+
+`func (o *QuoteRedlineResponse) GetConfidence() float32`
+
+GetConfidence returns the Confidence field if non-nil, zero value otherwise.
+
+### GetConfidenceOk
+
+`func (o *QuoteRedlineResponse) GetConfidenceOk() (*float32, bool)`
+
+GetConfidenceOk returns a tuple with the Confidence field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConfidence
+
+`func (o *QuoteRedlineResponse) SetConfidence(v float32)`
+
+SetConfidence sets Confidence field to given value.
+
+### HasConfidence
+
+`func (o *QuoteRedlineResponse) HasConfidence() bool`
+
+HasConfidence returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

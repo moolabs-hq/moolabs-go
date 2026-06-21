@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **ReplyDomain** | **string** |  | 
 **ReplyResendDomainId** | **string** |  | 
 **ReplyVerificationStatus** | **string** |  | 
+**InternalContactDomains** | **[]string** |  | 
 **InboundSecretLast4** | **string** |  | 
 **DnsRecords** | Pointer to **[]map[string]interface{}** |  | [optional] 
 **ReplyDnsRecords** | Pointer to **[]map[string]interface{}** |  | [optional] 
@@ -20,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewEmailConfigOut
 
-`func NewEmailConfigOut(tenantId string, senderDomain string, fromAddress string, resendDomainId string, verificationStatus string, replyDomain string, replyResendDomainId string, replyVerificationStatus string, inboundSecretLast4 string, ) *EmailConfigOut`
+`func NewEmailConfigOut(tenantId string, senderDomain string, fromAddress string, resendDomainId string, verificationStatus string, replyDomain string, replyResendDomainId string, replyVerificationStatus string, internalContactDomains []string, inboundSecretLast4 string, ) *EmailConfigOut`
 
 NewEmailConfigOut instantiates a new EmailConfigOut object
 This constructor will assign default values to properties that have it defined,
@@ -193,6 +194,26 @@ and a boolean to check if the value has been set.
 `func (o *EmailConfigOut) SetReplyVerificationStatus(v string)`
 
 SetReplyVerificationStatus sets ReplyVerificationStatus field to given value.
+
+
+### GetInternalContactDomains
+
+`func (o *EmailConfigOut) GetInternalContactDomains() []string`
+
+GetInternalContactDomains returns the InternalContactDomains field if non-nil, zero value otherwise.
+
+### GetInternalContactDomainsOk
+
+`func (o *EmailConfigOut) GetInternalContactDomainsOk() (*[]string, bool)`
+
+GetInternalContactDomainsOk returns a tuple with the InternalContactDomains field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInternalContactDomains
+
+`func (o *EmailConfigOut) SetInternalContactDomains(v []string)`
+
+SetInternalContactDomains sets InternalContactDomains field to given value.
 
 
 ### GetInboundSecretLast4

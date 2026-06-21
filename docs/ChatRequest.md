@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Messages** | [**[]ChatMessageIn**](ChatMessageIn.md) |  | 
 **SessionId** | Pointer to **string** |  | [optional] 
 **Stream** | Pointer to **bool** |  | [optional] [default to true]
+**QuoteId** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -96,6 +97,31 @@ SetStream sets Stream field to given value.
 `func (o *ChatRequest) HasStream() bool`
 
 HasStream returns a boolean if a field has been set.
+
+### GetQuoteId
+
+`func (o *ChatRequest) GetQuoteId() string`
+
+GetQuoteId returns the QuoteId field if non-nil, zero value otherwise.
+
+### GetQuoteIdOk
+
+`func (o *ChatRequest) GetQuoteIdOk() (*string, bool)`
+
+GetQuoteIdOk returns a tuple with the QuoteId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQuoteId
+
+`func (o *ChatRequest) SetQuoteId(v string)`
+
+SetQuoteId sets QuoteId field to given value.
+
+### HasQuoteId
+
+`func (o *ChatRequest) HasQuoteId() bool`
+
+HasQuoteId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

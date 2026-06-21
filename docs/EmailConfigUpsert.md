@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **SenderDomain** | **string** |  | 
 **FromAddress** | Pointer to **string** |  | [optional] 
 **ReplyDomain** | Pointer to **string** |  | [optional] 
+**InternalContactDomains** | Pointer to **[]string** |  | [optional] 
 **InboundSecret** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -97,6 +98,31 @@ SetReplyDomain sets ReplyDomain field to given value.
 `func (o *EmailConfigUpsert) HasReplyDomain() bool`
 
 HasReplyDomain returns a boolean if a field has been set.
+
+### GetInternalContactDomains
+
+`func (o *EmailConfigUpsert) GetInternalContactDomains() []string`
+
+GetInternalContactDomains returns the InternalContactDomains field if non-nil, zero value otherwise.
+
+### GetInternalContactDomainsOk
+
+`func (o *EmailConfigUpsert) GetInternalContactDomainsOk() (*[]string, bool)`
+
+GetInternalContactDomainsOk returns a tuple with the InternalContactDomains field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInternalContactDomains
+
+`func (o *EmailConfigUpsert) SetInternalContactDomains(v []string)`
+
+SetInternalContactDomains sets InternalContactDomains field to given value.
+
+### HasInternalContactDomains
+
+`func (o *EmailConfigUpsert) HasInternalContactDomains() bool`
+
+HasInternalContactDomains returns a boolean if a field has been set.
 
 ### GetInboundSecret
 

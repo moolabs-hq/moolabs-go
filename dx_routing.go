@@ -44,9 +44,14 @@ var SubdomainMap = map[Backend]string{
 }
 
 // RegionIngestMap matches BFF's REGION_INGEST_MAP in
-// services/moolabs-app/bff/app/api/v1/tenant_config.py. F2 fallback chain
-// step 3 composes "https://ingest.{regionCode}.{baseURL}" from this map
-// plus a region source (today: DefaultRegion; future: extracted from API key).
+// services/moolabs-app/bff/app/api/v1/tenant_config.py. Retained for
+// cross-language parity and as forward-compat metadata for
+// discovery-returned regional URLs. The SDK no longer composes
+// "https://ingest.{regionCode}.{baseURL}" locally — regional URL selection
+// is BFF's responsibility (F2 chain step 2 discovery). When discovery is
+// unavailable or fails, the SDK falls through directly to
+// "meter.{baseURL}/api/v1/events" (see dx_urls.go step 4 and contracts §3.5
+// historical note).
 var RegionIngestMap = map[string]string{
 	"us-east-1":      "us",
 	"us-west-2":      "us",

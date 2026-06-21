@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **EffectiveFrom** | **time.Time** | Effective from timestamp | 
 **EffectiveTo** | Pointer to **time.Time** | Effective to timestamp (None &#x3D; indefinite) | [optional] 
 **PricingModel** | **map[string]interface{}** | Pricing model (JSON object) | 
+**PricingShape** | Pointer to **string** | Frozen plan pricing shape (usage|seat|hybrid|flat) | [optional] 
 
 ## Methods
 
@@ -206,6 +207,31 @@ and a boolean to check if the value has been set.
 
 SetPricingModel sets PricingModel field to given value.
 
+
+### GetPricingShape
+
+`func (o *CreateRateCardRequest) GetPricingShape() string`
+
+GetPricingShape returns the PricingShape field if non-nil, zero value otherwise.
+
+### GetPricingShapeOk
+
+`func (o *CreateRateCardRequest) GetPricingShapeOk() (*string, bool)`
+
+GetPricingShapeOk returns a tuple with the PricingShape field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPricingShape
+
+`func (o *CreateRateCardRequest) SetPricingShape(v string)`
+
+SetPricingShape sets PricingShape field to given value.
+
+### HasPricingShape
+
+`func (o *CreateRateCardRequest) HasPricingShape() bool`
+
+HasPricingShape returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

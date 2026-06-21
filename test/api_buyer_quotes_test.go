@@ -34,6 +34,18 @@ func Test_moolabs_BuyerQuotesAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test BuyerQuotesAPIService GetBuyerContractPdfV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.BuyerQuotesAPI.GetBuyerContractPdfV1(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test BuyerQuotesAPIService GetBuyerQuote", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -51,6 +63,18 @@ func Test_moolabs_BuyerQuotesAPIService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.BuyerQuotesAPI.RejectBuyerQuote(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test BuyerQuotesAPIService RequestBuyerQuoteChangesV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.BuyerQuotesAPI.RequestBuyerQuoteChangesV1(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **ApprovalBasisDigest** | Pointer to **string** |  | [optional] 
 **Reasons** | Pointer to **[]map[string]interface{}** |  | [optional] 
 **ApprovalId** | Pointer to **string** |  | [optional] 
+**Chain** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -253,6 +254,31 @@ SetApprovalId sets ApprovalId field to given value.
 `func (o *QuoteApprovalResponse) HasApprovalId() bool`
 
 HasApprovalId returns a boolean if a field has been set.
+
+### GetChain
+
+`func (o *QuoteApprovalResponse) GetChain() map[string]interface{}`
+
+GetChain returns the Chain field if non-nil, zero value otherwise.
+
+### GetChainOk
+
+`func (o *QuoteApprovalResponse) GetChainOk() (*map[string]interface{}, bool)`
+
+GetChainOk returns a tuple with the Chain field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChain
+
+`func (o *QuoteApprovalResponse) SetChain(v map[string]interface{})`
+
+SetChain sets Chain field to given value.
+
+### HasChain
+
+`func (o *QuoteApprovalResponse) HasChain() bool`
+
+HasChain returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

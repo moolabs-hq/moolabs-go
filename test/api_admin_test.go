@@ -36,6 +36,20 @@ func Test_moolabs_AdminAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test AdminAPIService GetIngestDeadLetterEndpointV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var deadLetterId string
+
+		resp, httpRes, err := apiClient.AdminAPI.GetIngestDeadLetterEndpointV1(context.Background(), deadLetterId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test AdminAPIService GetIngestDeadLettersV1", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

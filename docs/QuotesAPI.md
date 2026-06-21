@@ -4,30 +4,445 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**DeleteApproverV1**](QuotesAPI.md#DeleteApproverV1) | **Delete** /v1/quotes/approver-directory/{user_ref} | Delete Approver
+[**DeleteTerritory**](QuotesAPI.md#DeleteTerritory) | **Delete** /v1/quotes/territories/{key} | Delete Territory
+[**GetApprovalLevelsV1**](QuotesAPI.md#GetApprovalLevelsV1) | **Get** /v1/quotes/approval-levels | Get Approval Levels
+[**GetApproverDirectoryV1**](QuotesAPI.md#GetApproverDirectoryV1) | **Get** /v1/quotes/approver-directory | Get Approver Directory
+[**GetLatestQuoteContractUploadV1**](QuotesAPI.md#GetLatestQuoteContractUploadV1) | **Get** /v1/quotes/{quote_id}/contract-uploads/latest | Get Latest Quote Contract Upload
+[**GetPricingSnapshotV1**](QuotesAPI.md#GetPricingSnapshotV1) | **Get** /v1/quotes/pricing-snapshots/{snapshot_id} | Get Pricing Snapshot
 [**GetQuote**](QuotesAPI.md#GetQuote) | **Get** /v1/quotes/{quote_id} | Get Quote
+[**GetQuoteContractPdfV1**](QuotesAPI.md#GetQuoteContractPdfV1) | **Get** /v1/quotes/{quote_id}/contract.pdf | Get Quote Contract Pdf
 [**GetQuoteSettings**](QuotesAPI.md#GetQuoteSettings) | **Get** /v1/quotes/settings | Get Quote Settings
 [**GetQuoteVersion**](QuotesAPI.md#GetQuoteVersion) | **Get** /v1/quotes/{quote_id}/versions/{version} | Get Quote Version
+[**GetRateCardsV1**](QuotesAPI.md#GetRateCardsV1) | **Get** /v1/rate-cards | Get Rate Cards
+[**GetTerritories**](QuotesAPI.md#GetTerritories) | **Get** /v1/quotes/territories | Get Territories
 [**ListQuoteActivationFailuresV1**](QuotesAPI.md#ListQuoteActivationFailuresV1) | **Get** /v1/quotes/activation-failures | List Quote Activation Failures
 [**ListQuoteAgentCardsV1**](QuotesAPI.md#ListQuoteAgentCardsV1) | **Get** /v1/quotes/{quote_id}/agent-cards | List Quote Agent Cards
 [**ListQuoteAgentRunsV1**](QuotesAPI.md#ListQuoteAgentRunsV1) | **Get** /v1/quotes/{quote_id}/agent-runs | List Quote Agent Runs
 [**ListQuoteRedlines**](QuotesAPI.md#ListQuoteRedlines) | **Get** /v1/quotes/{quote_id}/redlines | List Quote Redlines
 [**ListQuotes**](QuotesAPI.md#ListQuotes) | **Get** /v1/quotes | List Quotes
+[**PatchRateCardCostV1**](QuotesAPI.md#PatchRateCardCostV1) | **Patch** /v1/rate-cards/{rate_card_id}/cost | Patch Rate Card Cost
 [**PostQuote**](QuotesAPI.md#PostQuote) | **Post** /v1/quotes | Post Quote
 [**PostQuoteAccept**](QuotesAPI.md#PostQuoteAccept) | **Post** /v1/quotes/{quote_id}/accept | Post Quote Accept
 [**PostQuoteActivate**](QuotesAPI.md#PostQuoteActivate) | **Post** /v1/quotes/{quote_id}/activate | Post Quote Activate
 [**PostQuoteApprove**](QuotesAPI.md#PostQuoteApprove) | **Post** /v1/quotes/{quote_id}/approve | Post Quote Approve
+[**PostQuoteContractUploadV1**](QuotesAPI.md#PostQuoteContractUploadV1) | **Post** /v1/quotes/{quote_id}/contract-uploads | Post Quote Contract Upload
 [**PostQuoteLock**](QuotesAPI.md#PostQuoteLock) | **Post** /v1/quotes/{quote_id}/lock | Post Quote Lock
 [**PostQuoteRedline**](QuotesAPI.md#PostQuoteRedline) | **Post** /v1/quotes/{quote_id}/redlines | Post Quote Redline
 [**PostQuoteRedlineAccept**](QuotesAPI.md#PostQuoteRedlineAccept) | **Post** /v1/quotes/{quote_id}/redlines/{redline_id}/accept | Post Quote Redline Accept
 [**PostQuoteRedlineReject**](QuotesAPI.md#PostQuoteRedlineReject) | **Post** /v1/quotes/{quote_id}/redlines/{redline_id}/reject | Post Quote Redline Reject
+[**PostQuoteRedlinesFirstPassV1**](QuotesAPI.md#PostQuoteRedlinesFirstPassV1) | **Post** /v1/quotes/{quote_id}/redlines/first-pass | Post Quote Redlines First Pass
 [**PostQuoteReject**](QuotesAPI.md#PostQuoteReject) | **Post** /v1/quotes/{quote_id}/reject | Post Quote Reject
 [**PostQuoteSend**](QuotesAPI.md#PostQuoteSend) | **Post** /v1/quotes/{quote_id}/send | Post Quote Send
 [**PostQuoteSession**](QuotesAPI.md#PostQuoteSession) | **Post** /v1/quotes/{quote_id}/sessions | Post Quote Session
 [**PostQuoteSigningWebhook**](QuotesAPI.md#PostQuoteSigningWebhook) | **Post** /v1/quotes/signing/webhooks/{provider} | Post Quote Signing Webhook
 [**PostQuoteSubmitApprovalV1**](QuotesAPI.md#PostQuoteSubmitApprovalV1) | **Post** /v1/quotes/{quote_id}/submit-approval | Post Quote Submit Approval
 [**PostQuoteUnlock**](QuotesAPI.md#PostQuoteUnlock) | **Post** /v1/quotes/{quote_id}/unlock | Post Quote Unlock
+[**PutApprovalLevelsV1**](QuotesAPI.md#PutApprovalLevelsV1) | **Put** /v1/quotes/approval-levels | Put Approval Levels
+[**PutApproverV1**](QuotesAPI.md#PutApproverV1) | **Put** /v1/quotes/approver-directory/{user_ref} | Put Approver
 [**PutQuoteSettings**](QuotesAPI.md#PutQuoteSettings) | **Put** /v1/quotes/settings | Put Quote Settings
+[**PutTerritory**](QuotesAPI.md#PutTerritory) | **Put** /v1/quotes/territories/{key} | Put Territory
+[**SyncApproverDirectoryV1**](QuotesAPI.md#SyncApproverDirectoryV1) | **Post** /v1/quotes/approver-directory/sync | Sync Approver Directory
 
+
+
+## DeleteApproverV1
+
+> interface{} DeleteApproverV1(ctx, userRef).Execute()
+
+Delete Approver
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	userRef := "userRef_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotesAPI.DeleteApproverV1(context.Background(), userRef).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotesAPI.DeleteApproverV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteApproverV1`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `QuotesAPI.DeleteApproverV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**userRef** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteApproverV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteTerritory
+
+> interface{} DeleteTerritory(ctx, key).Execute()
+
+Delete Territory
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	key := "key_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotesAPI.DeleteTerritory(context.Background(), key).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotesAPI.DeleteTerritory``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteTerritory`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `QuotesAPI.DeleteTerritory`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**key** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteTerritoryRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetApprovalLevelsV1
+
+> interface{} GetApprovalLevelsV1(ctx).Execute()
+
+Get Approval Levels
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotesAPI.GetApprovalLevelsV1(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotesAPI.GetApprovalLevelsV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetApprovalLevelsV1`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `QuotesAPI.GetApprovalLevelsV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetApprovalLevelsV1Request struct via the builder pattern
+
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetApproverDirectoryV1
+
+> interface{} GetApproverDirectoryV1(ctx).LevelKey(levelKey).TerritoryKey(territoryKey).Execute()
+
+Get Approver Directory
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	levelKey := "levelKey_example" // string |  (optional)
+	territoryKey := "territoryKey_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotesAPI.GetApproverDirectoryV1(context.Background()).LevelKey(levelKey).TerritoryKey(territoryKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotesAPI.GetApproverDirectoryV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetApproverDirectoryV1`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `QuotesAPI.GetApproverDirectoryV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetApproverDirectoryV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **levelKey** | **string** |  | 
+ **territoryKey** | **string** |  | 
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetLatestQuoteContractUploadV1
+
+> ContractUploadDetailResponse GetLatestQuoteContractUploadV1(ctx, quoteId).Execute()
+
+Get Latest Quote Contract Upload
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	quoteId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotesAPI.GetLatestQuoteContractUploadV1(context.Background(), quoteId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotesAPI.GetLatestQuoteContractUploadV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetLatestQuoteContractUploadV1`: ContractUploadDetailResponse
+	fmt.Fprintf(os.Stdout, "Response from `QuotesAPI.GetLatestQuoteContractUploadV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**quoteId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetLatestQuoteContractUploadV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**ContractUploadDetailResponse**](ContractUploadDetailResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetPricingSnapshotV1
+
+> PricingSnapshotResponse GetPricingSnapshotV1(ctx, snapshotId).Execute()
+
+Get Pricing Snapshot
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	snapshotId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotesAPI.GetPricingSnapshotV1(context.Background(), snapshotId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotesAPI.GetPricingSnapshotV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPricingSnapshotV1`: PricingSnapshotResponse
+	fmt.Fprintf(os.Stdout, "Response from `QuotesAPI.GetPricingSnapshotV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**snapshotId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPricingSnapshotV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**PricingSnapshotResponse**](PricingSnapshotResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## GetQuote
@@ -83,6 +498,74 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**QuoteResponse**](QuoteResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetQuoteContractPdfV1
+
+> interface{} GetQuoteContractPdfV1(ctx, quoteId).Execute()
+
+Get Quote Contract Pdf
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	quoteId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotesAPI.GetQuoteContractPdfV1(context.Background(), quoteId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotesAPI.GetQuoteContractPdfV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetQuoteContractPdfV1`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `QuotesAPI.GetQuoteContractPdfV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**quoteId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetQuoteContractPdfV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+**interface{}**
 
 ### Authorization
 
@@ -213,6 +696,126 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**QuoteVersionResponse**](QuoteVersionResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetRateCardsV1
+
+> RateCardCostListResponse GetRateCardsV1(ctx).Execute()
+
+Get Rate Cards
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotesAPI.GetRateCardsV1(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotesAPI.GetRateCardsV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetRateCardsV1`: RateCardCostListResponse
+	fmt.Fprintf(os.Stdout, "Response from `QuotesAPI.GetRateCardsV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetRateCardsV1Request struct via the builder pattern
+
+
+### Return type
+
+[**RateCardCostListResponse**](RateCardCostListResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetTerritories
+
+> interface{} GetTerritories(ctx).Execute()
+
+Get Territories
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotesAPI.GetTerritories(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotesAPI.GetTerritories``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTerritories`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `QuotesAPI.GetTerritories`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetTerritoriesRequest struct via the builder pattern
+
+
+### Return type
+
+**interface{}**
 
 ### Authorization
 
@@ -518,7 +1121,7 @@ Name | Type | Description  | Notes
 
 ## ListQuotes
 
-> QuoteListResponse ListQuotes(ctx).Limit(limit).Offset(offset).Execute()
+> QuoteListResponse ListQuotes(ctx).Limit(limit).Offset(offset).State(state).Execute()
 
 List Quotes
 
@@ -537,10 +1140,11 @@ import (
 func main() {
 	limit := int32(56) // int32 |  (optional) (default to 100)
 	offset := int32(56) // int32 |  (optional) (default to 0)
+	state := "state_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.QuotesAPI.ListQuotes(context.Background()).Limit(limit).Offset(offset).Execute()
+	resp, r, err := apiClient.QuotesAPI.ListQuotes(context.Background()).Limit(limit).Offset(offset).State(state).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `QuotesAPI.ListQuotes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -563,6 +1167,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int32** |  | [default to 100]
  **offset** | **int32** |  | [default to 0]
+ **state** | **string** |  | 
 
 ### Return type
 
@@ -575,6 +1180,78 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchRateCardCostV1
+
+> RateCardCostRow PatchRateCardCostV1(ctx, rateCardId).SetRateCardCostRequest(setRateCardCostRequest).Execute()
+
+Patch Rate Card Cost
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	rateCardId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+	setRateCardCostRequest := *openapiclient.NewSetRateCardCostRequest() // SetRateCardCostRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotesAPI.PatchRateCardCostV1(context.Background(), rateCardId).SetRateCardCostRequest(setRateCardCostRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotesAPI.PatchRateCardCostV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchRateCardCostV1`: RateCardCostRow
+	fmt.Fprintf(os.Stdout, "Response from `QuotesAPI.PatchRateCardCostV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**rateCardId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchRateCardCostV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **setRateCardCostRequest** | [**SetRateCardCostRequest**](SetRateCardCostRequest.md) |  | 
+
+### Return type
+
+[**RateCardCostRow**](RateCardCostRow.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -868,6 +1545,78 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PostQuoteContractUploadV1
+
+> interface{} PostQuoteContractUploadV1(ctx, quoteId).File(file).Execute()
+
+Post Quote Contract Upload
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	quoteId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+	file := os.NewFile(1234, "some_file") // *os.File | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotesAPI.PostQuoteContractUploadV1(context.Background(), quoteId).File(file).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotesAPI.PostQuoteContractUploadV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostQuoteContractUploadV1`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `QuotesAPI.PostQuoteContractUploadV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**quoteId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostQuoteContractUploadV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **file** | ***os.File** |  | 
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostQuoteLock
 
 > QuoteVersionResponse PostQuoteLock(ctx, quoteId).IdempotencyKey(idempotencyKey).Execute()
@@ -1143,6 +1892,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**QuoteRedlineResponse**](QuoteRedlineResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostQuoteRedlinesFirstPassV1
+
+> FirstPassRedlineResponse PostQuoteRedlinesFirstPassV1(ctx, quoteId).FirstPassRedlineRequest(firstPassRedlineRequest).Execute()
+
+Post Quote Redlines First Pass
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	quoteId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+	firstPassRedlineRequest := *openapiclient.NewFirstPassRedlineRequest() // FirstPassRedlineRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotesAPI.PostQuoteRedlinesFirstPassV1(context.Background(), quoteId).FirstPassRedlineRequest(firstPassRedlineRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotesAPI.PostQuoteRedlinesFirstPassV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostQuoteRedlinesFirstPassV1`: FirstPassRedlineResponse
+	fmt.Fprintf(os.Stdout, "Response from `QuotesAPI.PostQuoteRedlinesFirstPassV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**quoteId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostQuoteRedlinesFirstPassV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **firstPassRedlineRequest** | [**FirstPassRedlineRequest**](FirstPassRedlineRequest.md) |  | 
+
+### Return type
+
+[**FirstPassRedlineResponse**](FirstPassRedlineResponse.md)
 
 ### Authorization
 
@@ -1580,6 +2401,140 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PutApprovalLevelsV1
+
+> interface{} PutApprovalLevelsV1(ctx).ReplaceLevelsRequest(replaceLevelsRequest).Execute()
+
+Put Approval Levels
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	replaceLevelsRequest := *openapiclient.NewReplaceLevelsRequest([]openapiclient.LevelIn{*openapiclient.NewLevelIn("Key_example", "Name_example", int32(123))}) // ReplaceLevelsRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotesAPI.PutApprovalLevelsV1(context.Background()).ReplaceLevelsRequest(replaceLevelsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotesAPI.PutApprovalLevelsV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutApprovalLevelsV1`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `QuotesAPI.PutApprovalLevelsV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutApprovalLevelsV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **replaceLevelsRequest** | [**ReplaceLevelsRequest**](ReplaceLevelsRequest.md) |  | 
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutApproverV1
+
+> interface{} PutApproverV1(ctx, userRef).ApproverIn(approverIn).Execute()
+
+Put Approver
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	userRef := "userRef_example" // string | 
+	approverIn := *openapiclient.NewApproverIn("LevelKey_example") // ApproverIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotesAPI.PutApproverV1(context.Background(), userRef).ApproverIn(approverIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotesAPI.PutApproverV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutApproverV1`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `QuotesAPI.PutApproverV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**userRef** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutApproverV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **approverIn** | [**ApproverIn**](ApproverIn.md) |  | 
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PutQuoteSettings
 
 > QuoteSettingsResponse PutQuoteSettings(ctx).UpdateQuoteSettingsRequest(updateQuoteSettingsRequest).Execute()
@@ -1637,6 +2592,135 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutTerritory
+
+> interface{} PutTerritory(ctx, key).TerritoryIn(territoryIn).Execute()
+
+Put Territory
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+	key := "key_example" // string | 
+	territoryIn := *openapiclient.NewTerritoryIn("Name_example") // TerritoryIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotesAPI.PutTerritory(context.Background(), key).TerritoryIn(territoryIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotesAPI.PutTerritory``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutTerritory`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `QuotesAPI.PutTerritory`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**key** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutTerritoryRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **territoryIn** | [**TerritoryIn**](TerritoryIn.md) |  | 
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SyncApproverDirectoryV1
+
+> interface{} SyncApproverDirectoryV1(ctx).Execute()
+
+Sync Approver Directory
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/moolabs/moolabs-go"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.QuotesAPI.SyncApproverDirectoryV1(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `QuotesAPI.SyncApproverDirectoryV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SyncApproverDirectoryV1`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `QuotesAPI.SyncApproverDirectoryV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSyncApproverDirectoryV1Request struct via the builder pattern
+
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

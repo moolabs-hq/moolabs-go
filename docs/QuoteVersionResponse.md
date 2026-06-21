@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **QuoteVersionDigest** | Pointer to **string** |  | [optional] 
 **BookingTrigger** | Pointer to **string** |  | [optional] 
 **LockedAt** | Pointer to **string** |  | [optional] 
+**Approval** | Pointer to [**QuoteApprovalResponse**](QuoteApprovalResponse.md) |  | [optional] 
 
 ## Methods
 
@@ -477,6 +478,31 @@ SetLockedAt sets LockedAt field to given value.
 `func (o *QuoteVersionResponse) HasLockedAt() bool`
 
 HasLockedAt returns a boolean if a field has been set.
+
+### GetApproval
+
+`func (o *QuoteVersionResponse) GetApproval() QuoteApprovalResponse`
+
+GetApproval returns the Approval field if non-nil, zero value otherwise.
+
+### GetApprovalOk
+
+`func (o *QuoteVersionResponse) GetApprovalOk() (*QuoteApprovalResponse, bool)`
+
+GetApprovalOk returns a tuple with the Approval field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetApproval
+
+`func (o *QuoteVersionResponse) SetApproval(v QuoteApprovalResponse)`
+
+SetApproval sets Approval field to given value.
+
+### HasApproval
+
+`func (o *QuoteVersionResponse) HasApproval() bool`
+
+HasApproval returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

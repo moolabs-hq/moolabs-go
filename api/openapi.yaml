@@ -4,7 +4,7 @@ info:
     \ internal service specs: bff, meter, arc, acute. Customers see capability namespaces\
     \ (usage, billing, collections, etc.); the SDK routes per-operation internally."
   title: Moolabs API
-  version: 0.3.0-rc1
+  version: 0.3.0-rc2
 servers:
 - url: /
 paths:
@@ -1075,6 +1075,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+      security:
+      - HTTPBearer: []
       summary: Create Rate Card
       tags:
       - rate_cards
@@ -3209,6 +3211,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+      security:
+      - HTTPBearer: []
       summary: Diagnose Subscription
       tags:
       - admin
@@ -3238,6 +3242,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+      security:
+      - HTTPBearer: []
       summary: Retry Unpriced
       tags:
       - admin
@@ -3270,21 +3276,43 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+      security:
+      - HTTPBearer: []
       summary: Review Quarantined
       tags:
       - admin
   /v1/admin/ingest/dead-letters:
     get:
-      description: List durable ingest dead-letter records.
+      description: |-
+        List durable ingest dead-letter records.
+
+        Cross-tenant enumeration guard (PR #632 round-6 HIGH):
+
+        `try_portal_or_apikey` accepts per-tenant customer API keys (the same keys
+        SDK customers use to submit events). Without forcing the tenant scope
+        server-side, a customer of tenant A could omit the `tenant_id` query
+        parameter -- or supply tenant B's id -- and enumerate all dead letters
+        across all tenants (cloud_event_id, reason_detail, source_topic, kafka
+        coords). The round-6 review correctly escalated this from MEDIUM residue
+        to HIGH because the auth dep IS reachable by customer keys.
+
+        Fix mirrors the detail endpoint: the caller's auth-derived tenant scope
+        is forced as the filter, overriding any client-supplied ``tenant_id``
+        query parameter. In production all three AuthContext subclasses
+        (`ApiKeyContext`, `PortalTokenContext`, `OIDCJWTContext`) require
+        ``tenant_id`` at construction, so the fall-through branch where
+        ``auth.tenant_id is None`` honors the client-supplied filter is
+        unreachable today -- it remains as defensive code in case a future
+        staff-key path produces an untenanted context.
       operationId: getIngestDeadLettersV1
       parameters:
-      - description: Optional tenant filter
+      - description: Optional tenant filter (ignored for per-tenant auth)
         explode: true
         in: query
         name: tenant_id
         required: false
         schema:
-          description: Optional tenant filter
+          description: Optional tenant filter (ignored for per-tenant auth)
           format: uuid
           title: Tenant Id
           type: string
@@ -3349,12 +3377,68 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+      security:
+      - HTTPBearer: []
       summary: Get Ingest Dead Letters
+      tags:
+      - admin
+  /v1/admin/ingest/dead-letters/{dead_letter_id}:
+    get:
+      description: |-
+        Return one ingest dead-letter record including raw payload and stack trace.
+
+        Authentication is enforced subtree-wide by `dependencies=[Depends(try_portal_or_apikey)]`
+        on the `/admin` mount in `app/api/v1/router.py`. This handler additionally takes
+        the resolved `auth` context as a parameter so we can derive the caller's
+        `tenant_id` SERVER-SIDE -- it is *not* read from a client-supplied header
+        (an earlier iteration of this PR used `X-Org-Id`; round-3 adversarial review
+        proved that input was unverified user-input and could be spoofed by harvesting
+        `tenant_id` from the list endpoint).
+
+        Cross-tenant guard: the row's ``tenant_id`` must match ``auth.tenant_id`` OR
+        be NULL (untenanted poison-pill events). Mismatch returns 404 -- not 403 --
+        so the endpoint never leaks the existence of a row in another tenant.
+      operationId: getIngestDeadLetterEndpointV1
+      parameters:
+      - description: Dead-letter row identifier
+        explode: false
+        in: path
+        name: dead_letter_id
+        required: true
+        schema:
+          description: Dead-letter row identifier
+          format: uuid
+          title: Dead Letter Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Ingest Dead Letter Endpoint
       tags:
       - admin
   /v1/admin/ingest/dead-letters/{dead_letter_id}/replay:
     post:
-      description: Replay a dead-letter event back through normalization + usage ingest.
+      description: |-
+        Replay a dead-letter event back through normalization + usage ingest.
+
+        Cross-tenant guard (PR #632 round-7 review): the replay is state-changing
+        (rolls forward usage events, marks the row REPLAYED, can assign a tenant
+        via ``tenant_id_override``). Without this guard, a per-tenant customer
+        key holder who passes the subtree auth gate could replay any tenant's
+        poison-pill rows or assign their replay to another tenant. Round 7
+        surfaced this sibling-to-detail-endpoint hole that earlier rounds missed.
       operationId: replayIngestDeadLetterEndpointV1
       parameters:
       - description: Dead-letter row identifier
@@ -3385,6 +3469,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+      security:
+      - HTTPBearer: []
       summary: Replay Ingest Dead Letter Endpoint
       tags:
       - admin
@@ -3414,6 +3500,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+      security:
+      - HTTPBearer: []
       summary: Override First Ingress Endpoint
       tags:
       - admin
@@ -3531,6 +3619,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+      security:
+      - HTTPBearer: []
       summary: Get Ledger Audit
       tags:
       - admin
@@ -3610,6 +3700,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+      security:
+      - HTTPBearer: []
       summary: Get Ledger Balance
       tags:
       - admin
@@ -3648,6 +3740,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+      security:
+      - HTTPBearer: []
       summary: Trigger Subscription Sync
       tags:
       - admin
@@ -3693,6 +3787,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+      security:
+      - HTTPBearer: []
       summary: Process Lifecycle Event Manually
       tags:
       - admin
@@ -8211,6 +8307,85 @@ paths:
       summary: Get Effective Permissions Endpoint
       tags:
       - tenant
+  /v1/tenant/permissions/arc-dunning-template-admin/users:
+    get:
+      operationId: listArcDunningTemplateAdminUsersEndpointV1TenantPermissions
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcDunningTemplateAdminUsersResponse'
+          description: Successful Response
+      security:
+      - HTTPBearer: []
+      summary: List Arc Dunning Template Admin Users Endpoint
+      tags:
+      - tenant
+  /v1/tenant/permissions/arc-dunning-template-admin/grants:
+    post:
+      operationId: grantArcDunningTemplateAdminEndpointV1TenantPermissions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArcDunningTemplateAdminGrantRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcDunningTemplateAdminGrantResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Grant Arc Dunning Template Admin Endpoint
+      tags:
+      - tenant
+  /v1/tenant/permissions/arc-dunning-template-admin/grants/{grant_id}/revoke:
+    post:
+      operationId: revokeArcDunningTemplateAdminEndpointV1TenantPermissions
+      parameters:
+      - explode: false
+        in: path
+        name: grant_id
+        required: true
+        schema:
+          format: uuid
+          title: Grant Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArcDunningTemplateAdminRevokeRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArcDunningTemplateAdminGrantResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Revoke Arc Dunning Template Admin Endpoint
+      tags:
+      - tenant
   /v1/tenant/revenue-recognition:
     get:
       description: Get tenant revenue recognition config. Returns defaults if not
@@ -8423,6 +8598,165 @@ paths:
       security:
       - HTTPBearer: []
       summary: Put Quote Settings
+      tags:
+      - tenant
+  /v1/tenant/approval-policy:
+    get:
+      operationId: getApprovalPolicyV1
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovalPolicyResponse'
+          description: Successful Response
+      security:
+      - HTTPBearer: []
+      summary: Get Approval Policy
+      tags:
+      - tenant
+    put:
+      operationId: putApprovalPolicyV1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateApprovalPolicyRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovalPolicyResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Put Approval Policy
+      tags:
+      - tenant
+  /v1/tenant/approval-policy/history:
+    get:
+      operationId: getApprovalPolicyHistoryV1
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      security:
+      - HTTPBearer: []
+      summary: Get Approval Policy History
+      tags:
+      - tenant
+  /v1/tenant/quote-templates:
+    get:
+      operationId: listTemplatesV1
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteTemplateListResponse'
+          description: Successful Response
+      security:
+      - HTTPBearer: []
+      summary: List Templates
+      tags:
+      - tenant
+    post:
+      operationId: createTemplateV1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateQuoteTemplateRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteTemplateResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Create Template
+      tags:
+      - tenant
+  /v1/tenant/quote-templates/{template_id}:
+    delete:
+      operationId: deleteTemplateV1
+      parameters:
+      - explode: false
+        in: path
+        name: template_id
+        required: true
+        schema:
+          format: uuid
+          title: Template Id
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Delete Template
+      tags:
+      - tenant
+    put:
+      operationId: updateTemplateV1
+      parameters:
+      - explode: false
+        in: path
+        name: template_id
+        required: true
+        schema:
+          format: uuid
+          title: Template Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateQuoteTemplateRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteTemplateResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Update Template
       tags:
       - tenant
   /v1/tenant/moometer-namespace:
@@ -8638,6 +8972,604 @@ paths:
       summary: Proxy Openmeter
       tags:
       - moometer-proxy
+  /v1/quotes/approval-levels:
+    get:
+      operationId: getApprovalLevelsV1
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      security:
+      - HTTPBearer: []
+      summary: Get Approval Levels
+      tags:
+      - quotes
+    put:
+      operationId: putApprovalLevelsV1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceLevelsRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Put Approval Levels
+      tags:
+      - quotes
+  /v1/quotes/approver-directory:
+    get:
+      operationId: getApproverDirectoryV1
+      parameters:
+      - explode: true
+        in: query
+        name: level_key
+        required: false
+        schema:
+          title: Level Key
+          type: string
+          nullable: true
+        style: form
+      - explode: true
+        in: query
+        name: territory_key
+        required: false
+        schema:
+          title: Territory Key
+          type: string
+          nullable: true
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Approver Directory
+      tags:
+      - quotes
+  /v1/quotes/approver-directory/{user_ref}:
+    delete:
+      operationId: deleteApproverV1
+      parameters:
+      - explode: false
+        in: path
+        name: user_ref
+        required: true
+        schema:
+          title: User Ref
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Delete Approver
+      tags:
+      - quotes
+    put:
+      operationId: putApproverV1
+      parameters:
+      - explode: false
+        in: path
+        name: user_ref
+        required: true
+        schema:
+          title: User Ref
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApproverIn'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Put Approver
+      tags:
+      - quotes
+  /v1/quotes/approver-directory/sync:
+    post:
+      operationId: syncApproverDirectoryV1
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      security:
+      - HTTPBearer: []
+      summary: Sync Approver Directory
+      tags:
+      - quotes
+  /v1/quotes/territories:
+    get:
+      operationId: getTerritories
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      security:
+      - HTTPBearer: []
+      summary: Get Territories
+      tags:
+      - quotes
+  /v1/quotes/territories/{key}:
+    delete:
+      operationId: deleteTerritory
+      parameters:
+      - explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          title: Key
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Delete Territory
+      tags:
+      - quotes
+    put:
+      operationId: putTerritory
+      parameters:
+      - explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          title: Key
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TerritoryIn'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Put Territory
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/contract-thread:
+    get:
+      operationId: getQuoteContractThreadV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractThreadSnapshotResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Quote Contract Thread
+      tags:
+      - quote-contracts
+    post:
+      operationId: createQuoteContractThreadV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContractThreadRequest'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractThreadSnapshotResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Create Quote Contract Thread
+      tags:
+      - quote-contracts
+  /v1/quotes/{quote_id}/contract-thread/participants:
+    post:
+      operationId: addQuoteContractParticipantV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddContractParticipantRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractParticipantResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Add Quote Contract Participant
+      tags:
+      - quote-contracts
+  /v1/quotes/{quote_id}/contract-thread/versions:
+    get:
+      operationId: listQuoteContractVersionsV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ContractVersionResponse'
+                type: array
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: List Quote Contract Versions
+      tags:
+      - quote-contracts
+    post:
+      operationId: uploadQuoteContractVersionV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_quote_contract_version_v1_quotes__quote_id__contract_thread_versions_post'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractVersionResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Upload Quote Contract Version
+      tags:
+      - quote-contracts
+  /v1/quotes/{quote_id}/contract-thread/quarantine:
+    get:
+      operationId: listQuoteContractQuarantineV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ContractInboundMessageResponse'
+                type: array
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: List Quote Contract Quarantine
+      tags:
+      - quote-contracts
+  /v1/quotes/{quote_id}/contract-thread/quarantine/{message_id}/promote:
+    post:
+      operationId: promoteQuoteContractQuarantineSenderV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: message_id
+        required: true
+        schema:
+          format: uuid
+          title: Message Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddContractParticipantRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractParticipantResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Promote Quote Contract Quarantine Sender
+      tags:
+      - quote-contracts
+  /v1/quotes/{quote_id}/contract-thread/quarantine/{message_id}/reprocess:
+    post:
+      operationId: reprocessQuoteContractQuarantineMessageV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: message_id
+        required: true
+        schema:
+          format: uuid
+          title: Message Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboundEmailProcessResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Reprocess Quote Contract Quarantine Message
+      tags:
+      - quote-contracts
+  /v1/quotes/{quote_id}/contract-thread/participants/{participant_id}:
+    delete:
+      operationId: removeQuoteContractParticipantV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: participant_id
+        required: true
+        schema:
+          format: uuid
+          title: Participant Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoveContractParticipantResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Remove Quote Contract Participant
+      tags:
+      - quote-contracts
+  /v1/webhooks/quote-contracts/email:
+    post:
+      operationId: postQuoteContractInboundEmailV1
+      parameters:
+      - explode: false
+        in: header
+        name: X-Moolabs-Signature
+        required: false
+        schema:
+          title: X-Moolabs-Signature
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InboundEmailPayload'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboundEmailProcessResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Post Quote Contract Inbound Email
+      tags:
+      - quote-contract-webhooks
   /v1/quotes:
     get:
       operationId: listQuotes
@@ -8662,6 +9594,15 @@ paths:
           minimum: 0
           title: Offset
           type: integer
+        style: form
+      - explode: true
+        in: query
+        name: state
+        required: false
+        schema:
+          title: State
+          type: string
+          nullable: true
         style: form
       responses:
         "200":
@@ -8800,6 +9741,37 @@ paths:
       summary: Put Quote Settings
       tags:
       - quotes
+  /v1/quotes/pricing-snapshots/{snapshot_id}:
+    get:
+      operationId: getPricingSnapshotV1
+      parameters:
+      - explode: false
+        in: path
+        name: snapshot_id
+        required: true
+        schema:
+          format: uuid
+          title: Snapshot Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PricingSnapshotResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Pricing Snapshot
+      tags:
+      - quotes
   /v1/quotes/{quote_id}:
     get:
       operationId: getQuote
@@ -8829,6 +9801,36 @@ paths:
       security:
       - HTTPBearer: []
       summary: Get Quote
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/contract.pdf:
+    get:
+      operationId: getQuoteContractPdfV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Quote Contract Pdf
       tags:
       - quotes
   /v1/quotes/{quote_id}/versions/{version}:
@@ -9540,6 +10542,131 @@ paths:
       summary: Post Quote Accept
       tags:
       - quotes
+  /v1/quotes/{quote_id}/contract-uploads:
+    post:
+      description: |-
+        Upload a contract document scoped to a specific quote.
+
+        Requires the quotes feature flag (via require_quotes_enabled) and validates
+        that the quote belongs to the authenticated tenant before ingesting.
+      operationId: postQuoteContractUploadV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_post_quote_contract_upload_v1_quotes__quote_id__contract_uploads_post'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quote Contract Upload
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/contract-uploads/latest:
+    get:
+      description: |-
+        Return the most-recent contract upload for a quote.
+
+        Returns the full extracted_text and segments so the UI can render an
+        inline document-review view with clause highlights.  Gated by
+        require_quotes_enabled (same as every other /quotes route) and validates
+        quote ownership via service.get_quote (raises 404 if the quote doesn't
+        exist or belongs to a different tenant).
+
+        Returns 404 ``{"detail": "no contract uploaded for this quote"}`` when no
+        upload row exists.
+      operationId: getLatestQuoteContractUploadV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractUploadDetailResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Latest Quote Contract Upload
+      tags:
+      - quotes
+  /v1/quotes/{quote_id}/redlines/first-pass:
+    post:
+      description: |-
+        Run the first-pass clause-anchored redline agent against the uploaded contract.
+
+        Idempotent: calling twice for the same (quote, version) returns the same
+        redlines without duplicating rows.  Returns 201 with the count and IDs of
+        the redlines that were created (or already existed from a prior first-pass).
+      operationId: postQuoteRedlinesFirstPassV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FirstPassRedlineRequest'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FirstPassRedlineResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quote Redlines First Pass
+      tags:
+      - quotes
   /v1/quotes/{quote_id}/activate:
     post:
       operationId: postQuoteActivate
@@ -9735,6 +10862,62 @@ paths:
       summary: Post Quote Session Shadow Price
       tags:
       - quote-sessions
+  /v1/rate-cards:
+    get:
+      description: List the tenant's current rate cards with cost + per-unit margin
+        (rep+).
+      operationId: getRateCardsV1
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateCardCostListResponse'
+          description: Successful Response
+      security:
+      - HTTPBearer: []
+      summary: Get Rate Cards
+      tags:
+      - quotes
+  /v1/rate-cards/{rate_card_id}/cost:
+    patch:
+      description: "Set per-unit cost + provenance on a rate card. Finance-gated,\
+        \ audited."
+      operationId: patchRateCardCostV1
+      parameters:
+      - explode: false
+        in: path
+        name: rate_card_id
+        required: true
+        schema:
+          format: uuid
+          title: Rate Card Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetRateCardCostRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateCardCostRow'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Patch Rate Card Cost
+      tags:
+      - quotes
   /v1/quote-agents/policies:
     get:
       operationId: listPoliciesV1
@@ -9907,6 +11090,34 @@ paths:
       summary: Get Buyer Quote
       tags:
       - buyer-quotes
+  /v1/buyer/quotes/contract.pdf:
+    get:
+      operationId: getBuyerContractPdfV1
+      parameters:
+      - explode: false
+        in: header
+        name: X-Quote-Buyer-Token
+        required: false
+        schema:
+          title: X-Quote-Buyer-Token
+          type: string
+          nullable: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Buyer Contract Pdf
+      tags:
+      - buyer-quotes
   /v1/buyer/quotes/otp:
     post:
       operationId: requestOtp
@@ -10050,6 +11261,50 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Reject Buyer Quote
+      tags:
+      - buyer-quotes
+  /v1/buyer/quotes/request-changes:
+    post:
+      operationId: requestBuyerQuoteChangesV1
+      parameters:
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
+      - explode: false
+        in: header
+        name: X-Quote-Buyer-Token
+        required: false
+        schema:
+          title: X-Quote-Buyer-Token
+          type: string
+          nullable: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuyerRequestChangesRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuyerRequestChangesResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Request Buyer Quote Changes
       tags:
       - buyer-quotes
   /v1/internal/grants/activate:
@@ -10386,6 +11641,1015 @@ paths:
       summary: Replay Tenant Provisioning
       tags:
       - internal
+  /v1/clause-packs/effective:
+    get:
+      description: Return the effective clause pack for the authenticated tenant.
+      operationId: getEffectivePackEndpointV1
+      parameters:
+      - description: "Industry vertical, e.g. 'ai-saas'"
+        explode: true
+        in: query
+        name: industry_vertical
+        required: true
+        schema:
+          description: "Industry vertical, e.g. 'ai-saas'"
+          title: Industry Vertical
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClausePack'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Effective Pack Endpoint
+      tags:
+      - clause-packs
+  /v1/clause-packs/fork:
+    post:
+      description: Fork the industry pack into a tenant draft playbook (idempotent).
+      operationId: forkPackEndpointV1
+      parameters:
+      - description: Industry vertical to fork
+        explode: true
+        in: query
+        name: industry_vertical
+        required: true
+        schema:
+          description: Industry vertical to fork
+          title: Industry Vertical
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClausePack'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Fork Pack Endpoint
+      tags:
+      - clause-packs
+  /v1/clause-packs/training-uploads:
+    post:
+      description: Upload a contract document to the tenant's training corpus (quote_id=NULL).
+      operationId: postTrainingUploadV1Clause
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_post_training_upload_v1_clause_packs_training_uploads_post'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Training Upload
+      tags:
+      - clause-packs
+  /v1/clause-packs/ratify-family:
+    post:
+      description: |-
+        Append a signoff for a clause family in the tenant draft playbook.
+
+        actor_id is derived from the authenticated context (portal token subject or
+        api_key fingerprint) — never from the request body.
+      operationId: ratifyFamilyEndpointV1Clause
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RatifyFamilyRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClausePack'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Ratify Family Endpoint
+      tags:
+      - clause-packs
+  /v1/clause-packs/proposed-refinements:
+    get:
+      description: |-
+        Return all 'proposed' redline feedback rows for the authenticated tenant.
+
+        Rows are newest-first. The optional industry_vertical param is accepted for
+        API symmetry; the query always scopes strictly to the authed tenant.
+      operationId: getProposedRefinementsV1Clause
+      parameters:
+      - description: Filter by vertical (optional)
+        explode: true
+        in: query
+        name: industry_vertical
+        required: false
+        schema:
+          description: Filter by vertical (optional)
+          title: Industry Vertical
+          type: string
+          nullable: true
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  additionalProperties: {}
+                type: array
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Proposed Refinements
+      tags:
+      - clause-packs
+  /v1/clause-packs/ratify-refinement:
+    post:
+      description: |-
+        Ratify a proposed refinement into the tenant's draft playbook.
+
+        Merges proposed_position into the draft family's position criteria,
+        appends a signoff (same mechanism as ratify-family), marks the feedback
+        row 'ratified', and returns the updated ClausePack.
+
+        actor_id is derived from the authenticated context — never from the client.
+      operationId: ratifyRefinementEndpointV1Clause
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RatifyRefinementRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClausePack'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Ratify Refinement Endpoint
+      tags:
+      - clause-packs
+  /v1/clause-packs/dismiss-refinement:
+    post:
+      description: |-
+        Mark a proposed refinement as 'dismissed' (tenant-scoped; 404 if not found).
+
+        Returns 204 No Content on success.
+      operationId: dismissRefinementEndpointV1Clause
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DismissRefinementRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Dismiss Refinement Endpoint
+      tags:
+      - clause-packs
+  /v1/clause-packs/audit:
+    post:
+      description: |-
+        Run a clause-pack diagnostic audit on one or more uploaded contracts.
+
+        Returns 201 with {id, findings, divergences}.
+      operationId: postAuditV1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuditRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Audit
+      tags:
+      - clause-packs
+  /v1/clause-packs/audit/{audit_id}:
+    get:
+      description: Fetch a previously-run audit by id (scoped to tenant).
+      operationId: getAuditV1
+      parameters:
+      - explode: false
+        in: path
+        name: audit_id
+        required: true
+        schema:
+          format: uuid
+          title: Audit Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                additionalProperties: {}
+                title: Response Get Audit V1 Clause Packs Audit  Audit Id  Get
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Audit
+      tags:
+      - clause-packs
+  /v1/clause-packs/quick-redline:
+    post:
+      description: |-
+        Upload a contract and get an instant clause-by-clause redline without creating a quote.
+
+        - Accepts multipart/form-data with a `file` field (.txt, .docx, .pdf).
+        - Derives tenant_id from auth context; no quote is created or referenced.
+        - Returns extracted text, document segments, clause findings, and a verdict summary.
+        - 413 if the file exceeds the configured size limit.
+        - 415 if the file type is unsupported (propagated from the parser).
+      operationId: postQuickRedlineV1Clause
+      parameters:
+      - description: "Industry vertical, e.g. 'ai-saas'"
+        explode: true
+        in: query
+        name: industry_vertical
+        required: false
+        schema:
+          default: ai-saas
+          description: "Industry vertical, e.g. 'ai-saas'"
+          title: Industry Vertical
+          type: string
+        style: form
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_post_quick_redline_v1_clause_packs_quick_redline_post'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuickRedlineResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Post Quick Redline
+      tags:
+      - clause-packs
+  /v1/quotes/{quote_id}/contract/editor/upload:
+    post:
+      description: |-
+        Upload a .docx for inline OnlyOffice editing.
+
+        Stores the bytes and creates a new ``contract_editor_docs`` row with a
+        fresh ``doc_key``.  Returns 201 ``{"doc_key": ..., "version_no": ...}``.
+      operationId: uploadContractForEditor
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_contract_for_editor_v1_quotes__quote_id__contract_editor_upload_post'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Upload Contract For Editor
+      tags:
+      - contract-editor
+  /v1/quotes/{quote_id}/contract/editor/config:
+    get:
+      description: |-
+        Return the OnlyOffice DocEditor configuration for the latest doc version.
+
+        Returns 503 when ``ONLYOFFICE_JWT_SECRET`` is not set.
+        Returns 404 when no document has been uploaded for this quote yet.
+
+        The ``token`` field in the response signs the entire ``config`` payload
+        with the shared OnlyOffice HS256 secret per the OnlyOffice JWT integration
+        specification.
+      operationId: getEditorConfig
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Editor Config
+      tags:
+      - contract-editor
+  /v1/quotes/{quote_id}/contract/editor/document/{doc_key}:
+    get:
+      description: |-
+        Serve the raw .docx bytes for a specific doc_key.
+
+        This endpoint is called by the OnlyOffice doc-server (no user session).
+        Auth is via the ``?t=`` BFF URL token embedded in the ``document.url``
+        returned by ``GET /contract/editor/config``.
+      operationId: fetchDocument
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: doc_key
+        required: true
+        schema:
+          title: Doc Key
+          type: string
+        style: simple
+      - description: BFF URL token
+        explode: true
+        in: query
+        name: t
+        required: true
+        schema:
+          description: BFF URL token
+          title: T
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Fetch Document
+      tags:
+      - contract-editor
+  /v1/quotes/{quote_id}/contract/editor/callback:
+    post:
+      description: |-
+        OnlyOffice save callback.
+
+        Receives the callback JSON body from the doc-server.  On
+        ``status == 2`` (or 6), downloads the edited .docx from ``payload.url``
+        and stores it as a new version with a new ``doc_key``.
+
+        Always returns ``{"error": 0}`` — any other response code causes the
+        doc-server to surface an error to the editor user.
+
+        The ``t`` query-parameter is the BFF URL token.  We also verify the
+        OnlyOffice JWT ``token`` field when present in the callback body.
+      operationId: editorCallback
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - description: BFF URL token
+        explode: true
+        in: query
+        name: t
+        required: true
+        schema:
+          description: BFF URL token
+          title: T
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Editor Callback
+      tags:
+      - contract-editor
+  /v1/quotes/{quote_id}/contract/editor/ai-redline:
+    post:
+      description: |-
+        Enqueue an async AI redline pipeline run for the latest editor doc.
+
+        Creates a ``redline_jobs`` row (status=queued) and returns 202
+        ``{"job_id": "<uuid>"}``.  The ``redline-job`` worker picks up the row,
+        runs ``build_ai_redline_docx``, and writes the result back.  Poll
+        ``GET .../ai-redline/jobs/{job_id}`` for status.
+
+        Returns 404 when no document has been uploaded.
+      operationId: aiRedlineContractV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      responses:
+        "202":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Ai Redline Contract
+      tags:
+      - contract-editor
+  /v1/quotes/{quote_id}/contract/editor/ai-redline/jobs/{job_id}:
+    get:
+      description: |-
+        Poll the status of an async AI redline job.
+
+        Returns ``{status, reviewed, total, findings, result}`` scoped to the
+        authenticated tenant.  Returns 404 for cross-tenant or unknown job IDs.
+      operationId: getRedlineJobV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: job_id
+        required: true
+        schema:
+          format: uuid
+          title: Job Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Redline Job
+      tags:
+      - contract-editor
+  /v1/quotes/{quote_id}/contract/editor/ai-redline/latest:
+    get:
+      description: |-
+        Return the most recent completed (status='done') redline job for a quote.
+
+        Used by the RedlineWorkspace on open so it can show prior findings without
+        kicking a new job.
+
+        Returns 204 No Content when no completed job exists yet — the workspace
+        will auto-run a new one in that case.
+
+        Returns the same shape as GET .../jobs/{job_id} so the frontend can reuse
+        the same types: ``{job_id, doc_key, status, reviewed, total, findings, result}``.
+      operationId: getLatestRedlineJobV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Latest Redline Job
+      tags:
+      - contract-editor
+  /v1/quotes/{quote_id}/contract/editor/document-html/{doc_key}:
+    get:
+      description: |-
+        Return the sanitized HTML + block map for a specific doc_key.
+
+        This is the **browser/session-auth** path for the RedlineWorkspace viewer.
+        It does NOT accept the ``?t=`` short-lived token used by the OnlyOffice
+        doc-server (which fetches server-to-server with no session).
+
+        Auth: ``require_quotes_enabled`` (portal/API-key) + ``get_doc_by_key``
+        (tenant + quote scoped).  A cross-tenant or cross-quote ``doc_key``
+        returns 404.
+
+        Returns 422 when the stored document cannot be rendered (corrupt/unparseable zip).
+        Returns:
+            ``{ html: str, blocks: [{ block_id, char_start, char_end, text }] }``
+      operationId: getDocumentHtmlV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: doc_key
+        required: true
+        schema:
+          title: Doc Key
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Document Html
+      tags:
+      - contract-editor
+  /v1/quotes/{quote_id}/contract/editor/edits:
+    post:
+      description: |-
+        Append a targeted edit op for a contract doc.
+
+        Upserts a ``redline_edits`` row keyed on (tenant_id, quote_id, doc_key) and
+        appends the new op to the ``ops`` list.  Idempotent across restarts — the
+        caller may re-POST the same op list; duplicates are the caller's concern.
+
+        Returns ``{ doc_key, op_count }`` on success.
+      operationId: saveRedlineEdit
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveRedlineEditRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Save Redline Edit
+      tags:
+      - contract-editor
+  /v1/quotes/{quote_id}/contract/editor/edits/{doc_key}:
+    get:
+      description: |-
+        Return the saved edit ops for a (tenant, quote, doc_key) triple.
+
+        Returns ``{ doc_key, ops }`` — an empty ``ops`` list when no row exists
+        (not 404, because an empty edit set is a valid state).
+      operationId: getRedlineEdits
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: doc_key
+        required: true
+        schema:
+          title: Doc Key
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Redline Edits
+      tags:
+      - contract-editor
+  /v1/quotes/{quote_id}/contract/editor/apply-edits:
+    post:
+      description: |-
+        Apply saved redline ops and store a new .docx version.
+
+        S2 — idempotent base-doc application
+        ----------------------------------------
+        Ops are always applied against the **base document** (version_no=1 — the
+        first uploaded version for this quote/tenant).  This makes apply-edits
+        idempotent: applying twice with the same ops yields the same output.  New
+        accepts saved after a previous apply (which are recorded under the latest
+        doc_key) are included because ALL ops across ALL doc_keys for this quote
+        are collected and applied in one shot against the base.
+
+        This avoids the "orphaned ops" bug: previously, after the first apply the
+        latest doc got a new doc_key and any ops saved against the old doc_key were
+        silently missed on subsequent applies.
+
+        S4 — AI comment preservation
+        -------------------------------------------
+        When a completed redline job exists that recorded a ``redlined_doc_key``
+        (the commented .docx produced by the worker), ops are applied against THAT
+        commented version instead of the bare original.  python-docx preserves
+        ``word/comments.xml`` and the ``w:commentRangeStart/End`` markers in
+        non-edited paragraphs across an open→save round-trip, so AI comments
+        survive in all clauses that were not edited.  Edited paragraphs lose their
+        own inline comment reference (expected — the clause text changed), but all
+        other AI comments remain intact.
+
+        Falls back to the original (version_no=1) base when no redline has run.
+
+        If no ops exist the latest doc is returned unchanged (no new version created).
+        Returns 404 when no document has been uploaded for this quote.
+      operationId: applyContractEditsV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Apply Contract Edits
+      tags:
+      - contract-editor
+  /v1/quotes/{quote_id}/contract/editor/redline/ask-moo:
+    post:
+      description: |-
+        Re-review the clause at the given anchor with a human reviewer's instruction.
+
+        Logic:
+        1. Load the latest editor doc + parse + chunk.
+        2. Find the chunk whose [char_start, char_end) range contains
+           ``anchor_char_start`` (fallback: nearest by overlap).
+        3. Re-run ``review_clause`` with the ``instruction`` param.
+        4. Build an updated ``RedlineFinding`` keeping the original finding_id and anchor.
+        5. If the chunk maps to a playbook family, write a ``redline_feedback`` row.
+        6. Return ``{ finding: <RedlineFinding>, feedback_recorded: bool }``.
+
+        Returns 404 when no document has been uploaded for this quote.
+      operationId: askMooRedlineV1
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AskMooRedlineRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Ask Moo Redline
+      tags:
+      - contract-editor
+  /v1/quotes/{quote_id}/contract/editor/word/open:
+    get:
+      description: |-
+        Serve the latest master .docx stamped with a Moolabs bind custom-XML part.
+
+        The bind part is a ZIP-embedded XML element (namespace urn:moolabs:bind)
+        whose text content is a JSON object:
+          {tenant_id, quote_id, doc_key, base_version, bind_token}
+
+        The bind_token is a short-TTL (30 min) HS256 JWT scoped to
+        (tenant_id, quote_id, doc_key) with purpose="bind".  It expires so a
+        forwarded copy of the file cannot be replayed after the TTL.
+
+        The custom-XML part is NOT visible in Word's standard UI but IS readable
+        by any party who unzips the file — ids only, no long-lived secrets.
+
+        Returns 404 when no document has been uploaded for this quote.
+        Returns 503 when WORD_ADDIN_JWT_SECRET is not configured.
+      operationId: wordOpen
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Word Open
+      tags:
+      - word-addin
+  /v1/quotes/{quote_id}/contract/editor/word/sync:
+    post:
+      description: |-
+        Accept the add-in's current .docx and store it as a new master version.
+
+        Auth (SPIKE — see PRODUCTION NOTE in module docstring):
+          The caller must supply the bind_token in the X-Bind-Token header.
+          The token is verified (signature + expiry + scope) to prove the caller
+          holds the file that was served by /word/open.
+          PRODUCTION: replace bind-token auth with durable session token +
+          require_quotes_enabled dependency per spec §9.
+
+        Version-fence:
+          base_version must equal the current head version_no for this quote's
+          contract.  If not (someone else pushed a new version, or the doc is
+          stale) → 409 Conflict.  The add-in must reconcile (re-open the new
+          master) before pushing again.
+
+        Validation:
+          - File must start with PK\x03\x04 (OOXML/ZIP magic).
+          - File size must be <= 30 MiB.
+
+        Returns:
+          200 {doc_key, version_no, status: "stored"} on success.
+          409 {detail: "Version conflict..."} on stale base_version.
+          422 on invalid bytes.
+          401/403 on bad/missing token.
+      operationId: wordSync
+      parameters:
+      - explode: false
+        in: path
+        name: quote_id
+        required: true
+        schema:
+          format: uuid
+          title: Quote Id
+          type: string
+        style: simple
+      - explode: false
+        in: header
+        name: X-Bind-Token
+        required: false
+        schema:
+          default: ""
+          title: X-Bind-Token
+          type: string
+        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_word_sync_v1_quotes__quote_id__contract_editor_word_sync_post'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Word Sync
+      tags:
+      - word-addin
   /v1/monitoring/metrics:
     get:
       description: Prometheus metrics endpoint.
@@ -40731,6 +42995,16 @@ paths:
       description: "Create a new rate entry. SCD Type 2: closes existing active entry\
         \ for same key."
       operationId: createRateEntry
+      parameters:
+      - explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          title: Idempotency-Key
+          type: string
+          nullable: true
+        style: simple
       requestBody:
         content:
           application/json:
@@ -40840,6 +43114,26 @@ paths:
         required: false
         schema:
           title: Metric Type
+          type: string
+          nullable: true
+        style: form
+      - explode: true
+        in: query
+        name: effective_from_after
+        required: false
+        schema:
+          format: date-time
+          title: Effective From After
+          type: string
+          nullable: true
+        style: form
+      - explode: true
+        in: query
+        name: effective_from_before
+        required: false
+        schema:
+          format: date-time
+          title: Effective From Before
           type: string
           nullable: true
         style: form
@@ -41104,6 +43398,137 @@ paths:
       - APIKeyHeader: []
       - HTTPBearer: []
       summary: Submit Adjustment
+      tags:
+      - cost-events
+  /api/v1/cost/events/by-usage-event:
+    get:
+      description: Return all cost events and line items for one external usage event.
+      operationId: listCostEventsByUsageEventQueryApiV1
+      parameters:
+      - explode: true
+        in: query
+        name: usage_event_id
+        required: true
+        schema:
+          maxLength: 256
+          minLength: 1
+          title: Usage Event Id
+          type: string
+        style: form
+      - description: Tenant UUID
+        explode: false
+        in: header
+        name: X-Tenant-ID
+        required: true
+        schema:
+          description: Tenant UUID
+          title: X-Tenant-Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CostEventDetailResponse'
+                type: array
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcuteHTTPValidationError'
+          description: Validation Error
+      security:
+      - APIKeyHeader: []
+      - HTTPBearer: []
+      summary: List Cost Events By Usage Event Query
+      tags:
+      - cost-events
+  /api/v1/cost/events/by-usage-event/summary:
+    post:
+      description: Return compact cost summaries for a page of external usage event
+        IDs.
+      operationId: listCostEventSummariesByUsageEventApiV1
+      parameters:
+      - description: Tenant UUID
+        explode: false
+        in: header
+        name: X-Tenant-ID
+        required: true
+        schema:
+          description: Tenant UUID
+          title: X-Tenant-Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CostEventSummaryRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostEventSummaryResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcuteHTTPValidationError'
+          description: Validation Error
+      security:
+      - APIKeyHeader: []
+      - HTTPBearer: []
+      summary: List Cost Event Summaries By Usage Event
+      tags:
+      - cost-events
+  /api/v1/cost/events/by-usage-event/{usage_event_id}:
+    get:
+      description: Return all cost events and line items for one external usage event.
+      operationId: listCostEventsByUsageEventApiV1
+      parameters:
+      - explode: false
+        in: path
+        name: usage_event_id
+        required: true
+        schema:
+          title: Usage Event Id
+          type: string
+        style: simple
+      - description: Tenant UUID
+        explode: false
+        in: header
+        name: X-Tenant-ID
+        required: true
+        schema:
+          description: Tenant UUID
+          title: X-Tenant-Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CostEventDetailResponse'
+                type: array
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcuteHTTPValidationError'
+          description: Validation Error
+      security:
+      - APIKeyHeader: []
+      - HTTPBearer: []
+      summary: List Cost Events By Usage Event
       tags:
       - cost-events
   /api/v1/cost/analytics/by-customer:
@@ -45405,6 +47830,42 @@ components:
         type: boolean
       style: form
   schemas:
+    AddContractParticipantRequest:
+      example:
+        side: seller
+        role: owner
+        display_name: display_name
+        email: email
+      properties:
+        side:
+          enum:
+          - seller
+          - buyer
+          title: Side
+          type: string
+        role:
+          enum:
+          - owner
+          - business_sponsor
+          - legal
+          - procurement
+          - infosec
+          - external_counsel
+          - other
+          title: Role
+          type: string
+        email:
+          title: Email
+          type: string
+          nullable: true
+        display_name:
+          title: Display Name
+          type: string
+          nullable: true
+      required:
+      - role
+      - side
+      title: AddContractParticipantRequest
     AllocateCreditsRequest:
       description: Request to allocate credits from source to target wallet.
       example:
@@ -45477,6 +47938,53 @@ components:
       - name
       - status
       title: ApiKeyItem
+    ApprovalPolicyResponse:
+      example:
+        policy_version_stamp: policy_version_stamp
+        version: 0
+        config:
+          key: ""
+      properties:
+        version:
+          title: Version
+          type: integer
+          nullable: true
+        policy_version_stamp:
+          title: Policy Version Stamp
+          type: string
+        config:
+          additionalProperties: {}
+          title: Config
+      required:
+      - config
+      - policy_version_stamp
+      - version
+      title: ApprovalPolicyResponse
+    ApproverIn:
+      example:
+        manager_user_ref: manager_user_ref
+        territory_key: territory_key
+        level_key: level_key
+        display_name: display_name
+      properties:
+        level_key:
+          title: Level Key
+          type: string
+        display_name:
+          title: Display Name
+          type: string
+          nullable: true
+        manager_user_ref:
+          title: Manager User Ref
+          type: string
+          nullable: true
+        territory_key:
+          title: Territory Key
+          type: string
+          nullable: true
+      required:
+      - level_key
+      title: ApproverIn
     ArcDunningPermissionGrantRequest:
       example:
         tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -45533,6 +48041,203 @@ components:
       required:
       - revoke_reason
       title: ArcDunningPermissionRevokeRequest
+    ArcDunningTemplateAdminGrantRequest:
+      example:
+        user_subject: user_subject
+        grant_reason: Granted from ARC Communications Settings
+      properties:
+        user_subject:
+          maxLength: 255
+          minLength: 1
+          title: User Subject
+          type: string
+        grant_reason:
+          default: Granted from ARC Communications Settings
+          maxLength: 1000
+          minLength: 1
+          title: Grant Reason
+          type: string
+      required:
+      - user_subject
+      title: ArcDunningTemplateAdminGrantRequest
+    ArcDunningTemplateAdminGrantResponse:
+      example:
+        tenant_id: tenant_id
+        user_subject: user_subject
+        org_id: org_id
+        created: true
+        permission: arc_dunning_template_admin
+        id: id
+        revoked: true
+        status: active
+      properties:
+        id:
+          title: Id
+          type: string
+        tenant_id:
+          title: Tenant Id
+          type: string
+        org_id:
+          title: Org Id
+          type: string
+        user_subject:
+          title: User Subject
+          type: string
+        permission:
+          enum:
+          - arc_dunning_template_admin
+          title: Permission
+          type: string
+        status:
+          enum:
+          - active
+          - revoked
+          title: Status
+          type: string
+        created:
+          title: Created
+          type: boolean
+          nullable: true
+        revoked:
+          title: Revoked
+          type: boolean
+          nullable: true
+      required:
+      - id
+      - org_id
+      - permission
+      - status
+      - tenant_id
+      - user_subject
+      title: ArcDunningTemplateAdminGrantResponse
+    ArcDunningTemplateAdminRevokeRequest:
+      example:
+        revoke_reason: Revoked from ARC Communications Settings
+      properties:
+        revoke_reason:
+          default: Revoked from ARC Communications Settings
+          maxLength: 1000
+          minLength: 1
+          title: Revoke Reason
+          type: string
+      title: ArcDunningTemplateAdminRevokeRequest
+    ArcDunningTemplateAdminUserDto:
+      example:
+        user_subject: user_subject
+        grant_blocked_reason: grant_blocked_reason
+        eligible_for_grant: false
+        name: name
+        grant:
+          permission: arc_dunning_template_admin
+          id: id
+          status: active
+        org_role: owner
+        email: email
+      properties:
+        user_subject:
+          title: User Subject
+          type: string
+        name:
+          title: Name
+          type: string
+          nullable: true
+        email:
+          title: Email
+          type: string
+          nullable: true
+        org_role:
+          $ref: '#/components/schemas/Org_Role'
+        eligible_for_grant:
+          default: false
+          title: Eligible For Grant
+          type: boolean
+        grant_blocked_reason:
+          title: Grant Blocked Reason
+          type: string
+          nullable: true
+        grant:
+          $ref: '#/components/schemas/ArcDunningTemplateAdminUserGrantDto'
+      required:
+      - user_subject
+      title: ArcDunningTemplateAdminUserDto
+    ArcDunningTemplateAdminUserGrantDto:
+      example:
+        permission: arc_dunning_template_admin
+        id: id
+        status: active
+      properties:
+        id:
+          title: Id
+          type: string
+        permission:
+          enum:
+          - arc_dunning_template_admin
+          title: Permission
+          type: string
+        status:
+          enum:
+          - active
+          - revoked
+          title: Status
+          type: string
+      required:
+      - id
+      - permission
+      - status
+      title: ArcDunningTemplateAdminUserGrantDto
+    ArcDunningTemplateAdminUsersResponse:
+      example:
+        tenant_id: tenant_id
+        can_manage: true
+        org_id: org_id
+        permission: arc_dunning_template_admin
+        users:
+        - user_subject: user_subject
+          grant_blocked_reason: grant_blocked_reason
+          eligible_for_grant: false
+          name: name
+          grant:
+            permission: arc_dunning_template_admin
+            id: id
+            status: active
+          org_role: owner
+          email: email
+        - user_subject: user_subject
+          grant_blocked_reason: grant_blocked_reason
+          eligible_for_grant: false
+          name: name
+          grant:
+            permission: arc_dunning_template_admin
+            id: id
+            status: active
+          org_role: owner
+          email: email
+      properties:
+        tenant_id:
+          title: Tenant Id
+          type: string
+        org_id:
+          title: Org Id
+          type: string
+        permission:
+          enum:
+          - arc_dunning_template_admin
+          title: Permission
+          type: string
+        can_manage:
+          title: Can Manage
+          type: boolean
+        users:
+          items:
+            $ref: '#/components/schemas/ArcDunningTemplateAdminUserDto'
+          type: array
+      required:
+      - can_manage
+      - org_id
+      - permission
+      - tenant_id
+      - users
+      title: ArcDunningTemplateAdminUsersResponse
     ArcTransactionRequest:
       example:
         effective_at: 2000-01-23T04:56:07.000+00:00
@@ -45580,6 +48285,69 @@ components:
       - moometer_customer_id
       - txn_type
       title: ArcTransactionRequest
+    AskMooRedlineRequest:
+      example:
+        finding_id: finding_id
+        family_id: family_id
+        anchor_char_end: 6
+        instruction: instruction
+        anchor_char_start: 0
+        anchor_quote: anchor_quote
+      properties:
+        finding_id:
+          title: Finding Id
+          type: string
+        family_id:
+          title: Family Id
+          type: string
+          nullable: true
+        anchor_char_start:
+          title: Anchor Char Start
+          type: integer
+        anchor_char_end:
+          title: Anchor Char End
+          type: integer
+        instruction:
+          maxLength: 2000
+          minLength: 1
+          title: Instruction
+          type: string
+        anchor_quote:
+          title: Anchor Quote
+          type: string
+          nullable: true
+      required:
+      - anchor_char_end
+      - anchor_char_start
+      - finding_id
+      - instruction
+      title: AskMooRedlineRequest
+    AuditRequest:
+      example:
+        industry_vertical: industry_vertical
+        kb_positions:
+          key: kb_positions
+        contract_upload_ids:
+        - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        industry_vertical:
+          title: Industry Vertical
+          type: string
+        contract_upload_ids:
+          items:
+            format: uuid
+            type: string
+          type: array
+        kb_positions:
+          additionalProperties:
+            type: string
+          title: Kb Positions
+          nullable: true
+      required:
+      - contract_upload_ids
+      - industry_vertical
+      title: AuditRequest
     AutoTopupActivityItem:
       description: Single auto-topup activity item.
       example:
@@ -45877,6 +48645,15 @@ components:
       required:
       - subject_ids
       title: BatchWalletsBySubjectsRequest
+    Body_post_quick_redline_v1_clause_packs_quick_redline_post:
+      properties:
+        file:
+          format: binary
+          title: File
+          type: string
+      required:
+      - file
+      title: Body_post_quick_redline_v1_clause_packs_quick_redline_post
     Body_post_quote_accept_v1_quotes__quote_id__accept_post:
       properties:
         signed_document:
@@ -45897,6 +48674,57 @@ components:
           type: string
           nullable: true
       title: Body_post_quote_accept_v1_quotes__quote_id__accept_post
+    Body_post_quote_contract_upload_v1_quotes__quote_id__contract_uploads_post:
+      properties:
+        file:
+          format: binary
+          title: File
+          type: string
+      required:
+      - file
+      title: Body_post_quote_contract_upload_v1_quotes__quote_id__contract_uploads_post
+    Body_post_training_upload_v1_clause_packs_training_uploads_post:
+      properties:
+        file:
+          format: binary
+          title: File
+          type: string
+      required:
+      - file
+      title: Body_post_training_upload_v1_clause_packs_training_uploads_post
+    Body_upload_contract_for_editor_v1_quotes__quote_id__contract_editor_upload_post:
+      properties:
+        file:
+          format: binary
+          title: File
+          type: string
+      required:
+      - file
+      title: Body_upload_contract_for_editor_v1_quotes__quote_id__contract_editor_upload_post
+    Body_upload_quote_contract_version_v1_quotes__quote_id__contract_thread_versions_post:
+      properties:
+        file:
+          format: binary
+          title: File
+          type: string
+      required:
+      - file
+      title: Body_upload_quote_contract_version_v1_quotes__quote_id__contract_thread_versions_post
+    Body_word_sync_v1_quotes__quote_id__contract_editor_word_sync_post:
+      properties:
+        file:
+          description: The current .docx from the add-in
+          format: binary
+          title: File
+          type: string
+        base_version:
+          description: The version_no the add-in derived this doc from
+          title: Base Version
+          type: integer
+      required:
+      - base_version
+      - file
+      title: Body_word_sync_v1_quotes__quote_id__contract_editor_word_sync_post
     BuyerAcceptRequest:
       example:
         code: code
@@ -46035,6 +48863,9 @@ components:
       title: BuyerQuotePricing
     BuyerQuoteProjection:
       example:
+        seller_branding:
+          key: ""
+        buyer_request_status: none
         lifecycle_terms:
           key: ""
         quote_id: quote_id
@@ -46059,6 +48890,7 @@ components:
           feature_key: feature_key
         quote_type: new_subscription
         version: 0
+        terms_and_conditions: terms_and_conditions
         credit_terms:
           key: ""
         commercial_terms:
@@ -46104,6 +48936,21 @@ components:
           nullable: true
         pricing:
           $ref: '#/components/schemas/BuyerQuotePricing'
+        seller_branding:
+          additionalProperties: {}
+          title: Seller Branding
+          nullable: true
+        terms_and_conditions:
+          title: Terms And Conditions
+          type: string
+          nullable: true
+        buyer_request_status:
+          default: none
+          enum:
+          - none
+          - changes_requested
+          title: Buyer Request Status
+          type: string
       required:
       - buyer_contact
       - commercial_terms
@@ -46124,6 +48971,66 @@ components:
           type: string
           nullable: true
       title: BuyerRejectRequest
+    BuyerRequestChangesRequest:
+      example:
+        note: note
+        requested_changes:
+          term_months: 72
+          payment_terms_days: 30
+      properties:
+        note:
+          maxLength: 1000
+          minLength: 1
+          title: Note
+          type: string
+        requested_changes:
+          $ref: '#/components/schemas/BuyerRequestedChanges'
+      required:
+      - note
+      title: BuyerRequestChangesRequest
+    BuyerRequestChangesResponse:
+      example:
+        redline_id: redline_id
+        quote_id: quote_id
+        version: 0
+        status: status
+      properties:
+        status:
+          title: Status
+          type: string
+        redline_id:
+          title: Redline Id
+          type: string
+        quote_id:
+          title: Quote Id
+          type: string
+        version:
+          title: Version
+          type: integer
+      required:
+      - quote_id
+      - redline_id
+      - status
+      - version
+      title: BuyerRequestChangesResponse
+    BuyerRequestedChanges:
+      example:
+        term_months: 72
+        payment_terms_days: 30
+      properties:
+        payment_terms_days:
+          maximum: 365.0
+          minimum: 1.0
+          title: Payment Terms Days
+          type: integer
+          nullable: true
+        term_months:
+          maximum: 120.0
+          minimum: 1.0
+          title: Term Months
+          type: integer
+          nullable: true
+      title: BuyerRequestedChanges
     CardType:
       enum:
       - insight
@@ -46190,6 +49097,7 @@ components:
     ChatRequest:
       example:
         stream: true
+        quote_id: quote_id
         messages:
         - role: role
           content: content
@@ -46209,6 +49117,10 @@ components:
           default: true
           title: Stream
           type: boolean
+        quote_id:
+          title: Quote Id
+          type: string
+          nullable: true
       required:
       - messages
       title: ChatRequest
@@ -46224,6 +49136,309 @@ components:
           type: string
           nullable: true
       title: CheckTriggerRequest
+    ClauseCitations:
+      description: Citation references for a clause family.
+      example:
+        market:
+        - market
+        - market
+        tenant_corpus:
+        - tenant_corpus
+        - tenant_corpus
+        tenant_kb:
+        - tenant_kb
+        - tenant_kb
+      properties:
+        market:
+          items:
+            type: string
+          type: array
+        tenant_kb:
+          items:
+            type: string
+          type: array
+        tenant_corpus:
+          items:
+            type: string
+          type: array
+      title: ClauseCitations
+    ClauseFamily:
+      description: "A logical group of related clauses, each with multiple negotiating\
+        \ positions."
+      example:
+        family_id: family_id
+        citations:
+          market:
+          - market
+          - market
+          tenant_corpus:
+          - tenant_corpus
+          - tenant_corpus
+          tenant_kb:
+          - tenant_kb
+          - tenant_kb
+        deal_context:
+          bind:
+            key: bind
+          rules:
+          - escalate_to: legal
+            verdict_override: verdict_override
+            flag: flag
+            require_approver: require_approver
+            when: when
+          - escalate_to: legal
+            verdict_override: verdict_override
+            flag: flag
+            require_approver: require_approver
+            when: when
+        positions:
+          key:
+            criteria: criteria
+            rationale: rationale
+            standard_language: standard_language
+        owner_persona: legal
+        display_name: display_name
+        detector:
+          key: ""
+        required: false
+      properties:
+        family_id:
+          title: Family Id
+          type: string
+        display_name:
+          title: Display Name
+          type: string
+        owner_persona:
+          enum:
+          - legal
+          - infosec
+          - finance
+          title: Owner Persona
+          type: string
+        required:
+          default: false
+          title: Required
+          type: boolean
+        detector:
+          additionalProperties: {}
+          title: Detector
+        positions:
+          additionalProperties:
+            $ref: '#/components/schemas/ClausePosition'
+          title: Positions
+        deal_context:
+          $ref: '#/components/schemas/DealContext'
+        citations:
+          $ref: '#/components/schemas/ClauseCitations'
+      required:
+      - detector
+      - display_name
+      - family_id
+      - owner_persona
+      - positions
+      title: ClauseFamily
+    ClauseFinding:
+      description: The diagnostic verdict for a single clause family.
+      example:
+        family_id: family_id
+        matched_tier: matched_tier
+        clarifying_question: clarifying_question
+        verdict: standard
+        confidence: 2.3021358869347655
+        delta: delta
+        deal_context_hit: deal_context_hit
+        found_span:
+          key: ""
+        requires_context: false
+      properties:
+        family_id:
+          title: Family Id
+          type: string
+        found_span:
+          additionalProperties: {}
+          title: Found Span
+          nullable: true
+        verdict:
+          enum:
+          - standard
+          - deviates
+          - ambiguous
+          - missing
+          - needs_review
+          title: Verdict
+          type: string
+        matched_tier:
+          title: Matched Tier
+          type: string
+          nullable: true
+        delta:
+          title: Delta
+          type: string
+          nullable: true
+        confidence:
+          title: Confidence
+          type: number
+        requires_context:
+          default: false
+          title: Requires Context
+          type: boolean
+        deal_context_hit:
+          title: Deal Context Hit
+          type: string
+          nullable: true
+        clarifying_question:
+          title: Clarifying Question
+          type: string
+          nullable: true
+      required:
+      - confidence
+      - family_id
+      - verdict
+      title: ClauseFinding
+    ClausePack:
+      description: A versioned bundle of clause families for a given industry vertical.
+      example:
+        applies_to_contract_types:
+        - applies_to_contract_types
+        - applies_to_contract_types
+        lifecycle_state: industry_pack
+        industry_vertical: industry_vertical
+        provenance:
+          authored_by: moolabs
+          forked_from: forked_from
+          signoffs:
+          - key: ""
+          - key: ""
+        pack_id: pack_id
+        clause_families:
+        - family_id: family_id
+          citations:
+            market:
+            - market
+            - market
+            tenant_corpus:
+            - tenant_corpus
+            - tenant_corpus
+            tenant_kb:
+            - tenant_kb
+            - tenant_kb
+          deal_context:
+            bind:
+              key: bind
+            rules:
+            - escalate_to: legal
+              verdict_override: verdict_override
+              flag: flag
+              require_approver: require_approver
+              when: when
+            - escalate_to: legal
+              verdict_override: verdict_override
+              flag: flag
+              require_approver: require_approver
+              when: when
+          positions:
+            key:
+              criteria: criteria
+              rationale: rationale
+              standard_language: standard_language
+          owner_persona: legal
+          display_name: display_name
+          detector:
+            key: ""
+          required: false
+        - family_id: family_id
+          citations:
+            market:
+            - market
+            - market
+            tenant_corpus:
+            - tenant_corpus
+            - tenant_corpus
+            tenant_kb:
+            - tenant_kb
+            - tenant_kb
+          deal_context:
+            bind:
+              key: bind
+            rules:
+            - escalate_to: legal
+              verdict_override: verdict_override
+              flag: flag
+              require_approver: require_approver
+              when: when
+            - escalate_to: legal
+              verdict_override: verdict_override
+              flag: flag
+              require_approver: require_approver
+              when: when
+          positions:
+            key:
+              criteria: criteria
+              rationale: rationale
+              standard_language: standard_language
+          owner_persona: legal
+          display_name: display_name
+          detector:
+            key: ""
+          required: false
+        version: 0
+      properties:
+        pack_id:
+          title: Pack Id
+          type: string
+        version:
+          title: Version
+          type: integer
+        lifecycle_state:
+          enum:
+          - industry_pack
+          - draft_playbook
+          - ratified_playbook
+          title: Lifecycle State
+          type: string
+        industry_vertical:
+          title: Industry Vertical
+          type: string
+        applies_to_contract_types:
+          items:
+            type: string
+          type: array
+        provenance:
+          $ref: '#/components/schemas/PackProvenance'
+        clause_families:
+          items:
+            $ref: '#/components/schemas/ClauseFamily'
+          type: array
+      required:
+      - applies_to_contract_types
+      - clause_families
+      - industry_vertical
+      - lifecycle_state
+      - pack_id
+      - provenance
+      - version
+      title: ClausePack
+    ClausePosition:
+      description: A negotiating position within a clause family.
+      example:
+        criteria: criteria
+        rationale: rationale
+        standard_language: standard_language
+      properties:
+        criteria:
+          title: Criteria
+          type: string
+        standard_language:
+          title: Standard Language
+          type: string
+          nullable: true
+        rationale:
+          title: Rationale
+          type: string
+          nullable: true
+      required:
+      - criteria
+      title: ClausePosition
     CommercialOverridesInput:
       example:
         subscription_id: subscription_id
@@ -46379,6 +49594,642 @@ components:
       - name
       - status
       title: ConnectorItem
+    ContractDocumentResponse:
+      example:
+        tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        thread_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        quote_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        created_at: 2000-01-23T04:56:07.000+00:00
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        label: label
+        document_type: document_type
+        status: status
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        tenant_id:
+          format: uuid
+          title: Tenant Id
+          type: string
+        thread_id:
+          format: uuid
+          title: Thread Id
+          type: string
+        quote_id:
+          format: uuid
+          title: Quote Id
+          type: string
+        label:
+          title: Label
+          type: string
+        document_type:
+          title: Document Type
+          type: string
+        status:
+          title: Status
+          type: string
+        created_at:
+          format: date-time
+          title: Created At
+          type: string
+          nullable: true
+        updated_at:
+          format: date-time
+          title: Updated At
+          type: string
+          nullable: true
+      required:
+      - document_type
+      - id
+      - label
+      - quote_id
+      - status
+      - tenant_id
+      - thread_id
+      title: ContractDocumentResponse
+    ContractEventResponse:
+      example:
+        tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        thread_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        event_type: event_type
+        actor_type: actor_type
+        safe_metadata:
+          key: ""
+        quote_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        participant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        created_at: 2000-01-23T04:56:07.000+00:00
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        actor_id: actor_id
+        document_version_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        tenant_id:
+          format: uuid
+          title: Tenant Id
+          type: string
+        thread_id:
+          format: uuid
+          title: Thread Id
+          type: string
+        quote_id:
+          format: uuid
+          title: Quote Id
+          type: string
+        event_type:
+          title: Event Type
+          type: string
+        actor_type:
+          title: Actor Type
+          type: string
+        actor_id:
+          title: Actor Id
+          type: string
+          nullable: true
+        participant_id:
+          format: uuid
+          title: Participant Id
+          type: string
+          nullable: true
+        document_version_id:
+          format: uuid
+          title: Document Version Id
+          type: string
+          nullable: true
+        safe_metadata:
+          additionalProperties: {}
+          title: Safe Metadata
+        created_at:
+          format: date-time
+          title: Created At
+          type: string
+          nullable: true
+      required:
+      - actor_type
+      - event_type
+      - id
+      - quote_id
+      - safe_metadata
+      - tenant_id
+      - thread_id
+      title: ContractEventResponse
+    ContractInboundMessageResponse:
+      example:
+        tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        thread_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        from_email: from_email
+        subject: subject
+        safe_metadata:
+          key: ""
+        created_at: 2000-01-23T04:56:07.000+00:00
+        provider_message_id: provider_message_id
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        quarantine_reason: quarantine_reason
+        status: status
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        tenant_id:
+          format: uuid
+          title: Tenant Id
+          type: string
+        thread_id:
+          format: uuid
+          title: Thread Id
+          type: string
+        provider_message_id:
+          title: Provider Message Id
+          type: string
+        from_email:
+          title: From Email
+          type: string
+          nullable: true
+        subject:
+          title: Subject
+          type: string
+          nullable: true
+        status:
+          title: Status
+          type: string
+        quarantine_reason:
+          title: Quarantine Reason
+          type: string
+          nullable: true
+        safe_metadata:
+          additionalProperties: {}
+          title: Safe Metadata
+        created_at:
+          format: date-time
+          title: Created At
+          type: string
+          nullable: true
+      required:
+      - id
+      - provider_message_id
+      - safe_metadata
+      - status
+      - tenant_id
+      - thread_id
+      title: ContractInboundMessageResponse
+    ContractParticipantResponse:
+      example:
+        tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        added_by_actor_id: added_by_actor_id
+        thread_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        side: seller
+        role: owner
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        created_at: 2000-01-23T04:56:07.000+00:00
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        removed_by_actor_id: removed_by_actor_id
+        display_name: display_name
+        email: email
+        status: active
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        tenant_id:
+          format: uuid
+          title: Tenant Id
+          type: string
+        thread_id:
+          format: uuid
+          title: Thread Id
+          type: string
+        side:
+          enum:
+          - seller
+          - buyer
+          title: Side
+          type: string
+        role:
+          enum:
+          - owner
+          - business_sponsor
+          - legal
+          - procurement
+          - infosec
+          - external_counsel
+          - other
+          title: Role
+          type: string
+        email:
+          title: Email
+          type: string
+          nullable: true
+        display_name:
+          title: Display Name
+          type: string
+          nullable: true
+        status:
+          enum:
+          - active
+          - removed
+          title: Status
+          type: string
+        added_by_actor_id:
+          title: Added By Actor Id
+          type: string
+        removed_by_actor_id:
+          title: Removed By Actor Id
+          type: string
+          nullable: true
+        created_at:
+          format: date-time
+          title: Created At
+          type: string
+          nullable: true
+        updated_at:
+          format: date-time
+          title: Updated At
+          type: string
+          nullable: true
+      required:
+      - added_by_actor_id
+      - id
+      - role
+      - side
+      - status
+      - tenant_id
+      - thread_id
+      title: ContractParticipantResponse
+    ContractSegmentResponse:
+      description: A single parsed document segment.
+      example:
+        char_end: 5
+        char_start: 5
+        text: text
+        page: 6
+        ordinal: 1
+      properties:
+        text:
+          title: Text
+          type: string
+        page:
+          title: Page
+          type: integer
+        ordinal:
+          title: Ordinal
+          type: integer
+        char_start:
+          title: Char Start
+          type: integer
+        char_end:
+          title: Char End
+          type: integer
+      required:
+      - char_end
+      - char_start
+      - ordinal
+      - page
+      - text
+      title: ContractSegmentResponse
+    ContractThreadResponse:
+      example:
+        tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        reply_alias: reply_alias
+        closed_at: 2000-01-23T04:56:07.000+00:00
+        created_by_actor_id: created_by_actor_id
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        subject: subject
+        quote_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        created_at: 2000-01-23T04:56:07.000+00:00
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        quote_version: 0
+        status: draft
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        tenant_id:
+          format: uuid
+          title: Tenant Id
+          type: string
+        quote_id:
+          format: uuid
+          title: Quote Id
+          type: string
+        quote_version:
+          title: Quote Version
+          type: integer
+          nullable: true
+        status:
+          enum:
+          - draft
+          - active
+          - closed
+          - archived
+          title: Status
+          type: string
+        subject:
+          title: Subject
+          type: string
+          nullable: true
+        reply_alias:
+          title: Reply Alias
+          type: string
+        created_by_actor_id:
+          title: Created By Actor Id
+          type: string
+        created_at:
+          format: date-time
+          title: Created At
+          type: string
+          nullable: true
+        updated_at:
+          format: date-time
+          title: Updated At
+          type: string
+          nullable: true
+        closed_at:
+          format: date-time
+          title: Closed At
+          type: string
+          nullable: true
+      required:
+      - created_by_actor_id
+      - id
+      - quote_id
+      - reply_alias
+      - status
+      - tenant_id
+      title: ContractThreadResponse
+    ContractThreadSnapshotResponse:
+      example:
+        documents:
+        - tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          thread_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          quote_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          created_at: 2000-01-23T04:56:07.000+00:00
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          label: label
+          document_type: document_type
+          status: status
+        - tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          thread_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          quote_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          created_at: 2000-01-23T04:56:07.000+00:00
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          label: label
+          document_type: document_type
+          status: status
+        thread:
+          tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          reply_alias: reply_alias
+          closed_at: 2000-01-23T04:56:07.000+00:00
+          created_by_actor_id: created_by_actor_id
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          subject: subject
+          quote_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          created_at: 2000-01-23T04:56:07.000+00:00
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          quote_version: 0
+          status: draft
+        events:
+        - tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          thread_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          event_type: event_type
+          actor_type: actor_type
+          safe_metadata:
+            key: ""
+          quote_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          participant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          created_at: 2000-01-23T04:56:07.000+00:00
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          actor_id: actor_id
+          document_version_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          thread_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          event_type: event_type
+          actor_type: actor_type
+          safe_metadata:
+            key: ""
+          quote_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          participant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          created_at: 2000-01-23T04:56:07.000+00:00
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          actor_id: actor_id
+          document_version_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        participants:
+        - tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          added_by_actor_id: added_by_actor_id
+          thread_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          side: seller
+          role: owner
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          created_at: 2000-01-23T04:56:07.000+00:00
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          removed_by_actor_id: removed_by_actor_id
+          display_name: display_name
+          email: email
+          status: active
+        - tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          added_by_actor_id: added_by_actor_id
+          thread_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          side: seller
+          role: owner
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          created_at: 2000-01-23T04:56:07.000+00:00
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          removed_by_actor_id: removed_by_actor_id
+          display_name: display_name
+          email: email
+          status: active
+      properties:
+        thread:
+          $ref: '#/components/schemas/ContractThreadResponse'
+        participants:
+          items:
+            $ref: '#/components/schemas/ContractParticipantResponse'
+          type: array
+        documents:
+          items:
+            $ref: '#/components/schemas/ContractDocumentResponse'
+          type: array
+        events:
+          items:
+            $ref: '#/components/schemas/ContractEventResponse'
+          type: array
+      required:
+      - documents
+      - events
+      - participants
+      - thread
+      title: ContractThreadSnapshotResponse
+    ContractUploadDetailResponse:
+      description: "Response for GET /quotes/{quote_id}/contract-uploads/latest."
+      example:
+        filename: filename
+        id: id
+        extracted_text: extracted_text
+        page_count: 0
+        segments:
+        - char_end: 5
+          char_start: 5
+          text: text
+          page: 6
+          ordinal: 1
+        - char_end: 5
+          char_start: 5
+          text: text
+          page: 6
+          ordinal: 1
+      properties:
+        id:
+          title: Id
+          type: string
+        filename:
+          title: Filename
+          type: string
+        page_count:
+          title: Page Count
+          type: integer
+        extracted_text:
+          title: Extracted Text
+          type: string
+        segments:
+          items:
+            $ref: '#/components/schemas/ContractSegmentResponse'
+          type: array
+      required:
+      - extracted_text
+      - filename
+      - id
+      - page_count
+      - segments
+      title: ContractUploadDetailResponse
+    ContractVersionResponse:
+      example:
+        tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        version_no: 0
+        size_bytes: 6
+        scan_status: scan_status
+        created_by_actor_id: created_by_actor_id
+        artifact_hash: artifact_hash
+        quote_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        participant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        created_at: 2000-01-23T04:56:07.000+00:00
+        inbound_message_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        provider_message_id: provider_message_id
+        source: source
+        document_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        extracted_text: extracted_text
+        structure:
+          key: ""
+        thread_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        filename: filename
+        content_type: content_type
+        received_at: 2000-01-23T04:56:07.000+00:00
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        email_subject: email_subject
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        tenant_id:
+          format: uuid
+          title: Tenant Id
+          type: string
+        thread_id:
+          format: uuid
+          title: Thread Id
+          type: string
+        document_id:
+          format: uuid
+          title: Document Id
+          type: string
+        quote_id:
+          format: uuid
+          title: Quote Id
+          type: string
+        version_no:
+          title: Version No
+          type: integer
+        source:
+          title: Source
+          type: string
+        participant_id:
+          format: uuid
+          title: Participant Id
+          type: string
+          nullable: true
+        inbound_message_id:
+          format: uuid
+          title: Inbound Message Id
+          type: string
+          nullable: true
+        filename:
+          title: Filename
+          type: string
+        content_type:
+          title: Content Type
+          type: string
+        size_bytes:
+          title: Size Bytes
+          type: integer
+        artifact_hash:
+          title: Artifact Hash
+          type: string
+        scan_status:
+          title: Scan Status
+          type: string
+        extracted_text:
+          title: Extracted Text
+          type: string
+        structure:
+          additionalProperties: {}
+          title: Structure
+        provider_message_id:
+          title: Provider Message Id
+          type: string
+          nullable: true
+        email_subject:
+          title: Email Subject
+          type: string
+          nullable: true
+        received_at:
+          format: date-time
+          title: Received At
+          type: string
+          nullable: true
+        created_by_actor_id:
+          title: Created By Actor Id
+          type: string
+        created_at:
+          format: date-time
+          title: Created At
+          type: string
+          nullable: true
+      required:
+      - artifact_hash
+      - content_type
+      - created_by_actor_id
+      - document_id
+      - extracted_text
+      - filename
+      - id
+      - quote_id
+      - scan_status
+      - size_bytes
+      - source
+      - structure
+      - tenant_id
+      - thread_id
+      - version_no
+      title: ContractVersionResponse
     CreateApiKeyRequest:
       example:
         environment: production
@@ -46506,6 +50357,15 @@ components:
       - trigger_value
       - wallet_id
       title: CreateAutoTopupRuleRequest
+    CreateContractThreadRequest:
+      example:
+        subject: subject
+      properties:
+        subject:
+          title: Subject
+          type: string
+          nullable: true
+      title: CreateContractThreadRequest
     CreateCreditRequest:
       description: Request model for creating a credit note.
       example:
@@ -46869,6 +50729,58 @@ components:
       required:
       - account_ref
       title: CreateQuoteRequest
+    CreateQuoteTemplateRequest:
+      example:
+        terms_and_conditions: terms_and_conditions
+        accent_color: accent_color
+        company_legal_name: company_legal_name
+        logo_url: logo_url
+        name: name
+        footer_text: footer_text
+        is_default: false
+        company_address: company_address
+      properties:
+        name:
+          maxLength: 120
+          minLength: 1
+          title: Name
+          type: string
+        is_default:
+          default: false
+          title: Is Default
+          type: boolean
+        company_legal_name:
+          maxLength: 255
+          title: Company Legal Name
+          type: string
+          nullable: true
+        company_address:
+          maxLength: 2000
+          title: Company Address
+          type: string
+          nullable: true
+        logo_url:
+          maxLength: 2048
+          title: Logo Url
+          type: string
+          nullable: true
+        accent_color:
+          title: Accent Color
+          type: string
+          nullable: true
+        terms_and_conditions:
+          maxLength: 50000
+          title: Terms And Conditions
+          type: string
+          nullable: true
+        footer_text:
+          maxLength: 2000
+          title: Footer Text
+          type: string
+          nullable: true
+      required:
+      - name
+      title: CreateQuoteTemplateRequest
     CreateRateCardRequest:
       description: Request to create a rate card.
       example:
@@ -46924,6 +50836,12 @@ components:
           additionalProperties: {}
           description: Pricing model (JSON object)
           title: Pricing Model
+        pricing_shape:
+          description: Frozen plan pricing shape (usage|seat|hybrid|flat)
+          maxLength: 16
+          title: Pricing Shape
+          type: string
+          nullable: true
       required:
       - effective_from
       - feature_key
@@ -47801,6 +51719,82 @@ components:
       required:
       - audit_note
       title: DangerRequest
+    DealContext:
+      description: Dynamic deal-context bindings and evaluation rules for a clause
+        family.
+      example:
+        bind:
+          key: bind
+        rules:
+        - escalate_to: legal
+          verdict_override: verdict_override
+          flag: flag
+          require_approver: require_approver
+          when: when
+        - escalate_to: legal
+          verdict_override: verdict_override
+          flag: flag
+          require_approver: require_approver
+          when: when
+      properties:
+        bind:
+          additionalProperties:
+            type: string
+          title: Bind
+        rules:
+          items:
+            $ref: '#/components/schemas/DealContextRule'
+          type: array
+      required:
+      - bind
+      - rules
+      title: DealContext
+    DealContextRule:
+      description: A conditional rule that fires based on deal-context variable values.
+      example:
+        escalate_to: legal
+        verdict_override: verdict_override
+        flag: flag
+        require_approver: require_approver
+        when: when
+      properties:
+        when:
+          title: When
+          type: string
+        escalate_to:
+          enum:
+          - legal
+          - infosec
+          - finance
+          title: Escalate To
+          type: string
+          nullable: true
+        require_approver:
+          title: Require Approver
+          type: string
+          nullable: true
+        verdict_override:
+          title: Verdict Override
+          type: string
+          nullable: true
+        flag:
+          title: Flag
+          type: string
+          nullable: true
+      required:
+      - when
+      title: DealContextRule
+    DismissRefinementRequest:
+      example:
+        feedback_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        feedback_id:
+          format: uuid
+          title: Feedback Id
+          type: string
+      required:
+      - feedback_id
+      title: DismissRefinementRequest
     DomainResponse:
       example:
         domain_type: domain_type
@@ -48166,6 +52160,35 @@ components:
       - list_price_micros
       - net_price_micros
       title: FeaturePriceRequest
+    FirstPassRedlineRequest:
+      description: "Optional body for POST /quotes/{id}/redlines/first-pass."
+      example:
+        industry_vertical: ai-saas
+      properties:
+        industry_vertical:
+          default: ai-saas
+          maxLength: 64
+          title: Industry Vertical
+          type: string
+      title: FirstPassRedlineRequest
+    FirstPassRedlineResponse:
+      example:
+        redline_ids:
+        - redline_ids
+        - redline_ids
+        count: 0
+      properties:
+        count:
+          title: Count
+          type: integer
+        redline_ids:
+          items:
+            type: string
+          type: array
+      required:
+      - count
+      - redline_ids
+      title: FirstPassRedlineResponse
     FxRateResponse:
       description: Response from creating an FX rate.
       example:
@@ -48941,6 +52964,108 @@ components:
       - sync_direction
       - sync_frequency
       title: HubSpotConnectRequest
+    InboundEmailAttachment:
+      example:
+        filename: filename
+        content_type: application/octet-stream
+        content_base64: content_base64
+      properties:
+        filename:
+          title: Filename
+          type: string
+        content_type:
+          default: application/octet-stream
+          title: Content Type
+          type: string
+        content_base64:
+          title: Content Base64
+          type: string
+      required:
+      - content_base64
+      - filename
+      title: InboundEmailAttachment
+    InboundEmailPayload:
+      example:
+        from_email: from_email
+        attachments:
+        - filename: filename
+          content_type: application/octet-stream
+          content_base64: content_base64
+        - filename: filename
+          content_type: application/octet-stream
+          content_base64: content_base64
+        subject: subject
+        recipient: recipient
+        message_id: message_id
+      properties:
+        recipient:
+          title: Recipient
+          type: string
+        from_email:
+          title: From Email
+          type: string
+        message_id:
+          title: Message Id
+          type: string
+        subject:
+          title: Subject
+          type: string
+          nullable: true
+        attachments:
+          items:
+            $ref: '#/components/schemas/InboundEmailAttachment'
+          type: array
+      required:
+      - from_email
+      - message_id
+      - recipient
+      title: InboundEmailPayload
+    InboundEmailProcessResponse:
+      example:
+        created: true
+        inbound_message_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        version:
+          tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          version_no: 0
+          size_bytes: 6
+          scan_status: scan_status
+          created_by_actor_id: created_by_actor_id
+          artifact_hash: artifact_hash
+          quote_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          participant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          created_at: 2000-01-23T04:56:07.000+00:00
+          inbound_message_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          provider_message_id: provider_message_id
+          source: source
+          document_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          extracted_text: extracted_text
+          structure:
+            key: ""
+          thread_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          filename: filename
+          content_type: content_type
+          received_at: 2000-01-23T04:56:07.000+00:00
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          email_subject: email_subject
+        status: status
+      properties:
+        inbound_message_id:
+          format: uuid
+          title: Inbound Message Id
+          type: string
+        status:
+          title: Status
+          type: string
+        created:
+          title: Created
+          type: boolean
+        version:
+          $ref: '#/components/schemas/ContractVersionResponse'
+      required:
+      - created
+      - inbound_message_id
+      - status
+      title: InboundEmailProcessResponse
     InsightCard:
       example:
         cta_label: cta_label
@@ -49184,6 +53309,26 @@ components:
       - netsuite_invoice_id
       - open_micros
       title: InvoiceUpsertRequest
+    LevelIn:
+      example:
+        name: name
+        rank: 0
+        key: key
+      properties:
+        key:
+          title: Key
+          type: string
+        name:
+          title: Name
+          type: string
+        rank:
+          title: Rank
+          type: integer
+      required:
+      - key
+      - name
+      - rank
+      title: LevelIn
     LifecycleEventRequest:
       description: Request for a subscription lifecycle event.
       example:
@@ -49467,6 +53612,31 @@ components:
       - tenant_id
       - usage_event_id
       title: OverrideFirstIngressRequest
+    PackProvenance:
+      description: Provenance metadata for a clause pack.
+      example:
+        authored_by: moolabs
+        forked_from: forked_from
+        signoffs:
+        - key: ""
+        - key: ""
+      properties:
+        authored_by:
+          default: moolabs
+          enum:
+          - moolabs
+          - tenant
+          title: Authored By
+          type: string
+        forked_from:
+          title: Forked From
+          type: string
+          nullable: true
+        signoffs:
+          items:
+            additionalProperties: {}
+          type: array
+      title: PackProvenance
     PaginatedCreditMemos:
       example:
         next_cursor: next_cursor
@@ -50131,6 +54301,7 @@ components:
     PlanPricingSyncRequest:
       example:
         tenant_id: tenant_id
+        pricing_shape: pricing_shape
         effective_at: 2000-01-23T04:56:07.000+00:00
         operation: publish
         plan:
@@ -50156,6 +54327,10 @@ components:
         effective_at:
           format: date-time
           title: Effective At
+          type: string
+          nullable: true
+        pricing_shape:
+          title: Pricing Shape
           type: string
           nullable: true
       required:
@@ -50316,6 +54491,81 @@ components:
       required:
       - unitAmount
       title: PriceTierPayload
+    PricingSnapshotResponse:
+      description: |-
+        Read-only projection of a persisted ``QuotePricingSnapshot``.
+
+        Served by ``GET /v1/quotes/pricing-snapshots/{snapshot_id}`` so the UI's
+        Pricing tab can render totals + the rule trace after a quote is priced.
+        Deliberately omits ``normalized_input`` (the pre-pricing input payload) —
+        the UI never needs it and it can carry redaction-sensitive context.
+      example:
+        discount_micros: 1
+        subtotal_micros: 6
+        pricing_snapshot_id: pricing_snapshot_id
+        quote_id: quote_id
+        pricing_trace:
+          key: ""
+        pricing_trace_digest: pricing_trace_digest
+        source_versions:
+          key: ""
+        total_micros: 5
+        currency: USD
+        id: id
+        priced_output:
+          key: ""
+        quote_version: 0
+      properties:
+        id:
+          title: Id
+          type: string
+        quote_id:
+          title: Quote Id
+          type: string
+        quote_version:
+          title: Quote Version
+          type: integer
+        pricing_snapshot_id:
+          title: Pricing Snapshot Id
+          type: string
+        priced_output:
+          additionalProperties: {}
+          title: Priced Output
+        pricing_trace:
+          additionalProperties: {}
+          title: Pricing Trace
+        pricing_trace_digest:
+          title: Pricing Trace Digest
+          type: string
+        source_versions:
+          additionalProperties: {}
+          title: Source Versions
+        currency:
+          default: USD
+          title: Currency
+          type: string
+        subtotal_micros:
+          title: Subtotal Micros
+          type: integer
+        discount_micros:
+          title: Discount Micros
+          type: integer
+        total_micros:
+          title: Total Micros
+          type: integer
+      required:
+      - discount_micros
+      - id
+      - priced_output
+      - pricing_snapshot_id
+      - pricing_trace
+      - pricing_trace_digest
+      - quote_id
+      - quote_version
+      - source_versions
+      - subtotal_micros
+      - total_micros
+      title: PricingSnapshotResponse
     Priority:
       enum:
       - high
@@ -50422,6 +54672,93 @@ components:
       - sync_direction
       - sync_frequency
       title: QuickBooksConnectRequest
+    QuickRedlineResponse:
+      description: Response from POST /clause-packs/quick-redline.
+      example:
+        summary:
+          by_verdict:
+            key: 7
+          total: 9
+        upload_id: upload_id
+        audit_id: audit_id
+        filename: filename
+        findings:
+        - family_id: family_id
+          matched_tier: matched_tier
+          clarifying_question: clarifying_question
+          verdict: standard
+          confidence: 2.3021358869347655
+          delta: delta
+          deal_context_hit: deal_context_hit
+          found_span:
+            key: ""
+          requires_context: false
+        - family_id: family_id
+          matched_tier: matched_tier
+          clarifying_question: clarifying_question
+          verdict: standard
+          confidence: 2.3021358869347655
+          delta: delta
+          deal_context_hit: deal_context_hit
+          found_span:
+            key: ""
+          requires_context: false
+        extracted_text: extracted_text
+        divergences:
+        - ""
+        - ""
+        page_count: 0
+        segments:
+        - char_end: 5
+          char_start: 5
+          text: text
+          page: 6
+          ordinal: 1
+        - char_end: 5
+          char_start: 5
+          text: text
+          page: 6
+          ordinal: 1
+      properties:
+        upload_id:
+          title: Upload Id
+          type: string
+        audit_id:
+          title: Audit Id
+          type: string
+        filename:
+          title: Filename
+          type: string
+        page_count:
+          title: Page Count
+          type: integer
+        extracted_text:
+          title: Extracted Text
+          type: string
+        segments:
+          items:
+            $ref: '#/components/schemas/SegmentOut'
+          type: array
+        findings:
+          items:
+            $ref: '#/components/schemas/ClauseFinding'
+          type: array
+        divergences:
+          items: {}
+          type: array
+        summary:
+          $ref: '#/components/schemas/RedlineSummary'
+      required:
+      - audit_id
+      - divergences
+      - extracted_text
+      - filename
+      - findings
+      - page_count
+      - segments
+      - summary
+      - upload_id
+      title: QuickRedlineResponse
     QuoteAgentEvaluationResponse:
       example:
         tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -50772,13 +55109,15 @@ components:
         tenant_id: tenant_id
         approval_policy_version: approval_policy_version
         required_role: required_role
+        chain:
+          key: ""
         reasons:
         - key: ""
         - key: ""
         approval_basis_digest: approval_basis_digest
         quote_id: quote_id
         approval_required: true
-        version: 0
+        version: 6
         status: status
         approval_id: approval_id
       properties:
@@ -50815,6 +55154,10 @@ components:
         approval_id:
           title: Approval Id
           type: string
+          nullable: true
+        chain:
+          additionalProperties: {}
+          title: Chain
           nullable: true
       required:
       - approval_policy_version
@@ -50963,7 +55306,9 @@ components:
       example:
         tenant_id: tenant_id
         created_by_actor_id: created_by_actor_id
+        clause_family: clause_family
         quote_id: quote_id
+        confidence: 1.4658129805029452
         created_at: created_at
         source: source
         created_by_actor_type: created_by_actor_type
@@ -50974,7 +55319,11 @@ components:
         evidence_metadata:
           key: ""
         accepted_by_actor_id: accepted_by_actor_id
+        matched_tier: matched_tier
         resulting_quote_version: 6
+        verdict: verdict
+        cited_span:
+          key: ""
         id: id
         status: status
         redline_text: redline_text
@@ -51027,6 +55376,26 @@ components:
         created_at:
           title: Created At
           type: string
+          nullable: true
+        clause_family:
+          title: Clause Family
+          type: string
+          nullable: true
+        verdict:
+          title: Verdict
+          type: string
+          nullable: true
+        matched_tier:
+          title: Matched Tier
+          type: string
+          nullable: true
+        cited_span:
+          additionalProperties: {}
+          title: Cited Span
+          nullable: true
+        confidence:
+          title: Confidence
+          type: number
           nullable: true
       required:
       - created_by_actor_id
@@ -51122,12 +55491,127 @@ components:
       - booking_trigger
       - tenant_id
       title: QuoteSettingsResponse
+    QuoteTemplateListResponse:
+      example:
+        items:
+        - tenant_id: tenant_id
+          terms_and_conditions: terms_and_conditions
+          accent_color: accent_color
+          company_legal_name: company_legal_name
+          updated_at: updated_at
+          logo_url: logo_url
+          name: name
+          created_at: created_at
+          id: id
+          footer_text: footer_text
+          is_default: true
+          company_address: company_address
+        - tenant_id: tenant_id
+          terms_and_conditions: terms_and_conditions
+          accent_color: accent_color
+          company_legal_name: company_legal_name
+          updated_at: updated_at
+          logo_url: logo_url
+          name: name
+          created_at: created_at
+          id: id
+          footer_text: footer_text
+          is_default: true
+          company_address: company_address
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/QuoteTemplateResponse'
+          type: array
+      required:
+      - items
+      title: QuoteTemplateListResponse
+    QuoteTemplateResponse:
+      example:
+        tenant_id: tenant_id
+        terms_and_conditions: terms_and_conditions
+        accent_color: accent_color
+        company_legal_name: company_legal_name
+        updated_at: updated_at
+        logo_url: logo_url
+        name: name
+        created_at: created_at
+        id: id
+        footer_text: footer_text
+        is_default: true
+        company_address: company_address
+      properties:
+        id:
+          title: Id
+          type: string
+        tenant_id:
+          title: Tenant Id
+          type: string
+        name:
+          title: Name
+          type: string
+        is_default:
+          title: Is Default
+          type: boolean
+        company_legal_name:
+          title: Company Legal Name
+          type: string
+          nullable: true
+        company_address:
+          title: Company Address
+          type: string
+          nullable: true
+        logo_url:
+          title: Logo Url
+          type: string
+          nullable: true
+        accent_color:
+          title: Accent Color
+          type: string
+          nullable: true
+        terms_and_conditions:
+          title: Terms And Conditions
+          type: string
+          nullable: true
+        footer_text:
+          title: Footer Text
+          type: string
+          nullable: true
+        created_at:
+          title: Created At
+          type: string
+          nullable: true
+        updated_at:
+          title: Updated At
+          type: string
+          nullable: true
+      required:
+      - id
+      - is_default
+      - name
+      - tenant_id
+      title: QuoteTemplateResponse
     QuoteVersionResponse:
       example:
         tenant_id: tenant_id
         proration_basis:
           key: ""
         pricing_snapshot_id: pricing_snapshot_id
+        approval:
+          tenant_id: tenant_id
+          approval_policy_version: approval_policy_version
+          required_role: required_role
+          chain:
+            key: ""
+          reasons:
+          - key: ""
+          - key: ""
+          approval_basis_digest: approval_basis_digest
+          quote_id: quote_id
+          approval_required: true
+          version: 6
+          status: status
+          approval_id: approval_id
         quote_id: quote_id
         source_versions:
           key: ""
@@ -51221,6 +55705,8 @@ components:
           title: Locked At
           type: string
           nullable: true
+        approval:
+          $ref: '#/components/schemas/QuoteApprovalResponse'
       required:
       - commercial_terms
       - credit_terms
@@ -51231,6 +55717,85 @@ components:
       - tenant_id
       - version
       title: QuoteVersionResponse
+    RateCardCostListResponse:
+      example:
+        rate_cards:
+        - unit_price_micros: 0
+          pricing_shape: pricing_shape
+          cost_source: cost_source
+          margin_pct: 1.4658129805029452
+          cost_unit_micros: 6
+          feature_key: feature_key
+          currency: currency
+          id: id
+          plan_id: plan_id
+        - unit_price_micros: 0
+          pricing_shape: pricing_shape
+          cost_source: cost_source
+          margin_pct: 1.4658129805029452
+          cost_unit_micros: 6
+          feature_key: feature_key
+          currency: currency
+          id: id
+          plan_id: plan_id
+      properties:
+        rate_cards:
+          items:
+            $ref: '#/components/schemas/RateCardCostRow'
+          type: array
+      required:
+      - rate_cards
+      title: RateCardCostListResponse
+    RateCardCostRow:
+      example:
+        unit_price_micros: 0
+        pricing_shape: pricing_shape
+        cost_source: cost_source
+        margin_pct: 1.4658129805029452
+        cost_unit_micros: 6
+        feature_key: feature_key
+        currency: currency
+        id: id
+        plan_id: plan_id
+      properties:
+        id:
+          title: Id
+          type: string
+        feature_key:
+          title: Feature Key
+          type: string
+        plan_id:
+          title: Plan Id
+          type: string
+          nullable: true
+        currency:
+          title: Currency
+          type: string
+        unit_price_micros:
+          title: Unit Price Micros
+          type: integer
+          nullable: true
+        cost_unit_micros:
+          title: Cost Unit Micros
+          type: integer
+          nullable: true
+        cost_source:
+          title: Cost Source
+          type: string
+        margin_pct:
+          title: Margin Pct
+          type: number
+          nullable: true
+        pricing_shape:
+          title: Pricing Shape
+          type: string
+          nullable: true
+      required:
+      - cost_source
+      - currency
+      - feature_key
+      - id
+      title: RateCardCostRow
     RateCardDiscountInput:
       example:
         duration: entire
@@ -51390,6 +55955,52 @@ components:
       - tenant_id
       - version
       title: RateCardResponse
+    RatifyFamilyRequest:
+      example:
+        owner: owner
+        industry_vertical: industry_vertical
+        family_id: family_id
+      properties:
+        industry_vertical:
+          title: Industry Vertical
+          type: string
+        family_id:
+          title: Family Id
+          type: string
+        owner:
+          title: Owner
+          type: string
+      required:
+      - family_id
+      - industry_vertical
+      - owner
+      title: RatifyFamilyRequest
+    RatifyRefinementRequest:
+      example:
+        owner: owner
+        industry_vertical: industry_vertical
+        position_tier: preferred
+        feedback_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        feedback_id:
+          format: uuid
+          title: Feedback Id
+          type: string
+        industry_vertical:
+          title: Industry Vertical
+          type: string
+        owner:
+          title: Owner
+          type: string
+        position_tier:
+          default: preferred
+          title: Position Tier
+          type: string
+      required:
+      - feedback_id
+      - industry_vertical
+      - owner
+      title: RatifyRefinementRequest
     ReconstructionRunResponse:
       description: Response from creating a reconstruction run.
       example:
@@ -51512,6 +56123,125 @@ components:
       - usage_event_id
       - usage_vector
       title: RecordUsageRequest
+    RedlineSummary:
+      description: Verdict breakdown summary for a quick-redline response.
+      example:
+        by_verdict:
+          key: 7
+        total: 9
+      properties:
+        by_verdict:
+          additionalProperties:
+            type: integer
+          title: By Verdict
+        total:
+          title: Total
+          type: integer
+      required:
+      - by_verdict
+      - total
+      title: RedlineSummary
+    RemoveContractParticipantResponse:
+      example:
+        tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        added_by_actor_id: added_by_actor_id
+        thread_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        side: seller
+        role: owner
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        created_at: 2000-01-23T04:56:07.000+00:00
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        removed_by_actor_id: removed_by_actor_id
+        display_name: display_name
+        email: email
+        status: active
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        tenant_id:
+          format: uuid
+          title: Tenant Id
+          type: string
+        thread_id:
+          format: uuid
+          title: Thread Id
+          type: string
+        side:
+          enum:
+          - seller
+          - buyer
+          title: Side
+          type: string
+        role:
+          enum:
+          - owner
+          - business_sponsor
+          - legal
+          - procurement
+          - infosec
+          - external_counsel
+          - other
+          title: Role
+          type: string
+        email:
+          title: Email
+          type: string
+          nullable: true
+        display_name:
+          title: Display Name
+          type: string
+          nullable: true
+        status:
+          enum:
+          - active
+          - removed
+          title: Status
+          type: string
+        added_by_actor_id:
+          title: Added By Actor Id
+          type: string
+        removed_by_actor_id:
+          title: Removed By Actor Id
+          type: string
+          nullable: true
+        created_at:
+          format: date-time
+          title: Created At
+          type: string
+          nullable: true
+        updated_at:
+          format: date-time
+          title: Updated At
+          type: string
+          nullable: true
+      required:
+      - added_by_actor_id
+      - id
+      - role
+      - side
+      - status
+      - tenant_id
+      - thread_id
+      title: RemoveContractParticipantResponse
+    ReplaceLevelsRequest:
+      example:
+        levels:
+        - name: name
+          rank: 0
+          key: key
+        - name: name
+          rank: 0
+          key: key
+      properties:
+        levels:
+          items:
+            $ref: '#/components/schemas/LevelIn'
+          type: array
+      required:
+      - levels
+      title: ReplaceLevelsRequest
     ReplayDeadLetterRequest:
       description: Request body to replay one ingest dead-letter event.
       example:
@@ -51790,6 +56520,36 @@ components:
       - sync_direction
       - sync_frequency
       title: SalesforceConnectRequest
+    SaveRedlineEditRequest:
+      example:
+        doc_key: doc_key
+        op: op
+        before: before
+        after: after
+        block_id: 0
+      properties:
+        doc_key:
+          title: Doc Key
+          type: string
+        block_id:
+          title: Block Id
+          type: integer
+        op:
+          title: Op
+          type: string
+        before:
+          title: Before
+          type: string
+        after:
+          title: After
+          type: string
+      required:
+      - after
+      - before
+      - block_id
+      - doc_key
+      - op
+      title: SaveRedlineEditRequest
     ScopeType:
       description: Grant scope types.
       enum:
@@ -51798,6 +56558,37 @@ components:
       - METER_LIST
       title: ScopeType
       type: string
+    SegmentOut:
+      description: A document segment as returned by the quick-redline endpoint.
+      example:
+        char_end: 5
+        char_start: 5
+        text: text
+        page: 6
+        ordinal: 1
+      properties:
+        text:
+          title: Text
+          type: string
+        page:
+          title: Page
+          type: integer
+        ordinal:
+          title: Ordinal
+          type: integer
+        char_start:
+          title: Char Start
+          type: integer
+        char_end:
+          title: Char End
+          type: integer
+      required:
+      - char_end
+      - char_start
+      - ordinal
+      - page
+      - text
+      title: SegmentOut
     SenderResponse:
       example:
         support_contact: support_contact
@@ -51851,6 +56642,23 @@ components:
           type: string
           nullable: true
       title: SenderUpdate
+    SetRateCardCostRequest:
+      example:
+        cost_source: manual
+        cost_unit_micros: 0
+      properties:
+        cost_unit_micros:
+          description: Per-unit cost in micros (>= 0). Null clears the cost.
+          title: Cost Unit Micros
+          type: integer
+          nullable: true
+        cost_source:
+          default: manual
+          description: "Provenance: none|manual|acute (acute treated as manual for\
+            \ now)."
+          title: Cost Source
+          type: string
+      title: SetRateCardCostRequest
     SlackQuoteCommandResponse:
       example:
         deep_links:
@@ -52301,6 +57109,21 @@ components:
       required:
       - org_id
       title: TenantProvisionRequest
+    TerritoryIn:
+      example:
+        parent_key: parent_key
+        name: name
+      properties:
+        name:
+          title: Name
+          type: string
+        parent_key:
+          title: Parent Key
+          type: string
+          nullable: true
+      required:
+      - name
+      title: TerritoryIn
     TieredPricingPayload:
       example:
         mode: mode
@@ -52386,6 +57209,17 @@ components:
           title: Is Bootstrap
           type: boolean
       title: TriggerRequest
+    UpdateApprovalPolicyRequest:
+      example:
+        config:
+          key: ""
+      properties:
+        config:
+          additionalProperties: {}
+          title: Config
+      required:
+      - config
+      title: UpdateApprovalPolicyRequest
     UpdateAutoTopupRuleRequest:
       description: Request to update an auto top-up rule.
       example:
@@ -52496,6 +57330,57 @@ components:
       required:
       - booking_trigger
       title: UpdateQuoteSettingsRequest
+    UpdateQuoteTemplateRequest:
+      example:
+        terms_and_conditions: terms_and_conditions
+        accent_color: accent_color
+        company_legal_name: company_legal_name
+        logo_url: logo_url
+        name: name
+        footer_text: footer_text
+        is_default: true
+        company_address: company_address
+      properties:
+        name:
+          maxLength: 120
+          minLength: 1
+          title: Name
+          type: string
+          nullable: true
+        is_default:
+          title: Is Default
+          type: boolean
+          nullable: true
+        company_legal_name:
+          maxLength: 255
+          title: Company Legal Name
+          type: string
+          nullable: true
+        company_address:
+          maxLength: 2000
+          title: Company Address
+          type: string
+          nullable: true
+        logo_url:
+          maxLength: 2048
+          title: Logo Url
+          type: string
+          nullable: true
+        accent_color:
+          title: Accent Color
+          type: string
+          nullable: true
+        terms_and_conditions:
+          maxLength: 50000
+          title: Terms And Conditions
+          type: string
+          nullable: true
+        footer_text:
+          maxLength: 2000
+          title: Footer Text
+          type: string
+          nullable: true
+      title: UpdateQuoteTemplateRequest
     UpdateThresholdRequest:
       description: Request to update a threshold.
       example:
@@ -73326,6 +78211,9 @@ components:
         - key: ""
         resend_domain_id: resend_domain_id
         reply_resend_domain_id: reply_resend_domain_id
+        internal_contact_domains:
+        - internal_contact_domains
+        - internal_contact_domains
         verification_status: verification_status
         from_address: from_address
         inbound_secret_last4: inbound_secret_last4
@@ -73360,6 +78248,10 @@ components:
         reply_verification_status:
           title: Reply Verification Status
           type: string
+        internal_contact_domains:
+          items:
+            type: string
+          type: array
         inbound_secret_last4:
           title: Inbound Secret Last4
           type: string
@@ -73377,6 +78269,7 @@ components:
       required:
       - from_address
       - inbound_secret_last4
+      - internal_contact_domains
       - reply_domain
       - reply_resend_domain_id
       - reply_verification_status
@@ -73388,6 +78281,12 @@ components:
     EmailConfigUpsert:
       example:
         reply_domain: reply_domain
+        internal_contact_domains:
+        - internal_contact_domains
+        - internal_contact_domains
+        - internal_contact_domains
+        - internal_contact_domains
+        - internal_contact_domains
         from_address: from_address
         sender_domain: sender_domain
         inbound_secret: inbound_secret
@@ -73406,6 +78305,12 @@ components:
           maxLength: 255
           title: Reply Domain
           type: string
+          nullable: true
+        internal_contact_domains:
+          items:
+            type: string
+          maxItems: 50
+          type: array
           nullable: true
         inbound_secret:
           maxLength: 255
@@ -79570,6 +84475,133 @@ components:
       - reason
       - tenant_id
       title: CostAdjustmentResponse
+    CostEventDetailResponse:
+      example:
+        tenant_id: tenant_id
+        feature_id: feature_id
+        trace_id: trace_id
+        reconciliation_status: reconciliation_status
+        span_id: span_id
+        created_at: 2000-01-23T04:56:07.000+00:00
+        line_items:
+        - key: ""
+        - key: ""
+        model_requested: model_requested
+        event_timestamp: 2000-01-23T04:56:07.000+00:00
+        tags:
+          key: ""
+        latency_ms: 0
+        reporting_currency: reporting_currency
+        provider: provider
+        reporting_total_cost: reporting_total_cost
+        idempotency_key: idempotency_key
+        observed_total_cost: observed_total_cost
+        currency: currency
+        id: id
+        customer_id: customer_id
+        request_id: request_id
+        model_responded: model_responded
+        status: status
+      properties:
+        id:
+          title: Id
+          type: string
+        tenant_id:
+          title: Tenant Id
+          type: string
+        idempotency_key:
+          title: Idempotency Key
+          type: string
+        request_id:
+          title: Request Id
+          type: string
+          nullable: true
+        customer_id:
+          title: Customer Id
+          type: string
+          nullable: true
+        feature_id:
+          title: Feature Id
+          type: string
+          nullable: true
+        provider:
+          title: Provider
+          type: string
+        model_requested:
+          title: Model Requested
+          type: string
+          nullable: true
+        model_responded:
+          title: Model Responded
+          type: string
+          nullable: true
+        observed_total_cost:
+          title: Observed Total Cost
+          type: string
+        currency:
+          title: Currency
+          type: string
+        reporting_total_cost:
+          title: Reporting Total Cost
+          type: string
+        reporting_currency:
+          title: Reporting Currency
+          type: string
+        status:
+          title: Status
+          type: string
+        tags:
+          additionalProperties: {}
+          title: Tags
+        event_timestamp:
+          format: date-time
+          title: Event Timestamp
+          type: string
+        created_at:
+          format: date-time
+          title: Created At
+          type: string
+        trace_id:
+          title: Trace Id
+          type: string
+          nullable: true
+        span_id:
+          title: Span Id
+          type: string
+          nullable: true
+        latency_ms:
+          title: Latency Ms
+          type: integer
+          nullable: true
+        line_items:
+          items:
+            additionalProperties: {}
+          type: array
+        reconciliation_status:
+          title: Reconciliation Status
+          type: string
+          nullable: true
+      required:
+      - created_at
+      - currency
+      - customer_id
+      - event_timestamp
+      - id
+      - idempotency_key
+      - latency_ms
+      - line_items
+      - model_requested
+      - model_responded
+      - observed_total_cost
+      - provider
+      - reporting_currency
+      - reporting_total_cost
+      - span_id
+      - status
+      - tags
+      - tenant_id
+      - trace_id
+      title: CostEventDetailResponse
     CostEventIngest:
       example:
         tenant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -79876,6 +84908,103 @@ components:
       - status
       - tenant_id
       title: CostEventResponse
+    CostEventSummaryItem:
+      example:
+        usage_event_id: usage_event_id
+        priced_line_item_count: 6
+        reporting_currency: reporting_currency
+        line_item_count: 0
+        provider: provider
+        reporting_total_cost: reporting_total_cost
+        model: model
+        cost_event_count: 1
+        status: status
+      properties:
+        usage_event_id:
+          title: Usage Event Id
+          type: string
+        status:
+          title: Status
+          type: string
+        reporting_total_cost:
+          title: Reporting Total Cost
+          type: string
+          nullable: true
+        reporting_currency:
+          title: Reporting Currency
+          type: string
+          nullable: true
+        provider:
+          title: Provider
+          type: string
+          nullable: true
+        model:
+          title: Model
+          type: string
+          nullable: true
+        line_item_count:
+          default: 0
+          title: Line Item Count
+          type: integer
+        priced_line_item_count:
+          default: 0
+          title: Priced Line Item Count
+          type: integer
+        cost_event_count:
+          default: 0
+          title: Cost Event Count
+          type: integer
+      required:
+      - status
+      - usage_event_id
+      title: CostEventSummaryItem
+    CostEventSummaryRequest:
+      example:
+        usage_event_ids:
+        - usage_event_ids
+        - usage_event_ids
+        - usage_event_ids
+        - usage_event_ids
+        - usage_event_ids
+      properties:
+        usage_event_ids:
+          items:
+            type: string
+          maxItems: 100
+          minItems: 1
+          type: array
+      required:
+      - usage_event_ids
+      title: CostEventSummaryRequest
+    CostEventSummaryResponse:
+      example:
+        items:
+        - usage_event_id: usage_event_id
+          priced_line_item_count: 6
+          reporting_currency: reporting_currency
+          line_item_count: 0
+          provider: provider
+          reporting_total_cost: reporting_total_cost
+          model: model
+          cost_event_count: 1
+          status: status
+        - usage_event_id: usage_event_id
+          priced_line_item_count: 6
+          reporting_currency: reporting_currency
+          line_item_count: 0
+          provider: provider
+          reporting_total_cost: reporting_total_cost
+          model: model
+          cost_event_count: 1
+          status: status
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/CostEventSummaryItem'
+          type: array
+      required:
+      - items
+      title: CostEventSummaryResponse
     CreditCostRatioItem:
       example:
         date: date
@@ -81405,13 +86534,13 @@ components:
         tier: tier
         updated_at: 2000-01-23T04:56:07.000+00:00
         provider: provider
-        rate_unit_scale: 6
+        rate_unit_scale: 0
         metric_type: metric_type
         model: model
         currency: currency
         id: id
         effective_from: 2000-01-23T04:56:07.000+00:00
-        rate_per_unit: 0.8008281904610115
+        rate_per_unit: rate_per_unit
       properties:
         id:
           title: Id
@@ -81433,7 +86562,7 @@ components:
           type: string
         rate_per_unit:
           title: Rate Per Unit
-          type: number
+          type: string
         rate_unit_scale:
           title: Rate Unit Scale
           type: integer
@@ -83173,6 +88302,17 @@ components:
           - $ref: '#/components/schemas/CommercialOverrides'
           description: Commercial terms for the migrated subscription. Omitted preserves
             the current subscription's overrides.
+    Org_Role:
+      anyOf:
+      - enum:
+        - owner
+        - admin
+        - member
+        - viewer
+        type: string
+      - type: string
+      nullable: true
+      title: Org Role
     Initialamount:
       anyOf:
       - type: number

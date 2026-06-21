@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
