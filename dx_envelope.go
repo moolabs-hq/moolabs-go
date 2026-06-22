@@ -298,6 +298,42 @@ func checkSpansHaveSpanIDs(spans []map[string]any) error {
 	return nil
 }
 
+// checkCostSpansHaveProviderAndModel ensures every cost-lane span carries
+// a non-empty provider and model. Acute's cost-enricher rejects spans
+// without both via a silent continue at
+// services/moo-acute/app/workers/cost_enricher.py; events with all-
+// invalid spans produce NO log line at acute, making the drop invisible
+// to operators. Surface up front so the failure surfaces at the call site
+// rather than as a downstream "cost event silently disappeared"
+// investigation. Matches Python _check_cost_spans_have_provider_and_model.
+func checkCostSpansHaveProviderAndModel(spans []map[string]any) error {
+	for i, span := range spans {
+		if span == nil {
+			// Caught by checkSpansHaveSpanIDs already; defensive only.
+			continue
+		}
+		provider, ok := span["provider"].(string)
+		if !ok || provider == "" {
+			return fmt.Errorf(
+				"spans[%d].provider must be a non-empty string — spans without "+
+					"provider are silently dropped during downstream cost "+
+					"processing, resulting in missing cost-attribution data",
+				i,
+			)
+		}
+		model, ok := span["model"].(string)
+		if !ok || model == "" {
+			return fmt.Errorf(
+				"spans[%d].model must be a non-empty string — spans without "+
+					"model are silently dropped during downstream cost "+
+					"processing, resulting in missing cost-attribution data",
+				i,
+			)
+		}
+	}
+	return nil
+}
+
 // checkMetaIsJSONSerializable verifies that meta round-trips through JSON
 // BEFORE buffer enqueue. If meta carries a non-serializable value (e.g. a
 // channel, a func, or a map keyed by a non-string), the failure would
@@ -380,6 +416,24 @@ func buildEnvelope(args buildEnvelopeArgs) (map[string]any, error) {
 	if args.Spans != nil {
 		if err := checkSpansHaveSpanIDs(args.Spans); err != nil {
 			return nil, err
+		}
+		// Lane discriminator: USAGE envelopes carry MeterSlug+Value (HasValue=
+		// true) and may optionally include Spans as supplemental context (e.g.
+		// event lineage or per-span breakdown attached to a usage emit). Those
+		// spans don't flow through the downstream cost-enrichment pipeline and
+		// don't need provider/model. COST envelopes carry ONLY Spans (no
+		// MeterSlug, no HasValue) and DO flow to the cost-enrichment pipeline,
+		// which silently drops spans without provider+model. The provider+
+		// model check fires only on the cost lane.
+		isCostLane := args.MeterSlug == "" && !args.HasValue
+		if isCostLane {
+			topLevelProvider := args.Provider != nil && *args.Provider != ""
+			topLevelModel := args.Model != nil && *args.Model != ""
+			if !topLevelProvider || !topLevelModel {
+				if err := checkCostSpansHaveProviderAndModel(args.Spans); err != nil {
+					return nil, err
+				}
+			}
 		}
 	}
 	if args.Meta != nil {

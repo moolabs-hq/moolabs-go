@@ -145,12 +145,15 @@ res, err := client.Usage.IngestEvent(ctx, moolabs.IngestEventArgs{
 })
 
 // Cost-lane — per-span breakdown for AI cost intelligence.
+// Cost-lane spans MUST carry "provider" and "model" — the SDK rejects
+// spans missing either, since downstream cost processing silently drops
+// them otherwise.
 res, err = client.Cost.IngestEvent(ctx, moolabs.IngestCostEventArgs{
     EventType:  "ai.chat.cost",
     CustomerID: "cust_42",
     EntityID:   "req_abc",
     Spans: []map[string]any{
-        {"span_id": "sp_chat", "model": "gpt-4o-mini", "tokens": 724, "cost": 0.000724},
+        {"span_id": "sp_chat", "provider": "openai", "model": "gpt-4o-mini", "tokens": 724, "cost": 0.000724},
     },
 })
 
@@ -164,7 +167,7 @@ res, err = client.Events.Ingest(ctx, moolabs.IngestArgs{
     MeterSlug:  &meterSlug, // pointer-optional: nil = lane absent
     Value:      &value,
     Spans: []map[string]any{
-        {"span_id": "sp_embed", "model": "text-embedding-3-small", "tokens": 120, "cost": 1.8e-7},
+        {"span_id": "sp_embed", "provider": "openai", "model": "text-embedding-3-small", "tokens": 120, "cost": 1.8e-7},
     },
 })
 ```
